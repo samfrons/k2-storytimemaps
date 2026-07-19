@@ -61,8 +61,12 @@ posture and must keep their credits in the cards and colophon.
   and the three script tags. Relative asset paths (`clips/…`, `js/…`) resolve
   against the `/` route — keep them relative.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
-  inspired; Cormorant Garamond + Jost + Source Serif 4 + Special Elite;
-  palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
+  inspired; type system (chosen 2026-07-19): **Fraunces** (display/headlines/
+  numerals — variable, opsz 9–144, real italics), **Big Shoulders Text**
+  (condensed grotesque for kickers/HUD/labels/altimeter — the sports-journal/
+  instrument voice), **Newsreader** (body — 1930s-newsprint-derived; body
+  weight 380, not 300), **Special Elite** (the typewritten record — keep).
+  Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
 - `public/js/engine.js` — MapLibre 3D terrain background (keyless: AWS
   terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
   camp/climber markers, the 17-event timeline, vignette + grade + snow
