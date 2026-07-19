@@ -72,7 +72,10 @@ posture and must keep their credits in the cards and colophon.
   covers, rail nav highlighting, altimeter.
 - `public/js/extras.js` — WebAudio wind engine, letterbox during video,
   timeline scrubber, typewriter, evidence-doc flip, starfield, memorial-night
-  trigger.
+  trigger, and the "Play story" narration (Web Speech API — keyless/free;
+  reads curated narrative blocks in DOM order, auto-scrolling to each; text
+  is snapshotted at load because the typewriter empties the record's
+  paragraphs; stops on toggle or on entering explore mode).
 
 The three JS files are classic-script IIFEs; they communicate only through
 guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`, `__alt`,

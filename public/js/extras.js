@@ -113,4 +113,60 @@
     document.body.classList.toggle('memnight', e.isIntersecting);
     if(window.__flame) window.__flame(e.isIntersecting);
   })},{rootMargin:'-18% 0px -18% 0px'}).observe(mem);
+
+  // ── VOICE: "play the story" — reads the narrative aloud, scrolling to each
+  // block as it speaks (Web Speech API: keyless, local, free)
+  const vBtn=document.getElementById('btnVoice');
+  if(vBtn && 'speechSynthesis' in window){
+    const SEL='.prologue h1,.prologue .sub,.pq-sky,.ch-cover .inner,.narrative > p,.narrative > .pq,.record p,.cast .cc,.over-card,.evroom .ev-head,.doc,.ev-verdict,.footer .final';
+    const blockText=el=>{
+      const c=el.cloneNode(true);
+      c.querySelectorAll('figure,figcaption,.snd,.src,.mono,.film-more').forEach(n=>n.remove());
+      return c.textContent.replace(/·/g,', ').replace(/[†✝◈]/g,'')
+        .replace(/−/g,'minus ').replace(/~/g,'about ').replace(/\s+/g,' ').trim();
+    };
+    // snapshot text at load — the typewriter empties the record's <p>s later
+    const blocks=[...document.querySelectorAll(SEL)].map(el=>({el,text:blockText(el)})).filter(b=>b.text.length>2);
+    let voice=null;
+    function pickVoice(){
+      const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));
+      const rank=v=>(/premium|enhanced|natural/i.test(v.name)?8:0)
+        +(/google uk english male/i.test(v.name)?7:0)
+        +(/daniel|serena|ava|samantha/i.test(v.name)?4:0)
+        +(/google/i.test(v.name)?3:0);
+      voice=vs.sort((a,b)=>rank(b)-rank(a))[0]||null;
+    }
+    pickVoice(); speechSynthesis.addEventListener('voiceschanged',pickVoice);
+    // Chrome cuts long utterances off (~15 s); speak in sentence-sized chunks
+    const chunks=t=>{const out=[];let cur='';
+      t.split(/(?<=[.!?…;:])\s+/).forEach(s=>{ if(cur&&(cur+' '+s).length>220){out.push(cur);cur=s;} else cur=cur?cur+' '+s:s; });
+      if(cur)out.push(cur); return out;};
+    let playing=false;
+    function stopVoice(){ playing=false; speechSynthesis.cancel();
+      vBtn.classList.remove('on'); vBtn.textContent='▷ Play story'; }
+    function speakBlock(i){
+      if(!playing) return;
+      if(i>=blocks.length || document.body.classList.contains('explore')) return stopVoice();
+      const b=blocks[i];
+      b.el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+      const parts=chunks(b.text); let p=0;
+      (function next(){
+        if(!playing) return;
+        if(document.body.classList.contains('explore')) return stopVoice();
+        if(p>=parts.length) return void setTimeout(()=>speakBlock(i+1),400);
+        const u=new SpeechSynthesisUtterance(parts[p++]);
+        if(voice)u.voice=voice; u.rate=.95;
+        u.onend=next; u.onerror=()=>{ if(playing) next(); };
+        speechSynthesis.speak(u);
+      })();
+    }
+    vBtn.addEventListener('click',()=>{
+      if(playing) return stopVoice();
+      playing=true; vBtn.classList.add('on'); vBtn.textContent='✕ Stop story';
+      const y=scrollY+innerHeight*.35;
+      const i=blocks.findIndex(b=>b.el.getBoundingClientRect().bottom+scrollY>y);
+      speakBlock(i<0?0:i);
+    });
+    addEventListener('beforeunload',()=>speechSynthesis.cancel());
+  } else if(vBtn) vBtn.style.display='none';
 })();

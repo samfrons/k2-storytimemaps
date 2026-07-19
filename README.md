@@ -83,6 +83,8 @@ spec.
 - [ ] All 9 videos autoplay muted when scrolled into view; each "Sound on"
       button unmutes its own clip; letterbox bars appear while a clip is visible
 - [ ] Wind toggle ("♪ Wind") starts/stops the wind; level follows altitude
+- [ ] "▷ Play story" narrates the text aloud and auto-scrolls block by
+      block; pressing again (or entering explore) stops it
 - [ ] Explore mode enters (map becomes interactive, story fades) and exits
       cleanly (scroll camera resumes where you are)
 - [ ] Evidence documents flip front/back on tap
