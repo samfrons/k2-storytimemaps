@@ -96,7 +96,7 @@ main{position:relative;z-index:3}
 
 /* ════════ PAPER PANELS — content sheets over the mountain ════════ */
 .panel-wrap{padding:10vh clamp(1rem,6vw,6rem) 14vh;display:flex;justify-content:center}
-.panel{width:min(760px,100%);background:rgba(241,236,223,.94);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 30px 80px rgba(10,8,5,.55);backdrop-filter:blur(3px)}
+.panel{width:min(760px,100%);background:rgba(241,236,223,.85);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 30px 80px rgba(10,8,5,.55);-webkit-backdrop-filter:blur(14px) saturate(.85) brightness(1.06);backdrop-filter:blur(14px) saturate(.85) brightness(1.06)}
 .panel .narrative{max-width:640px;margin:0 auto;padding:4.5rem clamp(1.4rem,4vw,3rem)}
 .narrative p{margin-bottom:1.6rem;font-weight:300}
 .narrative .lede::first-letter{font-family:'Cormorant Garamond',serif;font-size:4.6em;font-weight:500;float:left;line-height:.78;margin:.05em .14em 0 0;color:var(--bronze)}
@@ -137,7 +137,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.6rem;font-weight:400;line-hei
 /* ════════ FLOATING STEP CARDS (over terrain, no panel) ════════ */
 .over-steps{position:relative;padding-left:clamp(1rem,7vw,7rem)}
 .over-step{min-height:100vh;display:flex;align-items:center;padding:12vh 1.2rem 12vh 0}
-.over-card{max-width:460px;background:rgba(241,236,223,.95);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);padding:2rem 2.2rem;box-shadow:0 24px 60px rgba(10,8,5,.55);opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+.over-card{max-width:460px;background:rgba(241,236,223,.86);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);padding:2rem 2.2rem;box-shadow:0 24px 60px rgba(10,8,5,.55);-webkit-backdrop-filter:blur(12px) saturate(.85) brightness(1.06);backdrop-filter:blur(12px) saturate(.85) brightness(1.06);opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
 .over-step.on .over-card{opacity:1;transform:none}
 .over-card .kick{margin-bottom:.9rem}
 .over-card h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.6rem;line-height:1.15;color:var(--ink);margin-bottom:.9rem}
@@ -183,7 +183,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.6rem;font-weight:400;line-hei
 
 /* ════════ MEMORIAL & FOOTER ════════ */
 .memorial{padding:14vh 1.6rem}
-.mem-inner{max-width:780px;margin:0 auto;background:rgba(241,236,223,.94);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--wine);box-shadow:0 30px 80px rgba(10,8,5,.55);padding:4.5rem clamp(1.4rem,4vw,3.4rem)}
+.mem-inner{max-width:780px;margin:0 auto;background:rgba(241,236,223,.87);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--wine);box-shadow:0 30px 80px rgba(10,8,5,.55);-webkit-backdrop-filter:blur(14px) saturate(.85) brightness(1.06);backdrop-filter:blur(14px) saturate(.85) brightness(1.06);padding:4.5rem clamp(1.4rem,4vw,3.4rem)}
 .memorial h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:500;color:var(--ink);text-align:center;margin-bottom:.6rem}
 .memorial .mem-sub{text-align:center;font-style:italic;font-weight:300;color:var(--smoke);margin-bottom:3rem}
 .footer{padding:8rem 1.6rem 9rem;text-align:center;font-size:.6rem;font-weight:400;line-height:2.6;letter-spacing:.16em;text-transform:uppercase;color:rgba(241,236,223,.8);text-shadow:0 1px 3px rgba(0,0,0,.85),0 1px 10px rgba(0,0,0,.6)}
@@ -218,7 +218,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.6rem;font-weight:400;line-hei
 /* ════════ v8: silhouettes · states · features · moments · portraits ════════ */
 /* camp tents */
 .mk-camp2{pointer-events:none;text-align:center;transition:opacity .8s,filter .8s}
-.mk-camp2 .tent{color:#f1ecdf;filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 6px rgba(0,0,0,.7));line-height:0}
+.mk-camp2 .tent{color:#f1ecdf;filter:url(#hand-fine) drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 6px rgba(0,0,0,.7));line-height:0}
 .mk-camp2 .l{margin-top:.3rem;font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:#f4efe4;text-shadow:0 1px 8px rgba(20,17,12,.95);white-space:nowrap}
 .mk-camp2.future{opacity:.28}
 .mk-camp2.future .tent{color:transparent;-webkit-text-stroke:0}
@@ -232,13 +232,13 @@ figure.photo figcaption{margin-top:1rem;font-size:.6rem;font-weight:400;line-hei
 .mk-camp2.pknode .l{opacity:.85}
 
 /* climber silhouettes */
-.mk-sil{pointer-events:none;line-height:0;filter:drop-shadow(0 0 5px rgba(0,0,0,.75)) drop-shadow(0 0 1px rgba(244,239,228,.9));transition:opacity .6s;position:relative}
+.mk-sil{pointer-events:none;line-height:0;filter:url(#hand-fine) drop-shadow(0 0 5px rgba(0,0,0,.75)) drop-shadow(0 0 1px rgba(244,239,228,.9));transition:opacity .6s;position:relative}
 .mk-sil.hide{opacity:0}
 .mk-sil.lost svg g{fill:none!important;stroke:currentColor!important;stroke-width:1.2!important;opacity:.85}
 .mk-sil.lost{animation:ghost 3.2s ease-in-out infinite}
 @keyframes ghost{0%,100%{opacity:.85}50%{opacity:.35}}
 .mk-sil.pulse::after{content:'';position:absolute;left:50%;bottom:-3px;width:26px;height:26px;transform:translateX(-50%);border-radius:50%;border:1.5px solid #f4efe4;animation:mkp 2s ease-out infinite}
-.lg-sil{display:inline-block;line-height:0;filter:drop-shadow(0 0 3px rgba(0,0,0,.8))}
+.lg-sil{display:inline-block;line-height:0;filter:url(#hand-fine) drop-shadow(0 0 3px rgba(0,0,0,.8))}
 .lg-sil svg{width:11px;height:15px}
 
 /* named features of the route */
@@ -323,7 +323,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.6rem;font-weight:400;line-hei
 
 /* ════════ v11: silhouette vignettes ════════ */
 #stage{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-.vg{position:absolute;bottom:0;opacity:0;transition:opacity 1.8s ease;filter:drop-shadow(0 0 14px rgba(0,0,0,.5))}
+.vg{position:absolute;bottom:0;opacity:0;transition:opacity 1.8s ease;filter:url(#hand) drop-shadow(0 0 14px rgba(0,0,0,.5))}
 .vg.on{opacity:1}
 .vg-wide{left:0;width:100%;height:min(46vh,420px)}
 .vg-right{right:0;width:min(44vw,480px);height:min(58vh,460px)}
@@ -407,7 +407,7 @@ main,#stage,.rail,.alti,#progress{transition:opacity .8s}
 .evroom h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.9rem,4.5vw,3rem);color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
 .evroom .ev-sub{margin-top:.8rem;font-style:italic;font-weight:300;color:rgba(241,236,223,.85);text-shadow:0 2px 12px rgba(0,0,0,.9)}
 .ev-docs{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
-.doc{background:var(--cream);color:var(--ink);border:1px solid var(--paperline);padding:2rem 1.9rem;cursor:pointer;transition:transform .5s ease,box-shadow .5s ease,opacity .5s;box-shadow:0 18px 50px rgba(10,8,5,.5);position:relative}
+.doc{background:rgba(233,226,208,.9);color:var(--ink);border:1px solid var(--paperline);padding:2rem 1.9rem;cursor:pointer;transition:transform .5s ease,box-shadow .5s ease,opacity .5s;box-shadow:0 18px 50px rgba(10,8,5,.5);position:relative;-webkit-backdrop-filter:blur(10px) saturate(.85) brightness(1.05);backdrop-filter:blur(10px) saturate(.85) brightness(1.05)}
 .doc .d-tab{font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.34em;text-transform:uppercase;color:var(--bronze);margin-bottom:1rem}
 .doc h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;margin-bottom:.9rem}
 .doc p{font-size:.9rem;font-weight:300;line-height:1.85;margin-bottom:.8rem}
