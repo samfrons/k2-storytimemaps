@@ -1,58 +1,78 @@
 # K2 1939 — "The Mountain That Swallowed Them"
 
 Immersive single-page scrollytelling site about the 1939 American K2
-expedition. Plain static files, no build step, no dependencies beyond the
-CDN-loaded MapLibre GL and Google Fonts already referenced in `index.html`.
+expedition, deployed at **k2.storytimemaps.com**. A lean Next.js (App Router,
+`output: 'export'`) shell around a deliberately plain static story. Package
+manager: **pnpm**.
 
 ## Zero-regression rule
 
 Current behavior **is** the spec. Any change must leave the page functionally
-identical unless the change itself is the point. Do not rename, reformat,
-"modernize," or add dependencies/build tooling while touching these files.
-After any structural change, run the smoke checklist in `README.md` against a
-local server.
+identical unless the change itself is the point. After any structural change,
+run `pnpm build && pnpm preview` and go through the smoke checklist in
+`README.md`.
+
+## The story stays plain HTML/CSS/JS — do not React-ify it
+
+`app/story.html` is the entire story markup **verbatim** (including its three
+classic `<script>` tags at the end). `app/page.tsx` injects it untouched via
+`dangerouslySetInnerHTML` inside a `display: contents` wrapper, so the
+browser parses and executes it exactly like the original single-file page —
+scripts run synchronously, in order, after the DOM above them, before React
+hydrates (hydration never touches the injected subtree). **Do not convert the
+story to JSX/components, do not route its assets through the bundler, do not
+add client components around it.** The Next layer exists only for the head
+(`app/layout.tsx` Metadata API + hoisted stylesheet links) and for deployment.
 
 ## Content accuracy rule
 
 All dates, quotes, and altitudes follow the documented 1939 record (Kauffman
 & Putnam 1992, Jordan 2010, and the sources in the colophon). **Never invent
-or "improve" historical facts** — not even plausible-sounding ones. The camp
-lat/lons in `js/engine.js` (`CAMPS`) are flagged approximations placed along
-the Abruzzi route; altitudes and dates are as documented. That caveat is
-stated in the site's own UI (`#m3dNote`, colophon) and must stay true.
+or "improve" historical facts.** The camp lat/lons in `public/js/engine.js`
+(`CAMPS`) are flagged approximations placed along the Abruzzi route; that
+caveat is stated in the site's own UI (`#m3dNote`, colophon) and must stay
+true.
 
 ## Copyright rule
 
-The files in `clips/` are excerpts of other people's documentaries
-(*Quest for K2: Savage Mountain* © National Geographic, and another
-documentary — see `clips/README.md`). **Never commit them, never deploy them
-publicly.** `clips/*.mp4` is gitignored; keep it that way. If clips are ever
-added to the repo, the repo must remain private.
+`public/clips/*.mp4` are excerpts of other people's documentaries (*Quest for
+K2: Savage Mountain* © National Geographic, and another documentary — see
+`public/clips/README.md`). **Never commit them, never deploy them publicly.**
+They are gitignored; deploy **only via the Vercel git integration** so they
+can never reach the public site. Never `vercel deploy` from the working tree
+or `--prebuilt` from `out/` — both locally contain the clips. On the public
+site the film frames stay black; that is intended.
 
 ## Module boundaries
 
-`index.html` (markup, incl. the vignette SVGs in `#stage`) loads, in order:
+- `app/layout.tsx` — head only: metadata, favicon, Google Fonts +
+  `/css/main.css` links (React 19 `precedence` hoisting).
+- `app/page.tsx` — reads and injects `app/story.html`. Nothing else.
+- `app/story.html` — all story markup, incl. the vignette SVGs in `#stage`
+  and the three script tags. Relative asset paths (`clips/…`, `js/…`) resolve
+  against the `/` route — keep them relative.
+- `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
+  inspired; Cormorant Garamond + Jost + Source Serif 4 + Special Elite;
+  palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
+- `public/js/engine.js` — MapLibre 3D terrain background (keyless: AWS
+  terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
+  camp/climber markers, the 17-event timeline, vignette + grade + snow
+  control, clip autoplay and sound toggles, memorial flame, explore mode,
+  lite mode.
+- `public/js/chrome.js` — progress bar, `.reveal` transitions, chapter
+  covers, rail nav highlighting, altimeter.
+- `public/js/extras.js` — WebAudio wind engine, letterbox during video,
+  timeline scrubber, typewriter, evidence-doc flip, starfield, memorial-night
+  trigger.
 
-- `css/main.css` — all styles. Design language: Kopke1638/L'Équipe-inspired;
-  Cormorant Garamond + Jost + Source Serif 4 + Special Elite; palette tokens
-  in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
-- `js/engine.js` — MapLibre 3D terrain background (keyless: AWS terrarium DEM
-  + Esri imagery + hillshade), scroll-scrubbed camera, camp/climber markers,
-  the 17-event timeline, vignette + grade + snow control, clip autoplay and
-  sound toggles, memorial flame, explore mode, lite mode.
-- `js/chrome.js` — progress bar, `.reveal` transitions, chapter covers, rail
-  nav highlighting, altimeter.
-- `js/extras.js` — WebAudio wind engine, letterbox during video, timeline
-  scrubber, typewriter on the record panel, evidence-doc flip, starfield,
-  memorial-night trigger.
-
-All three are classic-script IIFEs at the end of `<body>`; they communicate
-only through guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`,
-`__alt`, `__flame`, `__exploreOn`, `setGrade`). Load order matters — keep it.
+The three JS files are classic-script IIFEs; they communicate only through
+guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`, `__alt`,
+`__flame`, `__exploreOn`, `setGrade`). Load order (engine → chrome → extras)
+matters — keep it.
 
 ## Where the data lives
 
-In `js/engine.js`:
+In `public/js/engine.js`:
 
 - `CAMPS` / `ROUTE` (≈line 6) — camp coordinates (approximate) and altitudes
   (documented), Base Camp → Summit.
@@ -65,16 +85,24 @@ In `js/engine.js`:
 - `FEATURES` / `MOMENTS` (≈line 64) — named-feature pins and moment pins.
 - `KEYS` (≈line 215) — the ~45 camera keyframes:
   `[dom-id, camp, zoom, pitch, bearing, y-offset, grade]`. Keyframes anchor
-  to DOM element ids, so renaming/removing an id in `index.html` silently
+  to DOM element ids, so renaming/removing an id in `app/story.html` silently
   breaks the camera path. The 7th field is the color-grade class
   (`g-day`, `g-storm`, `g-night`, `g-dusk`, `g-mourn`, `g-city`) styled in
-  `css/main.css`; `snowSet()` maps grades to snow-particle modes.
+  `public/css/main.css`; `snowSet()` maps grades to snow-particle modes.
 - `VIG` (≈line 369) — event-index → vignette mapping; zone vignettes are
   bound just below it (`ch1-zone`→nyc, `ch6-zone`→tent, ch5 steps→pair).
 
-In `js/extras.js`: the scrubber's own `DATES` (≈line 54) plus `TRG`/`PH`
-(tragic/phase tick indices) — these must stay in sync with the 17 events in
-`js/engine.js`.
+In `public/js/extras.js`: the scrubber's own `DATES` (≈line 54) plus
+`TRG`/`PH` (tragic/phase tick indices) — keep in sync with the 17 events in
+`engine.js`.
 
-The 17 timeline steps themselves are the `.over-step[data-ev]` elements in
-`index.html` (`#ev0`–`#ev16`); `data-alt` attributes drive the altimeter.
+The 17 timeline steps are the `.over-step[data-ev]` elements in
+`app/story.html` (`#ev0`–`#ev16`); `data-alt` attributes drive the altimeter.
+
+## Build / deploy notes
+
+- `pnpm build` → static export in `out/`; no server runtime, no API routes.
+- TypeScript is pinned to v5 (`typescript@^5`) — Next's TS integration does
+  not support TS 7 yet.
+- The original pre-Next single-file version lives in git history (root
+  `index.html` in the first four commits) and behaves as the reference spec.
