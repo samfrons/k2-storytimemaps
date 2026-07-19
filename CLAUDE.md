@@ -61,7 +61,9 @@ posture and must keep their credits in the cards and colophon.
   and the three script tags. Relative asset paths (`clips/…`, `js/…`) resolve
   against the `/` route — keep them relative.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
-  inspired; type system (chosen 2026-07-19): **Fraunces** (display/headlines/
+  inspired; type system (chosen 2026-07-19): **Wochita** (hero title only —
+  licensed brush font self-hosted in `public/fonts/`; caps-only, needs
+  word-spacing and no synthetic italics), **Fraunces** (display/headlines/
   numerals — variable, opsz 9–144, real italics), **Big Shoulders Text**
   (condensed grotesque for kickers/HUD/labels/altimeter — the sports-journal/
   instrument voice), **Newsreader** (body — 1930s-newsprint-derived; body
