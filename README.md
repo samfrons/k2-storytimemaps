@@ -38,24 +38,23 @@ pnpm preview    # serve out/ (production-equivalent)
 
 ## Deployment — k2.storytimemaps.com
 
-Deploy on Vercel **via the git integration only**. The clips are gitignored,
-so git-based deploys are automatically clip-free (film frames stay black on
-the public site — intended; see the copyright note below). Never deploy by
-uploading the working tree or `out/` (e.g. `vercel deploy --prebuilt`) —
-locally those contain the clips.
+Deploy on Vercel via the git integration: push to `main` → automatic
+production deploy. The domain is attached to the `k2-storytimemaps` project;
+DNS lives at the domain's third-party DNS host.
 
-Domain: add `k2.storytimemaps.com` to the Vercel project
-(Project → Settings → Domains). With `storytimemaps.com` on Vercel DNS the
-subdomain is wired automatically; otherwise add a CNAME for `k2` →
-`cname.vercel-dns.com`.
+## Video clips & portraits
 
-## Video clips
+The nine `.mp4` excerpts in `public/clips/` are excerpts of other people's
+documentaries, committed and served publicly as short, credited excerpts in
+a transformative historical narrative (owner's decision — see the copyright
+rule in `CLAUDE.md`; **the repo must stay private**). Regenerate them from
+the two source videos with `scripts/make-clips.sh` (see
+`public/clips/README.md`). If they're ever removed, the page still works —
+the film frames stay black.
 
-The nine `.mp4` excerpts in `public/clips/` are **not** committed — they are
-excerpts of other people's documentaries (never commit or publicly deploy
-them). See `public/clips/README.md` for regeneration from the two source
-videos with `scripts/make-clips.sh`. Without them the page still works; the
-film frames stay black.
+Expedition portraits live in `public/img/` (Jack Durrance Collection /
+American Alpine Club, and Wolfe's 1919 passport photograph); every image
+keeps its credit in the cast cards and colophon.
 
 ## Browser expectations
 

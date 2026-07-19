@@ -37,11 +37,20 @@ true.
 
 `public/clips/*.mp4` are excerpts of other people's documentaries (*Quest for
 K2: Savage Mountain* © National Geographic, and another documentary — see
-`public/clips/README.md`). **Never commit them, never deploy them publicly.**
-They are gitignored; deploy **only via the Vercel git integration** so they
-can never reach the public site. Never `vercel deploy` from the working tree
-or `--prebuilt` from `out/` — both locally contain the clips. On the public
-site the film frames stay black; that is intended.
+`public/clips/README.md`). Owner's decision (Sam, 2026-07-19): they are
+committed and served publicly as short, credited excerpts inside a
+transformative historical narrative (fair-use posture). Consequences that
+must hold:
+
+- **The repo stays private.**
+- Every clip keeps its on-page credit ("footage © the filmmakers"); never
+  strip captions or extend excerpt lengths casually.
+- If a rights holder objects, remove the clips immediately (re-gitignore
+  them; the page degrades to black film frames).
+
+The expedition portraits in `public/img/` (Jack Durrance Collection /
+American Alpine Club, plus Wolfe's 1919 passport photograph) follow the same
+posture and must keep their credits in the cards and colophon.
 
 ## Module boundaries
 
