@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314110c'/%3E%3Cpath d='M4 26 L13 8 L18 17 L21 12 L28 26 Z' fill='%23f1ecdf'/%3E%3Cpath d='M13 8 L16 14 L14.5 14 L13 11 L11.5 14 L10 14 Z' fill='%23c9a86a'/%3E%3C/svg%3E">
+<meta property="og:title" content="The Mountain That Swallowed Them — K2, 1939">
+<meta property="og:description" content="800 feet from the greatest prize in mountaineering. Four men left on the mountain. Fifty years before the truth came down. An immersive 3D story of the 1939 American K2 expedition.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>The Mountain That Swallowed Them — K2, 1939</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Special+Elite&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ivory:#f1ecdf;
+  --cream:#e9e2d0;
+  --paperline:rgba(40,34,26,.16);
+  --ink:#28221a;
+  --smoke:#6e6557;
+  --bronze:#9c7c44;
+  --bronze-l:#c9a86a;
+  --wine:#762c26;
+  --wine-l:#c96a5c;
+  --night:#14110c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--night);
+  color:var(--ivory);
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:18px;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--bronze-l)}
+
+/* ════════ THE MOUNTAIN — persistent page background ════════ */
+#bgMap{position:fixed;inset:0;z-index:0}
+#bgMap canvas{outline:none}
+#bgFallback{position:fixed;inset:0;z-index:0;display:none;background-size:cover;background-position:center;filter:sepia(.3) brightness(.75) contrast(1.05)}
+#bgFallback.on{display:block}
+#bgVeil{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+  radial-gradient(ellipse 120% 90% at 50% 40%,transparent 40%,rgba(20,17,12,.34) 100%),
+  linear-gradient(180deg,rgba(20,17,12,.28) 0%,transparent 18%,transparent 82%,rgba(20,17,12,.4) 100%)}
+#bgLoad{position:fixed;inset:0;z-index:2;background:var(--night);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.4rem;transition:opacity 1.2s ease;pointer-events:none}
+#bgLoad.off{opacity:0}
+#bgLoad .bl-t{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.6rem;color:var(--ivory);font-style:italic}
+#bgLoad .bl-s{font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.5em;text-transform:uppercase;color:var(--bronze-l)}
+#bgLoad .bl-line{width:1px;height:46px;background:var(--bronze);animation:drop 2.2s ease-in-out infinite}
+
+/* film grain over everything */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.8 0 0 0 0 0.68 0 0 0 0.65 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main{position:relative;z-index:3}
+
+/* ════════ MICRO TYPE ════════ */
+.eyebrow,.rail .lbl,.alti,.cue,figure.photo figcaption,.kick,.cc-role,.footer,.m3d-hud .h-sub,.m3d-hud .h-alt,.m3d-legend span,.m3d-note{font-family:'Jost',sans-serif}
+.eyebrow{display:inline-block;font-size:.62rem;font-weight:400;letter-spacing:.5em;text-transform:uppercase;color:var(--bronze-l)}
+
+/* ════════ FIXED CHROME ════════ */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--bronze-l);z-index:10001;transition:width .1s linear}
+.rail{position:fixed;left:1.6rem;top:50%;transform:translateY(-50%);z-index:10000;display:flex;flex-direction:column;gap:1.05rem}
+.rail a{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:rgba(241,236,223,.6);transition:.3s}
+.rail a .dot{width:6px;height:6px;border-radius:50%;border:1px solid rgba(241,236,223,.6);flex:none;transition:.3s}
+.rail a .lbl{font-size:.56rem;font-weight:400;letter-spacing:.32em;text-transform:uppercase;opacity:0;transform:translateX(-6px);transition:.3s;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.rail a:hover .lbl{opacity:1;transform:none}
+.rail a.on{color:var(--bronze-l)}
+.rail a.on .dot{background:var(--bronze-l);border-color:var(--bronze-l)}
+
+.alti{position:fixed;right:1.8rem;top:50%;transform:translateY(-50%);z-index:10000;text-align:right;color:rgba(241,236,223,.85);pointer-events:none;text-shadow:0 1px 12px rgba(0,0,0,.7)}
+.alti .alti-cap{font-size:.52rem;letter-spacing:.42em;text-transform:uppercase;font-weight:400;opacity:.8}
+.alti .alti-ft{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:var(--ivory);line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.alti .alti-m{font-size:.58rem;letter-spacing:.14em;opacity:.7;font-variant-numeric:tabular-nums}
+.alti .alti-bar{margin-left:auto;margin-top:.65rem;width:1px;height:110px;background:rgba(241,236,223,.25);position:relative}
+.alti .alti-fill{position:absolute;bottom:0;left:0;width:100%;height:0;background:var(--bronze-l)}
+.alti.danger .alti-ft{color:var(--wine-l)}
+
+/* ════════ PROLOGUE — type over the mountain ════════ */
+.prologue{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 1.6rem 6rem}
+.prologue .eyebrow{opacity:0;animation:fu 1.2s .6s forwards}
+.prologue h1{margin-top:2rem;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(3rem,9vw,7.6rem);line-height:1.02;color:var(--ivory);text-shadow:0 4px 44px rgba(0,0,0,.75);opacity:0;animation:fu 1.4s .9s forwards}
+.prologue h1 em{font-style:italic;font-weight:400}
+.prologue .rule{width:1px;height:64px;background:rgba(241,236,223,.4);margin:2.6rem auto 2.2rem;opacity:0;animation:fu 1.2s 1.3s forwards}
+.prologue .sub{max-width:540px;font-style:italic;font-weight:300;font-size:1.05rem;color:rgba(241,236,223,.85);text-shadow:0 2px 16px rgba(0,0,0,.7);opacity:0;animation:fu 1.3s 1.5s forwards}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:0 4.5rem;margin:4rem auto 0}
+.stat{padding:1.2rem 0;text-align:center;opacity:0;animation:fu 1.3s 1.9s forwards}
+.stat b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.6rem,5vw,4rem);line-height:1;color:var(--ivory);text-shadow:0 3px 28px rgba(0,0,0,.75)}
+.stat span{display:block;margin-top:.6rem;font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(241,236,223,.75)}
+.stat.loss b{color:var(--wine-l)}
+.cue{margin-top:4.5rem;font-size:.58rem;letter-spacing:.5em;text-transform:uppercase;color:rgba(241,236,223,.7);opacity:0;animation:fu 1.3s 2.3s forwards}
+.cue .line{width:1px;height:52px;margin:.9rem auto 0;background:var(--bronze-l);animation:drop 2.4s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ════════ CHAPTER COVERS — type on terrain ════════ */
+.ch-cover{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:0 clamp(1.4rem,9vw,9rem) 16vh}
+.ch-cover::before{content:attr(data-n);position:absolute;top:6vh;right:5vw;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(10rem,26vw,22rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,106,.5);opacity:0;transform:translateY(30px);transition:1.2s .1s;text-shadow:none;pointer-events:none}
+.ch-cover .inner{max-width:640px}
+.ch-cover .num{font-family:'Jost',sans-serif;font-size:.62rem;font-weight:400;letter-spacing:.5em;text-transform:uppercase;color:var(--bronze-l);display:block;margin-bottom:1.4rem;opacity:0;transform:translateY(18px);transition:1s .2s;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.ch-cover h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6.5vw,5.6rem);font-weight:500;line-height:1.03;color:var(--ivory);text-shadow:0 4px 40px rgba(0,0,0,.8);opacity:0;transform:translateY(24px);transition:1.1s .35s}
+.ch-cover .dek{margin-top:1.6rem;max-width:480px;font-style:italic;font-weight:300;color:rgba(241,236,223,.88);font-size:1.02rem;text-shadow:0 2px 14px rgba(0,0,0,.75);opacity:0;transform:translateY(24px);transition:1.1s .55s}
+.ch-cover.on::before{opacity:1;transform:none}
+.ch-cover.on .num,.ch-cover.on h2,.ch-cover.on .dek{opacity:1;transform:none}
+
+/* ════════ PAPER PANELS — content sheets over the mountain ════════ */
+.panel-wrap{padding:10vh clamp(1rem,6vw,6rem) 14vh;display:flex;justify-content:center}
+.panel{width:min(760px,100%);background:rgba(241,236,223,.94);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 30px 80px rgba(10,8,5,.55);backdrop-filter:blur(3px)}
+.panel .narrative{max-width:640px;margin:0 auto;padding:4.5rem clamp(1.4rem,4vw,3rem)}
+.narrative p{margin-bottom:1.6rem;font-weight:300}
+.narrative .lede::first-letter{font-family:'Cormorant Garamond',serif;font-size:4.6em;font-weight:500;float:left;line-height:.78;margin:.05em .14em 0 0;color:var(--bronze)}
+.panel strong{color:var(--ink);font-weight:600}
+.panel em{color:var(--ink)}
+.hl{color:var(--bronze)}
+.dng{color:var(--wine)}
+main strong{color:inherit;font-weight:600}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.reveal.on{opacity:1;transform:none}
+
+.pq{margin:3.4rem 0;padding:0;border:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(1.5rem,3vw,2rem);line-height:1.45;color:var(--ink)}
+.pq::before{content:'';display:block;width:1px;height:44px;background:var(--bronze);margin:0 auto 1.6rem}
+.pq .att{display:block;margin-top:1.4rem;font-family:'Jost',sans-serif;font-style:normal;font-weight:400;font-size:.58rem;letter-spacing:.38em;text-transform:uppercase;color:var(--smoke)}
+.pq-sky{color:var(--ivory);text-shadow:0 3px 30px rgba(0,0,0,.8);max-width:720px;margin:0 auto;padding:26vh 1.6rem}
+.pq-sky::before{background:var(--bronze-l)}
+.pq-sky .att{color:rgba(241,236,223,.8)}
+
+figure.photo{margin:3.2rem 0}
+figure.photo img{width:100%;filter:sepia(.32) contrast(1.05) brightness(.97) saturate(.8)}
+figure.photo figcaption{margin-top:1rem;font-size:.6rem;font-weight:400;line-height:2;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;margin:3rem 0;border-top:1px solid var(--paperline)}
+.cc{border-bottom:1px solid var(--paperline);padding:1.9rem 1.3rem 1.9rem 0;transition:background .3s}
+.cc:hover{background:rgba(156,124,68,.06)}
+.cc.dead .cc-name::after{content:' †';color:var(--wine)}
+.cc.full{grid-column:1/-1}
+.cc-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--ink)}
+.cc-role{font-size:.56rem;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);margin:.5rem 0 .9rem}
+.cc-desc{font-size:.9rem;font-weight:300;line-height:1.85;color:var(--smoke)}
+
+.record{background:var(--cream);color:var(--ink);font-family:'Special Elite',monospace;padding:2.8rem 2.6rem;margin:3.6rem 0;border:1px solid var(--paperline);box-shadow:0 14px 40px rgba(40,34,26,.2);transform:rotate(-.35deg);position:relative}
+.record::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 28% 18%,rgba(120,100,60,.12),transparent 60%);pointer-events:none}
+.record .rec-meta{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);border-bottom:1px solid var(--paperline);padding-bottom:.8rem;margin-bottom:1.5rem}
+.record p{font-size:.94rem;line-height:2.05;margin-bottom:1.2rem}
+.record p:last-child{margin-bottom:0}
+
+/* ════════ FLOATING STEP CARDS (over terrain, no panel) ════════ */
+.over-steps{position:relative;padding-left:clamp(1rem,7vw,7rem)}
+.over-step{min-height:100vh;display:flex;align-items:center;padding:12vh 1.2rem 12vh 0}
+.over-card{max-width:460px;background:rgba(241,236,223,.95);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);padding:2rem 2.2rem;box-shadow:0 24px 60px rgba(10,8,5,.55);opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+.over-step.on .over-card{opacity:1;transform:none}
+.over-card .kick{margin-bottom:.9rem}
+.over-card h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.6rem;line-height:1.15;color:var(--ink);margin-bottom:.9rem}
+.over-card p{font-size:.92rem;font-weight:300;line-height:1.85;margin-bottom:.9rem}
+.over-card p:last-child{margin-bottom:0}
+.over-card.tragic{border-top-color:var(--wine)}
+.over-card.tragic .kick{color:var(--wine)}
+.kick{font-size:.58rem;font-weight:400;letter-spacing:.42em;text-transform:uppercase;color:var(--bronze);display:block}
+
+.sep{display:flex;align-items:center;justify-content:center;gap:1.1rem;padding:3rem 0}
+.sep-l{width:74px;height:1px;background:rgba(241,236,223,.35)}
+.sep-d{color:var(--bronze-l);font-size:.7rem}
+
+/* ════════ CH IV HUD / LEGEND / MARKERS ════════ */
+.m3d-hud{position:fixed;top:3.2rem;right:2rem;z-index:9999;text-align:right;color:var(--ivory);pointer-events:none;text-shadow:0 2px 18px rgba(0,0,0,.65);opacity:0;transition:opacity .8s}
+.m3d-hud.show{opacity:1}
+.m3d-hud .h-date{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.9rem,4vw,3rem);line-height:1.05}
+.m3d-hud .h-sub{margin-top:.4rem;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;opacity:.85}
+.m3d-hud .h-alt{margin-top:.9rem;font-size:.62rem;letter-spacing:.24em;opacity:.9}
+.m3d-hud.tragic .h-date{color:var(--wine-l)}
+.m3d-legend{position:fixed;left:2rem;bottom:2rem;z-index:9999;display:flex;flex-wrap:wrap;gap:.5rem .9rem;max-width:430px;pointer-events:none;opacity:0;transition:opacity .8s}
+.m3d-legend.show{opacity:1}
+.m3d-legend span{display:inline-flex;align-items:center;gap:.45rem;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ivory);text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.m3d-legend i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ivory);box-shadow:0 0 6px rgba(0,0,0,.5)}
+.m3d-note{position:fixed;right:2rem;bottom:1.4rem;z-index:9999;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,236,223,.55);text-align:right;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.7);opacity:0;transition:opacity .8s}
+.m3d-note.show{opacity:1}
+
+.mk-camp{pointer-events:none}
+.mk-camp .t{width:7px;height:7px;background:#f4efe4;border:1px solid rgba(20,17,12,.7);transform:rotate(45deg);margin:0 auto;box-shadow:0 0 8px rgba(0,0,0,.6)}
+.mk-camp .l{margin-top:.35rem;font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:#f4efe4;text-shadow:0 1px 8px rgba(0,0,0,.9);white-space:nowrap;text-align:center}
+.mk-p{pointer-events:none;width:13px;height:13px;border-radius:50%;border:2px solid #f4efe4;box-shadow:0 0 0 1.5px rgba(20,17,12,.55),0 0 12px rgba(0,0,0,.55);transition:opacity .6s;position:relative}
+.mk-p.hide{opacity:0}
+.mk-p.pulse::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:1.5px solid #f4efe4;animation:mkp 2s ease-out infinite}
+@keyframes mkp{from{transform:scale(.5);opacity:.9}to{transform:scale(1.35);opacity:0}}
+
+/* ════════ FILM ════════ */
+.film{padding:14vh clamp(1rem,7vw,7rem)}
+.film .film-head{max-width:660px;margin:0 auto 3rem;text-align:center}
+.film h3{margin-top:1.2rem;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.75)}
+.film .film-frame{position:relative;max-width:1020px;margin:0 auto;aspect-ratio:16/9;background:#000;border:1px solid rgba(244,239,228,.25);box-shadow:0 30px 80px rgba(10,8,5,.6)}
+.film iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.film .film-cap{max-width:1020px;margin:1rem auto 0;font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(244,239,228,.65);text-align:center}
+
+/* ════════ MEMORIAL & FOOTER ════════ */
+.memorial{padding:14vh 1.6rem}
+.mem-inner{max-width:780px;margin:0 auto;background:rgba(241,236,223,.94);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--wine);box-shadow:0 30px 80px rgba(10,8,5,.55);padding:4.5rem clamp(1.4rem,4vw,3.4rem)}
+.memorial h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:500;color:var(--ink);text-align:center;margin-bottom:.6rem}
+.memorial .mem-sub{text-align:center;font-style:italic;font-weight:300;color:var(--smoke);margin-bottom:3rem}
+.footer{padding:8rem 1.6rem 9rem;text-align:center;font-size:.6rem;font-weight:400;line-height:2.6;letter-spacing:.16em;text-transform:uppercase;color:rgba(241,236,223,.7);text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.footer em{font-style:normal;color:var(--ivory)}
+.footer .final{display:block;margin-top:2.6rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;letter-spacing:0;text-transform:none;color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
+
+/* spacing beats between blocks so the mountain breathes */
+.breath{height:44vh;pointer-events:none}
+.breath.tall{height:70vh}
+
+/* ════════ RESPONSIVE / MOTION ════════ */
+@media (max-width:860px){
+  .rail{display:none}
+  .alti{right:1rem;top:auto;bottom:1.1rem;transform:none}
+  .alti .alti-bar{display:none}
+  .alti .alti-ft{font-size:1.15rem}
+  body{font-size:16.5px}
+  .stats{gap:0 2.2rem}
+  .over-steps{padding-left:1rem}
+  .over-card{max-width:100%}
+  .m3d-hud{top:1.2rem;right:1.2rem}
+  .m3d-legend{left:1.2rem;bottom:3.6rem;max-width:70vw}
+  .m3d-note{right:1.2rem}
+  .panel .narrative{padding:3rem 1.3rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.over-card,.stat,.prologue h1,.prologue .sub,.prologue .rule,.prologue .eyebrow,.cue,.ch-cover::before,.ch-cover .num,.ch-cover h2,.ch-cover .dek{opacity:1;transform:none}
+}
+
+
+/* ════════ v8: silhouettes · states · features · moments · portraits ════════ */
+/* camp tents */
+.mk-camp2{pointer-events:none;text-align:center;transition:opacity .8s,filter .8s}
+.mk-camp2 .tent{color:#f1ecdf;filter:drop-shadow(0 0 6px rgba(0,0,0,.7));line-height:0}
+.mk-camp2 .l{margin-top:.3rem;font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:#f4efe4;text-shadow:0 1px 8px rgba(20,17,12,.95);white-space:nowrap}
+.mk-camp2.future{opacity:.28}
+.mk-camp2.future .tent{color:transparent;-webkit-text-stroke:0}
+.mk-camp2.future .tent svg path{fill:none;stroke:rgba(241,236,223,.8);stroke-width:1.4}
+.mk-camp2.dim{opacity:.45}
+.mk-camp2.cleared .tent{color:#c96a5c;position:relative}
+.mk-camp2.cleared .tent svg path{fill:none;stroke:#c96a5c;stroke-width:1.6}
+.mk-camp2.cleared .l{color:#e8b9ae}
+.mk-camp2.cleared .tent::after{content:'';position:absolute;left:2px;right:2px;top:48%;height:1.5px;background:#c96a5c;transform:rotate(-16deg)}
+.mk-camp2 .pk{font-size:.9rem;color:#f1ecdf;text-shadow:0 1px 8px rgba(0,0,0,.9);line-height:1}
+.mk-camp2.pknode .l{opacity:.85}
+
+/* climber silhouettes */
+.mk-sil{pointer-events:none;line-height:0;filter:drop-shadow(0 0 5px rgba(0,0,0,.75)) drop-shadow(0 0 1px rgba(244,239,228,.9));transition:opacity .6s;position:relative}
+.mk-sil.hide{opacity:0}
+.mk-sil.lost svg g{fill:none!important;stroke:currentColor!important;stroke-width:1.2!important;opacity:.85}
+.mk-sil.lost{animation:ghost 3.2s ease-in-out infinite}
+@keyframes ghost{0%,100%{opacity:.85}50%{opacity:.35}}
+.mk-sil.pulse::after{content:'';position:absolute;left:50%;bottom:-3px;width:26px;height:26px;transform:translateX(-50%);border-radius:50%;border:1.5px solid #f4efe4;animation:mkp 2s ease-out infinite}
+.lg-sil{display:inline-block;line-height:0;filter:drop-shadow(0 0 3px rgba(0,0,0,.8))}
+.lg-sil svg{width:11px;height:15px}
+
+/* named features of the route */
+.mk-feat{pointer-events:none;text-align:center;transition:opacity 1s}
+.mk-feat.off{opacity:0}
+.mk-feat .ln{width:1px;height:26px;margin:0 auto;background:linear-gradient(180deg,rgba(201,168,106,.9),transparent)}
+.mk-feat .fl{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.86rem;color:#e9ddc2;text-shadow:0 1px 10px rgba(20,17,12,.95);white-space:nowrap;letter-spacing:.04em;margin-bottom:.2rem}
+
+/* moment pins */
+.mk-mom{pointer-events:none;text-align:center;transition:opacity .9s,transform .9s;transform:translateY(6px)}
+.mk-mom.off{opacity:0;transform:translateY(14px)}
+.mk-mom .g{width:24px;height:24px;margin:0 auto .35rem;border-radius:50%;background:rgba(241,236,223,.95);color:#762c26;font-size:.8rem;line-height:24px;box-shadow:0 4px 14px rgba(0,0,0,.6);border:1px solid rgba(40,34,26,.4)}
+.mk-mom .ml{font-family:'Jost',sans-serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:#f4efe4;text-shadow:0 1px 8px rgba(20,17,12,.95);max-width:200px;line-height:1.7;background:rgba(20,17,12,.45);padding:.25rem .55rem;backdrop-filter:blur(2px)}
+
+/* HUD phase */
+.m3d-hud .h-phase{font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.5em;text-transform:uppercase;color:var(--bronze-l);margin-bottom:.5rem;min-height:1em}
+.m3d-hud.tragic .h-phase{color:var(--wine-l)}
+
+/* cast portraits + monograms */
+.cc{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:1.1rem}
+.cc-media{grid-row:1/4;width:64px}
+.cc-media img{width:64px;height:80px;object-fit:cover;filter:sepia(.3) contrast(1.05) saturate(.7);border:1px solid var(--paperline)}
+.cc-media .src{display:block;margin-top:.3rem;font-family:'Jost',sans-serif;font-size:.44rem;letter-spacing:.16em;text-transform:uppercase;color:var(--smoke)}
+.mono{width:64px;height:80px;display:flex;align-items:center;justify-content:center;border:1px solid var(--paperline);background:rgba(156,124,68,.07);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;color:var(--bronze);letter-spacing:.04em}
+.cc.dead .mono{color:var(--wine);background:rgba(118,44,38,.06)}
+.cc-name,.cc-role,.cc-desc{grid-column:2}
+
+/* Sella portrait beside his photograph */
+.sella-row{display:grid;grid-template-columns:96px 1fr;gap:1.4rem;align-items:start;margin-top:1.8rem;padding-top:1.6rem;border-top:1px solid var(--paperline)}
+.sella-row img{width:96px;filter:sepia(.35) contrast(1.05)}
+.sella-row .s-cap{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;line-height:2;color:var(--smoke)}
+@media (max-width:600px){.cc{grid-template-columns:1fr}.cc-media{grid-row:auto;margin-bottom:.7rem}.cc-name,.cc-role,.cc-desc{grid-column:1}}
+
+
+/* ════════ v9: film clips + photo plates ════════ */
+.film.slim{padding:10vh clamp(1rem,7vw,7rem)}
+.film.slim .film-frame{max-width:840px}
+.film .film-more{display:block;margin:1.6rem auto 0;text-align:center;font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze-l);text-decoration:none}
+.film .film-more:hover{color:var(--ivory)}
+.plate-panel .narrative{padding-top:3.2rem;padding-bottom:3.2rem}
+
+/* ════════ v10: cinema grade · legibility · atmosphere ════════ */
+#grade{position:fixed;inset:0;z-index:1;pointer-events:none;transition:background 2.5s ease;background:linear-gradient(180deg,rgba(160,110,50,.14),transparent 42%,rgba(20,17,12,.3))}
+#grade.g-day{background:linear-gradient(180deg,rgba(60,80,105,.12),transparent 40%,rgba(20,17,12,.32))}
+#grade.g-storm{background:linear-gradient(180deg,rgba(52,66,84,.42),rgba(38,48,62,.22) 50%,rgba(14,16,22,.5))}
+#grade.g-night{background:radial-gradient(ellipse 120% 90% at 50% 30%,rgba(22,30,58,.34),rgba(10,12,26,.58) 100%)}
+#grade.g-dusk{background:linear-gradient(180deg,rgba(96,42,36,.26),transparent 45%,rgba(30,14,12,.44))}
+#grade.g-mourn{background:linear-gradient(180deg,rgba(70,74,86,.3),rgba(40,42,50,.16) 50%,rgba(16,17,20,.48))}
+#bgVeil{background:
+  radial-gradient(ellipse 130% 100% at 50% 42%,transparent 34%,rgba(20,17,12,.45) 100%),
+  linear-gradient(90deg,rgba(20,17,12,.5) 0%,transparent 34%,transparent 68%,rgba(20,17,12,.42) 100%),
+  linear-gradient(180deg,rgba(20,17,12,.4) 0%,transparent 20%,transparent 78%,rgba(20,17,12,.55) 100%)!important}
+#snow{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 2s}
+#snow.on{opacity:1}
+
+/* cover & prologue text plates */
+.ch-cover::after{content:'';position:absolute;inset:auto 0 0 0;height:62vh;background:linear-gradient(180deg,transparent,rgba(20,17,12,.66) 62%,rgba(20,17,12,.78));pointer-events:none}
+.ch-cover .inner{z-index:2}
+.ch-cover h2{background:linear-gradient(105deg,#f6f1e4 30%,#d9bc85 75%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 22px rgba(0,0,0,.85))}
+.ch-cover .dek{background:rgba(20,17,12,.5);backdrop-filter:blur(4px);border-left:2px solid var(--bronze-l);padding:.9rem 1.2rem;text-shadow:none;color:#efe9da}
+.prologue::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 82% 66% at 50% 46%,rgba(20,17,12,.62) 0%,rgba(20,17,12,.3) 55%,transparent 82%);pointer-events:none}
+.prologue>*{position:relative}
+.prologue h1{background:linear-gradient(110deg,#f6f1e4 35%,#d9bc85 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 26px rgba(0,0,0,.9))}
+.prologue .sub,.stat span{text-shadow:0 2px 12px rgba(0,0,0,.95)}
+.stat b{filter:drop-shadow(0 3px 16px rgba(0,0,0,.9))}
+.pq-sky{background:rgba(20,17,12,.52);backdrop-filter:blur(5px);padding:4rem 2.4rem;max-width:820px;border-top:1px solid rgba(201,168,106,.4);border-bottom:1px solid rgba(201,168,106,.4)}
+
+/* marker legibility: chips + zoom gating */
+.mk-camp2 .l{background:rgba(20,17,12,.62);padding:.18rem .5rem;backdrop-filter:blur(2px);border-radius:1px}
+.mk-camp2.cleared .l{background:rgba(60,18,14,.62)}
+.mk-feat .fl{background:rgba(20,17,12,.55);padding:.15rem .6rem;backdrop-filter:blur(2px)}
+.lbl-far .mk-camp2:not(.major) .l{opacity:0;transition:opacity .5s}
+.lbl-far .mk-feat{opacity:0!important}
+.mk-camp2 .l{transition:opacity .5s}
+.mk-mom .ml{background:rgba(20,17,12,.72)}
+
+/* local ambient video */
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.film .film-frame{cursor:pointer}
+.film .snd{position:absolute;right:.9rem;bottom:.9rem;z-index:2;font-family:'Jost',sans-serif;font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;color:#f1ecdf;background:rgba(20,17,12,.65);border:1px solid rgba(241,236,223,.35);padding:.45rem .8rem;cursor:pointer}
+.film .snd:hover{background:rgba(20,17,12,.9)}
+
+/* ════════ v11: silhouette vignettes ════════ */
+#stage{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.vg{position:absolute;bottom:0;opacity:0;transition:opacity 1.8s ease;filter:drop-shadow(0 0 14px rgba(0,0,0,.5))}
+.vg.on{opacity:1}
+.vg-wide{left:0;width:100%;height:min(46vh,420px)}
+.vg-right{right:0;width:min(44vw,480px);height:min(58vh,460px)}
+.vg-left{left:0;width:min(42vw,520px);height:min(58vh,460px)}
+#vg-nyc{height:min(52vh,440px)}
+
+.an-haul{animation:haulup 9s ease-in-out infinite}
+@keyframes haulup{0%,8%{transform:translateY(0)}46%,58%{transform:translateY(-210px)}94%,100%{transform:translateY(0)}}
+.an-pair{transform:translate(560px,222px);animation:pairwalk 16s linear infinite}
+@keyframes pairwalk{from{transform:translate(430px,258px)}to{transform:translate(1120px,124px)}}
+.an-strip .porter{animation:march 13s linear infinite}
+.an-strip .p2{animation-delay:-4s}
+.an-strip .p3{animation-delay:-8s}
+@keyframes march{from{transform:translate(1350px,64px)}to{transform:translate(-140px,232px)}}
+.an-strip .p2,.an-strip .p3{transform:none}
+.an-rope{stroke-dasharray:260;animation:ropetense 5s ease-in-out infinite}
+@keyframes ropetense{0%,100%{stroke-dashoffset:0;opacity:.9}48%{stroke-dashoffset:0;opacity:.9}52%{opacity:.35}56%{opacity:.9}}
+.an-bag{animation:bagfall 5s ease-in infinite}
+@keyframes bagfall{0%,46%{transform:translate(212px,296px) rotate(0);opacity:0}
+ 50%{transform:translate(212px,296px) rotate(0);opacity:1}
+ 88%{transform:translate(150px,540px) rotate(-260deg);opacity:1}
+ 100%{transform:translate(140px,580px) rotate(-300deg);opacity:0}}
+.an-rescue{animation:rescueup 11s ease-in-out infinite;transform:translate(210px,330px)}
+@keyframes rescueup{0%,6%{transform:translate(230px,352px)}60%,70%{transform:translate(140px,170px)}100%{transform:translate(230px,352px)}}
+.an-tent{transform-origin:410px 250px;animation:flap 2.6s ease-in-out infinite}
+@keyframes flap{0%,100%{transform:skewX(0)}50%{transform:skewX(-3deg)}}
+.an-wind line{stroke-dasharray:60 40;animation:gust 2.2s linear infinite}
+@keyframes gust{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+#grade.g-city{background:linear-gradient(180deg,rgba(46,30,16,.4),rgba(30,20,12,.2) 40%,rgba(16,11,7,.6))}
+@media (prefers-reduced-motion:reduce){.vg *{animation:none!important}}
+@media (max-width:860px){.vg-right,.vg-left{width:70vw}}
+
+/* ════════ v12: archival film figures ════════ */
+figure.filmfig{margin:3rem 0;position:relative}
+figure.filmfig .ff-wrap{position:relative;background:#000;border:1px solid var(--paperline)}
+figure.filmfig video{width:100%;display:block;filter:sepia(.14) contrast(1.04)}
+figure.filmfig .snd{position:absolute;right:.7rem;bottom:.7rem;z-index:2;font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.26em;text-transform:uppercase;color:#f1ecdf;background:rgba(20,17,12,.7);border:1px solid rgba(241,236,223,.35);padding:.4rem .7rem;cursor:pointer}
+figure.filmfig figcaption{margin-top:.9rem;font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;line-height:2;color:var(--smoke)}
+
+/* ════════ v13 · wind · explore · letterbox · evidence · scrubber · colophon · night ════════ */
+/* control cluster */
+.ctrl{position:fixed;left:1.6rem;bottom:1.4rem;z-index:10002;display:flex;flex-direction:column;gap:.45rem}
+.ctrl button{font-family:'Jost',sans-serif;font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:#f1ecdf;background:rgba(20,17,12,.62);border:1px solid rgba(241,236,223,.3);padding:.5rem .85rem;cursor:pointer;backdrop-filter:blur(3px);text-align:left;transition:.25s}
+.ctrl button:hover{border-color:var(--bronze-l);color:var(--bronze-l)}
+.ctrl button.on{background:rgba(156,124,68,.35);border-color:var(--bronze-l)}
+.m3d-legend{bottom:6.2rem}
+
+/* letterbox + film grain bump */
+#lbox-t,#lbox-b{position:fixed;left:0;right:0;height:0;background:#0a0805;z-index:9996;transition:height 1.1s cubic-bezier(.6,0,.3,1)}
+#lbox-t{top:0}#lbox-b{bottom:0}
+body.filmy #lbox-t,body.filmy #lbox-b{height:6.5vh}
+body.filmy::after{opacity:.12}
+
+/* explore mode */
+#exploreExit{position:fixed;top:1.4rem;left:50%;transform:translate(-50%,-160%);z-index:10003;font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);background:rgba(241,236,223,.95);border:1px solid var(--paperline);padding:.7rem 1.3rem;cursor:pointer;transition:transform .8s cubic-bezier(.6,0,.3,1)}
+body.explore #exploreExit{transform:translate(-50%,0)}
+body.explore main,body.explore #stage,body.explore .rail,body.explore .alti,body.explore #progress,body.explore .m3d-hud,body.explore #scrub{opacity:0;pointer-events:none;transition:opacity .8s}
+body.explore #bgVeil{opacity:.45}
+main,#stage,.rail,.alti,#progress{transition:opacity .8s}
+.explore-cta{display:block;margin:0 auto 7rem;font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ivory);background:transparent;border:1px solid rgba(241,236,223,.45);padding:1.1rem 2.2rem;cursor:pointer;transition:.3s;position:relative;z-index:3}
+.explore-cta:hover{border-color:var(--bronze-l);color:var(--bronze-l)}
+
+/* timeline scrubber (ch4) */
+#scrub{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:9999;display:flex;align-items:flex-end;gap:6px;padding:.7rem 1rem .6rem;background:rgba(20,17,12,.55);backdrop-filter:blur(4px);border:1px solid rgba(241,236,223,.2);opacity:0;pointer-events:none;transition:opacity .8s}
+#scrub.show{opacity:1;pointer-events:auto}
+#scrub .tk{width:7px;height:14px;background:rgba(241,236,223,.3);border:0;cursor:pointer;padding:0;transition:.25s}
+#scrub .tk:hover{background:var(--bronze-l)}
+#scrub .tk.ph{height:20px}
+#scrub .tk.cur{background:var(--bronze-l);box-shadow:0 0 8px rgba(201,168,106,.7)}
+#scrub .tk.trg.cur{background:var(--wine-l);box-shadow:0 0 8px rgba(201,106,92,.7)}
+#scrub .sd{position:absolute;top:-1.2rem;left:0;right:0;text-align:center;font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bronze-l);text-shadow:0 1px 8px rgba(0,0,0,.9)}
+@media(max-width:860px){#scrub{display:none}}
+
+/* evidence room */
+.evroom{max-width:880px;margin:0 auto}
+.evroom .ev-head{text-align:center;margin-bottom:2.6rem}
+.evroom h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.9rem,4.5vw,3rem);color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
+.evroom .ev-sub{margin-top:.8rem;font-style:italic;font-weight:300;color:rgba(241,236,223,.85);text-shadow:0 2px 12px rgba(0,0,0,.9)}
+.ev-docs{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.doc{background:var(--cream);color:var(--ink);border:1px solid var(--paperline);padding:2rem 1.9rem;cursor:pointer;transition:transform .5s ease,box-shadow .5s ease,opacity .5s;box-shadow:0 18px 50px rgba(10,8,5,.5);position:relative}
+.doc .d-tab{font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.34em;text-transform:uppercase;color:var(--bronze);margin-bottom:1rem}
+.doc h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;margin-bottom:.9rem}
+.doc p{font-size:.9rem;font-weight:300;line-height:1.85;margin-bottom:.8rem}
+.doc .d-seal{margin-top:1.2rem;font-family:'Special Elite',monospace;font-size:.72rem;color:var(--wine);border-top:1px dashed var(--paperline);padding-top:.9rem}
+.doc.back{transform:scale(.94) translateY(10px);opacity:.62}
+.doc.front{transform:scale(1);opacity:1;box-shadow:0 30px 80px rgba(10,8,5,.7)}
+.ev-verdict{margin-top:1.8rem;background:rgba(20,17,12,.6);backdrop-filter:blur(4px);border-left:2px solid var(--wine-l);padding:1.4rem 1.7rem;color:#efe9da;font-weight:300;font-size:.95rem}
+.ev-verdict b{color:var(--wine-l);font-weight:600}
+.ev-hint{margin-top:.9rem;text-align:center;font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.34em;text-transform:uppercase;color:rgba(241,236,223,.6)}
+@media(max-width:760px){.ev-docs{grid-template-columns:1fr}.doc.back{transform:none;opacity:.85}}
+
+.doc.reveal:not(.on){opacity:0!important;transform:translateY(26px) scale(.97)!important}
+/* colophon */
+.colo{border-top:2px solid var(--bronze)}
+.colo h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2rem;color:var(--ink);text-align:center;margin-bottom:.4rem}
+.colo .c-sub{text-align:center;font-style:italic;color:var(--smoke);font-weight:300;margin-bottom:2.4rem}
+.colo .row{display:grid;grid-template-columns:130px 1fr;gap:1.3rem;padding:1rem 0;border-bottom:1px solid var(--paperline);font-size:.92rem;font-weight:300}
+.colo .row b{font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bronze);font-weight:400;padding-top:.3rem}
+.colo .row em{color:var(--ink)}
+
+/* memorial night */
+#stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity 3s}
+body.memnight #stars{opacity:1}
+body.memnight #grade{background:radial-gradient(ellipse 120% 90% at 50% 26%,rgba(14,18,40,.5),rgba(6,8,18,.72) 100%)!important}
+.memorial .cc-name{transition:letter-spacing 2.5s ease}
+body.memnight .memorial .cc-name{letter-spacing:.1em}
+.mk-flame{pointer-events:none;text-align:center}
+.mk-flame .fm{width:9px;height:14px;margin:0 auto;background:radial-gradient(ellipse at 50% 80%,#f6d98a,#c9762a 70%,transparent);border-radius:50% 50% 50% 50%/62% 62% 38% 38%;filter:blur(.4px) drop-shadow(0 0 8px rgba(246,217,138,.9));animation:flick 1.3s ease-in-out infinite}
+.mk-flame .fl{margin-top:.3rem;font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.26em;text-transform:uppercase;color:#e9ddc2;background:rgba(20,17,12,.6);padding:.15rem .5rem}
+.mk-flame.off{opacity:0;transition:opacity 1.5s}
+@keyframes flick{0%,100%{transform:scaleY(1) translateY(0)}30%{transform:scaleY(1.25) translateY(-1px)}60%{transform:scaleY(.9) skewX(3deg)}}
+/* typewriter */
+.record.typing p:not(.rec-meta){min-height:1em}
+
+</style>
+</head>
+<body>
+
+
+<div id="bgMap"></div>
+<div id="bgFallback" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg')"></div>
+<div id="bgVeil"></div>
+<div id="grade"></div>
+<canvas id="snow"></canvas>
+<div id="stage">
+
+<!-- NYC · Chapter I — deco skyline over the dim mountain -->
+<svg class="vg vg-wide" id="vg-nyc" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="citysky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1f14" stop-opacity="0"/>
+      <stop offset="1" stop-color="#171009" stop-opacity=".92"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="420" fill="url(#citysky)"/>
+  <!-- far skyline -->
+  <g fill="#241a10" opacity=".85">
+    <path d="M0 420V300h60v-40h30v40h40V260h26v-24h18v24h26v160zM220 420V270h44v-70h12l6-30 6 30h12v70h44v150zM380 420V320h36v-60h50v60h34v100zM520 420V240h20v-30l10-44 10 44v30h20v180zM600 420V310h70v-50h24v50h60v110zM780 420V330h50v-90h16v-26h12v26h16v90h44v90zM940 420V300h34v-52h46v52h30v120zM1070 420V260h18v-36l8-30 8 30v36h18v160zM1210 420V320h60v-46h40v46h50v100zM1380 420V290h60v130z"/>
+  </g>
+  <!-- near skyline with the two great spires -->
+  <g fill="#14100a">
+    <path d="M0 420V340h90v-30h60v30h50v80z"/>
+    <path d="M240 420V250h26v-40h10v-26l7-52 7 52v26h10v40h26v170z"/>
+    <path d="M370 420V330h100v-40h80v40h60v90z"/>
+    <path d="M660 420V200h18v-36h8v-30l6-70 6 70v30h8v36h18v220z"/>
+    <path d="M770 420V350h120v-56h70v56h60v70z"/>
+    <path d="M1060 420V240h16v-30l6-24 6 24v30h16v52h20v128z"/>
+    <path d="M1190 420V330h90v-44h60v44h100v90z"/>
+  </g>
+  <!-- lit windows -->
+  <g fill="#d9bc85" opacity=".55">
+    <rect x="252" y="270" width="4" height="6"/><rect x="264" y="300" width="4" height="6"/><rect x="252" y="330" width="4" height="6"/>
+    <rect x="672" y="230" width="4" height="6"/><rect x="684" y="260" width="4" height="6"/><rect x="672" y="300" width="4" height="6"/><rect x="684" y="340" width="4" height="6"/>
+    <rect x="1072" y="270" width="4" height="6"/><rect x="1084" y="300" width="4" height="6"/>
+    <rect x="410" y="350" width="4" height="5"/><rect x="470" y="360" width="4" height="5"/><rect x="820" y="370" width="4" height="5"/><rect x="900" y="360" width="4" height="5"/><rect x="1230" y="352" width="4" height="5"/>
+    <rect x="110" y="356" width="4" height="5"/><rect x="150" y="366" width="4" height="5"/>
+  </g>
+</svg>
+
+<!-- ev3 · hauled up the House Chimney -->
+<svg class="vg vg-right" id="vg-haul" viewBox="0 0 420 420" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+  <path d="M420 420V0h-90l-40 90 20 70-50 90 24 60-40 110z" fill="#14100a" opacity=".92"/>
+  <line x1="252" y1="58" x2="228" y2="330" stroke="#d9bc85" stroke-width="1.6" stroke-dasharray="3 4" opacity=".8"/>
+  <g class="an-haul" fill="#14100a" stroke="#d9bc85" stroke-width="1">
+    <circle cx="228" cy="318" r="7"/>
+    <path d="M228 326 l-9 16 -3 26 6 2 8 -20 8 20 6 -2 -3 -26 z"/>
+    <path d="M223 334 l-16 -12 3 -5 17 9 z"/><path d="M233 334 l16 -10 -3 -5 -17 8 z"/>
+  </g>
+</svg>
+
+<!-- ev8 / ch5 · two figures on the summit ridge, moonlit -->
+<svg class="vg vg-wide" id="vg-pair" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <circle cx="1180" cy="90" r="42" fill="#f1ecdf" opacity=".85"/>
+  <circle cx="1180" cy="90" r="70" fill="#f1ecdf" opacity=".12"/>
+  <path d="M0 380 L0 330 300 300 620 210 900 150 1160 120 1440 96 1440 380 Z" fill="#100d08" opacity=".94"/>
+  <g class="an-pair" stroke="#d9bc85" stroke-width=".8" fill="#0d0a06">
+    <g><circle cx="0" cy="-26" r="5.5"/><path d="M0 -20 l-7 12 -2 20 4 1 6 -15 6 15 4 -1 -2 -20 z"/><line x1="8" y1="-18" x2="13" y2="4" stroke-width="1.4"/></g>
+    <g transform="translate(46,12)"><circle cx="0" cy="-26" r="5.5"/><path d="M0 -20 l-7 12 -2 20 4 1 6 -15 6 15 4 -1 -2 -20 z"/><line x1="-9" y1="-16" x2="-14" y2="6" stroke-width="1.4"/></g>
+    <path d="M8 -12 Q 26 -4 38 -10" stroke="#d9bc85" fill="none" stroke-width="1" stroke-dasharray="2 3"/>
+  </g>
+</svg>
+
+<!-- ev9 · the camps carried away: porters descending with loads -->
+<svg class="vg vg-wide" id="vg-strip" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <path d="M0 300 L0 240 400 200 900 130 1440 60 1440 300 Z" fill="#120e09" opacity=".94"/>
+  <g class="an-strip">
+    <g class="porter" stroke="#c96a5c" stroke-width=".9" fill="#0d0a06">
+      <circle cx="0" cy="-30" r="5.5"/>
+      <path d="M0 -24 l-7 13 -2 20 4 1 6 -14 6 14 4 -1 -2 -20 z"/>
+      <rect x="-13" y="-32" width="12" height="20" rx="3" transform="rotate(-12 -7 -22)"/>
+    </g>
+    <g class="porter p2" stroke="#c96a5c" stroke-width=".9" fill="#0d0a06" transform="translate(90,14)">
+      <circle cx="0" cy="-30" r="5.5"/>
+      <path d="M0 -24 l-7 13 -2 20 4 1 6 -14 6 14 4 -1 -2 -20 z"/>
+      <ellipse cx="-9" cy="-34" rx="10" ry="6"/>
+    </g>
+    <g class="porter p3" stroke="#c96a5c" stroke-width=".9" fill="#0d0a06" transform="translate(185,28)">
+      <circle cx="0" cy="-30" r="5.5"/>
+      <path d="M0 -24 l-7 13 -2 20 4 1 6 -14 6 14 4 -1 -2 -20 z"/>
+      <path d="M6 -26 q 16 2 22 12" stroke-width="1.6" fill="none"/>
+      <ellipse cx="30" cy="-10" rx="9" ry="5"/>
+    </g>
+  </g>
+</svg>
+
+<!-- ev10 · the fall: rope snaps taut, the sleeping bag tumbles -->
+<svg class="vg vg-right" id="vg-fall" viewBox="0 0 480 420" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+  <path d="M480 420V60l-120 60-60 120-80 60-60 120z" fill="#14100a" opacity=".92"/>
+  <path class="an-rope" d="M300 120 Q 250 200 210 300" stroke="#d9bc85" stroke-width="1.6" fill="none"/>
+  <g class="an-bag">
+    <rect x="-14" y="-8" width="28" height="16" rx="8" fill="#0d0a06" stroke="#c96a5c" stroke-width="1.1"/>
+    <line x1="-14" y1="-2" x2="14" y2="-2" stroke="#c96a5c" stroke-width=".7" opacity=".7"/>
+  </g>
+</svg>
+
+<!-- ev12–13 · the rescue: three climbing fast -->
+<svg class="vg vg-left" id="vg-rescue" viewBox="0 0 520 420" preserveAspectRatio="xMinYMax meet" aria-hidden="true">
+  <path d="M0 420V80l90 70 40 100 90 60 60 110z" fill="#12100a" opacity=".92"/>
+  <g class="an-rescue" stroke="#7fae9c" stroke-width=".9" fill="#0d0a06">
+    <g><circle cx="0" cy="-26" r="5"/><path d="M0 -21 l-6 11 -2 18 4 1 5 -13 5 13 4 -1 -2 -18 z"/><line x1="7" y1="-16" x2="11" y2="3" stroke-width="1.3"/></g>
+    <g transform="translate(-40,26)"><circle cx="0" cy="-26" r="5"/><path d="M0 -21 l-6 11 -2 18 4 1 5 -13 5 13 4 -1 -2 -18 z"/></g>
+    <g transform="translate(-80,52)"><circle cx="0" cy="-26" r="5"/><path d="M0 -21 l-6 11 -2 18 4 1 5 -13 5 13 4 -1 -2 -18 z"/></g>
+  </g>
+</svg>
+
+<!-- ev15–16 / ch6 · the lone tent in the wind -->
+<svg class="vg vg-right" id="vg-tent" viewBox="0 0 520 300" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+  <path d="M520 300V220L300 240 120 270 0 300z" fill="#120e09" opacity=".9"/>
+  <g class="an-tent">
+    <path d="M370 250 L410 190 L450 250 L430 250 L410 216 L392 250 Z" fill="#0d0a06" stroke="#c96a5c" stroke-width="1.1"/>
+  </g>
+  <g class="an-wind" stroke="#f1ecdf" stroke-width="1" opacity=".4">
+    <line x1="180" y1="170" x2="260" y2="176"/>
+    <line x1="140" y1="200" x2="250" y2="208"/>
+    <line x1="200" y1="230" x2="300" y2="236"/>
+  </g>
+</svg>
+
+</div>
+
+<div id="bgLoad">
+  <div class="bl-s">Karakoram · 35°52′N 76°30′E</div>
+  <div class="bl-t">Raising the mountain</div>
+  <div class="bl-line"></div>
+</div>
+
+<div id="lbox-t"></div><div id="lbox-b"></div>
+<canvas id="stars"></canvas>
+<div id="progress"></div>
+<div class="ctrl">
+  <button id="btnWind">♪ Wind</button>
+  <button id="btnExplore">◈ Explore</button>
+  <button id="btnLite">◐ Lite</button>
+</div>
+<div id="scrub"></div>
+<button id="exploreExit">✕ Return to the story</button>
+<nav class="rail" aria-label="Chapters">
+  <a href="#prologue" data-ch="prologue"><span class="dot"></span><span class="lbl">Prologue</span></a>
+  <a href="#ch1" data-ch="ch1"><span class="dot"></span><span class="lbl">I · The Socialite</span></a>
+  <a href="#ch2" data-ch="ch2"><span class="dot"></span><span class="lbl">II · The Team</span></a>
+  <a href="#ch3" data-ch="ch3"><span class="dot"></span><span class="lbl">III · The Mountain</span></a>
+  <a href="#ch4" data-ch="ch4"><span class="dot"></span><span class="lbl">IV · The Climb</span></a>
+  <a href="#ch5" data-ch="ch5"><span class="dot"></span><span class="lbl">V · 800 Feet</span></a>
+  <a href="#ch6" data-ch="ch6"><span class="dot"></span><span class="lbl">VI · The Long Wait</span></a>
+  <a href="#ch7" data-ch="ch7"><span class="dot"></span><span class="lbl">VII · The Silence</span></a>
+  <a href="#memorial" data-ch="memorial"><span class="dot"></span><span class="lbl">In Memoriam</span></a>
+</nav>
+<div class="alti" aria-hidden="true">
+  <div class="alti-cap">Altitude</div>
+  <div class="alti-ft" id="altiFt">16,500 ft</div>
+  <div class="alti-m" id="altiM">5,030 m</div>
+  <div class="alti-bar"><div class="alti-fill" id="altiFill"></div></div>
+</div>
+<div class="m3d-hud" id="m3dHud">
+  <div class="h-phase" id="hudPhase"></div>
+  <div class="h-date" id="hudDate">The Abruzzi Spur</div>
+  <div class="h-sub" id="hudTitle">Fifty-three days on the mountain</div>
+  <div class="h-alt" id="hudAlt"></div>
+</div>
+<div class="m3d-legend" id="m3dLegend"></div>
+<div class="m3d-note" id="m3dNote">Terrain: real elevation data · Camp positions approximate<br>Altitudes per the 1939 expedition record</div>
+
+<main>
+
+<section class="prologue" id="prologue" data-alt="16500">
+  <span class="eyebrow">An American Expedition · Karakoram · 1939</span>
+  <h1>The Mountain<br>That <em>Swallowed</em> Them</h1>
+  <div class="rule"></div>
+  <p class="sub">800 feet from the greatest prize in mountaineering. Four men left on the mountain. Fifty years before the truth came down.</p>
+  <div class="stats">
+    <div class="stat"><b>28,251</b><span>Feet · The Summit</span></div>
+    <div class="stat"><b>800</b><span>Feet · From the Top</span></div>
+    <div class="stat"><b>38</b><span>Days · Above 22,000 ft</span></div>
+    <div class="stat loss"><b>4</b><span>Lost · Forever</span></div>
+  </div>
+  <div class="cue">Scroll<div class="line"></div></div>
+</section>
+
+<div class="breath"></div>
+<div class="pq pq-sky reveal" id="k-quote" data-alt="16500">
+  "It is difficult to record in temperate language the folly of this enterprise."
+  <span class="att">— Kenneth Mason, Himalayan Journal founding editor, 1955</span>
+</div>
+<div class="breath"></div>
+
+<div id="ch1-zone">
+<section class="ch-cover" id="ch1" data-n="01" data-alt="30">
+  <div class="inner">
+    <span class="num">Chapter I</span>
+    <h2>The Socialite</h2>
+    <p class="dek">Dudley Wolfe had crossed an ocean under sail and driven an ambulance through a world war. The one thing he never mastered was climbing.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+      <p class="lede reveal">Dudley Francis Cecil Wolfe was born on February 6, 1896, into a world of inherited wealth and invented pedigree. His father, an English immigrant coffee importer, mixed in New York society on entirely fictitious stories of an aristocratic past. His mother Mabel was the daughter of <strong>Benjamin Franklin Smith</strong>, whose Colorado mining fortune — worth $70 to $100 million by 1927 — made him reputedly the richest man in New England, roughly <span class="hl">a billion dollars and more in today's money</span>.</p>
+      <p class="reveal">When the U.S. military rejected him in 1916 — poor eyesight, flat feet — Wolfe joined the Red Cross ambulance corps and drove a converted Model T through the killing fields of the Great War, later earning the <em>Croce di Guerra</em> with the Italian Ambulance Service. Called up at last by the French Foreign Legion in October 1918, he served one month before the Armistice. His old school, which had once expelled him for poor grades, now acclaimed him as its most decorated former student.</p>
+      <p class="reveal">In 1929 he commissioned a sixty-foot schooner, <em>Mohawk</em>, and became <strong>the first person to race a sixty-foot yacht across the Atlantic</strong> — finishing second in the King and Queen's Cup against vessels of a hundred feet and more, captaining her himself.</p>
+      <p class="reveal">He entered Harvard at 29 despite lacking the qualifications and graduated in 1930. He married skiing pioneer Alice Damrosch in 1934, asked for a divorce in 1938 — and they went on living together anyway. He skied across the Mont Blanc massif. Rock climbing, with all its technicalities, he tried and never mastered; in the spring of 1939 he failed to summit Mont Blanc and Piz Palü even with a guide.</p>
+      <p class="reveal">In early 1938, in their Fifth Avenue apartment, Wolfe and Alice projected slides of their Alpine seasons for their friends. Among the guests was <strong>Fritz Wiessner</strong> — quietly scanning the room for wealthy mountaineers who might fund his obsession.</p>
+    </div></div></div>
+<div class="breath" id="k-ch1-end"></div>
+</div>
+<div class="film slim" id="clipB1" data-alt="30">
+  <div class="film-head"><span class="eyebrow">1939 · On Film</span><h3>The second American expedition sets out</h3></div>
+  <div class="film-frame"><video class="clip" src="clips/k2b-clip-1.mp4" muted loop playsinline preload="metadata"></video>
+  <button class="snd">Sound on</button></div>
+  <p class="film-cap">The expedition on film, 11:53–12:48 · Quest for K2: Savage Mountain (National Geographic, 2000) · footage © the filmmakers · local excerpt</p>
+</div>
+<section class="ch-cover" id="ch2" data-n="02" data-alt="30">
+  <div class="inner">
+    <span class="num">Chapter II</span>
+    <h2>Chosen for Wealth,<br>Not for Mountains</h2>
+    <p class="dek">Every qualified climber Wiessner invited said no. What sailed from Genoa was a team selected by bank balance.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+      <p class="lede reveal">With the American economy in poor shape, there was no public or private funding to be had for 1939. Wiessner had to build a team from men who could pay their own way — <span class="hl">$2,500 each</span>, six months from home. Every strong climber he invited turned him down: Bill House, Adams Carter, Sterling Hendricks, Roger Whitney, Alfred Lindley. House later admitted his refusal was down to <em>personal differences with Wiessner</em>.</p>
+      <p class="reveal">What assembled instead was a team that Jack Durrance, in his private diary, judged under-qualified — every man of them, himself included, save Wiessner.</p>
+      <p class="reveal" style="font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--smoke);border:1px solid var(--paperline);padding:1.1rem 1.3rem">The team photograph — standing: Sheldon, Cranmer, Durrance, Trench; seated: Cromwell, Wiessner, Wolfe — is held by the Jack Durrance Collection and can be seen at <a href="https://americanalpineclub.org/news/2018/2/17/k2-1939-the-second-american-karakoram-expedition" style="color:var(--bronze)">the American Alpine Club</a>.</p>
+      <figure class="filmfig reveal"><div class="ff-wrap"><video class="clip" src="clips/k2b-clip-2.mp4" muted loop playsinline preload="metadata"></video><button class="snd">Sound on</button></div><figcaption>The men of 1939 — the team on film, 13:13–14:08 · Quest for K2: Savage Mountain (National Geographic, 2000) · footage © the filmmakers · local excerpt</figcaption></figure>
+<div class="cast">
+        <div class="cc reveal">
+          <div class="cc-media"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fritz%20Wiessner%20en%201981.jpg" alt="Fritz Wiessner, 1981" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;mono&quot;>FW</div>'"><span class="src">1981 · Commons</span></div><div class="cc-name">Fritz Wiessner</div>
+          <div class="cc-role">Leader · Age 39</div>
+          <div class="cc-desc">German-born, naturalized 1935. Nanga Parbat 1932. First ascent of Mount Waddington. The pre-eminent American climber — and the only one on the team with experience on an 8,000-meter peak. Brilliant, forceful, obsessed with K2 since he first saw it from 130 miles away.</div>
+        </div>
+        <div class="cc dead reveal">
+          <div class="cc-media"><div class="mono">DW</div></div><div class="cc-name">Dudley Wolfe ✝</div>
+          <div class="cc-role">Climber · Age 43</div>
+          <div class="cc-desc">Substantially bankrolling the expedition. Bulky and clumsy on rock, but strong, tireless under hardship, and well-liked. Would climb higher than any American except Wiessner — and never come back down.</div>
+        </div>
+        <div class="cc reveal">
+          <div class="cc-media"><div class="mono">TC</div></div><div class="cc-name">Tony Cromwell</div>
+          <div class="cc-role">Deputy Leader · Age 46</div>
+          <div class="cc-desc">Independently wealthy, with more ascents than anyone in the AAC — all of them behind guides. Said from the start he would not climb above Camp IV. His July 18 order to clear the lower camps would become the center of the storm.</div>
+        </div>
+        <div class="cc reveal">
+          <div class="cc-media"><div class="mono">JD</div></div><div class="cc-name">Jack Durrance</div>
+          <div class="cc-role">Expedition Doctor · Age 26</div>
+          <div class="cc-desc">A last-minute replacement, appointed after the others had sailed. Bavarian boyhood, Teton guide — and no actual medical training yet. His high-altitude boots arrived three weeks late. He would keep his diary sealed for fifty years.</div>
+        </div>
+        <div class="cc reveal">
+          <div class="cc-media"><div class="mono">CC</div></div><div class="cc-name">Chappell Cranmer</div>
+          <div class="cc-role">Climber · Age 20</div>
+          <div class="cc-desc">Dartmouth student, Wiessner's climbing partner in 1938. Collapsed at Base Camp — probably pulmonary edema — and was saved by two hours of Durrance's artificial respiration. He might have been Wiessner's best climber. His expedition was over on day two.</div>
+        </div>
+        <div class="cc reveal">
+          <div class="cc-media"><div class="mono">GS</div></div><div class="cc-name">George Sheldon</div>
+          <div class="cc-role">Climber · Age 20</div>
+          <div class="cc-desc">Cranmer's Dartmouth classmate, with a little Tetons experience and great enthusiasm. Severely frostbitten toes ended his climb; he left for home before the disaster began.</div>
+        </div>
+      </div>
+      <p class="reveal">And there were the nine Sherpas from Darjeeling, led by sirdar <strong>Pasang Kikuli</strong> — Nanda Devi 1936, K2 1938: <span class="hl">the most experienced high-altitude climber in the world</span>. His deputy was Pasang Dawa Lama. Four of the nine had been on K2 the year before. They would prove more capable than most of the men they served — and they shared no common language with them.</p>
+    </div></div></div>
+<div class="panel-wrap plate-panel" id="plate-ch2"><div class="panel"><div class="narrative"><figure class="photo reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vittorio%20Sella%20Himalayas%20K2%20pictured%20from%20west%20c1900.jpg" alt="K2 from the west, Vittorio Sella, c. 1900" loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>The mountain that awaited them — K2 from the west, photographed by Vittorio Sella, c. 1900 · Wikimedia Commons, public domain.</figcaption></figure></div></div></div>
+<div class="breath" id="k-ch2-end"></div>
+<section class="ch-cover" id="ch3" data-n="03" data-alt="16500">
+  <div class="inner">
+    <span class="num">Chapter III</span>
+    <h2>The Savage Mountain</h2>
+    <p class="dek">28,251 feet. Three expeditions had already failed on it. The 1938 party had left a route open like a door ajar.</p>
+  </div>
+</section>
+<div class="over-steps">
+<div class="over-step" id="k-ch3-mid" data-alt="16500"><div class="over-card">
+          <span class="kick">The Karakoram</span>
+          <p>K2 stands <strong>28,251 feet</strong> above sea level on what was then the border of British India and China — the second-highest mountain on Earth, the highest point of the Karakoram, and the first great peak to catch every storm rolling in across Central Asia.</p>
+          <p>Just reaching it took a month: 330 miles from the roadhead at Wayil, by foot and pony, over the Zoji La and up the Baltoro Glacier. Cromwell called it a bleak and barren country. On May 31 the party turned into the Godwin-Austen Glacier and saw K2 at last.</p>
+        </div></div>
+<div class="over-step" id="k-ch3-end" data-alt="18600"><div class="over-card">
+          <span class="kick">The Abruzzi Ridge</span>
+          <p>In 1909 the Duke of the Abruzzi's expedition — with Vittorio Sella hauling 30×40&nbsp;cm photographic plates across the glaciers — reached about 20,510 feet on the southeast ridge before declaring the mountain unclimbable. The ridge took the Duke's name anyway.</p>
+          <p>In 1938, Charlie Houston's American reconnaissance climbed that same ridge to about <strong>26,000 feet</strong>, mapped the camps, solved the House Chimney, and came home with a clear route to the summit.</p>
+          <p><span class="hl">The way was open. Wiessner needed only to follow it.</span></p>
+        </div></div>
+</div>
+<div class="panel-wrap"><div class="panel"><div class="narrative"><figure class="photo reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/K2%20from%20Godwin-Austen%20glacier%2C%20Vittorio%20Sella%2C%201909.jpg" alt="K2 from the Godwin-Austen glacier, Vittorio Sella, 1909" loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>K2 from the Godwin-Austen Glacier · Vittorio Sella, 1909 Duke of the Abruzzi expedition · Wikimedia Commons, public domain. Sella carried 30×40 cm photographic plates across the Karakoram; the Abruzzi Ridge — where the 1939 party pitched nine camps — rises on the right skyline.</figcaption></figure><div class="sella-row reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vittorio%20Sella.jpg" alt="Vittorio Sella" loading="lazy" onerror="this.closest('.sella-row').style.display='none'"><div class="s-cap">Vittorio Sella, 1859–1943 · The photographs on this page of K2 before the age of color were made by Sella and the Duke of the Abruzzi’s 1909 expedition — thirty years before Wiessner’s party pitched its tents on the ridge that took the Duke’s name.</div></div><figure class="filmfig reveal"><div class="ff-wrap"><video class="clip" src="clips/k2b-clip-3.mp4" muted loop playsinline preload="metadata"></video><button class="snd">Sound on</button></div><figcaption>The approach and the ridge, 14:08–14:57 · Quest for K2: Savage Mountain (National Geographic, 2000) · footage © the filmmakers · local excerpt</figcaption></figure></div></div></div>
+
+<div class="film" id="clip1" data-alt="16500">
+  <div class="film-head">
+    <span class="eyebrow">The Mountain on Film</span>
+    <h3>The savage mountain from the air</h3>
+  </div>
+  <div class="film-frame">
+    <video class="clip" src="clips/k2-clip-1.mp4" muted loop playsinline preload="metadata"></video><button class="snd" data-v="1">Sound on</button>
+  </div>
+  <p class="film-cap">Footage © the filmmaker · local clip · tap for sound</p>
+  <a class="film-more" href="https://www.youtube.com/watch?v=sshB4SaGhwY" target="_blank" rel="noopener">Watch the full documentary ↗</a>
+</div>
+
+<div class="film slim" id="clip2" data-alt="16500">
+  <div class="film-head">
+    <span class="eyebrow">Interlude</span>
+    <h3>Onto the Godwin-Austen</h3>
+  </div>
+  <div class="film-frame">
+    <video class="clip" src="clips/k2-clip-2.mp4" muted loop playsinline preload="metadata"></video><button class="snd" data-v="2">Sound on</button>
+  </div>
+  <p class="film-cap">Footage © the filmmaker · local clip</p>
+  <a class="film-more" href="https://www.youtube.com/watch?v=sshB4SaGhwY" target="_blank" rel="noopener">Watch the full documentary ↗</a>
+</div>
+<div id="ch4-zone">
+<div class="over-steps">
+    <div class="over-step" data-ev="-1" id="ch4" data-alt="16500"><div class="over-card">
+      <span class="kick">Chapter IV · June 1 — July 31, 1939</span>
+      <h4>Fifty-three days on the Abruzzi Spur</h4>
+      <p>What follows is the expedition day by day, over the real terrain of K2 — every dated position drawn from the expedition record. Each dot is a person. Scroll, and watch the gap widen — fatally — between the summit party and the world below.</p>
+      <p style="font-size:.78rem;color:var(--smoke)">Camp locations are placed approximately along the Abruzzi route; altitudes are as documented in 1939.</p>
+    </div></div>
+    <div class="over-step" data-ev="0" id="ev0" data-alt="16500"><div class="over-card">
+      <span class="kick">June 1, 1939</span>
+      <h4>Base Camp Established</h4>
+      <p>After a month-long trek from Srinagar — 330 miles by foot and pony — the expedition establishes Base Camp at <strong>16,500 feet</strong> on the Godwin-Austen Glacier.</p><p>The next day, <strong>Cranmer collapses</strong> with pulmonary edema. Durrance saves his life with two hours of artificial respiration. Wiessner's most promising young climber is finished.</p><p>Porters are sent back to Askole with instructions to return on <span class="hl">July 23</span>. They have 53 days to climb the mountain.</p>
+    </div></div>
+    <div class="over-step" data-ev="1" id="ev1" data-alt="19300"><div class="over-card">
+      <span class="kick">June 14, 1939</span>
+      <h4>Wiessner Takes the Lead</h4>
+      <p>Camp II established as the main supply depot — 3,360 pounds of stores. Wiessner discovers <strong>Cromwell</strong> has barely advanced beyond the 1938 sites. He takes over all lead climbing.</p><p>Wolfe is slow but tireless and well-liked. He associates more closely with Wiessner — possibly because he is paying most of the bills. The team is splitting along class lines.</p>
+    </div></div>
+    <div class="over-step" data-ev="2" id="ev2" data-alt="21500"><div class="over-card">
+      <span class="kick">June 21–29, 1939</span>
+      <h4>The Eight-Day Storm</h4>
+      <p>A storm pins the expedition for eight days. At Camp IV the temperature drops to <strong>−2°F (−19°C)</strong>. At Camp II, hurricane-force gusts reach <strong>80 mph</strong>.</p><p>When the weather clears, Wiessner and Wolfe still want to summit. <span class="dng">Everyone else has lost the will.</span></p><p>Durrance's boots finally arrive on June 28. Sheldon has severe frostbite and is sent down permanently.</p>
+    </div></div>
+    <div class="over-step" data-ev="3" id="ev3" data-alt="22000"><div class="over-card">
+      <span class="kick">June 30 – July 1, 1939</span>
+      <h4>The House Chimney</h4>
+      <p>Wiessner scales the <strong>House Chimney</strong> — the crux gully Bill House had led over four hours in 1938 — fixes ropes, and pulls Pasang Kikuli up after him.</p><p>The next day, on a very tight rope, he hauls <strong>Wolfe</strong> and another Sherpa up the cliffs. The four establish <strong>Camp V at 22,000 feet</strong>, right above the chimney, where the sharp part of the ridge begins.</p>
+    </div></div>
+<div class="over-step" data-ev="4" id="ev4" data-alt="24700"><div class="over-card">
+      <span class="kick">July 6, 1939</span>
+      <h4>Camp VII — Top of the Ridge</h4>
+      <p>Wiessner scales the <strong>House Chimney</strong>, fixes ropes, and pushes through the Black Pyramid to establish <strong>Camp VII at 24,700 feet</strong> — the top of the Abruzzi Ridge.</p><p>No supplies have reached even Camp IV. Wiessner descends all the way to Camp II to find out why. The support team is astonished by his progress but has barely been functioning.</p>
+    </div></div>
+    <div class="over-step" data-ev="5" id="ev5" data-alt="24700"><div class="over-card">
+      <span class="kick">July 13, 1939</span>
+      <h4>Durrance Collapses</h4>
+      <p>Ascending to Camp VII, <strong>Durrance collapses</strong> with altitude sickness — likely cerebral or pulmonary edema. He barely manages to descend to Camp VI.</p><p>He leaves rushed instructions for the Sherpas to ferry supplies upward — but they share <strong>no common language</strong> with the Americans. The instructions may not have been understood.</p><p>The supply chain is now broken. Above, three climbers and three Sherpas continue toward the summit. Below, no one is fit to climb.</p>
+    </div></div>
+    <div class="over-step" data-ev="6" id="ev6" data-alt="25300"><div class="over-card">
+      <span class="kick">July 14, 1939</span>
+      <h4>Camp VIII — The Shoulder</h4>
+      <p>Wiessner, Wolfe, and Pasang Dawa Lama reach <strong>Camp VIII at 25,300 feet</strong> on The Shoulder.</p><p>Durrance has retreated all the way to Camp II where he finds Cromwell and Trench in <span class="dng">complete apathy</span>.</p><p>Dudley Wolfe has now been above 22,000 feet for <strong>24 continuous days</strong>. His body is slowly deteriorating in the thin air — though the full effects of prolonged extreme altitude were not yet understood.</p>
+    </div></div>
+    <div class="over-step" data-ev="7" id="ev7" data-alt="26050"><div class="over-card">
+      <span class="kick">July 17, 1939</span>
+      <h4>Wolfe Turns Back at the Bergschrund</h4>
+      <p>The summit assault begins. At the bergschrund above Camp VIII it becomes clear <strong>Wolfe can climb no higher</strong>. He returns to Camp VIII to wait. <span class="dng">He will never leave it under his own power.</span></p><p>Wiessner and Pasang Lama push on, establishing Camp IX at 26,050 feet on a rock pillar. Provisions for 6 days. Fuel for longer.</p>
+    </div></div>
+    <div class="over-step" data-ev="8" id="ev8" data-alt="27450"><div class="over-card">
+      <span class="kick">July 19, 1939</span>
+      <h4>800 Feet from the Summit</h4>
+      <p>9:00 AM. Perfect weather. Wiessner chooses the harder rock route over the easier Bottleneck couloir.</p><p>Nine hours of unprecedented technical climbing. By nightfall they stand at <strong>~27,450 feet</strong>. Only 800 feet of easy snow plateau separates them from the top.</p><p>Wiessner wants to push through the moonlit night. <span class="dng">Pasang Lama refuses</span> and will not pay out the rope. Wiessner agrees to descend.</p><p>Below, Sherpa Tse Tendrup has reached 500 feet below Camp VIII. He shouts three times. Gets no reply. Concludes everyone above is dead.</p>
+    </div></div>
+    <div class="over-step" data-ev="9" id="ev9" data-alt="26050"><div class="over-card tragic">
+      <span class="kick">July 20–21, 1939</span>
+      <h4>The Camps Are Stripped</h4>
+      <p>Believing the summit party dead, Sherpas in the middle camps strip Camps VII and VI of tents and sleeping bags as they descend.</p><p>July 21: Wiessner and Pasang Lama try the Bottleneck route, but without crampons the snow is impossible. <strong>The summit is finished.</strong></p><p>Sheldon and Cranmer leave for home — Dartmouth term begins soon. They will miss the catastrophe entirely.</p>
+    </div></div>
+    <div class="over-step" data-ev="10" id="ev10" data-alt="24700"><div class="over-card tragic">
+      <span class="kick">July 22, 1939</span>
+      <h4>Wolfe Found Alone</h4>
+      <p>Wiessner and Pasang Lama descend to Camp VIII expecting resupply. They find <strong>Wolfe alone</strong>, out of matches, unable to cook or melt ice. He has been alone for over a week.</p><p>Descending to Camp VII, Wolfe's clumsiness causes a fall on the rope that nearly kills all three. His sleeping bag is lost.</p><p>At Camp VII: tents collapsed, no mattresses, one sleeping bag, food scattered in the snow. Wiessner leaves Wolfe here to descend further for help.</p><p>Dudley Wolfe is now alone at <span class="dng">24,700 feet with nothing</span>.</p>
+    </div></div>
+    <div class="over-step" data-ev="11" id="ev11" data-alt="24700"><div class="over-card tragic">
+      <span class="kick">July 24, 1939</span>
+      <h4>The Recriminations</h4>
+      <p>Wiessner and Pasang Lama stagger into Base Camp, barely able to walk. Pasang Lama is in dire condition.</p><p>Wiessner is <strong>furious</strong>. He accuses Cromwell of attempting to murder them. Cromwell accuses Wiessner of abandoning Wolfe. <span class="dng">They become enemies for life.</span></p><p>Durrance keeps quiet about his role in clearing the lower camps — it had been under Cromwell's orders.</p>
+    </div></div>
+    <div class="over-step" data-ev="12" id="ev12" data-alt="24700"><div class="over-card">
+      <span class="kick">July 28, 1939</span>
+      <h4>Kikuli’s Impossible Climb</h4>
+      <p><strong>Pasang Kikuli</strong> and Tsering Norbu leave Base Camp at 6:00 AM. By noon they reach Camp IV. By evening — Camp VI.</p><p>They have climbed <span class="hl">7,000 vertical feet in a single day</span> — almost 1,000 feet per hour. Western climbers would not match this alpine-style ascent for decades.</p><p>Cromwell and Trench have already left, leading the porters back to Askole.</p>
+    </div></div>
+    <div class="over-step" data-ev="13" id="ev13" data-alt="24700"><div class="over-card tragic">
+      <span class="kick">July 29, 1939</span>
+      <h4>The Sherpas Reach Wolfe</h4>
+      <p>Pasang Kikuli, Pasang Kitar, and Phinsoo reach Wolfe at Camp VII. <strong>What they find is devastating.</strong></p><p>He has been alone at over 24,000 feet for a week. Trapped in his tent, covered in urine and feces, utterly apathetic. He has spent <span class="dng">38 continuous days above 22,000 feet</span> — unmatched at the time, even with oxygen.</p><p>He is uninterested in the letters they bring. He refuses to descend.</p><p>He tells them to come back tomorrow — he will be ready then.</p>
+    </div></div>
+    <div class="over-step" data-ev="14" id="ev14" data-alt="24700"><div class="over-card tragic">
+      <span class="kick">July 31, 1939</span>
+      <h4>The Last Ascent</h4>
+      <p>After being stormbound on July 30, the three Sherpas climb to Camp VII for a third time.</p><p style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#762c26;padding:1rem 0;line-height:1.5">Pasang Kikuli, Pasang Kitar, Phinsoo,<br>and Dudley Wolfe were never seen alive again.</p><p>Tsering Norbu waits two days at Camp VI, then runs down. Durrance writes: <em>"The Sherpas are certain something awful has happened."</em></p><p>In 2002 — sixty-three years later — Wolfe's remains were found on the Godwin-Austen Glacier with fragments of his tent and a leather mitten marked <strong>"Wolfe."</strong></p>
+    <figure class="filmfig reveal"><div class="ff-wrap"><video class="clip" src="clips/k2b-clip-4.mp4" muted loop playsinline preload="metadata"></video><button class="snd">Sound on</button></div><figcaption>The mountain in 1939, 15:07–15:37 · Quest for K2: Savage Mountain (National Geographic, 2000) · footage © the filmmakers · local excerpt</figcaption></figure></div></div>
+<div class="over-step" data-ev="15" id="ev15" data-alt="16500"><div class="over-card tragic">
+      <span class="kick">August 2, 1939</span>
+      <h4>Something Awful</h4>
+      <p>Tsering Norbu waits two days at Camp VI, then runs down the mountain in a single morning.</p><p>Durrance writes in his diary: <em>"The Sherpas are certain something awful has happened."</em></p><p>Wiessner refuses to believe it — it seems impossible to him that anything could have happened to so able a group.</p>
+    </div></div>
+<div class="over-step" data-ev="16" id="ev16" data-alt="18600"><div class="over-card tragic">
+      <span class="kick">August 3–7, 1939</span>
+      <h4>The Last Search</h4>
+      <p>With no one left fit to climb, Wiessner sets out anyway with Tsering Norbu and Dawa Thondup. It takes them all day to reach <strong>Camp I</strong>.</p><p>A storm pins them there until August 7. Then Tsering Norbu corrects his earlier account: they had found Wolfe at Camp VII with <span class="dng">no food at all</span>.</p><p>Even Wiessner loses hope. Wolfe and the three Sherpas are gone. The glacier keeps them for sixty-three years.</p>
+    </div></div>
+  </div>
+</div>
+<div class="film slim" id="clip3" data-alt="26050">
+  <div class="film-head">
+    <span class="eyebrow">The Upper Mountain</span>
+    <h3>Where the air runs out</h3>
+  </div>
+  <div class="film-frame">
+    <video class="clip" src="clips/k2-clip-3.mp4" muted loop playsinline preload="metadata"></video><button class="snd" data-v="3">Sound on</button>
+  </div>
+  <p class="film-cap">Footage © the filmmaker · local clip</p>
+  <a class="film-more" href="https://www.youtube.com/watch?v=sshB4SaGhwY" target="_blank" rel="noopener">Watch the full documentary ↗</a>
+</div>
+<div class="panel-wrap plate-panel" id="plate-eastface"><div class="panel"><div class="narrative"><figure class="photo reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg" alt="K2 East Face, 1909" loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>The east face of K2 and the line of the Abruzzi Spur, photographed on the Duke of the Abruzzi’s 1909 expedition · Wikimedia Commons, public domain. Thirty years later, nine camps and four graves.</figcaption></figure></div></div></div>
+<section class="ch-cover" id="ch5" data-n="05" data-alt="27450">
+  <div class="inner">
+    <span class="num">Chapter V · July 19, 1939</span>
+    <h2>800 Feet from Glory</h2>
+    <p class="dek">No one had ever stood on an 8,000-meter summit. By nightfall, two men were an easy snow plateau away from being first.</p>
+  
+</div>
+</section>
+<div class="over-steps">
+<div class="over-step" id="ov5-0" data-alt="26050"><div class="over-card">
+          <span class="kick">09:00 · Camp IX · 26,050 ft</span>
+          <p>Wiessner and Pasang Dawa Lama left camp in perfect weather — a late start, with the summit 2,200 feet above them.</p>
+          <p>At a point of decision, Wiessner faced two ways up: a traverse right into the couloir later named the <strong>Bottleneck</strong>, beneath unstable ice from the summit cornice — or a direct rock climb to the left, free of falling ice but brutally difficult. He chose the rock.</p>
+        </div></div>
+<div class="over-step" id="ov5-1" data-alt="27450"><div class="over-card">
+          <span class="kick">Nightfall · ~27,450 ft</span>
+          <p>Nine hours of climbing followed, at a technical standard unprecedented at that altitude — a line that, as of Viesturs and Roberts' 2009 account, <strong>has never been repeated</strong>.</p>
+          <p>By dark they stood at roughly 27,450 feet. Above them lay <span class="hl">800 feet of easy snow</span>. Wiessner wanted to push on through the night and finish it.</p>
+          <p><strong>Pasang Lama refused</strong>, and would not pay out the rope. Wiessner agreed to turn back — he did not go on alone, and through all the bitterness to come, he never once criticized his partner.</p>
+        </div></div>
+<div class="over-step" id="ov5-2" data-alt="27450"><div class="over-card">
+          <span class="kick">The Descent</span>
+          <p>Going back down the cliffs in darkness, Pasang Lama lost both pairs of crampons he was carrying. They reached camp at 2:30 in the morning.</p>
+          <div class="pq" style="margin:1.8rem 0 0;font-size:1.3rem;text-align:left">
+            "I regretted many times on the way down that I had given in."
+            <span class="att">— Fritz Wiessner</span>
+          </div>
+        </div></div>
+<div class="over-step" id="ov5-3" data-alt="26050"><div class="over-card">
+          <span class="kick">July 21 · The Second Attempt</span>
+          <p>They tried again by the Bottleneck. Without crampons, in bad snow, it was hopeless. They returned to Camp IX. The summit was finished.</p>
+          <p>Jim Curran's later verdict: had Wiessner taken the couloir on the 19th, the pair might have summited and returned to camp the same day — <em>the first humans atop an eight-thousander, without oxygen, fifteen years before Annapurna</em> — and, with the high camps still stocked and manned as Wiessner believed they were, everyone might have come home.</p>
+        </div></div>
+</div>
+<div id="ch6-zone">
+<section class="ch-cover" id="ch6" data-n="06" data-alt="24700">
+  <div class="inner">
+    <span class="num">Chapter VI</span>
+    <h2>The Long Wait</h2>
+    <p class="dek">While two men fought for the summit, the mountain beneath them was quietly emptying out. His dot still marks Camp VII.</p>
+  </div>
+</section>
+<div class="breath" id="k-ch6-body"></div>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+      <p class="lede reveal">While Wiessner climbed, Dudley Wolfe waited at Camp VIII, where his body had given out at the bergschrund on July 17. By the time Wiessner and Pasang Lama came back down on <strong>July 22</strong>, Wolfe had been alone for days — out of matches, unable to cook or even melt ice for water. Descending together toward Camp VII, Wolfe stumbled on the rope and nearly pulled all three men off the mountain; his sleeping bag was lost in the fall.</p>
+      <p class="reveal">At Camp VII, a second shock: the tents collapsed under snow, no mattresses, one sleeping bag among three men, food scattered. <span class="dng">The camp had been stripped.</span></p>
+      <p class="reveal">What had happened below was a cascade of misread signals. On July 20 the Sherpa Tse Tendrup had climbed to within 500 feet of Camp VIII and shouted, three times, into the silence. No answer came. Seeing fresh avalanche debris, he concluded the summit party was dead — and the Sherpas, seeing the lower camps already being cleared on Cromwell's July 18 order, struck Camps VI and VII on the way down. By July 23 they were at Base Camp.</p>
+      <p class="reveal">Wiessner left Wolfe at Camp VII — at Wolfe's own request, he later said — and descended with Pasang Lama, expecting to find supplies one camp down, still intending another summit attempt. Camp by camp they found nothing: little food, no sleeping bags, no people. They staggered into Base Camp on July 24, barely able to walk. Wiessner, enraged, accused first Cromwell and then Tendrup of trying to murder him. Cromwell, in turn, accused Wiessner of abandoning Wolfe. They were enemies for life within the hour.</p>
+      <p class="reveal"><strong>Wolfe was now the highest human being on Earth — and entirely alone.</strong></p>
+      <div class="record reveal" id="k-ch6-record">
+        <div class="rec-meta">The rescue · From the expedition record</div>
+        <p>July 25 — Durrance sets out with Dawa Thondup, Phinsoo and Pasang Kitar; exhausted, he and Dawa Thondup turn back from Camp IV while the two Sherpas continue to Camp VI.</p>
+        <p>July 28 — Pasang Kikuli and Tsering Norbu leave Base Camp at 06:00 and reach Camp VI by nightfall: 7,000 vertical feet in a single day, an alpine-style ascent Western climbers would not match for decades.</p>
+        <p>July 29, noon — Pasang Kikuli, Pasang Kitar and Phinsoo reach Wolfe at Camp VII. He has now spent 38 continuous days above 22,000 feet — at the time, no one had done this even with bottled oxygen. They find him apathetic, trapped in a fouled tent, uninterested in his letters. He refuses to descend, telling them to come back the next day, when he will be ready.</p>
+        <p>July 31 — After a day stormbound at Camp VI, the same three Sherpas climb toward Camp VII a second time.</p>
+      </div>
+      <p class="reveal" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--snow)">Pasang Kikuli, Pasang Kitar, Phinsoo, and Dudley Wolfe<br>were never seen alive again.</p>
+    </div></div></div>
+</div>
+<section class="ch-cover" id="ch7" data-n="07" data-alt="16500">
+  <div class="inner">
+    <span class="num">Chapter VII</span>
+    <h2>Fifty Years of Silence</h2>
+    <p class="dek">The blame shifted like snow — from Wiessner, to Durrance, and at last, half a century on, to where the diary said it belonged.</p>
+  </div>
+</section>
+<div class="breath" id="k-ch7-body"></div>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+      <p class="lede reveal">On August 2, Tsering Norbu ran down from Camp VI to Base Camp in a morning. Durrance wrote in his diary: <em>"The Sherpas are certain something awful has happened."</em> Wiessner refused to believe it — it seemed impossible to him that anything could have happened to so able a group. His own last search, on August 3, collapsed under a four-day storm at Camp I. By August 7, even Wiessner had lost hope. Four men were gone.</p>
+      <p class="reveal">The recriminations began at Bandipora on August 27, when Cromwell saw Wiessner's draft report and — by Durrance's diary, the only record of the scene — shouted that Wiessner had <span class="dng">murdered</span> Wolfe and the Sherpas. Cromwell and Trench had already cabled the AAC and spread their account through the British community at Srinagar. Back in America, Wiessner gave a disastrous interview to the New York Times, saying that in the high mountains, as in war, one had to expect casualties. The climbing world took sides. An AAC inquiry produced a report so bland it settled nothing. <strong>Both Wiessner and Cromwell resigned from the club.</strong></p>
+      <p class="reveal">For seventeen years, Wiessner bore the public blame. Then in 1956 he published his account and produced the story of a crumpled note — found, he said, on the floor of Camp II, in Durrance's handwriting, announcing the order to bring down the sleeping bags. Durrance never publicly refuted it. The blame swung to him, and stayed there. Wiessner was rehabilitated, made an honorary member of the AAC in 1966, and by the 1980s was revered.</p>
+      <p class="reveal">Durrance said nothing. For thirty-three more years.</p>
+      <p class="reveal">Wiessner died in 1988. Only then, in 1989, did Durrance open his handwritten expedition diary to the researchers Kauffman and Putnam. It recorded that the order to clear the lower camps had come from <strong>Cromwell</strong>, on July 18 — and that if a note had gone up the mountain, it was most likely Cromwell's note to the Sherpas at Camp VII. Durrance, they concluded, had kept silent for fifty years to protect two men who were now both dead. The crumpled note itself, which Wiessner said he had handed to the AAC inquiry, <span class="hl">was never found</span>, despite careful searches of the archives.</p>
+      <div class="pq reveal">
+        "One of the worst tragedies in the climbing history of the Himalaya."
+        <span class="att">— Fosco Maraini, 1961</span>
+      </div>
+      <p class="reveal">And yet, as Jim Curran wrote, it was so nearly an outstanding success. One route choice below the summit; one shout answered at Camp VIII; one order, better understood. In 1995, remains believed to be the Sherpas' were found on the Godwin-Austen Glacier. In 2002 the glacier gave up Dudley Wolfe: skeletal remains, vintage gear, and a leather mitten marked <em>"Wolfe."</em></p>
+    <figure class="filmfig reveal"><div class="ff-wrap"><video class="clip" src="clips/k2b-clip-5.mp4" muted loop playsinline preload="metadata"></video><button class="snd">Sound on</button></div><figcaption>What remained, 18:48–19:11 · Quest for K2: Savage Mountain (National Geographic, 2000) · footage © the filmmakers · local excerpt</figcaption></figure></div></div></div>
+<div class="panel-wrap" id="evroom" style="background:transparent"><div class="evroom" style="width:100%">
+  <div class="ev-head reveal">
+    <span class="eyebrow">The Evidence</span>
+    <h3>The Note That Was Never Found</h3>
+    <p class="ev-sub">Two accounts, published thirty-three years apart. Tap each document to weigh it.</p>
+  </div>
+  <div class="ev-docs">
+    <div class="doc front reveal">
+      <div class="d-tab">Published 1956 · Seventeen years after</div>
+      <h4>Wiessner’s account</h4>
+      <p>Wiessner produced the story of a crumpled note, found on the floor of the tent at <strong>Camp II</strong> during his descent. It was, he said, in <strong>Durrance’s handwriting</strong>, and it announced the order to bring the sleeping bags down the mountain.</p>
+      <p>He said he had handed the note to the American Alpine Club’s committee of inquiry in 1939. Durrance never publicly refuted the story — and bore the blame for over thirty years.</p>
+      <div class="d-seal">EXHIBIT: the note itself — never found, despite careful searches of the archives.</div>
+    </div>
+    <div class="doc back reveal">
+      <div class="d-tab">Opened 1989 · After Wiessner’s death</div>
+      <h4>Durrance’s diary</h4>
+      <p>For fifty years Durrance said nothing. Only after Wiessner died in 1988 did he open his handwritten expedition diary to the researchers <strong>Kauffman and Putnam</strong>.</p>
+      <p>It records that the order to clear the lower camps came from <strong>Cromwell</strong>, on July 18 — and that a note carried up to the Sherpas at Camp VII was most likely <strong>Cromwell’s</strong>, not his.</p>
+      <div class="d-seal">EXHIBIT: the diary — kept sealed for half a century.</div>
+    </div>
+  </div>
+  <div class="ev-verdict reveal"><b>Kauffman &amp; Putnam’s conclusion:</b> Durrance had kept his silence to protect two men — Wiessner and Cromwell — who were, by the time the diary opened, both dead. Wherever the note came from, it has never surfaced.</div>
+  <div class="ev-hint">Tap a document to bring it forward</div>
+</div></div>
+
+<div class="film slim" id="clip4" data-alt="16500">
+  <div class="film-head">
+    <span class="eyebrow">Epilogue on Film</span>
+    <h3>The mountain keeps its silence</h3>
+  </div>
+  <div class="film-frame">
+    <video class="clip" src="clips/k2-clip-4.mp4" muted loop playsinline preload="metadata"></video><button class="snd" data-v="4">Sound on</button>
+  </div>
+  <p class="film-cap">Footage © the filmmaker · local clip</p>
+  <a class="film-more" href="https://www.youtube.com/watch?v=sshB4SaGhwY" target="_blank" rel="noopener">Watch the full documentary ↗</a>
+</div>
+<div class="panel-wrap plate-panel" id="plate-modern"><div class="panel"><div class="narrative"><figure class="photo reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/K2_2006b.jpg" alt="K2 today" loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>K2 from the south. The mountain was finally climbed on July 31, 1954 — and remains the deadliest of the eight-thousanders.</figcaption></figure></div></div></div>
+<div class="panel-wrap" id="colophon"><div class="panel colo"><div class="narrative">
+  <h3>Sources &amp; Further Reading</h3>
+  <p class="c-sub">Everything on this page is drawn from the documented record.</p>
+  <div class="row reveal"><b>The account</b><span>Andrew J. Kauffman &amp; William L. Putnam — <em>K2: The 1939 Tragedy</em> (1992), built on Durrance’s diary</span></div>
+  <div class="row reveal"><b>The biography</b><span>Jennifer Jordan — <em>The Last Man on the Mountain: The Death of an American Adventurer on K2</em> (2010)</span></div>
+  <div class="row reveal"><b>Histories</b><span>Maurice Isserman &amp; Stewart Weaver — <em>Fallen Giants</em> (2008) · Ed Viesturs &amp; David Roberts — <em>K2: Life and Death on the World’s Most Dangerous Mountain</em> (2009) · Jim Curran — <em>K2: The Story of the Savage Mountain</em> (2013)</span></div>
+  <div class="row reveal"><b>Contemporary</b><span>Kenneth Mason — <em>Abode of Snow</em> (1955) · The American Alpine Club’s 1940 expedition report and inquiry</span></div>
+  <div class="row reveal"><b>Articles</b><span>Wikipedia — <em>1939 American Karakoram expedition to K2</em> · <em>Dudley Wolfe</em>, and the sources cited therein</span></div>
+  <div class="row reveal"><b>Film</b><span><em>Quest for K2: Savage Mountain</em> (National Geographic, 2000) and documentary footage © their makers — excerpted locally</span></div>
+  <div class="row reveal"><b>Photography</b><span>Vittorio Sella &amp; the Duke of the Abruzzi expedition, 1909 (public domain) · Wikimedia Commons · Fritz Wiessner, 1981</span></div>
+  <div class="row reveal"><b>Terrain</b><span>Elevation: Mapzen / AWS Open Data · Imagery © Esri, Maxar, Earthstar Geographics · Rendered with MapLibre GL</span></div>
+  <div class="row reveal"><b>A note on accuracy</b><span>Camp positions on the terrain are approximate, placed along the Abruzzi route; every altitude, date, and quotation follows the 1939 record.</span></div>
+</div></div></div>
+
+<div class="breath tall"></div>
+<section class="memorial" id="memorial" data-alt="16500">
+  <div class="mem-inner">
+    <h2>In Memoriam</h2>
+    <p class="mem-sub">Those who did not return</p>
+    <figure class="photo reveal">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gilkey%20Memorial.jpg" alt="The Gilkey Memorial near K2 Base Camp" loading="lazy" onerror="this.closest('figure').style.display='none'">
+      <figcaption>The Gilkey Memorial above K2 Base Camp. A plaque for Dudley Wolfe was added in 2002, when his remains were found on the Godwin-Austen Glacier — 63 years after his death. At that time the memorial carried the names of 52 other climbers lost on K2.</figcaption>
+    </figure>
+    <div class="cast" style="text-align:left;margin-top:2.5rem">
+      <div class="cc dead full reveal">
+        <div class="cc-media"><div class="mono">DW</div></div><div class="cc-name">Dudley Francis Cecil Wolfe</div>
+        <div class="cc-role">February 6, 1896 — c. July 30, 1939 · Camp VII, 24,700 ft</div>
+        <div class="cc-desc">Socialite, decorated ambulance driver, transatlantic racing captain, Harvard graduate, heir. Gentle, shy, stubborn. He spent 38 continuous days above 22,000 feet without oxygen — an endurance no one had then matched even with it. The glacier returned him in 2002, with a mitten bearing his name.</div>
+      </div>
+      <div class="cc dead reveal">
+        <div class="cc-media"><div class="mono">PK</div></div><div class="cc-name">Pasang Kikuli</div>
+        <div class="cc-role">Sirdar · Nanda Devi 1936 · K2 1938 & 1939</div>
+        <div class="cc-desc">The most experienced high-altitude climber in the world. Climbed 7,000 feet in a single day to reach the man everyone else had given up on — then went up one final time on July 31.</div>
+      </div>
+      <div class="cc dead reveal">
+        <div class="cc-media"><div class="mono">PK</div></div><div class="cc-name">Pasang Kitar</div>
+        <div class="cc-role">Sherpa · Rescue Party</div>
+        <div class="cc-desc">Went high on the first rescue attempt, reached Wolfe on the second, and volunteered again for the last. Last seen climbing toward Camp VII on July 31, 1939.</div>
+      </div>
+      <div class="cc dead reveal">
+        <div class="cc-media"><div class="mono">P</div></div><div class="cc-name">Phinsoo</div>
+        <div class="cc-role">Sherpa · K2 1938 · Rescue Party</div>
+        <div class="cc-desc">Veteran of the 1938 reconnaissance. Reached Wolfe at Camp VII on July 29 and climbed toward him again two days later. Disappeared with Pasang Kikuli, Pasang Kitar, and Wolfe.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<button class="explore-cta" id="exploreCta">◈ Explore the mountain yourself</button>
+<div class="footer" data-alt="0">
+  Sources: Wikipedia — <em>1939 American Karakoram expedition to K2</em> · <em>Dudley Wolfe</em><br>
+  drawing on Kauffman &amp; Putnam, <em>K2: The 1939 Tragedy</em> (1992) · Jordan, <em>The Last Man on the Mountain</em> (2010)<br>
+  Isserman &amp; Weaver (2008) · Viesturs &amp; Roberts (2009) · Curran (2013)<br>
+  Photographs: Wikimedia Commons · Vittorio Sella (1909, public domain) · Jack Durrance Collection / AAC<br>
+  <span class="final">K2 was finally climbed on July 31, 1954 — fifteen years to the day<br>after the last rescue party started up toward Camp VII.</span>
+</div>
+
+</main>
+
+<script>
+// ═════════ THE MOUNTAIN AS THE PAGE — terrain, silhouettes, phases, moments ═════════
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Camps: altitudes documented (1939 record); lng/lat approximate along the Abruzzi route
+  const CAMPS = {
+    base:  {ll:[76.5175,35.8420], ft:16500, name:'Base Camp'},
+    c1:    {ll:[76.5232,35.8552], ft:18600, name:'Camp I'},
+    c2:    {ll:[76.5226,35.8604], ft:19300, name:'Camp II'},
+    c3:    {ll:[76.5216,35.8646], ft:20700, name:'Camp III'},
+    c4:    {ll:[76.5206,35.8680], ft:21500, name:'Camp IV'},
+    c5:    {ll:[76.5199,35.8697], ft:22000, name:'Camp V'},
+    c6:    {ll:[76.5191,35.8722], ft:23400, name:'Camp VI'},
+    c7:    {ll:[76.5181,35.8746], ft:24700, name:'Camp VII'},
+    c8:    {ll:[76.5166,35.8766], ft:25300, name:'Camp VIII'},
+    c9:    {ll:[76.5151,35.8786], ft:26050, name:'Camp IX'},
+    highpt:{ll:[76.5141,35.8801], ft:27450, name:'High Point'},
+    summit:{ll:[76.5133,35.8814], ft:28251, name:'Summit'}
+  };
+  const ROUTE = ['base','c1','c2','c3','c4','c5','c6','c7','c8','c9','highpt','summit'];
+
+  // First event at which each camp exists; camps cleared/stripped from the July 20–21 event (idx 9)
+  const EST = {base:0,c1:1,c2:1,c3:2,c4:2,c5:3,c6:4,c7:4,c8:6,c9:7};
+  const CLEARED = {c1:9,c2:9,c3:9,c4:9,c6:9,c7:9};   // per Cromwell's order (IV & below) and the Sherpas (VI–VII)
+  const DIMMED  = {c8:10,c9:10,c5:10};               // abandoned, never restocked
+
+  const PEOPLE = {
+    wiessner:{name:'Wiessner', c:'#c9a86a'},
+    wolfe:   {name:'Wolfe',    c:'#c96a5c'},
+    pasang:  {name:'P. Lama',  c:'#7fae9c'},
+    durrance:{name:'Durrance', c:'#8fa7c4'},
+    cromwell:{name:'Cromwell', c:'#b8ad97'},
+    rescue:  {name:'Rescue Sherpas', c:'#5d7f95'}
+  };
+
+  // 17 events (jun1 … aug 3–7). lost:true renders hollow "ghost" silhouettes.
+  const POS = [
+    {wiessner:'base',wolfe:'base',pasang:'base',durrance:'base',cromwell:'base',rescue:null},
+    {wiessner:'c2',wolfe:'c2',pasang:'c2',durrance:'c2',cromwell:'c3',rescue:null},
+    {wiessner:'c4',wolfe:'c4',pasang:'c4',durrance:'c2',cromwell:'c2',rescue:null},
+    {wiessner:'c5',wolfe:'c5',pasang:'c5',durrance:'c2',cromwell:'c2',rescue:null},
+    {wiessner:'c7',wolfe:'c5',pasang:'c7',durrance:'c4',cromwell:'c2',rescue:null},
+    {wiessner:'c7',wolfe:'c7',pasang:'c7',durrance:'c6',cromwell:'c2',rescue:null},
+    {wiessner:'c8',wolfe:'c8',pasang:'c8',durrance:'c2',cromwell:'c2',rescue:null},
+    {wiessner:'c9',wolfe:'c8',pasang:'c9',durrance:'c2',cromwell:'base',rescue:null},
+    {wiessner:'highpt',wolfe:'c8',pasang:'highpt',durrance:'c2',cromwell:'base',rescue:null},
+    {wiessner:'c9',wolfe:'c8',pasang:'c9',durrance:'base',cromwell:'base',rescue:null},
+    {wiessner:'c7',wolfe:'c7',pasang:'c7',durrance:'base',cromwell:'base',rescue:null},
+    {wiessner:'base',wolfe:'c7',pasang:'base',durrance:'base',cromwell:'base',rescue:null},
+    {wiessner:'base',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'c6'},
+    {wiessner:'base',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'c7'},
+    {wiessner:'base',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'c7'},
+    {wiessner:'base',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'base',lost:['wolfe']},
+    {wiessner:'c1',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'c7',lost:['wolfe','rescue']}
+  ];
+  const DATES  = ['June 1','June 14','June 21–29','June 30 – July 1','July 6','July 13','July 14','July 17','July 19','July 20–21','July 22','July 24','July 28','July 29','July 31','August 2','August 3–7'];
+  const TITLES = ['Base Camp established','Wiessner takes the lead','The eight-day storm','The House Chimney','Camp VII — top of the ridge','Durrance collapses','Camp VIII — the Shoulder','Wolfe turns back','800 feet from the summit','The camps are stripped','Wolfe found alone','The recriminations','Kikuli\u2019s impossible climb','The Sherpas reach Wolfe','The last ascent','Something awful','The last search'];
+  const TRAGIC = [false,false,false,false,false,false,false,false,false,true,true,true,false,true,true,true,true];
+  const PHASES = ['The Approach','The Build','The Build','The Build','The Push','The Push','The Push','The Summit Bid','The Summit Bid','The Unraveling','The Unraveling','The Unraveling','The Rescue','The Rescue','The Rescue','The Silence','The Silence'];
+  // highest camp reached so far (index into ROUTE), for the progress line
+  const REACH = [0,2,4,5,7,7,8,9,10,10,10,10,10,10,10,10,10];
+
+  // Named features of the Abruzzi route — appear once the story arrives at them
+  const FEATURES = [
+    {ll:[76.5202,35.8689], label:'House Chimney', from:3},
+    {ll:[76.5193,35.8712], label:'The Black Pyramid', from:4},
+    {ll:[76.5169,35.8760], label:'The Shoulder', from:6},
+    {ll:[76.5145,35.8794], label:'The Bergschrund', from:7},
+    {ll:[76.5137,35.8806], label:'The Bottleneck', from:8}
+  ];
+  // Moment pins — a glyph + line shown only during specific events
+  const MOMENTS = [
+    {ll:[76.5170,35.8426], glyph:'✚', label:'Cranmer collapses — saved by Durrance', at:[0]},
+    {ll:[76.5209,35.8676], glyph:'❄', label:'−2 °F · 80 mph gusts at Camp II', at:[2]},
+    {ll:[76.5202,35.8690], glyph:'⤒', label:'Wolfe hauled up on a tight rope', at:[3]},
+    {ll:[76.5168,35.8759], glyph:'〣', label:'Tendrup shouts three times — no reply', at:[8,9]},
+    {ll:[76.5173,35.8756], glyph:'⚠', label:'The fall on the rope — sleeping bag lost', at:[10]},
+    {ll:[76.5200,35.8500], glyph:'✦', label:'Wolfe\u2019s remains found here · 2002', at:[16]}
+  ];
+
+  // Silhouette SVGs
+  const SVG_TENT = '<svg viewBox="0 0 24 16" width="22" height="15"><path d="M12 1 L23 15 H15 L12 9 L9 15 H1 Z" fill="currentColor" stroke="rgba(20,17,12,.7)" stroke-width="1" stroke-linejoin="round"/></svg>';
+  const SVG_CLIMBER = '<svg viewBox="0 0 20 26" width="15" height="20"><g fill="currentColor" stroke="rgba(20,17,12,.6)" stroke-width=".8"><circle cx="9.5" cy="4" r="3"/><path d="M9.5 7.5 L6 12 L5.5 19 L7.5 25 H9 L9.5 18 L11.5 25 H13 L12.5 16 L13.5 11 L16.5 14.5 L18 13 L13 7.5 Z"/><path d="M4.5 25 L5.5 8 L4 7.8 L3 25 Z"/></g></svg>';
+
+  const $ = id=>document.getElementById(id);
+  const bgLoad=$('bgLoad'), fallback=$('bgFallback');
+  const hud=$('m3dHud'), hudPhase=$('hudPhase'), hudDate=$('hudDate'), hudTitle=$('hudTitle'), hudAlt=$('hudAlt');
+  const legend=$('m3dLegend'), note=$('m3dNote');
+
+  Object.values(PEOPLE).forEach(p=>{
+    const s=document.createElement('span');
+    s.innerHTML='<i class="lg-sil" style="color:'+p.c+'">'+SVG_CLIMBER+'</i>'+p.name;
+    legend.appendChild(s);
+  });
+
+  let ch4Active=false, _zoneVig=''; function zoneVigActive(){return !!_zoneVig;} let map=null, ready=false, markers={}, camps={}, feats=[], moms=[], keyPts=[], camDirty=true, curEv=-99;
+
+  function fail(){ fallback.classList.add('on'); bgLoad.classList.add('off'); }
+
+  function loadLib(cb){
+    if(window.maplibregl) return cb();
+    const css=document.createElement('link'); css.rel='stylesheet';
+    css.href='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css';
+    css.onerror=()=>{css.href='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css';};
+    document.head.appendChild(css);
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js';
+    s.onload=cb;
+    s.onerror=()=>{ const s2=document.createElement('script');
+      s2.src='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js';
+      s2.onload=cb; s2.onerror=fail; document.head.appendChild(s2); };
+    document.head.appendChild(s);
+  }
+
+  function initMap(){
+    try{
+      map = new maplibregl.Map({
+        container:'bgMap',
+        style:{
+          version:8,
+          sources:{
+            sat:{type:'raster',
+              tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+              tileSize:256, maxzoom:17,
+              attribution:'Imagery © Esri, Maxar, Earthstar Geographics'},
+            demhs:{type:'raster-dem',
+              tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+              tileSize:256, encoding:'terrarium', maxzoom:14},
+            dem:{type:'raster-dem',
+              tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+              tileSize:256, encoding:'terrarium', maxzoom:14,
+              attribution:'Terrain: Mapzen/AWS Open Data'}
+          },
+          layers:[
+            {id:'bg',type:'background',paint:{'background-color':'#14110c'}},
+            {id:'sat',type:'raster',source:'sat',
+             paint:{'raster-saturation':-0.55,'raster-contrast':0.14,'raster-brightness-max':0.78,'raster-brightness-min':0.04}},
+            {id:'hs',type:'hillshade',source:'demhs',
+             paint:{'hillshade-exaggeration':0.5,'hillshade-shadow-color':'#0b0906','hillshade-highlight-color':'#f6ecd6','hillshade-accent-color':'#2c2820'}}
+          ],
+          sky:{'sky-color':'#0d1320','horizon-color':'#c9b895','fog-color':'#3a3629',
+               'sky-horizon-blend':0.6,'horizon-fog-blend':0.55,'fog-ground-blend':0.62}
+        },
+        center:CAMPS.base.ll, zoom:10.3, pitch:34, bearing:336,
+        maxPitch:80, minZoom:8, maxZoom:15.5,
+        interactive:false, attributionControl:{compact:true},
+        canvasContextAttributes:{antialias:false, powerPreference:'high-performance'}
+      });
+      map.on('error', ()=>{ if(!ready) fail(); });
+      map.on('load', ()=>{
+        map.setTerrain({source:'dem', exaggeration:1.55});
+
+        // full route (faint dashed) + progress (reached so far) + rescue line
+        map.addSource('route',{type:'geojson',data:line(ROUTE)});
+        map.addLayer({id:'route-case',type:'line',source:'route',
+          paint:{'line-color':'#14110c','line-width':4,'line-opacity':.5}});
+        map.addLayer({id:'route',type:'line',source:'route',
+          paint:{'line-color':'#f1ecdf','line-width':1.4,'line-dasharray':[2.2,2],'line-opacity':.55}});
+        map.addSource('prog',{type:'geojson',data:line(['base'])});
+        map.addLayer({id:'prog',type:'line',source:'prog',
+          paint:{'line-color':'#c9a86a','line-width':2.6,'line-opacity':.95}});
+        map.addSource('resc',{type:'geojson',data:line(['base'])});
+        map.addLayer({id:'resc',type:'line',source:'resc',
+          paint:{'line-color':'#c96a5c','line-width':2.2,'line-dasharray':[1.4,1.2],'line-opacity':0}});
+
+        // camp silhouettes (tents)
+        ROUTE.forEach(k=>{
+          const c=CAMPS[k];
+          const el=document.createElement('div'); el.className='mk-camp2 future';
+          const noTent = (k==='highpt'||k==='summit');
+          el.innerHTML=(noTent?'<div class="pk">'+(k==='summit'?'△':'✕')+'</div>'
+                              :'<div class="tent">'+SVG_TENT+'</div>')
+            +'<div class="l">'+c.name+' · '+c.ft.toLocaleString('en-US')+'\u2032</div>';
+          if(noTent) el.classList.add('pknode');
+          if(k==='base'||k==='c2'||k==='c7'||k==='summit') el.classList.add('major');
+          camps[k]=el;
+          new maplibregl.Marker({element:el,anchor:'top'}).setLngLat(c.ll).addTo(map);
+        });
+
+        // climber silhouettes
+        Object.entries(PEOPLE).forEach(([k,p])=>{
+          const el=document.createElement('div'); el.className='mk-sil hide';
+          el.style.color=p.c; el.innerHTML=SVG_CLIMBER;
+          markers[k]={mk:new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(CAMPS.base.ll).addTo(map),
+                      el, cur:CAMPS.base.ll.slice(), anim:null};
+        });
+
+        // named features
+        FEATURES.forEach(f=>{
+          const el=document.createElement('div'); el.className='mk-feat off';
+          el.innerHTML='<div class="ln"></div><div class="fl">'+f.label+'</div>';
+          feats.push({el, from:f.from});
+          new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(f.ll).addTo(map);
+        });
+        // moment pins
+        MOMENTS.forEach(m=>{
+          const el=document.createElement('div'); el.className='mk-mom off';
+          el.innerHTML='<div class="g">'+m.glyph+'</div><div class="ml">'+m.label+'</div>';
+          moms.push({el, at:m.at});
+          new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(m.ll).addTo(map);
+        });
+
+        map.on('move',()=>{ const far=map.getZoom()<12.45;
+          document.body.classList.toggle('lbl-far',far); });
+        ready=true; camDirty=true;
+        applyEvent(curEv, true);
+        setTimeout(()=>bgLoad.classList.add('off'), 400);
+      });
+    }catch(e){ fail(); }
+  }
+  function line(keys){ return {type:'Feature',geometry:{type:'LineString',
+    coordinates:(keys.length>1?keys:['base','base']).map(k=>CAMPS[k].ll)}}; }
+
+  // ── camera keyframes (page-order path)
+  const KEYS = [
+    ['prologue','base',10.3,34,336,-.05,''], ['k-quote','base',10.9,44,344,-.05,''],
+    ['ch1','base',11.4,50,354,-.05,'g-city'], ['k-ch1-end','c1',11.7,53,12,-.05,'g-city'],
+    ['clipB1','c1',11.8,54,18,-.05,'g-day'], ['ch2','c1',11.9,55,26,-.05,'g-day'], ['k-ch2-end','c2',12.1,57,44,-.05,'g-day'],
+    ['ch3','c2',12.3,60,62,-.04,'g-day'], ['k-ch3-end','c3',12.5,62,82,-.04,'g-day'],
+    ['clip1','c3',12.4,58,96,-.04,'g-day'],
+    ['ch4','base',11.2,50,128,-.06,'g-day'],
+    ['ev0','base',11.6,55,150,-.06,'g-day'], ['ev1','c2',12.6,62,135,-.05,'g-day'],
+    ['ev2','c4',12.9,66,120,-.05,'g-storm'], ['ev3','c5',13.1,68,110,-.04,'g-day'],
+    ['ev4','c7',13.1,70,102,-.04,'g-day'], ['ev5','c6',13.2,70,95,-.04,'g-day'],
+    ['ev6','c8',13.3,72,85,-.04,'g-day'], ['ev7','c9',13.5,74,70,-.03,'g-day'],
+    ['ev8','highpt',13.8,76,55,-.02,'g-night'], ['ev9','c7',12.8,68,72,-.05,'g-dusk'],
+    ['ev10','c7',13.4,72,88,-.03,'g-dusk'], ['ev11','base',11.9,58,116,-.06,'g-dusk'],
+    ['ev12','c6',12.7,68,104,-.05,'g-day'], ['ev13','c7',13.6,73,94,-.03,'g-dusk'],
+    ['ev14','c7',12.2,50,132,-.06,'g-dusk'], ['ev15','base',11.3,46,148,-.06,'g-mourn'],
+    ['ev16','c1',12.0,52,160,-.07,'g-mourn'],
+    ['clip3','c8',13.4,72,50,-.03,'g-night'], ['ch5','highpt',13.6,76,44,-.03,'g-night'],
+    ['ov5-0','c9',13.6,75,34,-.03,'g-night'], ['ov5-1','highpt',13.9,77,16,-.02,'g-night'],
+    ['ov5-2','highpt',13.7,76,356,-.03,'g-night'], ['ov5-3','c9',13.4,73,336,-.03,'g-night'],
+    ['ch6','c7',13.1,70,312,-.04,'g-dusk'], ['k-ch6-body','c5',12.5,62,288,-.05,'g-dusk'],
+    ['k-ch6-record','c7',13.3,71,262,-.03,'g-dusk'],
+    ['ch7','c2',11.2,46,232,-.05,'g-mourn'], ['k-ch7-body','base',10.8,40,208,-.05,'g-mourn'], ['evroom','c2',11.6,48,214,-.05,'g-mourn'], ['clip4','base',11.0,42,196,-.04,'g-mourn'], ['colophon','base',10.2,32,172,-.03,'g-mourn'],
+    ['memorial','base',12.0,55,182,-.05,'g-mourn'], ['footer','base',9.7,28,158,-.02,'']
+  ];
+  function measure(){
+    keyPts = KEYS.map(([id,camp,zoom,pitch,bearing,off,grade])=>{
+      const el=document.getElementById(id); if(!el) return null;
+      return {y:el.getBoundingClientRect().top+scrollY, ll:CAMPS[camp].ll, zoom, pitch, bearing, off, grade};
+    }).filter(Boolean).sort((a,b)=>a.y-b.y);
+  }
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  function lerpAng(a,b,t){let d=((b-a+540)%360)-180;return (a+d*t+360)%360;}
+  const ease=t=>t<.5?2*t*t:-1+(4-2*t)*t;
+  function camTick(){
+    if(!ready||!keyPts.length) return;
+    const yr=scrollY+innerHeight*.5;
+    let a=keyPts[0], b=keyPts[0];
+    for(let i=0;i<keyPts.length;i++){ if(keyPts[i].y<=yr){a=keyPts[i];b=keyPts[i+1]||keyPts[i];} }
+    const t=a===b?0:ease(Math.min(1,Math.max(0,(yr-a.y)/(b.y-a.y))));
+    map.jumpTo({center:[lerp(a.ll[0],b.ll[0],t),lerp(a.ll[1],b.ll[1],t)],
+      zoom:lerp(a.zoom,b.zoom,t), pitch:lerp(a.pitch,b.pitch,t),
+      bearing:lerpAng(a.bearing,b.bearing,t), offset:[0,innerHeight*lerp(a.off,b.off,t)]});
+    setGrade(t>.55?b.grade:a.grade);
+  }
+
+  function lerpMarker(m,to){
+    if(m.anim) cancelAnimationFrame(m.anim);
+    if(reduce){m.cur=to.slice();m.mk.setLngLat(to);return;}
+    const from=m.cur.slice(), t0=performance.now(), D=1400;
+    function tick(t){
+      const k=Math.min(1,(t-t0)/D), e=ease(k);
+      m.cur=[from[0]+(to[0]-from[0])*e, from[1]+(to[1]-from[1])*e];
+      m.mk.setLngLat(m.cur);
+      if(k<1)m.anim=requestAnimationFrame(tick);else m.anim=null;
+    }
+    m.anim=requestAnimationFrame(tick);
+  }
+
+  function applyEvent(i, force){
+    if(i===curEv && !force) return; curEv=i;
+    if(i<0){
+      hudPhase.textContent=''; hudDate.textContent='The Abruzzi Spur';
+      hudTitle.textContent='Fifty-three days on the mountain'; hudAlt.textContent='';
+      hud.classList.remove('tragic');
+      if(!ready) return;
+      Object.values(markers).forEach(m=>m.el.classList.add('hide'));
+      moms.forEach(f=>f.el.classList.add('off'));
+      return;
+    }
+    hudPhase.textContent=PHASES[i]; hudDate.textContent=DATES[i]; hudTitle.textContent=TITLES[i];
+    if(window.__scrubSet) window.__scrubSet(i, ch4Active);
+    hud.classList.toggle('tragic',TRAGIC[i]);
+    let hi=0,hiName='';
+    const lost=POS[i].lost||[];
+    Object.keys(PEOPLE).forEach(k=>{
+      const ck=POS[i][k];
+      if(ready){
+        const m=markers[k];
+        if(!ck){m.el.classList.add('hide');}
+        else{
+          m.el.classList.remove('hide');
+          m.el.classList.toggle('lost', lost.includes(k));
+          m.el.classList.toggle('pulse', k==='wolfe'&&i>=10&&!lost.includes(k));
+          lerpMarker(m,CAMPS[ck].ll);
+        }
+      }
+      if(ck&&CAMPS[ck].ft>hi){hi=CAMPS[ck].ft;hiName=PEOPLE[k].name;}
+    });
+    if(i===8){hi=27450;hiName='Wiessner · P. Lama';}
+    hudAlt.textContent=hi?('Highest: '+hiName+' · '+hi.toLocaleString('en-US')+' ft'):'';
+    if(!ready) return;
+
+    // camp states
+    ROUTE.forEach(k=>{
+      const el=camps[k]; if(!el) return;
+      const est=EST[k]!==undefined?EST[k]:99;
+      el.classList.toggle('future', i<est && k!=='summit' && k!=='highpt');
+      el.classList.toggle('cleared', CLEARED[k]!==undefined && i>=CLEARED[k]);
+      el.classList.toggle('dim', DIMMED[k]!==undefined && i>=DIMMED[k] && !(CLEARED[k]!==undefined&&i>=CLEARED[k]));
+    });
+    // progress + rescue lines
+    map.getSource('prog').setData(line(ROUTE.slice(0,REACH[i]+1)));
+    const rescueOn = i>=12 && i<=14;
+    map.getSource('resc').setData(line(['base','c1','c2','c3','c4','c5','c6','c7']));
+    map.setPaintProperty('resc','line-opacity', rescueOn?0.95:0);
+    // features + moments
+    feats.forEach(f=>f.el.classList.toggle('off', i<f.from));
+    moms.forEach(f=>f.el.classList.toggle('off', !ch4Active || !f.at.includes(i)));
+    if(window.__vig && !zoneVigActive()) window.__vig.vigForEvent(ch4Active?i:-1);
+  }
+
+  loadLib(initMap);
+  addEventListener('load', measure); measure();
+  addEventListener('resize', ()=>{measure();camDirty=true;});
+  let raf=null,lastY=-1;
+  function loop(){ if(!window.__exploreOn && (scrollY!==lastY||camDirty)){lastY=scrollY;camDirty=false;camTick();} raf=requestAnimationFrame(loop); }
+  if(reduce){ addEventListener('scroll',camTick,{passive:true}); setTimeout(camTick,1500); }
+  else loop();
+  setTimeout(measure,1200); setTimeout(measure,3500);
+
+  const stepIO=new IntersectionObserver(es=>{es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('on');
+      if(e.target.dataset.ev!==undefined) applyEvent(+e.target.dataset.ev);}
+  })},{threshold:.5});
+  document.querySelectorAll('.over-step').forEach(s=>stepIO.observe(s));
+
+  const ch4=document.getElementById('ch4-zone');
+  if(ch4) new IntersectionObserver(es=>{es.forEach(e=>{
+    ch4Active=e.isIntersecting;
+    if(window.__scrubSet) window.__scrubSet(curEv>=0?curEv:-1, e.isIntersecting&&curEv>=0);
+    if(ready) moms.forEach(f=>f.el.classList.toggle('off', !ch4Active || curEv<0 || !f.at.includes(curEv)));
+    hud.classList.toggle('show',e.isIntersecting);
+    legend.classList.toggle('show',e.isIntersecting);
+    note.classList.toggle('show',e.isIntersecting);
+    if(!e.isIntersecting) applyEvent(-1);
+  })},{rootMargin:'-15% 0px -15% 0px'}).observe(ch4);
+
+  // Chapter VI vigil: Wolfe's silhouette alone at Camp VII, camps in their stripped state
+  const ch6=document.getElementById('ch6-zone');
+  if(ch6) new IntersectionObserver(es=>{es.forEach(e=>{
+    if(!ready) return;
+    if(e.isIntersecting){
+      Object.entries(markers).forEach(([k,m])=>{
+        if(k==='wolfe'){m.el.classList.remove('hide','lost');m.el.classList.add('pulse');lerpMarker(m,CAMPS.c7.ll);}
+        else m.el.classList.add('hide');
+      });
+      ROUTE.forEach(k=>{const el=camps[k];if(!el)return;
+        el.classList.remove('future');
+        el.classList.toggle('cleared',CLEARED[k]!==undefined);
+        el.classList.toggle('dim',DIMMED[k]!==undefined&&CLEARED[k]===undefined);});
+    } else if(curEv<0){ markers.wolfe && markers.wolfe.el.classList.add('hide'); }
+  })},{rootMargin:'-10% 0px -10% 0px'}).observe(ch6);
+
+  // ── silhouette vignettes
+  const VIG = {3:'haul',8:'pair',9:'strip',10:'fall',12:'rescue',13:'rescue',15:'tent',16:'tent'};
+  const vgs = {}; document.querySelectorAll('.vg').forEach(v=>vgs[v.id.replace('vg-','')]=v);
+  let zoneVig='';
+  function setVig(name){
+    Object.entries(vgs).forEach(([k,el])=>el.classList.toggle('on', k===name));
+  }
+  function vigForEvent(i){ setVig(zoneVig || (i>=0 && VIG[i]) || ''); }
+  window.__vig={setVig,vigForEvent,z:v=>{zoneVig=v;setVig(v|| (curEv>=0&&ch4Active&&VIG[curEv]) || '');}};
+
+  // ── color grade
+  const gradeEl=document.getElementById('grade'); let curGrade='__';
+  function setGrade(g){ if(g===curGrade) return; curGrade=g; window.__grade=g;
+    gradeEl.className=g||''; snowSet(g); }
+  window.setGrade=setGrade;
+
+  // ── snow / storm particles
+  const sc=document.getElementById('snow'), sx=sc.getContext('2d');
+  let flakes=[], mode='';
+  function sz(){ sc.width=innerWidth; sc.height=innerHeight; }
+  sz(); addEventListener('resize',sz);
+  function snowSet(g){
+    const m = g==='g-storm'?'storm' : g==='g-night'?'calm' : g==='g-mourn'?'sparse' : '';
+    if(m===mode) return; mode=m;
+    sc.classList.toggle('on', !!m && !reduce);
+    const n = m==='storm'?260 : m==='calm'?90 : m==='sparse'?45 : 0;
+    flakes = Array.from({length:n},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+      r:.6+Math.random()*1.8, s:.4+Math.random()*1.4, w:Math.random()*Math.PI*2}));
+  }
+  (function snowLoop(){
+    if(flakes.length && !reduce){
+      sx.clearRect(0,0,sc.width,sc.height); sx.fillStyle='rgba(241,236,223,.75)';
+      const gale = mode==='storm'?3.4 : .35;
+      flakes.forEach(f=>{ f.y+=f.s*(mode==='storm'?3.2:1); f.x+=Math.sin(f.w+=.01)*.4+gale*f.s*.5;
+        if(f.y>sc.height){f.y=-4;f.x=Math.random()*innerWidth;}
+        if(f.x>sc.width){f.x=-4;}
+        sx.beginPath(); sx.arc(f.x,f.y,f.r,0,7); sx.fill(); });
+    } else if(sc.width) sx.clearRect(0,0,sc.width,sc.height);
+    requestAnimationFrame(snowLoop);
+  })();
+
+  // ── local clips: play when visible, tap card or button for sound
+  const vids=[...document.querySelectorAll('video.clip')];
+  const vIO=new IntersectionObserver(es=>{es.forEach(e=>{
+    const v=e.target;
+    if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+  })},{threshold:.35});
+  vids.forEach(v=>vIO.observe(v));
+  document.querySelectorAll('.snd').forEach(b=>{
+    b.addEventListener('click',()=>{ const v=b.parentElement.querySelector('video');
+      v.muted=!v.muted; b.textContent=v.muted?'Sound on':'Mute'; if(!v.muted) v.play().catch(()=>{}); });
+  });
+
+  function bindZone(id, name){
+    const el=document.getElementById(id); if(!el) return;
+    new IntersectionObserver(es=>{es.forEach(e=>{
+      if(e.isIntersecting){ _zoneVig=name; window.__vig.z(name); }
+      else if(_zoneVig===name){ _zoneVig=''; window.__vig.z(''); if(ch4Active&&curEv>=0) window.__vig.vigForEvent(curEv); }
+    })},{rootMargin:'-12% 0px -12% 0px'}).observe(el);
+  }
+  bindZone('ch1-zone','nyc');
+  bindZone('ch6-zone','tent');
+  // ch5 pair vignette: bind on the summit-night steps container
+  const ov0=document.getElementById('ov5-0');
+  if(ov0){ bindZoneEl(ov0.parentElement,'pair'); }
+  function bindZoneEl(el,name){
+    new IntersectionObserver(es=>{es.forEach(e=>{
+      if(e.isIntersecting){ _zoneVig=name; window.__vig.z(name); }
+      else if(_zoneVig===name){ _zoneVig=''; window.__vig.z(''); if(ch4Active&&curEv>=0) window.__vig.vigForEvent(curEv); }
+    })},{rootMargin:'-12% 0px -12% 0px'}).observe(el);
+  }
+
+  // ── FLAME at the memorial point (Gilkey site, near Base Camp — approximate)
+  let flameEl=null;
+  function ensureFlame(){
+    if(flameEl||!ready) return;
+    flameEl=document.createElement('div'); flameEl.className='mk-flame off';
+    flameEl.innerHTML='<div class="fm"></div><div class="fl">Gilkey Memorial</div>';
+    new maplibregl.Marker({element:flameEl,anchor:'bottom'}).setLngLat([76.5160,35.8446]).addTo(map);
+  }
+  window.__flame=function(on){ ensureFlame(); if(flameEl) flameEl.classList.toggle('off',!on); };
+
+  // ── EXPLORE MODE
+  const bE=document.getElementById('btnExplore'), bX=document.getElementById('exploreExit'),
+        bC=document.getElementById('exploreCta');
+  function exploreSet(on){
+    if(!ready) return;
+    window.__exploreOn=on;
+    document.body.classList.toggle('explore',on);
+    document.documentElement.style.overflow=on?'hidden':'';
+    ['dragPan','dragRotate','scrollZoom','touchZoomRotate','keyboard','doubleClickZoom'].forEach(hnd=>{
+      try{ on?map[hnd].enable():map[hnd].disable(); }catch(e){}
+    });
+    if(on){
+      ROUTE.forEach(k=>{const el=camps[k];if(!el)return;
+        el.classList.remove('future');
+        el.classList.toggle('cleared',CLEARED[k]!==undefined);
+        el.classList.toggle('dim',DIMMED[k]!==undefined&&CLEARED[k]===undefined);});
+      feats.forEach(f=>f.el.classList.remove('off'));
+      moms.forEach(f=>f.el.classList.add('off'));
+      Object.values(markers).forEach(m=>m.el.classList.add('hide'));
+      map.easeTo({center:CAMPS.c5.ll, zoom:12.4, pitch:62, bearing:150, duration:2200, offset:[0,0]});
+    } else { camDirty=true; applyEvent(curEv===-99?-1:curEv, true); }
+    if(bE) bE.classList.toggle('on',on);
+  }
+  if(bE) bE.addEventListener('click',()=>exploreSet(!window.__exploreOn));
+  if(bX) bX.addEventListener('click',()=>exploreSet(false));
+  if(bC) bC.addEventListener('click',()=>exploreSet(true));
+
+  // ── LITE MODE
+  const bL=document.getElementById('btnLite'); let lite=false;
+  if(bL) bL.addEventListener('click',()=>{
+    if(!ready) return;
+    lite=!lite; bL.classList.toggle('on',lite);
+    try{ map.setLayoutProperty('hs','visibility', lite?'none':'visible'); }catch(e){}
+    try{ map.setTerrain({source:'dem', exaggeration: lite?1.2:1.55}); }catch(e){}
+    try{ if(map.setPixelRatio) map.setPixelRatio(lite?1:(window.devicePixelRatio||1)); }catch(e){}
+    document.getElementById('snow').style.display=lite?'none':'';
+  });
+})();
+
+// ═════════ CHROME: progress · reveals · covers · rail · altimeter ═════════
+(function(){
+  const prog=document.getElementById('progress');
+  function op(){const h=document.documentElement;prog.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100).toFixed(2)+'%';}
+  addEventListener('scroll',op,{passive:true});op();
+
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.18});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const cio=new IntersectionObserver(es=>{es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting))},{threshold:.35});
+  document.querySelectorAll('.ch-cover').forEach(el=>cio.observe(el));
+
+  const links=[...document.querySelectorAll('.rail a')];
+  const rio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id=e.target.id;links.forEach(a=>a.classList.toggle('on',a.dataset.ch===id));}})},{rootMargin:'-40% 0px -55% 0px'});
+  ['prologue','ch1','ch2','ch3','ch4','ch5','ch6','ch7','memorial'].forEach(id=>{const el=document.getElementById(id);if(el)rio.observe(el);});
+
+  const markers=[...document.querySelectorAll('[data-alt]')].map(el=>({el,alt:+el.dataset.alt}));
+  const ftEl=document.getElementById('altiFt'),mEl=document.getElementById('altiM'),
+        fill=document.getElementById('altiFill'),alti=document.querySelector('.alti');
+  const MAX=28251;
+  function at(){
+    const mid=scrollY+innerHeight*.5;
+    const pts=markers.map(m=>({y:m.el.getBoundingClientRect().top+scrollY,alt:m.alt})).sort((a,b)=>a.y-b.y);
+    let alt=pts.length?pts[0].alt:0;
+    for(let i=0;i<pts.length;i++){
+      if(mid>=pts[i].y){const n=pts[i+1];
+        if(n&&mid<n.y){const t=(mid-pts[i].y)/(n.y-pts[i].y);alt=pts[i].alt+(n.alt-pts[i].alt)*t;}
+        else alt=pts[i].alt;}
+    }
+    ftEl.textContent=Math.round(alt).toLocaleString('en-US')+' ft';
+    mEl.textContent=Math.round(alt*0.3048).toLocaleString('en-US')+' m';
+    fill.style.height=Math.min(100,alt/MAX*100).toFixed(1)+'%';
+    alti.classList.toggle('danger',alt>22000);
+    window.__alt=alt;
+  }
+  let raf=null;
+  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(()=>{at();raf=null;});},{passive:true});
+  addEventListener('resize',at);at();
+})();
+
+// ═════════ v13 · WIND · SCRUBBER · LETTERBOX · TYPEWRITER · NIGHT ═════════
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── WIND (WebAudio, synthesized — off by default)
+  let ac=null, master=null, bp1=null, bp2=null, windOn=false, gustT=null;
+  const sndBtn=document.getElementById('btnWind');
+  function windInit(){
+    ac = new (window.AudioContext||window.webkitAudioContext)();
+    const len=ac.sampleRate*2, buf=ac.createBuffer(1,len,ac.sampleRate), d=buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+    const src=ac.createBufferSource(); src.buffer=buf; src.loop=true;
+    bp1=ac.createBiquadFilter(); bp1.type='bandpass'; bp1.frequency.value=170; bp1.Q.value=.55;
+    bp2=ac.createBiquadFilter(); bp2.type='bandpass'; bp2.frequency.value=430; bp2.Q.value=1.1;
+    const g1=ac.createGain(), g2=ac.createGain(); g1.gain.value=.7; g2.gain.value=.4;
+    master=ac.createGain(); master.gain.value=0;
+    src.connect(bp1); bp1.connect(g1); g1.connect(master);
+    src.connect(bp2); bp2.connect(g2); g2.connect(master);
+    master.connect(ac.destination); src.start();
+    gustT=setInterval(()=>{ if(!windOn) return;
+      const t=ac.currentTime;
+      bp1.frequency.setTargetAtTime(120+Math.random()*160, t, .9);
+      bp2.frequency.setTargetAtTime(320+Math.random()*260, t, .7);
+    }, 900);
+    setInterval(windLevel, 260);
+  }
+  function windLevel(){
+    if(!ac) return;
+    const alt=window.__alt||16500, g=window.__grade||'';
+    let v=.05+.4*Math.min(1,Math.max(0,(alt-16500)/11700));
+    if(g==='g-storm') v*=2.3;
+    if(g==='g-mourn') v*=.4;
+    if(document.body.classList.contains('memnight')) v=.025;
+    if(document.body.classList.contains('explore')) v=.22;
+    master.gain.setTargetAtTime(windOn?v:0, ac.currentTime, .9);
+  }
+  if(sndBtn) sndBtn.addEventListener('click',()=>{
+    if(!ac) windInit();
+    if(ac.state==='suspended') ac.resume();
+    windOn=!windOn; sndBtn.classList.toggle('on',windOn);
+    sndBtn.textContent=windOn?'✕ Wind':'♪ Wind';
+    windLevel();
+  });
+
+  // ── LETTERBOX while clips are visible
+  const visClips=new Set();
+  const lbIO=new IntersectionObserver(es=>{es.forEach(e=>{
+    if(e.isIntersecting) visClips.add(e.target); else visClips.delete(e.target);
+    document.body.classList.toggle('filmy', visClips.size>0);
+  })},{threshold:.4});
+  document.querySelectorAll('video.clip').forEach(v=>lbIO.observe(v));
+
+  // ── TIMELINE SCRUBBER (built from ev anchors)
+  const DATES=['Jun 1','Jun 14','Jun 21–29','Jun 30–Jul 1','Jul 6','Jul 13','Jul 14','Jul 17','Jul 19','Jul 20–21','Jul 22','Jul 24','Jul 28','Jul 29','Jul 31','Aug 2','Aug 3–7'];
+  const TRG=[9,10,11,13,14,15,16], PH=[0,1,4,7,9,12,15];
+  const scrub=document.getElementById('scrub'), sd=document.createElement('div');
+  if(scrub){
+    sd.className='sd'; scrub.appendChild(sd);
+    DATES.forEach((dte,i)=>{
+      const b=document.createElement('button'); b.className='tk';
+      if(TRG.includes(i)) b.classList.add('trg');
+      if(PH.includes(i)) b.classList.add('ph');
+      b.title=dte+', 1939';
+      b.addEventListener('click',()=>{ const el=document.getElementById('ev'+i);
+        if(el) el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'}); });
+      scrub.appendChild(b);
+    });
+    window.__scrubSet=function(i, active){
+      scrub.classList.toggle('show', !!active);
+      [...scrub.querySelectorAll('.tk')].forEach((b,k)=>b.classList.toggle('cur',k===i));
+      sd.textContent=i>=0?(DATES[i]+' · 1939'):'';
+    };
+  }
+
+  // ── TYPEWRITER on the expedition record
+  const rec=document.querySelector('.record');
+  if(rec && !reduce){
+    const ps=[...rec.querySelectorAll('p')].filter(p=>!p.classList.contains('rec-meta'));
+    const texts=ps.map(p=>p.textContent);
+    let done=false;
+    new IntersectionObserver((es,o)=>{es.forEach(e=>{
+      if(e.isIntersecting && !done){ done=true; o.disconnect();
+        ps.forEach(p=>p.textContent='');
+        rec.classList.add('typing');
+        let pi=0;
+        (function typeP(){
+          if(pi>=ps.length){rec.classList.remove('typing');return;}
+          const full=texts[pi], el=ps[pi]; let ci=0;
+          const iv=setInterval(()=>{ ci+=2; el.textContent=full.slice(0,ci);
+            if(ci>=full.length){clearInterval(iv); pi++; setTimeout(typeP,140);} },14);
+        })();
+      }
+    })},{threshold:.25}).observe(rec);
+  }
+
+  // ── EVIDENCE ROOM flip
+  const docs=[...document.querySelectorAll('.ev-docs .doc')];
+  docs.forEach(d=>d.addEventListener('click',()=>{
+    docs.forEach(x=>{x.classList.toggle('front',x===d);x.classList.toggle('back',x!==d);});
+  }));
+
+  // ── STARFIELD canvas (drawn once)
+  const st=document.getElementById('stars');
+  if(st){ const c=st.getContext('2d');
+    function draw(){ st.width=innerWidth; st.height=innerHeight; c.clearRect(0,0,st.width,st.height);
+      for(let i=0;i<170;i++){ const r=Math.random();
+        c.fillStyle='rgba(241,240,230,'+(0.25+r*.6)+')';
+        c.beginPath(); c.arc(Math.random()*st.width, Math.random()*st.height*.75, r*1.3+.3, 0, 7); c.fill(); } }
+    draw(); addEventListener('resize',draw);
+  }
+  const mem=document.getElementById('memorial');
+  if(mem) new IntersectionObserver(es=>{es.forEach(e=>{
+    document.body.classList.toggle('memnight', e.isIntersecting);
+    if(window.__flame) window.__flame(e.isIntersecting);
+  })},{rootMargin:'-18% 0px -18% 0px'}).observe(mem);
+})();
+
+</script>
+</body>
+</html>
