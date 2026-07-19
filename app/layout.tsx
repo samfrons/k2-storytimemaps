@@ -28,7 +28,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         {/* Same external stylesheets as the original single-file page, in the
             same order; `precedence` hoists them into <head> during SSR. */}
-        <link rel="preload" href="/fonts/Wochita.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="stylesheet" href={FONTS_HREF} precedence="default" />
         <link rel="stylesheet" href="/css/main.css" precedence="default" />
         {children}

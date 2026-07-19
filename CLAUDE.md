@@ -61,14 +61,19 @@ posture and must keep their credits in the cards and colophon.
   and the three script tags. Relative asset paths (`clips/…`, `js/…`) resolve
   against the `/` route — keep them relative.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
-  inspired; type system (chosen 2026-07-19): **Wochita** (hero title only —
-  licensed brush font self-hosted in `public/fonts/`; caps-only, needs
-  word-spacing and no synthetic italics), **Fraunces** (display/headlines/
-  numerals — variable, opsz 9–144, real italics), **Big Shoulders Text**
+  inspired; type system (settled 2026-07-20): **Fraunces** (display/headlines/
+  numerals — variable, opsz 9–144, real italics; hero + covers at 600, solid
+  ivory with the `#hand-text` letterpress-worn filter), **Big Shoulders Text**
   (condensed grotesque for kickers/HUD/labels/altimeter — the sports-journal/
   instrument voice), **Newsreader** (body — 1930s-newsprint-derived; body
   weight 380, not 300), **Special Elite** (the typewritten record — keep).
   Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
+  Standing rules (Sam, 2026-07-20): **no tan/bronze-colored text** — bronze
+  lives only in hairlines, borders, and the progress bar; markers and map
+  labels are **vintage-print style** — solid deep-ink figures (no SVG
+  strokes, no glows, offset-print paper shadow) and cream paper chips with
+  ink text. The Wochita brush font was tried and rejected; files remain in
+  `public/fonts/` unused.
 - `public/js/engine.js` — MapLibre 3D terrain background (keyless: AWS
   terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
   camp/climber markers, the 17-event timeline, vignette + grade + snow

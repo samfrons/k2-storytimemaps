@@ -25,12 +25,12 @@
   const DIMMED  = {c8:10,c9:10,c5:10};               // abandoned, never restocked
 
   const PEOPLE = {
-    wiessner:{name:'Wiessner', c:'#c9a86a'},
-    wolfe:   {name:'Wolfe',    c:'#c96a5c'},
-    pasang:  {name:'P. Lama',  c:'#7fae9c'},
-    durrance:{name:'Durrance', c:'#8fa7c4'},
-    cromwell:{name:'Cromwell', c:'#b8ad97'},
-    rescue:  {name:'Rescue Sherpas', c:'#5d7f95'}
+    wiessner:{name:'Wiessner', c:'#5e4a1f'},
+    wolfe:   {name:'Wolfe',    c:'#82352a'},
+    pasang:  {name:'P. Lama',  c:'#3e6252'},
+    durrance:{name:'Durrance', c:'#3f5c77'},
+    cromwell:{name:'Cromwell', c:'#655c4d'},
+    rescue:  {name:'Rescue Sherpas', c:'#2f4f63'}
   };
 
   // 17 events (jun1 … aug 3–7). lost:true renders hollow "ghost" silhouettes.
@@ -79,8 +79,8 @@
   ];
 
   // Silhouette SVGs
-  const SVG_TENT = '<svg viewBox="0 0 24 16" width="22" height="15"><path d="M12 1 L23 15 H15 L12 9 L9 15 H1 Z" fill="currentColor" stroke="rgba(20,17,12,.7)" stroke-width="1" stroke-linejoin="round"/></svg>';
-  const SVG_CLIMBER = '<svg viewBox="0 0 20 26" width="15" height="20"><g fill="currentColor" stroke="rgba(20,17,12,.6)" stroke-width=".8"><circle cx="9.5" cy="4" r="3"/><path d="M9.5 7.5 L6 12 L5.5 19 L7.5 25 H9 L9.5 18 L11.5 25 H13 L12.5 16 L13.5 11 L16.5 14.5 L18 13 L13 7.5 Z"/><path d="M4.5 25 L5.5 8 L4 7.8 L3 25 Z"/></g></svg>';
+  const SVG_TENT = '<svg viewBox="0 0 24 16" width="22" height="15"><path d="M12 1 L23 15 H15 L12 9 L9 15 H1 Z" fill="currentColor"/></svg>';
+  const SVG_CLIMBER = '<svg viewBox="0 0 20 26" width="15" height="20"><g fill="currentColor"><circle cx="9.5" cy="4" r="3"/><path d="M9.5 7.5 L6 12 L5.5 19 L7.5 25 H9 L9.5 18 L11.5 25 H13 L12.5 16 L13.5 11 L16.5 14.5 L18 13 L13 7.5 Z"/><path d="M4.5 25 L5.5 8 L4 7.8 L3 25 Z"/></g></svg>';
 
   const $ = id=>document.getElementById(id);
   const bgLoad=$('bgLoad'), fallback=$('bgFallback');
