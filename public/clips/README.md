@@ -1,13 +1,16 @@
 # clips/
 
-Nine local `.mp4` excerpts played by the film sections in `index.html`:
+Nine local `.mp4` excerpts played by the film sections of the story
+(`app/story.html`):
 
 - `k2-clip-1.mp4` … `k2-clip-4.mp4` — from video A
 - `k2b-clip-1.mp4` … `k2b-clip-5.mp4` — from video B
 
 The `.mp4` files are **gitignored on purpose**. They are excerpts of other
 people's documentaries: never commit them, and never deploy them publicly.
-If clips are ever added to the repo, the repo must stay private.
+If clips are ever added to the repo, the repo must stay private. Deploy the
+site only via git (Vercel git integration), never by uploading the local
+working tree or the built `out/` directory — those contain the clips.
 
 ## Regenerating
 

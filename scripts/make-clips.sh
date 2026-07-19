@@ -7,7 +7,8 @@
 #            (Quest for K2: Savage Mountain, National Geographic, 2000)
 #
 # The clips are excerpts of other people's documentaries. Keep them local:
-# never commit them, never deploy them publicly (clips/*.mp4 is gitignored).
+# never commit them, never deploy them publicly (public/clips/*.mp4 is
+# gitignored; deploy only via git so they can never reach the public site).
 
 set -euo pipefail
 
@@ -18,7 +19,7 @@ fi
 
 A=$1
 B=$2
-OUT="$(cd "$(dirname "$0")/.." && pwd)/clips"
+OUT="$(cd "$(dirname "$0")/.." && pwd)/public/clips"
 mkdir -p "$OUT"
 
 # excerpt SRC START END NAME [extra video args...]
