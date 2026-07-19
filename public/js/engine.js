@@ -134,9 +134,9 @@
           layers:[
             {id:'bg',type:'background',paint:{'background-color':'#14110c'}},
             {id:'sat',type:'raster',source:'sat',
-             paint:{'raster-saturation':-0.55,'raster-contrast':0.14,'raster-brightness-max':0.78,'raster-brightness-min':0.04}},
+             paint:{'raster-saturation':-0.45,'raster-contrast':0.08,'raster-brightness-max':0.92}},
             {id:'hs',type:'hillshade',source:'demhs',
-             paint:{'hillshade-exaggeration':0.5,'hillshade-shadow-color':'#0b0906','hillshade-highlight-color':'#f6ecd6','hillshade-accent-color':'#2c2820'}}
+             paint:{'hillshade-exaggeration':0.35,'hillshade-shadow-color':'#221c14','hillshade-highlight-color':'#f6ecd6','hillshade-accent-color':'#3a342a'}}
           ],
           sky:{'sky-color':'#0d1320','horizon-color':'#c9b895','fog-color':'#3a3629',
                'sky-horizon-blend':0.6,'horizon-fog-blend':0.55,'fog-ground-blend':0.62}
@@ -163,6 +163,10 @@
         map.addLayer({id:'resc',type:'line',source:'resc',
           paint:{'line-color':'#c96a5c','line-width':2.2,'line-dasharray':[1.4,1.2],'line-opacity':0}});
 
+        // MapLibre stomps inline opacity on the marker root for terrain
+        // occlusion (opacityWhenCovered) — it would override our class-based
+        // .off/.hide/.future opacity. Give it a plain wrapper to control.
+        const mkWrap = el=>{const w=document.createElement('div');w.appendChild(el);return w;};
         // camp silhouettes (tents)
         ROUTE.forEach(k=>{
           const c=CAMPS[k];
@@ -174,14 +178,14 @@
           if(noTent) el.classList.add('pknode');
           if(k==='base'||k==='c2'||k==='c7'||k==='summit') el.classList.add('major');
           camps[k]=el;
-          new maplibregl.Marker({element:el,anchor:'top'}).setLngLat(c.ll).addTo(map);
+          new maplibregl.Marker({element:mkWrap(el),anchor:'top'}).setLngLat(c.ll).addTo(map);
         });
 
         // climber silhouettes
         Object.entries(PEOPLE).forEach(([k,p])=>{
           const el=document.createElement('div'); el.className='mk-sil hide';
           el.style.color=p.c; el.innerHTML=SVG_CLIMBER;
-          markers[k]={mk:new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(CAMPS.base.ll).addTo(map),
+          markers[k]={mk:new maplibregl.Marker({element:mkWrap(el),anchor:'bottom'}).setLngLat(CAMPS.base.ll).addTo(map),
                       el, cur:CAMPS.base.ll.slice(), anim:null};
         });
 
@@ -190,14 +194,14 @@
           const el=document.createElement('div'); el.className='mk-feat off';
           el.innerHTML='<div class="ln"></div><div class="fl">'+f.label+'</div>';
           feats.push({el, from:f.from});
-          new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(f.ll).addTo(map);
+          new maplibregl.Marker({element:mkWrap(el),anchor:'bottom'}).setLngLat(f.ll).addTo(map);
         });
         // moment pins
         MOMENTS.forEach(m=>{
           const el=document.createElement('div'); el.className='mk-mom off';
           el.innerHTML='<div class="g">'+m.glyph+'</div><div class="ml">'+m.label+'</div>';
           moms.push({el, at:m.at});
-          new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(m.ll).addTo(map);
+          new maplibregl.Marker({element:mkWrap(el),anchor:'bottom'}).setLngLat(m.ll).addTo(map);
         });
 
         map.on('move',()=>{ const far=map.getZoom()<12.45;
@@ -443,7 +447,8 @@
     if(flameEl||!ready) return;
     flameEl=document.createElement('div'); flameEl.className='mk-flame off';
     flameEl.innerHTML='<div class="fm"></div><div class="fl">Gilkey Memorial</div>';
-    new maplibregl.Marker({element:flameEl,anchor:'bottom'}).setLngLat([76.5160,35.8446]).addTo(map);
+    const w=document.createElement('div'); w.appendChild(flameEl);
+    new maplibregl.Marker({element:w,anchor:'bottom'}).setLngLat([76.5160,35.8446]).addTo(map);
   }
   window.__flame=function(on){ ensureFlame(); if(flameEl) flameEl.classList.toggle('off',!on); };
 
