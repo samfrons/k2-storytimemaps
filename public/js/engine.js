@@ -74,8 +74,7 @@
     {ll:[76.5209,35.8676], glyph:'❄', label:'−2 °F · 80 mph gusts at Camp II', at:[2]},
     {ll:[76.5202,35.8690], glyph:'⤒', label:'Wolfe hauled up on a tight rope', at:[3]},
     {ll:[76.5168,35.8759], glyph:'〣', label:'Tendrup shouts three times — no reply', at:[8,9]},
-    {ll:[76.5173,35.8756], glyph:'⚠', label:'The fall on the rope — sleeping bag lost', at:[10]},
-    {ll:[76.5200,35.8500], glyph:'✦', label:'Wolfe\u2019s remains found here · 2002', at:[16]}
+    {ll:[76.5173,35.8756], glyph:'⚠', label:'The fall on the rope — sleeping bag lost', at:[10]}
   ];
 
   // Silhouette SVGs
