@@ -53,8 +53,8 @@
     {wiessner:'base',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'base',lost:['wolfe']},
     {wiessner:'c1',wolfe:'c7',pasang:'base',durrance:'base',cromwell:null,rescue:'c7',lost:['wolfe','rescue']}
   ];
-  const DATES  = ['June 1','June 14','June 21–29','June 30 – July 1','July 6','July 13','July 14','July 17','July 19','July 20–21','July 22','July 24','July 28','July 29','July 31','August 2','August 3–7'];
-  const TITLES = ['Base Camp established','Wiessner takes the lead','The eight-day storm','The House Chimney','Camp VII — top of the ridge','Durrance collapses','Camp VIII — the Shoulder','Wolfe turns back','800 feet from the summit','The camps are stripped','Wolfe found alone','The recriminations','Kikuli\u2019s impossible climb','The Sherpas reach Wolfe','The last ascent','Something awful','The last search'];
+  const DATES  = ['June 1','June 14','June 21–29','June 30 – July 1','July 6','July 13','July 14','July 17','July 19','July 20–21','July 22','July 24–25','July 28','July 29','July 31','August 2','August 3–7'];
+  const TITLES = ['Base Camp established','Wiessner takes the lead','The eight-day storm','The House Chimney','Camp VII — top of the ridge','Durrance collapses','Camp VIII — the Shoulder','Wolfe turns back','800 feet from the summit','The camps are stripped','Wolfe found alone','Back to Base Camp','Kikuli\u2019s impossible climb','The Sherpas reach Wolfe','The last ascent','Something awful','The last search'];
   const TRAGIC = [false,false,false,false,false,false,false,false,false,true,true,true,false,true,true,true,true];
   const PHASES = ['The Approach','The Build','The Build','The Build','The Push','The Push','The Push','The Summit Bid','The Summit Bid','The Unraveling','The Unraveling','The Unraveling','The Rescue','The Rescue','The Rescue','The Silence','The Silence'];
   // highest camp reached so far (index into ROUTE), for the progress line

@@ -51,7 +51,7 @@
   document.querySelectorAll('video.clip').forEach(v=>lbIO.observe(v));
 
   // ── TIMELINE SCRUBBER (built from ev anchors)
-  const DATES=['Jun 1','Jun 14','Jun 21–29','Jun 30–Jul 1','Jul 6','Jul 13','Jul 14','Jul 17','Jul 19','Jul 20–21','Jul 22','Jul 24','Jul 28','Jul 29','Jul 31','Aug 2','Aug 3–7'];
+  const DATES=['Jun 1','Jun 14','Jun 21–29','Jun 30–Jul 1','Jul 6','Jul 13','Jul 14','Jul 17','Jul 19','Jul 20–21','Jul 22','Jul 24–25','Jul 28','Jul 29','Jul 31','Aug 2','Aug 3–7'];
   const TRG=[9,10,11,13,14,15,16], PH=[0,1,4,7,9,12,15];
   const scrub=document.getElementById('scrub'), sd=document.createElement('div');
   if(scrub){
@@ -118,7 +118,7 @@
   // block as it speaks (Web Speech API: keyless, local, free)
   const vBtn=document.getElementById('btnVoice');
   if(vBtn && 'speechSynthesis' in window){
-    const SEL='.prologue h1,.prologue .sub,.pq-sky,.ch-cover .inner,.narrative > p,.narrative > .pq,.record p,.cast .cc,.over-card,.evroom .ev-head,.doc,.ev-verdict,.footer .final';
+    const SEL='.prologue h1,.prologue .sub,.pq-sky,.ch-cover .inner,.narrative > p,.narrative > .pq,.record p,.cast .cc,.over-card,.evroom .ev-head,.doc,.ev-verdict,.mem-inner > p,.footer .final';
     const blockText=el=>{
       const c=el.cloneNode(true);
       c.querySelectorAll('figure,figcaption,.snd,.src,.mono,.film-more').forEach(n=>n.remove());

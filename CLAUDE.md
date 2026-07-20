@@ -24,6 +24,18 @@ story to JSX/components, do not route its assets through the bundler, do not
 add client components around it.** The Next layer exists only for the head
 (`app/layout.tsx` Metadata API + hoisted stylesheet links) and for deployment.
 
+## Story structure rule (Sam, 2026-07-20)
+
+The map is the spine; prose is the "why." Chapter IV's cards carry only
+positions, movement, dates, altitudes, and supplies. Chapter V = the summit
+decision; Chapter VI = the cascade of misread signals below (its typewritten
+record is the dated signals log); Chapter VII = the fight over blame, with
+the verdict withheld — the evidence-room documents deliver the reveal (the
+note's contents, the diary's contents, the historiography, and Curran's
+synthesis live ONLY there). The glacier-returns beat (1993/1995/2002,
+the mitten) appears only in the memorial. No beat may appear in both a
+chapter and the map log — when editing, relocate, don't retell.
+
 ## Content accuracy rule
 
 All dates, quotes, and altitudes follow the documented 1939 record (Kauffman
