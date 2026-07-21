@@ -5,6 +5,21 @@ expedition, deployed at **k2.storytimemaps.com**. A lean Next.js (App Router,
 `output: 'export'`) shell around a deliberately plain static story. Package
 manager: **pnpm**.
 
+## Working practices for agents
+
+- **Sam edits `app/story.html`, `public/css/main.css`, and this file directly
+  between sessions.** Never edit from memory of a previous session's file
+  state — re-read the current file first. Editorial HTML comments in the
+  story (e.g. the day-count reconciliation note at ev7) are binding guidance.
+- Verify changes with `pnpm build` plus a local browser pass
+  (`pnpm preview`, smoke checklist in README.md). After `git push`
+  (auto-deploys production in ~15 s), confirm with `vercel ls` and at most
+  **one** request to the live domain — repeated automated polling tripped
+  Vercel's firewall Security Checkpoint on 2026-07-20.
+- When adding new text containers to the story, extend the narration
+  playlist selector (`SEL` in `public/js/extras.js`) so "Play story" reads
+  them, and check the typewriter still targets the intended `.record`.
+
 ## Zero-regression rule
 
 Current behavior **is** the spec. Any change must leave the page functionally
@@ -129,13 +144,13 @@ In `public/js/engine.js`:
 - `DATES` / `TITLES` / `TRAGIC` / `PHASES` / `REACH` (≈line 55) — HUD text,
   tragic tint, phase labels, progress-line extent per event.
 - `FEATURES` / `MOMENTS` (≈line 64) — named-feature pins and moment pins.
-- `KEYS` (≈line 215) — the ~45 camera keyframes:
+- `KEYS` (≈line 219) — the ~45 camera keyframes:
   `[dom-id, camp, zoom, pitch, bearing, y-offset, grade]`. Keyframes anchor
   to DOM element ids, so renaming/removing an id in `app/story.html` silently
   breaks the camera path. The 7th field is the color-grade class
   (`g-day`, `g-storm`, `g-night`, `g-dusk`, `g-mourn`, `g-city`) styled in
   `public/css/main.css`; `snowSet()` maps grades to snow-particle modes.
-- `VIG` (≈line 369) — event-index → vignette mapping; zone vignettes are
+- `VIG` (≈line 373) — event-index → vignette mapping; zone vignettes are
   bound just below it (`ch1-zone`→nyc, `ch6-zone`→tent, ch5 steps→pair).
 
 In `public/js/extras.js`: the scrubber's own `DATES` (≈line 54) plus
