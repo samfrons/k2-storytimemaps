@@ -75,17 +75,28 @@ posture and must keep their credits in the cards and colophon.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
   inspired; type system (settled 2026-07-20): **Fraunces** (display/headlines/
   numerals — variable, opsz 9–144, real italics; hero + covers at 600, solid
-  ivory with the `#hand-text` letterpress-worn filter), **Big Shoulders Text**
-  (condensed grotesque for kickers/HUD/labels/altimeter — the sports-journal/
-  instrument voice), **Newsreader** (body — 1930s-newsprint-derived; body
-  weight 380, not 300), **Special Elite** (the typewritten record — keep).
+  ivory with the `#hand-text` letterpress-worn filter), **Jost** (geometric
+  sans for the micro layer — kickers/HUD/labels/buttons/altimeter),
+  **Newsreader** (body — 1930s-newsprint-derived; body weight 380, not 300),
+  **Special Elite** (the typewritten record — keep).
   Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
   Standing rules (Sam, 2026-07-20): **no tan/bronze-colored text** — bronze
   lives only in hairlines, borders, and the progress bar; markers and map
   labels are **vintage-print style** — solid deep-ink figures (no SVG
   strokes, no glows, offset-print paper shadow) and cream paper chips with
   ink text. The Wochita brush font was tried and rejected; files remain in
-  `public/fonts/` unused.
+  `public/fonts/` unused. **Big Shoulders Text was tried and rejected**
+  (Sam, 2026-07-21) — too condensed to read at label sizes; Jost is the
+  micro face. Micro type sits at .66–.78rem — do not shrink it back toward
+  the old .44–.62rem, which was illegible.
+  **Card treatment** (Sam, 2026-07-21): the four floating card surfaces —
+  `.panel`, `.over-card`, `.mem-inner`, `.doc` — all share
+  `background:rgb(255 255 255 / 86%)` + `mix-blend-mode:color`, with **no
+  `backdrop-filter`**. The frosted blur was what blocked the see-through
+  effect and added the warm tint (`saturate(.85) brightness(1.06)`); the
+  cards are meant to read neutral and see-through, not cream and frosted.
+  `.record` is deliberately excluded — it is a paper document nested inside
+  `.panel`, not a floating card, and keeps solid `--cream`.
 - `public/js/engine.js` — MapLibre 3D terrain background (keyless: AWS
   terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
   camp/climber markers, the 17-event timeline, vignette + grade + snow
