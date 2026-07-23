@@ -9,6 +9,9 @@
 
 <!-- shared filters: hand-inked wobble for silhouettes (large + fine variants) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="stip" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(16)">
+    <circle cx="1.1" cy="1.1" r=".55" fill="#17110b"/>
+  </pattern>
   <filter id="hand" x="-5%" y="-5%" width="110%" height="110%">
     <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="3" seed="7" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
@@ -56,48 +59,190 @@
   </g>
 </svg>
 
-<!-- ev3 · hauled up the House Chimney -->
+<!-- ev3 · hauled up the House Chimney — hand-tinted plate: Wolfe (stocky, spectacles,
+     loden coat) hanging on the fixed line. Figure is illustrative, not a portrait. -->
 <svg class="vg vg-right" id="vg-haul" viewBox="0 0 420 420" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
   <path d="M420 420V0h-90l-40 90 20 70-50 90 24 60-40 110z" fill="#14100a" opacity=".92"/>
-  <line x1="252" y1="58" x2="228" y2="330" stroke="#efe9da" stroke-width="1.6" stroke-dasharray="3 4" opacity=".75"/>
-  <g class="an-haul" fill="#efe9da" stroke="#efe9da" stroke-width="1">
-    <circle cx="228" cy="318" r="7"/>
-    <path d="M228 326 l-9 16 -3 26 6 2 8 -20 8 20 6 -2 -3 -26 z"/>
-    <path d="M223 334 l-16 -12 3 -5 17 9 z"/><path d="M233 334 l16 -10 -3 -5 -17 8 z"/>
+  <line x1="252" y1="58" x2="228" y2="330" stroke="#d9c68f" stroke-width="1.7" stroke-dasharray="5 2.5" opacity=".8"/>
+  <g class="an-haul">
+    <g transform="rotate(-9 218 329)">
+      <rect x="212.5" y="322" width="9.5" height="14" rx="2.8" fill="#5a452e" stroke="#17110b" stroke-width=".7"/>
+      <rect x="211.8" y="319.6" width="11" height="4.2" rx="2.1" fill="#8a683a" stroke="#17110b" stroke-width=".6"/>
+    </g>
+    <path d="M222 317.6 Q219.2 318.2 218.8 321.6 L216.8 352 L239.2 352 L236.6 321.4 Q236.2 318.2 233.4 317.6 Z" fill="#67754a" stroke="#17110b" stroke-width=".8"/>
+    <path d="M222 317.6 Q219.2 318.2 218.8 321.6 L216.8 352 L223.4 352 L225 318 Z" fill="#4c5836" opacity=".85"/>
+    <g stroke="#17110b" stroke-width=".55" opacity=".5" fill="none">
+      <path d="M227.6 322 L227 350"/><path d="M231.8 323 L231.4 350.4"/><path d="M219.6 330 L235.8 329"/>
+    </g>
+    <path d="M218.6 327.5 Q228 332 237 326.8" fill="none" stroke="#d9c68f" stroke-width="1.6"/>
+    <path d="M233.2 320 Q236.4 316 236.2 311 L233.6 302.6 L230.4 303.4 L232.4 311.4 Q232 315 230.8 318 Z" fill="#67754a" stroke="#17110b" stroke-width=".7"/>
+    <path d="M222.6 320 Q222 314.4 224 310.4 L227.2 306.6 L229.6 308.6 L226.8 312.4 Q226.2 316 226.6 319.4 Z" fill="#5c6a41" stroke="#17110b" stroke-width=".7"/>
+    <circle cx="232.2" cy="301.8" r="2" fill="#17110b"/>
+    <circle cx="228.6" cy="307.2" r="1.9" fill="#17110b"/>
+    <circle cx="228.8" cy="313.6" r="3.4" fill="#e2cfae" stroke="#17110b" stroke-width=".6"/>
+    <path d="M225.6 313.2 a3.4 3.4 0 0 0 1.6 3.6 l-1 -3.4 z" fill="#17110b" opacity=".45"/>
+    <path d="M226 311.4 Q228.6 312.6 231.6 311.8 L231.5 310.9 Q228.7 311.6 226.2 310.6 Z" fill="#17110b" opacity=".75"/>
+    <circle cx="230.6" cy="313.9" r="1.3" fill="none" stroke="#17110b" stroke-width=".7"/>
+    <path d="M229.3 313.9 L226.6 313.5" stroke="#17110b" stroke-width=".6" fill="none"/>
+    <ellipse cx="227.4" cy="309.8" rx="8" ry="2.1" fill="#241a10" transform="rotate(-6 227.4 309.8)"/>
+    <path d="M222.4 309.6 Q223.4 303.6 227.4 303.6 Q231.4 303.6 232.4 309.8 Z" fill="#241a10"/>
+    <path d="M222.8 308.2 L232 308.4" stroke="#3a2c1c" stroke-width=".9"/>
+    <path d="M219.4 351 Q216.4 355.4 217 360.8 L224 363.2 Q226 357.4 225.2 351 Z" fill="#5c5245" stroke="#17110b" stroke-width=".7"/>
+    <path d="M230.6 351 Q231 356 233.8 359.6 L240.4 356.8 Q239.6 351.8 237.6 349.6 Z" fill="#544b3f" stroke="#17110b" stroke-width=".7"/>
+    <path d="M218.4 361.4 L223.6 363.4 L222.4 370.6 L217.6 369.6 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".6"/>
+    <path d="M234.6 358.8 L240 356.6 L243 361.4 L238.2 364.2 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".6"/>
+    <g stroke="#17110b" stroke-width=".45" opacity=".6" fill="none">
+      <path d="M218.4 364.4 L223.2 366"/><path d="M218 367 L222.8 368.4"/><path d="M236.2 359.6 L240.6 357.8"/>
+    </g>
+    <path d="M216.6 369.4 l1.4 -1 4.6 1 1 2.6 -.4 1.2 -6.4 -.6 z" fill="#17110b"/>
+    <path d="M241.4 359.6 l3.4 2.2 .6 2.8 -3.4 1.2 -2.6 -2.4 z" fill="#17110b"/>
   </g>
 </svg>
 
-<!-- ev8 / ch5 · two figures on the summit ridge, moonlit -->
+<!-- ev8 / ch5 · Wiessner and Pasang Dawa Lama on the summit ridge, moonlit —
+     the leader in felt hat and wind-jacket, the lama with the coiled rope.
+     Night-muted hand tints, cream rim light from the moon at upper right. -->
 <svg class="vg vg-wide" id="vg-pair" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
   <circle cx="1180" cy="90" r="42" fill="#f1ecdf" opacity=".85"/>
   <circle cx="1180" cy="90" r="70" fill="#f1ecdf" opacity=".12"/>
   <path d="M0 380 L0 330 300 300 620 210 900 150 1160 120 1440 96 1440 380 Z" fill="#100d08" opacity=".94"/>
-  <g class="an-pair" stroke="#efe9da" stroke-width=".8" fill="#efe9da">
-    <g><circle cx="0" cy="-26" r="5.5"/><path d="M0 -20 l-7 12 -2 20 4 1 6 -15 6 15 4 -1 -2 -20 z"/><line x1="8" y1="-18" x2="13" y2="4" stroke-width="1.4"/></g>
-    <g transform="translate(46,12)"><circle cx="0" cy="-26" r="5.5"/><path d="M0 -20 l-7 12 -2 20 4 1 6 -15 6 15 4 -1 -2 -20 z"/><line x1="-9" y1="-16" x2="-14" y2="6" stroke-width="1.4"/></g>
-    <path d="M8 -12 Q 26 -4 38 -10" stroke="#efe9da" fill="none" stroke-width="1" stroke-dasharray="2 3"/>
+  <g class="an-pair">
+    <path d="M-5.4 -14.6 Q24 4 52 -6.6" fill="none" stroke="#cdbb8c" stroke-width=".9" opacity=".85"/>
+    <!-- Wiessner, leading -->
+    <g>
+      <path d="M-8.2 12.8 l1 -3.4 4.6 -.2 1.9 2.6 -.3 1.5 -6.9 .3 z" fill="#17110b"/>
+      <path d="M4.2 11.4 l1 -3.4 4.6 0 1.9 2.6 -.3 1.5 -6.9 .3 z" fill="#17110b"/>
+      <path d="M-5 3.2 L-7.6 9.8 L-4.6 10.8 L-2.4 4.2 Z" fill="#a99b7e" stroke="#17110b" stroke-width=".5"/>
+      <path d="M4.8 2.2 L4.4 8.4 L7.6 8.8 L8.2 2.6 Z" fill="#a99b7e" stroke="#17110b" stroke-width=".5"/>
+      <g stroke="#17110b" stroke-width=".4" opacity=".55" fill="none">
+        <path d="M-6.4 5.6 l2.8 .8"/><path d="M-7 7.6 l2.8 .8"/><path d="M4.7 4.4 l3.2 .3"/><path d="M4.6 6.4 l3.1 .3"/>
+      </g>
+      <path d="M-4.4 -13 Q-7.2 -6.4 -6.6 2.6 L-1.6 3.6 Q-.6 -4.6 -.6 -12.4 Z" fill="#4e463c" stroke="#17110b" stroke-width=".6"/>
+      <path d="M.8 -12.6 Q1.6 -5.2 3.6 1.6 L8.4 .8 Q7.4 -6.4 5.4 -13 Z" fill="#5a5243" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-3 -30.6 Q-5.4 -29.8 -5.8 -26.2 L-6.6 -12.6 L6.4 -12.2 Q6.6 -20.4 4.8 -27.4 Q3.8 -30.4 1.2 -30.9 Z" fill="#7a4433" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-3 -30.6 Q-5.4 -29.8 -5.8 -26.2 L-6.6 -12.6 L-2.6 -12.5 L-1.6 -30.4 Z" fill="#5d3226" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M0 -28 L-.4 -13"/><path d="M3 -26.6 L3.2 -13"/></g>
+      <path d="M-1.8 -28.4 Q-4.2 -25.2 -5.6 -20.4 L-7.4 -16.2 L-5 -14.8 L-2.6 -19.6 Q-1.4 -23.6 -.2 -26.4 Z" fill="#6e3d2e" stroke="#17110b" stroke-width=".6"/>
+      <circle cx="-6.2" cy="-15" r="1.7" fill="#17110b"/>
+      <path d="M2.6 -28.2 Q6 -26.4 7.8 -23 L10.6 -17 L8.2 -15.6 L5.6 -21.2 Q4 -24.4 1.4 -26.2 Z" fill="#7a4433" stroke="#17110b" stroke-width=".6"/>
+      <circle cx="9.6" cy="-16" r="1.7" fill="#17110b"/>
+      <path d="M9.9 -15.6 L13 11.6" stroke="#7d6140" stroke-width="1.3"/>
+      <path d="M13.05 11.2 L13.6 13.8" stroke="#17110b" stroke-width="1.1"/>
+      <path d="M6.6 -16.6 L9.6 -18.2 L13.4 -17 L10 -15.2 Z" fill="#17110b"/>
+      <circle cx="1.6" cy="-33.2" r="3.1" fill="#d8c39c" stroke="#17110b" stroke-width=".55"/>
+      <path d="M4.5 -33.8 l1.5 .9 -1.3 .9 z" fill="#d8c39c"/>
+      <path d="M-1.4 -33.6 a3.1 3.1 0 0 0 1.4 3.2 l-.6 -3.4 z" fill="#17110b" opacity=".4"/>
+      <path d="M-1.5 -35.4 Q1.6 -36.6 4.6 -35 L4.4 -34 Q1.6 -35.4 -1.3 -34.4 Z" fill="#17110b" opacity=".8"/>
+      <ellipse cx="1.4" cy="-35.4" rx="5.8" ry="1.6" fill="#201710" transform="rotate(-9 1.4 -35.4)"/>
+      <path d="M-2.2 -35.6 Q-1.4 -40.4 2 -40.4 Q5.2 -40.4 5.8 -35.2 Z" fill="#201710"/>
+      <path d="M-1.9 -36.7 L5.3 -36.5" stroke="#3a2c1c" stroke-width=".8"/>
+      <g stroke="#f1ecdf" stroke-width=".55" opacity=".7" fill="none">
+        <path d="M5.9 -40.4 q1.3 1.4 1.3 3"/><path d="M5.2 -27.2 L6.4 -12.4"/><path d="M8.3 -.4 L7.8 8.6"/>
+      </g>
+    </g>
+    <!-- Pasang Dawa Lama, on the rope -->
+    <g transform="translate(46,12)">
+      <path d="M-7.6 12.6 l1 -3.2 4.2 -.2 1.8 2.4 -.3 1.4 -6.4 .3 z" fill="#17110b"/>
+      <path d="M3.8 11.6 l1 -3.2 4.2 0 1.8 2.4 -.3 1.4 -6.4 .3 z" fill="#17110b"/>
+      <path d="M-4.6 3 L-6.8 9.6 L-4 10.6 L-2 4 Z" fill="#a99b7e" stroke="#17110b" stroke-width=".5"/>
+      <path d="M4.4 2.2 L4 8.6 L6.9 9 L7.5 2.6 Z" fill="#a99b7e" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-4 -12.6 Q-6.6 -6 -6 2.6 L-1.6 3.4 Q-.8 -4.4 -.8 -12 Z" fill="#39352c" stroke="#17110b" stroke-width=".55"/>
+      <path d="M.6 -12.2 Q1.4 -5 3.2 1.8 L7.6 1 Q6.8 -6 5 -12.6 Z" fill="#403b30" stroke="#17110b" stroke-width=".55"/>
+      <path d="M-2.8 -29.4 Q-5 -28.6 -5.4 -25.2 L-6 -11.8 L6 -11.4 Q6.2 -19.4 4.4 -26.2 Q3.4 -29.2 1 -29.7 Z" fill="#3f5063" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-2.8 -29.4 Q-5 -28.6 -5.4 -25.2 L-6 -11.8 L-2.2 -11.7 L-1.4 -29.2 Z" fill="#2e3d4e" opacity=".85"/>
+      <path d="M-3.4 -26.4 Q1 -23.8 4.6 -19.4" fill="none" stroke="#cdbb8c" stroke-width="1.4"/>
+      <path d="M-3.8 -24.6 Q.4 -22 3.8 -17.8" fill="none" stroke="#bfae80" stroke-width="1.1" opacity=".9"/>
+      <path d="M-2 -27.2 Q-5.2 -24.4 -6.6 -20 L-8.2 -16 L-5.8 -14.6 L-3.6 -19.4 Q-2.4 -23 -1 -25.4 Z" fill="#37475a" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-6.4" cy="-14.8" r="1.6" fill="#17110b"/>
+      <path d="M-6.7 -14.4 L-9.6 10.8" stroke="#7d6140" stroke-width="1.2"/>
+      <path d="M-9.62 10.4 L-10.1 13" stroke="#17110b" stroke-width="1"/>
+      <path d="M-9.4 -15.2 L-6.6 -16.8 L-3.4 -15.4 L-6.6 -13.9 Z" fill="#17110b"/>
+      <path d="M2.4 -26.6 Q5 -24.6 6.4 -21.6 L7.6 -18.8 L5.2 -17.6 L3.6 -21 Q2.4 -23.6 .8 -25 Z" fill="#3f5063" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="6.5" cy="-18.4" r="1.6" fill="#17110b"/>
+      <path d="M-2.4 -32.6 Q-2 -37.6 1.4 -37.6 Q4.8 -37.6 5.2 -32.4 Q5.4 -30 4.4 -29.2 L-1.6 -29.4 Q-2.6 -30.6 -2.4 -32.6 Z" fill="#2b3947" stroke="#17110b" stroke-width=".6"/>
+      <circle cx="2.4" cy="-32.4" r="1.9" fill="#c3a078" stroke="#17110b" stroke-width=".4"/>
+      <g stroke="#f1ecdf" stroke-width=".5" opacity=".65" fill="none">
+        <path d="M5 -36.4 q.8 1.6 .5 3.4"/><path d="M4.9 -25.6 L6 -11.6"/>
+      </g>
+    </g>
   </g>
 </svg>
 
-<!-- ev9 · the camps carried away: porters descending with loads -->
+<!-- ev9 · the camps carried away — Sherpas descending under basket, bedroll, and
+     folded camp. Hand-tinted plate: rust, ochre, and slate jackets, buff puttees. -->
 <svg class="vg vg-wide" id="vg-strip" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
   <path d="M0 300 L0 240 400 200 900 130 1440 60 1440 300 Z" fill="#120e09" opacity=".94"/>
   <g class="an-strip">
-    <g class="porter" stroke="#c96a5c" stroke-width=".9" fill="#c96a5c">
-      <circle cx="0" cy="-30" r="5.5"/>
-      <path d="M0 -24 l-7 13 -2 20 4 1 6 -14 6 14 4 -1 -2 -20 z"/>
-      <rect x="-13" y="-32" width="12" height="20" rx="3" transform="rotate(-12 -7 -22)"/>
+    <!-- porter 1 · wicker basket with the rolled tent, tumpline to the forehead -->
+    <g class="porter">
+      <rect x="1.2" y="-45" width="11" height="4.8" rx="2.4" fill="#67754a" stroke="#17110b" stroke-width=".6" transform="rotate(7 6.7 -42.6)"/>
+      <path d="M2.4 -39.8 L11 -38 L9 -20.2 L3 -21.8 Z" fill="#a97f47" stroke="#17110b" stroke-width=".7"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".55" fill="none">
+        <path d="M5.6 -39.2 L4.6 -21"/><path d="M8.4 -38.6 L7 -20.6"/>
+        <path d="M2.9 -34.6 L10.4 -33"/><path d="M2.8 -29.6 L9.8 -28"/><path d="M2.9 -24.8 L9.4 -23.4"/>
+      </g>
+      <path d="M3.2 -38.6 Q-2.6 -40.6 -7.4 -36.2" fill="none" stroke="#cdbb8c" stroke-width="1.3"/>
+      <path d="M-5.2 -31.6 Q-7.4 -30.6 -7.2 -27 L-4.6 -15 L5.8 -16.6 Q5.6 -24.4 3.4 -29.6 Q1.6 -32.4 -1.8 -32.4 Z" fill="#96543f" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-5.2 -31.6 Q-7.4 -30.6 -7.2 -27 L-4.6 -15 L-1 -15.6 L-2.6 -32 Z" fill="#6e3a2b" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M0 -29.4 L1 -16.4"/><path d="M2.8 -27.6 L3.6 -17"/></g>
+      <circle cx="-4.8" cy="-33.8" r="2.9" fill="#c9a678" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-7.5 -34.4 l-1.3 .8 1.2 .8 z" fill="#c9a678"/>
+      <path d="M-7.4 -36 Q-5.6 -37.8 -3 -36.8 Q-1.8 -36.2 -2 -34.6 Q-3.6 -36 -5.6 -35.2 Z" fill="#17110b"/>
+      <path d="M-4.4 -28.2 Q-6.8 -25.6 -8.4 -21.6 L-9.6 -18.4 L-7 -17.2 L-5.4 -21 Q-4 -24.4 -2.8 -26.4 Z" fill="#83452f" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-8.4" cy="-17.8" r="1.6" fill="#17110b"/>
+      <path d="M-8.9 -18.6 L-12.6 9.2" stroke="#7d6140" stroke-width="1.2"/>
+      <path d="M-3.8 -15.4 Q-6.2 -9.4 -6.4 -1.6 L-2.2 -.6 Q-.8 -8 -.2 -15 Z" fill="#6b5f4c" stroke="#17110b" stroke-width=".6"/>
+      <path d="M1 -15.6 Q2 -8.6 3.6 -2.4 L7.6 -3.4 Q6.6 -10 5.2 -16.2 Z" fill="#5f5443" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-6.2 -2 L-2.6 -1 L-3.6 6.4 L-7.4 5.8 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M3.8 -2.8 L7.4 -3.6 L9 3.4 L5.4 4.6 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <g stroke="#17110b" stroke-width=".4" opacity=".55" fill="none"><path d="M-6.6 .6 l3.6 .8"/><path d="M-6.9 3 l3.5 .8"/><path d="M4.4 -.4 l3.6 -.6"/><path d="M4.9 1.8 l3.5 -.6"/></g>
+      <path d="M-8.6 6 l1.2 -1 4.4 .8 1 2.6 -.3 1.4 -6.3 -.4 z" fill="#17110b"/>
+      <path d="M5 4.4 l4 -1.4 2.6 2 -.6 2.6 -4.6 1 -1.6 -1.8 z" fill="#17110b"/>
     </g>
-    <g class="porter p2" stroke="#c96a5c" stroke-width=".9" fill="#c96a5c" transform="translate(90,14)">
-      <circle cx="0" cy="-30" r="5.5"/>
-      <path d="M0 -24 l-7 13 -2 20 4 1 6 -14 6 14 4 -1 -2 -20 z"/>
-      <ellipse cx="-9" cy="-34" rx="10" ry="6"/>
+    <!-- porter 2 · the great bedroll across the shoulders -->
+    <g class="porter p2" transform="translate(90,14)">
+      <rect x="-6.5" y="-42.6" width="16.5" height="6.4" rx="3.2" fill="#4a5c70" stroke="#17110b" stroke-width=".7" transform="rotate(5 2 -39.4)"/>
+      <ellipse cx="9.6" cy="-38.4" rx="1.6" ry="3" fill="#374757" stroke="#17110b" stroke-width=".5" transform="rotate(5 9.6 -38.4)"/>
+      <path d="M-3.2 -37.4 L-2.6 -32.6" stroke="#cdbb8c" stroke-width="1.1"/>
+      <path d="M6.4 -36.6 L7 -31.4" stroke="#cdbb8c" stroke-width="1.1"/>
+      <path d="M-5.2 -31.6 Q-7.4 -30.6 -7.2 -27 L-4.6 -15 L5.8 -16.6 Q5.6 -24.4 3.4 -29.6 Q1.6 -32.4 -1.8 -32.4 Z" fill="#a97f47" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-5.2 -31.6 Q-7.4 -30.6 -7.2 -27 L-4.6 -15 L-1 -15.6 L-2.6 -32 Z" fill="#7c5c33" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M0 -29.4 L1 -16.4"/><path d="M2.8 -27.6 L3.6 -17"/></g>
+      <circle cx="-4.8" cy="-33.8" r="2.9" fill="#c9a678" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-7.5 -34.4 l-1.3 .8 1.2 .8 z" fill="#c9a678"/>
+      <path d="M-7.3 -35.4 Q-7 -38.2 -4.4 -38 Q-2.1 -37.8 -2.1 -35.2 L-2.5 -34 Q-4.7 -34.9 -6.9 -34.4 Z" fill="#96543f" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-2.6 -28.8 Q-4.9 -31.2 -5.9 -34.2 L-4.1 -35.6 Q-2.7 -32.4 -1.2 -30.2 Z" fill="#8a6a3e" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-5" cy="-35.2" r="1.5" fill="#17110b"/>
+      <path d="M-3.4 -15.6 Q-5.4 -9 -5.2 -1.2 L-1 -.6 Q-.2 -8 .2 -15.2 Z" fill="#6b5f4c" stroke="#17110b" stroke-width=".6"/>
+      <path d="M1.4 -15.6 Q2.8 -8.2 4.8 -2 L8.6 -3.4 Q7.2 -10 5.6 -16.2 Z" fill="#5f5443" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-5.1 -1.6 L-1.4 -1 L-2.2 6.6 L-6.2 6 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M5 -2.6 L8.6 -3.4 L10.2 3.6 L6.6 4.8 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <g stroke="#17110b" stroke-width=".4" opacity=".55" fill="none"><path d="M-5.6 1 l3.6 .7"/><path d="M-5.9 3.4 l3.6 .7"/><path d="M5.6 -.2 l3.6 -.6"/><path d="M6.1 2 l3.5 -.6"/></g>
+      <path d="M-7.4 6.2 l1.2 -1 4.4 .8 1 2.6 -.3 1.4 -6.3 -.4 z" fill="#17110b"/>
+      <path d="M6.2 4.6 l4 -1.4 2.6 2 -.6 2.6 -4.6 1 -1.6 -1.8 z" fill="#17110b"/>
     </g>
-    <g class="porter p3" stroke="#c96a5c" stroke-width=".9" fill="#c96a5c" transform="translate(185,28)">
-      <circle cx="0" cy="-30" r="5.5"/>
-      <path d="M0 -24 l-7 13 -2 20 4 1 6 -14 6 14 4 -1 -2 -20 z"/>
-      <path d="M6 -26 q 16 2 22 12" stroke-width="1.6" fill="none"/>
-      <ellipse cx="30" cy="-10" rx="9" ry="5"/>
+    <!-- porter 3 · folded mattress and duffel, felt hat, alpenstock -->
+    <g class="porter p3" transform="translate(185,28)">
+      <rect x="2" y="-39.4" width="7.6" height="14.5" rx="1.6" fill="#b5a888" stroke="#17110b" stroke-width=".6" transform="rotate(6 6 -32)"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".55" fill="none"><path d="M3 -34.6 l7.4 .8"/><path d="M2.6 -29.8 l7.6 .8"/></g>
+      <ellipse cx="7.2" cy="-22.4" rx="4.6" ry="2.6" fill="#5a452e" stroke="#17110b" stroke-width=".55"/>
+      <path d="M-5.2 -31.6 Q-7.4 -30.6 -7.2 -27 L-4.6 -15 L5.8 -16.6 Q5.6 -24.4 3.4 -29.6 Q1.6 -32.4 -1.8 -32.4 Z" fill="#4a5c70" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-5.2 -31.6 Q-7.4 -30.6 -7.2 -27 L-4.6 -15 L-1 -15.6 L-2.6 -32 Z" fill="#34455a" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M0 -29.4 L1 -16.4"/><path d="M2.8 -27.6 L3.6 -17"/></g>
+      <circle cx="-4.8" cy="-33.8" r="2.9" fill="#c9a678" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-7.5 -34.4 l-1.3 .8 1.2 .8 z" fill="#c9a678"/>
+      <ellipse cx="-4.6" cy="-36.2" rx="5.2" ry="1.5" fill="#241a10" transform="rotate(-10 -4.6 -36.2)"/>
+      <path d="M-7.6 -36.8 Q-6.6 -40.6 -3.8 -40.2 Q-1.2 -39.8 -1.6 -35.6 Z" fill="#241a10"/>
+      <path d="M-4.4 -28.2 Q-6.8 -25.6 -8.4 -21.6 L-9.6 -18.4 L-7 -17.2 L-5.4 -21 Q-4 -24.4 -2.8 -26.4 Z" fill="#3d4d61" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-8.4" cy="-17.8" r="1.6" fill="#17110b"/>
+      <path d="M-8.9 -18.6 L-12.6 9.2" stroke="#7d6140" stroke-width="1.2"/>
+      <path d="M-3.6 -15.4 Q-6 -9.2 -6 -1.4 L-1.8 -.6 Q-.6 -8 -.2 -15 Z" fill="#6b5f4c" stroke="#17110b" stroke-width=".6"/>
+      <path d="M1.2 -15.6 Q2.2 -8.4 3.8 -2.2 L7.8 -3.2 Q6.8 -10 5.4 -16.2 Z" fill="#5f5443" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-5.9 -1.8 L-2.2 -1 L-3.2 6.4 L-7 5.8 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M4 -2.6 L7.6 -3.4 L9.2 3.6 L5.6 4.8 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <g stroke="#17110b" stroke-width=".4" opacity=".55" fill="none"><path d="M-6.4 .8 l3.6 .8"/><path d="M-6.7 3.2 l3.5 .8"/><path d="M4.6 -.2 l3.6 -.6"/><path d="M5.1 2 l3.5 -.6"/></g>
+      <path d="M-8.2 6 l1.2 -1 4.4 .8 1 2.6 -.3 1.4 -6.3 -.4 z" fill="#17110b"/>
+      <path d="M5.2 4.6 l4 -1.4 2.6 2 -.6 2.6 -4.6 1 -1.6 -1.8 z" fill="#17110b"/>
     </g>
   </g>
 </svg>
@@ -105,20 +250,82 @@
 <!-- ev10 · the fall: rope snaps taut, the sleeping bag tumbles -->
 <svg class="vg vg-right" id="vg-fall" viewBox="0 0 480 420" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
   <path d="M480 420V60l-120 60-60 120-80 60-60 120z" fill="#14100a" opacity=".92"/>
-  <path class="an-rope" d="M300 120 Q 250 200 210 300" stroke="#efe9da" stroke-width="1.6" fill="none"/>
+  <path class="an-rope" d="M300 120 Q 250 200 210 300" stroke="#d9c68f" stroke-width="1.7" fill="none"/>
   <g class="an-bag">
-    <rect x="-14" y="-8" width="28" height="16" rx="8" fill="#c96a5c"/>
-    <line x1="-14" y1="-2" x2="14" y2="-2" stroke="#14100a" stroke-width=".7" opacity=".55"/>
+    <rect x="-15" y="-8.5" width="30" height="17" rx="8" fill="#96543f" stroke="#17110b" stroke-width=".8"/>
+    <ellipse cx="11.4" cy="0" rx="3.6" ry="8.1" fill="#6e3a2b" stroke="#17110b" stroke-width=".6"/>
+    <path d="M-7 -8.3 L-7 8.3" stroke="#cdbb8c" stroke-width="2"/>
+    <path d="M3 -8.3 L3 8.3" stroke="#cdbb8c" stroke-width="2"/>
+    <g stroke="#17110b" stroke-width=".5" opacity=".55" fill="none">
+      <path d="M-14.6 -3 Q0 -5.5 10 -3.4"/><path d="M-14.6 2.5 Q0 .5 10 2.2"/>
+    </g>
   </g>
 </svg>
 
-<!-- ev12–13 · the rescue: three climbing fast -->
+<!-- ev12–13 · the rescue — Pasang Kikuli leading the rope of Sherpas up the spur.
+     Green-family tints kept from the old version: rescue stays the hopeful color. -->
 <svg class="vg vg-left" id="vg-rescue" viewBox="0 0 520 420" preserveAspectRatio="xMinYMax meet" aria-hidden="true">
   <path d="M0 420V80l90 70 40 100 90 60 60 110z" fill="#12100a" opacity=".92"/>
-  <g class="an-rescue" stroke="#8fb3a0" stroke-width=".9" fill="#8fb3a0">
-    <g><circle cx="0" cy="-26" r="5"/><path d="M0 -21 l-6 11 -2 18 4 1 5 -13 5 13 4 -1 -2 -18 z"/><line x1="7" y1="-16" x2="11" y2="3" stroke-width="1.3"/></g>
-    <g transform="translate(-40,26)"><circle cx="0" cy="-26" r="5"/><path d="M0 -21 l-6 11 -2 18 4 1 5 -13 5 13 4 -1 -2 -18 z"/></g>
-    <g transform="translate(-80,52)"><circle cx="0" cy="-26" r="5"/><path d="M0 -21 l-6 11 -2 18 4 1 5 -13 5 13 4 -1 -2 -18 z"/></g>
+  <g class="an-rescue">
+    <path d="M-2.6 -11 Q-18 8 -42 15 Q-60 24 -82.4 41" fill="none" stroke="#cdbb8c" stroke-width=".9" opacity=".75"/>
+    <!-- Pasang Kikuli, sirdar, leading -->
+    <g>
+      <path d="M-12.6 -20.8 L-18.2 -27.6" stroke="#7d6140" stroke-width="1.2"/>
+      <path d="M-20.4 -27 L-17.6 -29.6 L-15.2 -26.6 L-18.4 -25.6 Z" fill="#17110b"/>
+      <path d="M.4 -14.6 Q2 -8.6 3.4 -4.4 L4.8 -.8 L1.4 .4 Q-.6 -6.6 -1.6 -13.6 Z" fill="#57503f" stroke="#17110b" stroke-width=".6"/>
+      <path d="M2.6 -4 L1.6 .8 L4.9 1.4 L5.7 -3.2 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M1 .8 l1.2 -1 4.2 .6 1.2 2.4 -.3 1.4 -6.2 -.2 z" fill="#17110b"/>
+      <path d="M-2 -15.4 Q-5.4 -13.2 -7.4 -10 L-8.8 -7.4 L-5.6 -5.6 Q-3.6 -9 -1.2 -11.4 Z" fill="#57503f" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-8.4 -7.6 L-10.2 -3.2 L-7.2 -2 L-5.7 -6.2 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-10.8 -3.4 l1.2 -1 4.2 .8 1 2.4 -.3 1.3 -6 -.3 z" fill="#17110b"/>
+      <path d="M-7.8 -29.6 Q-10 -28.4 -9.6 -25 L-3.4 -13.6 L3.4 -15.8 Q1.6 -22.8 -2 -27.6 Q-4.6 -30.6 -7.8 -29.6 Z" fill="#67754a" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-7.8 -29.6 Q-10 -28.4 -9.6 -25 L-3.4 -13.6 L-.8 -14.4 L-4.4 -29.6 Z" fill="#4c5836" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M-3.4 -25.6 L-.6 -15.4"/><path d="M-1 -24.2 L1.4 -16.2"/></g>
+      <path d="M-6.4 -28.6 Q-4.6 -30 -2.8 -28.8 L-3.2 -26.8 Q-5 -27.6 -6.2 -27 Z" fill="#96543f" stroke="#17110b" stroke-width=".4"/>
+      <path d="M-7.6 -27.4 Q-10.4 -25.8 -12 -23.4 L-13.6 -21 L-11.2 -19.4 L-9.4 -22.4 Q-8 -24.6 -6.2 -25.8 Z" fill="#5c6a41" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-12.5" cy="-20.4" r="1.6" fill="#17110b"/>
+      <path d="M-1.4 -25.2 Q.6 -23 1.6 -20 L2.4 -17 L-.4 -16.2 L-1.4 -19.6 Q-2.2 -22.4 -3.4 -24 Z" fill="#67754a" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="1.4" cy="-16.6" r="1.5" fill="#17110b"/>
+      <circle cx="-6.8" cy="-32.2" r="2.9" fill="#c9a678" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-9.5 -32.8 l-1.3 .8 1.2 .8 z" fill="#c9a678"/>
+      <ellipse cx="-6.6" cy="-34.6" rx="5.2" ry="1.5" fill="#241a10" transform="rotate(-14 -6.6 -34.6)"/>
+      <path d="M-9.8 -35.2 Q-8.6 -39.4 -5.6 -39 Q-2.8 -38.6 -3 -34 Z" fill="#241a10"/>
+    </g>
+    <!-- Tsering Norbu -->
+    <g transform="translate(-40,26)">
+      <path d="M-12.6 -20.8 L-18.2 -27.6" stroke="#7d6140" stroke-width="1.2"/>
+      <path d="M-20.4 -27 L-17.6 -29.6 L-15.2 -26.6 L-18.4 -25.6 Z" fill="#17110b"/>
+      <path d="M.8 -14.4 Q2.6 -8.4 4 -4.2 L5.4 -.6 L2 .6 Q0 -6.4 -1.2 -13.4 Z" fill="#57503f" stroke="#17110b" stroke-width=".6"/>
+      <path d="M3.2 -3.8 L2.2 1 L5.5 1.6 L6.3 -3 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M1.6 1 l1.2 -1 4.2 .6 1.2 2.4 -.3 1.4 -6.2 -.2 z" fill="#17110b"/>
+      <path d="M-2.4 -15.2 Q-5.8 -12.8 -7.8 -9.6 L-9.2 -7 L-6 -5.2 Q-4 -8.6 -1.6 -11.2 Z" fill="#57503f" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-8.8 -7.2 L-10.6 -2.8 L-7.6 -1.6 L-6.1 -5.8 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-11.2 -3 l1.2 -1 4.2 .8 1 2.4 -.3 1.3 -6 -.3 z" fill="#17110b"/>
+      <path d="M-7.8 -29.6 Q-10 -28.4 -9.6 -25 L-3.4 -13.6 L3.4 -15.8 Q1.6 -22.8 -2 -27.6 Q-4.6 -30.6 -7.8 -29.6 Z" fill="#7d8a5c" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-7.8 -29.6 Q-10 -28.4 -9.6 -25 L-3.4 -13.6 L-.8 -14.4 L-4.4 -29.6 Z" fill="#5e6a44" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M-3.4 -25.6 L-.6 -15.4"/><path d="M-1 -24.2 L1.4 -16.2"/></g>
+      <path d="M-7.6 -27.4 Q-10.4 -25.8 -12 -23.4 L-13.6 -21 L-11.2 -19.4 L-9.4 -22.4 Q-8 -24.6 -6.2 -25.8 Z" fill="#6b784f" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-12.5" cy="-20.4" r="1.6" fill="#17110b"/>
+      <path d="M-9.2 -32.8 Q-9 -37.2 -6 -37.2 Q-3.2 -37.2 -2.9 -32.6 Q-2.8 -30.6 -3.6 -29.9 L-8.6 -30.1 Q-9.3 -31.2 -9.2 -32.8 Z" fill="#2b3947" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-7" cy="-32.6" r="1.8" fill="#c9a678" stroke="#17110b" stroke-width=".4"/>
+    </g>
+    <!-- Phinsoo / Pasang Kitar -->
+    <g transform="translate(-80,52)">
+      <path d="M.4 -14.6 Q2 -8.6 3.4 -4.4 L4.8 -.8 L1.4 .4 Q-.6 -6.6 -1.6 -13.6 Z" fill="#57503f" stroke="#17110b" stroke-width=".6"/>
+      <path d="M2.6 -4 L1.6 .8 L4.9 1.4 L5.7 -3.2 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M1 .8 l1.2 -1 4.2 .6 1.2 2.4 -.3 1.4 -6.2 -.2 z" fill="#17110b"/>
+      <path d="M-2 -15.4 Q-5.4 -13.2 -7.4 -10 L-8.8 -7.4 L-5.6 -5.6 Q-3.6 -9 -1.2 -11.4 Z" fill="#57503f" stroke="#17110b" stroke-width=".6"/>
+      <path d="M-8.4 -7.6 L-10.2 -3.2 L-7.2 -2 L-5.7 -6.2 Z" fill="#c9ba98" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-10.8 -3.4 l1.2 -1 4.2 .8 1 2.4 -.3 1.3 -6 -.3 z" fill="#17110b"/>
+      <path d="M-7.8 -29.6 Q-10 -28.4 -9.6 -25 L-3.4 -13.6 L3.4 -15.8 Q1.6 -22.8 -2 -27.6 Q-4.6 -30.6 -7.8 -29.6 Z" fill="#5c6e62" stroke="#17110b" stroke-width=".7"/>
+      <path d="M-7.8 -29.6 Q-10 -28.4 -9.6 -25 L-3.4 -13.6 L-.8 -14.4 L-4.4 -29.6 Z" fill="#46554b" opacity=".85"/>
+      <g stroke="#17110b" stroke-width=".45" opacity=".5" fill="none"><path d="M-3.4 -25.6 L-.6 -15.4"/><path d="M-1 -24.2 L1.4 -16.2"/></g>
+      <path d="M-7 -26.8 Q-9.6 -24.6 -11 -21.6 L-12.2 -19 L-9.6 -17.8 L-8 -21 Q-6.8 -23.6 -5.4 -25 Z" fill="#4d5c52" stroke="#17110b" stroke-width=".55"/>
+      <circle cx="-11" cy="-18.4" r="1.5" fill="#17110b"/>
+      <circle cx="-6.8" cy="-32.2" r="2.9" fill="#c9a678" stroke="#17110b" stroke-width=".5"/>
+      <path d="M-9.5 -32.8 l-1.3 .8 1.2 .8 z" fill="#c9a678"/>
+      <path d="M-9.6 -34 Q-8.2 -36.6 -5.4 -36 Q-3.4 -35.6 -3.6 -33.6 Q-5.8 -34.8 -8.4 -33.6 Z" fill="#17110b"/>
+    </g>
   </g>
 </svg>
 
@@ -126,7 +333,19 @@
 <svg class="vg vg-right" id="vg-tent" viewBox="0 0 520 300" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
   <path d="M520 300V220L300 240 120 270 0 300z" fill="#120e09" opacity=".9"/>
   <g class="an-tent">
-    <path d="M370 250 L410 190 L450 250 L430 250 L410 216 L392 250 Z" fill="#c96a5c"/>
+    <ellipse cx="410" cy="251" rx="46" ry="4" fill="#17110b" opacity=".35"/>
+    <g stroke="#e4d9bd" stroke-width=".9" opacity=".6" fill="none">
+      <path d="M410 192 L358 251"/><path d="M410 192 L462 251"/>
+    </g>
+    <path d="M357 251 l-2.6 2" stroke="#17110b" stroke-width="1"/>
+    <path d="M463 251 l2.6 2" stroke="#17110b" stroke-width="1"/>
+    <path d="M410 190 L450 250 L410 250 Z" fill="#b9a678" stroke="#17110b" stroke-width=".9"/>
+    <path d="M410 190 L450 250 L410 250 Z" fill="url(#stip)" opacity=".3"/>
+    <path d="M410 190 L370 250 L410 250 Z" fill="#ddd0ac" stroke="#17110b" stroke-width=".9"/>
+    <path d="M394 250 L410 222 L410 250 Z" fill="#17110b" opacity=".85"/>
+    <g stroke="#17110b" stroke-width=".5" opacity=".5" fill="none">
+      <path d="M414 210 L426 227"/><path d="M418 226 L436 250"/>
+    </g>
   </g>
   <g class="an-wind" stroke="#f1ecdf" stroke-width="1" opacity=".4">
     <line x1="180" y1="170" x2="260" y2="176"/>
