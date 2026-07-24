@@ -518,8 +518,11 @@ body.memnight .memorial .cc-name{letter-spacing:.1em}
    Pamphlet 224 / FM 21-76 / Houston & Bates "K2 — The Savage Mountain" covers.
    Preview with /?hero=pamphlet | savage | manual; with no parameter the
    original prologue renders untouched. Display face: The Foregen Rough One
-   (Vultype Co) — the Burn Out cuts are watermarked personal-use demos whose
-   digits render as the foundry's badge, so they are deliberately not used. */
+   (Vultype Co). The Burn Out cuts supplied alongside are watermarked
+   personal-use demos — their digits render as the foundry's badge — and are
+   not in the repo at all: anything under public/ is served publicly, so
+   shipping them would republish a personal-use font from our own domain.
+   The Vultype faces still need a web/@font-face licence confirmed. */
 @font-face{font-family:'Foregen Rough';src:url('../fonts/TheForegenRough-One.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:'Foregen';src:url('../fonts/TheForegen-Regular.otf') format('opentype');font-weight:400;font-display:swap}
 @font-face{font-family:'Grahm Rough';src:url('../fonts/GrahmSansRough-Regular.otf') format('opentype');font-weight:400;font-display:swap}
