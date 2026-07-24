@@ -57,6 +57,42 @@
   function line(keys){ return {type:'Feature',geometry:{type:'LineString',
     coordinates:(keys.length>1?keys:[keys[0]||MAIN[0],keys[0]||MAIN[0]]).map(k=>POINTS[k].ll)}}; }
 
+  // ── keep marker labels on screen (narrow viewports) — see engine.js
+  const LBL_PAD = 8;
+  let clampRaf = null;
+  function labelEls(){
+    const out = [];
+    Object.keys(POINTS).forEach(k=>{ const el=camps[k]; if(el){const l=el.querySelector('.l'); if(l) out.push(l);} });
+    feats.forEach(f=>{ const l=f.el.querySelector('.fl'); if(l) out.push(l); });
+    moms.forEach(m=>{ const l=m.el.querySelector('.ml'); if(l) out.push(l); });
+    return out;
+  }
+  function clampLabels(){
+    clampRaf = null;
+    const narrow = innerWidth <= 860;
+    labelEls().forEach(l=>{
+      const dx = +(l.dataset.dx || 0);
+      const reset = ()=>{ if(dx){ l.style.transform=''; l.dataset.dx='0'; } };
+      if(!narrow) return reset();
+      const mk = l.closest('.maplibregl-marker');
+      if(!mk) return reset();
+      // only labels whose marker is itself on screen — see engine.js
+      const m = mk.getBoundingClientRect();
+      const ax = m.left + m.width/2;
+      if(ax < 0 || ax > innerWidth || m.bottom < 0 || m.top > innerHeight) return reset();
+      const r = l.getBoundingClientRect();
+      if(!r.width) return;
+      const left = r.left - dx, right = r.right - dx;   // position before our nudge
+      let want = 0;
+      if(left < LBL_PAD) want = LBL_PAD - left;
+      else if(right > innerWidth - LBL_PAD) want = innerWidth - LBL_PAD - right;
+      want = Math.round(want);
+      if(want !== dx){ l.dataset.dx=String(want); l.style.transform = want?('translateX('+want+'px)'):''; }
+    });
+  }
+  function scheduleClamp(){ if(ready && !clampRaf) clampRaf = requestAnimationFrame(clampLabels); }
+  addEventListener('resize', scheduleClamp);
+
   function initMap(){
     try{
       const st=E.camStart||{};
@@ -146,7 +182,10 @@
         });
 
         map.on('move',()=>{ const far=map.getZoom()<12.45;
-          document.body.classList.toggle('lbl-far',far); });
+          document.body.classList.toggle('lbl-far',far); scheduleClamp(); });
+        // markers are re-placed after 'move' (terrain resolves late) — see engine.js
+        map.on('render', scheduleClamp);
+        map.on('idle', scheduleClamp);
         ready=true; camDirty=true;
         applyEvent(curEv, true);
         setTimeout(()=>bgLoad && bgLoad.classList.add('off'), 400);
@@ -240,6 +279,7 @@
       map.getSource('prog').setData(line(MAIN.slice(0,ev.reach+1)));
     feats.forEach(f=>f.el.classList.toggle('off', i<f.from));
     moms.forEach(f=>f.el.classList.toggle('off', !zoneActive || !f.at.includes(i)));
+    scheduleClamp();
   }
 
   loadLib(initMap);

@@ -501,3 +501,15 @@ body.memnight .memorial .cc-name{letter-spacing:.1em}
 .epochs .ep-hub{border-color:rgba(201,168,106,.7)}
 .epochs .ep-hub:hover{border-color:var(--bronze-l)}
 
+/* On a phone, a nowrap label longer than the screen can't be nudged back into
+   view — cap it so the clamp in engine.js/era-map.js always has room to work.
+   (Positional clamping lives in JS; this is only the width backstop.) */
+@media (max-width:860px){
+  .mk-camp2 .l,.mk-feat .fl{max-width:calc(100vw - 24px);overflow:hidden;text-overflow:ellipsis}
+  .mk-mom .ml{max-width:min(200px,calc(100vw - 24px))}
+  /* the colophon carries bare URLs (publications.americanalpineclub.org) that
+     have no break opportunity — on a phone they ran past the panel and were
+     clipped. Let long tokens break rather than overflow. */
+  .colo .row span{overflow-wrap:anywhere}
+}
+
