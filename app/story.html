@@ -1,5 +1,11 @@
 
 
+<!-- Hero-variant preview switch. Runs during parse (before first paint) so the
+     chosen opening renders without a flash of the default. No parameter = the
+     original prologue, untouched. See the .hero-v blocks below. -->
+<script>(function(){var h=(location.search.match(/[?&]hero=([a-z]+)/)||[])[1];
+  if(h==='pamphlet'||h==='savage'||h==='manual') document.body.dataset.hero=h;})();</script>
+
 <div id="bgMap"></div>
 <div id="bgFallback" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg')"></div>
 <div id="bgVeil"></div>
@@ -252,6 +258,44 @@
     <div class="stat loss"><b>4</b><span>Lost · Forever</span></div>
   </div>
   <div class="cue">Scroll<div class="line"></div></div>
+
+  <!-- ── HERO VARIANTS (preview) ──────────────────────────────────────────
+       Alternative opening treatments after the mid-century survival-manual
+       covers: Air Ministry Pamphlet 224, FM 21-76, and Houston & Bates'
+       "K2 — The Savage Mountain". Hidden unless /?hero=pamphlet|savage|manual
+       is set, so the default opening above is untouched. Once one is chosen,
+       delete the other two and fold the winner into the markup above. -->
+  <div class="hero-v hv-pamphlet" data-v="pamphlet">
+    <div class="pm-band pm-b1"><h2>The Mountain</h2></div>
+    <div class="pm-gap"></div>
+    <div class="pm-rule"></div>
+    <div class="pm-gap"></div>
+    <div class="pm-band pm-b2"><h2>That Swallowed Them</h2></div>
+    <p class="pm-sub">800 feet from the greatest prize in mountaineering. Four men left on the mountain. Fifty years before the truth came down.</p>
+    <div class="pm-foot"><span>Second American Karakoram Expedition · 1939</span><i>AAC</i></div>
+    <div class="hv-cue">Scroll<i></i></div>
+  </div>
+
+  <div class="hero-v hv-savage" data-v="savage">
+    <div class="sv-dek">A story of ambition, misread signals, and four men left on the world’s most dangerous mountain</div>
+    <h2 class="sv-title">The<br>Mountain</h2>
+    <div class="sv-strip">That Swallowed Them</div>
+    <div class="sv-credit">Karakoram 1939 · <b>28,251 feet</b> · Four never came down</div>
+    <div class="hv-cue">Scroll<i></i></div>
+  </div>
+
+  <div class="hero-v hv-manual" data-v="manual">
+    <div class="fm-head"><span>Expedition Record · K2</span><span>Karakoram · 1939</span></div>
+    <h2>The Mountain That Swallowed Them</h2>
+    <p class="fm-sub">800 feet from the greatest prize in mountaineering. Four men left on the mountain. Fifty years before the truth came down.</p>
+    <div class="fm-grid">
+      <div class="fm-cell"><b>28,251</b><span>Feet · The Summit</span></div>
+      <div class="fm-cell"><b>800</b><span>Feet · From the Top</span></div>
+      <div class="fm-cell"><b>38</b><span>Days · Above 22,000 ft</span></div>
+      <div class="fm-cell loss"><b>4</b><span>Lost · Forever</span></div>
+    </div>
+    <div class="fm-foot"><span>American Alpine Club</span><span>Scroll ↓</span></div>
+  </div>
 </section>
 
 <div class="breath"></div>
