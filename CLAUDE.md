@@ -120,7 +120,8 @@ posture and must keep their credits in the cards and colophon.
   terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
   camp/climber markers, the 17-event timeline, vignette + grade + snow
   control, clip autoplay and sound toggles, memorial flame, explore mode
-  (incl. the location record cards: in explore, camps are clickable and
+  (incl. the location record cards: in explore, camps and the named
+  features are clickable and
   open `#locCard` — a per-location dossier whose own scrubber steps the 17
   events by calling `applyEvent(i, true)`; blurbs in `LOCNOTES` restate
   facts already in the story/data, never new claims), lite mode.

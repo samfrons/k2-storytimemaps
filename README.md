@@ -87,8 +87,9 @@ spec.
       block; pressing again (or entering explore) stops it
 - [ ] Explore mode enters (map becomes interactive, story fades) and exits
       cleanly (scroll camera resumes where you are)
-- [ ] Explore location cards: camps are clickable; the card opens with the
-      camp's record, its scrubber steps the 17 events (climbers, camp
+- [ ] Explore location cards: camps and named features (House Chimney,
+      the Bottleneck, …) are clickable; the card opens with the location's
+      record, its scrubber steps the 17 events (climbers, camp
       states, and progress line follow), and closing it — or exiting
       explore — restores the story state
 - [ ] Evidence documents flip front/back on tap

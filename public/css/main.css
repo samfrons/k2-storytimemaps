@@ -407,6 +407,8 @@ body.explore #exploreHint{opacity:1}
 body.explore.loc-open #exploreHint{opacity:0;transition-delay:0s}
 body.explore .mk-camp2{pointer-events:auto;cursor:pointer}
 body.explore .mk-camp2:hover .l{background:rgba(233,226,208,1);box-shadow:0 2px 10px rgba(20,17,12,.55)}
+body.explore .mk-feat{pointer-events:auto;cursor:pointer}
+body.explore .mk-feat:hover .fl{background:rgba(233,226,208,1);box-shadow:0 2px 10px rgba(20,17,12,.55)}
 #locCard{position:fixed;right:1.6rem;top:50%;transform:translate(120%,-50%);width:min(340px,calc(100vw - 2rem));z-index:10003;background:var(--cream);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 24px 70px rgba(10,8,5,.6);padding:1.6rem 1.5rem 1.1rem;opacity:0;pointer-events:none;transition:transform .7s cubic-bezier(.6,0,.3,1),opacity .7s}
 #locCard.show{transform:translate(0,-50%);opacity:1;pointer-events:auto}
 #locCard .kick{margin-bottom:.45rem}

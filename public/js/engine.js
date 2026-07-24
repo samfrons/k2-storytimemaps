@@ -194,6 +194,7 @@
         FEATURES.forEach(f=>{
           const el=document.createElement('div'); el.className='mk-feat off';
           el.innerHTML='<div class="ln"></div><div class="fl">'+f.label+'</div>';
+          el.addEventListener('click',e=>{ if(window.__exploreOn){ e.stopPropagation(); lcOpenFeat(f); } });
           feats.push({el, from:f.from});
           new maplibregl.Marker({element:mkWrap(el),anchor:'bottom'}).setLngLat(f.ll).addTo(map);
         });
@@ -506,11 +507,18 @@
     highpt:'Wiessner and Pasang Dawa Lama’s high point — about 27,450 feet at nightfall on July 19.',
     summit:'28,251 feet. Unclimbed until July 31, 1954.'
   };
+  const FEATNOTES = {
+    'House Chimney':'The crux gully of the lower spur — led by Bill House over four hours in 1938. Wiessner fixed ropes here; Wolfe came up on a very tight rope.',
+    'The Black Pyramid':'The rock towers above Camp VI — the way out to the top of the Abruzzi Ridge at Camp VII.',
+    'The Shoulder':'The broad snow shoulder where Camp VIII was pitched at 25,300 feet on July 14.',
+    'The Bergschrund':'The crevasse above Camp VIII where, on July 17, it became clear Wolfe could climb no higher.',
+    'The Bottleneck':'The ice couloir under the summit cornice. Wiessner judged it too dangerous on July 19 and took the rock instead — in 2008 a serac collapse here killed eleven.'
+  };
   const lcRoot=$('locCard');
   const lcEls = lcRoot ? {kick:$('lcKick'),name:$('lcName'),blurb:$('lcBlurb'),range:$('lcRange'),
     prev:$('lcPrev'),next:$('lcNext'),date:$('lcDate'),phase:$('lcPhase'),title:$('lcTitle'),
     state:$('lcState'),who:$('lcWho'),close:$('lcClose')} : null;
-  let lcKey=null, lcEv=0;
+  let lcKey=null, lcFeat=null, lcEv=0;
   function lcStateText(k,i){
     if(k==='summit') return 'Unreached — the 1939 high point was 800 feet below';
     if(k==='highpt') return i<8?'Not yet reached':'Reached at nightfall, July 19, 1939';
@@ -521,41 +529,61 @@
     return 'Established · supplied';
   }
   function lcRender(){
-    if(!lcKey||!lcEls) return;
-    const k=lcKey, i=lcEv;
+    if((!lcKey&&!lcFeat)||!lcEls) return;
+    const i=lcEv;
     lcEls.range.value=i;
     lcEls.date.textContent=DATES[i]+' · 1939';
     lcEls.phase.textContent=PHASES[i];
     lcEls.title.textContent=TITLES[i];
     lcEls.title.classList.toggle('tragic',TRAGIC[i]);
-    lcEls.state.textContent=lcStateText(k,i);
-    const lost=POS[i].lost||[];
-    const here=Object.keys(PEOPLE).filter(p=>POS[i][p]===k);
-    lcEls.who.innerHTML = here.length
-      ? here.map(p=>'<span class="lc-chip'+(lost.includes(p)?' lost':'')+'"><i style="background:'+PEOPLE[p].c+'"></i>'
-          +PEOPLE[p].name+(lost.includes(p)?' †':'')+'</span>').join('')
-      : '<span class="lc-none">No one here on this date</span>';
+    if(lcFeat){
+      lcEls.who.style.display='none';
+      lcEls.state.textContent = i<lcFeat.from ? 'Not yet reached by the expedition' : 'On the climbed route';
+    } else {
+      const k=lcKey;
+      lcEls.who.style.display='';
+      lcEls.state.textContent=lcStateText(k,i);
+      const lost=POS[i].lost||[];
+      const here=Object.keys(PEOPLE).filter(p=>POS[i][p]===k);
+      lcEls.who.innerHTML = here.length
+        ? here.map(p=>'<span class="lc-chip'+(lost.includes(p)?' lost':'')+'"><i style="background:'+PEOPLE[p].c+'"></i>'
+            +PEOPLE[p].name+(lost.includes(p)?' †':'')+'</span>').join('')
+        : '<span class="lc-none">No one here on this date</span>';
+    }
     applyEvent(i,true);
+  }
+  function lcShow(ll,zoom){
+    lcRoot.classList.add('show'); lcRoot.setAttribute('aria-hidden','false');
+    document.body.classList.add('loc-open');
+    map.easeTo({center:ll, zoom:zoom, pitch:68, bearing:map.getBearing(),
+      duration:1400, offset:[innerWidth>860?-innerWidth*.13:0, innerWidth>860?0:-innerHeight*.14]});
+  }
+  function lcOpenFeat(f){
+    if(!lcEls) return;
+    lcKey=null; lcFeat=f;
+    lcEls.kick.textContent='The Abruzzi Spur';
+    lcEls.name.textContent=f.label;
+    lcEls.blurb.textContent=FEATNOTES[f.label]||'';
+    lcEv=Math.min(16,f.from);
+    lcRender();
+    lcShow(f.ll,13.4);
   }
   function lcOpen(k){
     if(!lcEls) return;
-    lcKey=k; const c=CAMPS[k];
+    lcFeat=null; lcKey=k; const c=CAMPS[k];
     lcEls.kick.textContent=c.ft.toLocaleString('en-US')+' ft · '+Math.round(c.ft*0.3048).toLocaleString('en-US')+' m';
     lcEls.name.textContent=c.name;
     lcEls.blurb.textContent=LOCNOTES[k]||'';
     lcEv=Math.min(16, EST[k]!==undefined?EST[k]:8);
     lcRender();
-    lcRoot.classList.add('show'); lcRoot.setAttribute('aria-hidden','false');
-    document.body.classList.add('loc-open');
-    map.easeTo({center:c.ll, zoom:13.2, pitch:68, bearing:map.getBearing(),
-      duration:1400, offset:[innerWidth>860?-innerWidth*.13:0, innerWidth>860?0:-innerHeight*.14]});
+    lcShow(c.ll,13.2);
   }
   function lcClose(){
     if(!lcRoot) return;
     lcRoot.classList.remove('show'); lcRoot.setAttribute('aria-hidden','true');
     document.body.classList.remove('loc-open');
-    if(lcKey && window.__exploreOn) exploreNeutral();
-    lcKey=null;
+    if((lcKey||lcFeat) && window.__exploreOn) exploreNeutral();
+    lcKey=null; lcFeat=null;
   }
   if(lcEls){
     lcEls.range.addEventListener('input',()=>{lcEv=+lcEls.range.value;lcRender();});
