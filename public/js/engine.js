@@ -177,6 +177,7 @@
             +'<div class="l">'+c.name+' · '+c.ft.toLocaleString('en-US')+'\u2032</div>';
           if(noTent) el.classList.add('pknode');
           if(k==='base'||k==='c2'||k==='c7'||k==='summit') el.classList.add('major');
+          el.addEventListener('click',e=>{ if(window.__exploreOn){ e.stopPropagation(); lcOpen(k); } });
           camps[k]=el;
           new maplibregl.Marker({element:mkWrap(el),anchor:'top'}).setLngLat(c.ll).addTo(map);
         });
@@ -455,6 +456,16 @@
   // ── EXPLORE MODE
   const bE=document.getElementById('btnExplore'), bX=document.getElementById('exploreExit'),
         bC=document.getElementById('exploreCta');
+  let exploreReturnEv=null;
+  function exploreNeutral(){
+    ROUTE.forEach(k=>{const el=camps[k];if(!el)return;
+      el.classList.remove('future');
+      el.classList.toggle('cleared',CLEARED[k]!==undefined);
+      el.classList.toggle('dim',DIMMED[k]!==undefined&&CLEARED[k]===undefined);});
+    feats.forEach(f=>f.el.classList.remove('off'));
+    moms.forEach(f=>f.el.classList.add('off'));
+    Object.values(markers).forEach(m=>m.el.classList.add('hide'));
+  }
   function exploreSet(on){
     if(!ready) return;
     window.__exploreOn=on;
@@ -464,20 +475,94 @@
       try{ on?map[hnd].enable():map[hnd].disable(); }catch(e){}
     });
     if(on){
-      ROUTE.forEach(k=>{const el=camps[k];if(!el)return;
-        el.classList.remove('future');
-        el.classList.toggle('cleared',CLEARED[k]!==undefined);
-        el.classList.toggle('dim',DIMMED[k]!==undefined&&CLEARED[k]===undefined);});
-      feats.forEach(f=>f.el.classList.remove('off'));
-      moms.forEach(f=>f.el.classList.add('off'));
-      Object.values(markers).forEach(m=>m.el.classList.add('hide'));
+      exploreReturnEv = curEv===-99?-1:curEv;
+      exploreNeutral();
       map.easeTo({center:CAMPS.c5.ll, zoom:12.4, pitch:62, bearing:150, duration:2200, offset:[0,0]});
-    } else { camDirty=true; applyEvent(curEv===-99?-1:curEv, true); }
+    } else {
+      lcClose();
+      camDirty=true;
+      applyEvent(exploreReturnEv===null?(curEv===-99?-1:curEv):exploreReturnEv, true);
+      exploreReturnEv=null;
+    }
     if(bE) bE.classList.toggle('on',on);
   }
   if(bE) bE.addEventListener('click',()=>exploreSet(!window.__exploreOn));
   if(bX) bX.addEventListener('click',()=>exploreSet(false));
   if(bC) bC.addEventListener('click',()=>exploreSet(true));
+
+  // ── EXPLORE LOCATION CARDS — click a camp for a deep dive with its own scrubber.
+  // Blurbs restate facts already in the story/data; nothing new is asserted.
+  const LOCNOTES = {
+    base:'Established June 1 at the foot of the Abruzzi Spur — fifty-three days on the mountain began and ended here.',
+    c1:'The first camp on the spur, stocked in the June carries.',
+    c2:'The storm camp — the team was pinned here in the eight-day storm, −2 °F with 80 mph gusts.',
+    c3:'Stocked in the late-June carries; stripped with the lower camps on July 20.',
+    c4:'Below the House Chimney, where Wolfe came up on a tight rope.',
+    c5:'The mid-mountain depot — abandoned in the retreat and never restocked.',
+    c6:'Pasang Kikuli and Tsering Norbu reached this camp from Base in a single day — 7,000 vertical feet.',
+    c7:'The highest supply camp. Wolfe waited here alone for a week; the Sherpas reached him on July 29.',
+    c8:'On the Shoulder — Wolfe’s highest camp.',
+    c9:'The summit camp, pitched July 17.',
+    highpt:'Wiessner and Pasang Dawa Lama’s high point — about 27,450 feet at nightfall on July 19.',
+    summit:'28,251 feet. Unclimbed until July 31, 1954.'
+  };
+  const lcRoot=$('locCard');
+  const lcEls = lcRoot ? {kick:$('lcKick'),name:$('lcName'),blurb:$('lcBlurb'),range:$('lcRange'),
+    prev:$('lcPrev'),next:$('lcNext'),date:$('lcDate'),phase:$('lcPhase'),title:$('lcTitle'),
+    state:$('lcState'),who:$('lcWho'),close:$('lcClose')} : null;
+  let lcKey=null, lcEv=0;
+  function lcStateText(k,i){
+    if(k==='summit') return 'Unreached — the 1939 high point was 800 feet below';
+    if(k==='highpt') return i<8?'Not yet reached':'Reached at nightfall, July 19, 1939';
+    const est=EST[k]!==undefined?EST[k]:99;
+    if(i<est) return 'Not yet established';
+    if(CLEARED[k]!==undefined && i>=CLEARED[k]) return 'Stripped — tents, bags and mattresses carried down';
+    if(DIMMED[k]!==undefined && i>=DIMMED[k]) return 'Abandoned — never restocked';
+    return 'Established · supplied';
+  }
+  function lcRender(){
+    if(!lcKey||!lcEls) return;
+    const k=lcKey, i=lcEv;
+    lcEls.range.value=i;
+    lcEls.date.textContent=DATES[i]+' · 1939';
+    lcEls.phase.textContent=PHASES[i];
+    lcEls.title.textContent=TITLES[i];
+    lcEls.title.classList.toggle('tragic',TRAGIC[i]);
+    lcEls.state.textContent=lcStateText(k,i);
+    const lost=POS[i].lost||[];
+    const here=Object.keys(PEOPLE).filter(p=>POS[i][p]===k);
+    lcEls.who.innerHTML = here.length
+      ? here.map(p=>'<span class="lc-chip'+(lost.includes(p)?' lost':'')+'"><i style="background:'+PEOPLE[p].c+'"></i>'
+          +PEOPLE[p].name+(lost.includes(p)?' †':'')+'</span>').join('')
+      : '<span class="lc-none">No one here on this date</span>';
+    applyEvent(i,true);
+  }
+  function lcOpen(k){
+    if(!lcEls) return;
+    lcKey=k; const c=CAMPS[k];
+    lcEls.kick.textContent=c.ft.toLocaleString('en-US')+' ft · '+Math.round(c.ft*0.3048).toLocaleString('en-US')+' m';
+    lcEls.name.textContent=c.name;
+    lcEls.blurb.textContent=LOCNOTES[k]||'';
+    lcEv=Math.min(16, EST[k]!==undefined?EST[k]:8);
+    lcRender();
+    lcRoot.classList.add('show'); lcRoot.setAttribute('aria-hidden','false');
+    document.body.classList.add('loc-open');
+    map.easeTo({center:c.ll, zoom:13.2, pitch:68, bearing:map.getBearing(),
+      duration:1400, offset:[innerWidth>860?-innerWidth*.13:0, innerWidth>860?0:-innerHeight*.14]});
+  }
+  function lcClose(){
+    if(!lcRoot) return;
+    lcRoot.classList.remove('show'); lcRoot.setAttribute('aria-hidden','true');
+    document.body.classList.remove('loc-open');
+    if(lcKey && window.__exploreOn) exploreNeutral();
+    lcKey=null;
+  }
+  if(lcEls){
+    lcEls.range.addEventListener('input',()=>{lcEv=+lcEls.range.value;lcRender();});
+    lcEls.prev.addEventListener('click',()=>{if(lcEv>0){lcEv--;lcRender();}});
+    lcEls.next.addEventListener('click',()=>{if(lcEv<16){lcEv++;lcRender();}});
+    lcEls.close.addEventListener('click',lcClose);
+  }
 
   // ── LITE MODE
   const bL=document.getElementById('btnLite'); let lite=false;

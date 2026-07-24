@@ -87,6 +87,10 @@ spec.
       block; pressing again (or entering explore) stops it
 - [ ] Explore mode enters (map becomes interactive, story fades) and exits
       cleanly (scroll camera resumes where you are)
+- [ ] Explore location cards: camps are clickable; the card opens with the
+      camp's record, its scrubber steps the 17 events (climbers, camp
+      states, and progress line follow), and closing it — or exiting
+      explore — restores the story state
 - [ ] Evidence documents flip front/back on tap
 - [ ] The expedition record panel types itself on first view
 - [ ] Memorial night: stars fade in, the Gilkey flame marker appears
