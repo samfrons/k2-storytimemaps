@@ -96,7 +96,13 @@ main{position:relative;z-index:3}
 
 /* ════════ PAPER PANELS — content sheets over the mountain ════════ */
 .panel-wrap{padding:10vh clamp(1rem,6vw,6rem) 14vh;display:flex;justify-content:center}
-.panel{width:min(760px,100%);background:rgb(255 255 255 / 86%);mix-blend-mode:color;color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 30px 80px rgba(10,8,5,.55)}
+/* Card surfaces (2026-07-24): the color-blend layer moved to ::before and a
+   normal-blend veil added on ::after, so the terrain still ghosts through
+   desaturated — but text now paints at full ink instead of inheriting the
+   backdrop's luminance, which is what made it hard to read. */
+.panel{width:min(760px,100%);position:relative;color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 30px 80px rgba(10,8,5,.55)}
+.panel::before{content:'';position:absolute;inset:0;z-index:-2;background:rgb(255 255 255 / 92%);mix-blend-mode:color}
+.panel::after{content:'';position:absolute;inset:0;z-index:-1;background:rgb(250 247 240 / 60%)}
 .panel .narrative{max-width:640px;margin:0 auto;padding:4.5rem clamp(1.4rem,4vw,3rem)}
 .narrative p{margin-bottom:1.6rem;font-weight:380}
 .narrative .lede::first-letter{font-family:'Fraunces',serif;font-size:4.6em;font-weight:500;float:left;line-height:.78;margin:.05em .14em 0 0;color:var(--bronze)}
@@ -137,7 +143,9 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 /* ════════ FLOATING STEP CARDS (over terrain, no panel) ════════ */
 .over-steps{position:relative;padding-left:clamp(1rem,7vw,7rem)}
 .over-step{min-height:100vh;display:flex;align-items:center;padding:12vh 1.2rem 12vh 0}
-.over-card{max-width:460px;background:rgb(255 255 255 / 86%);mix-blend-mode:color;color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);padding:2rem 2.2rem;box-shadow:0 24px 60px rgba(10,8,5,.55);opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+.over-card{max-width:460px;position:relative;color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);padding:2rem 2.2rem;box-shadow:0 24px 60px rgba(10,8,5,.55);opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+.over-card::before{content:'';position:absolute;inset:0;z-index:-2;background:rgb(255 255 255 / 92%);mix-blend-mode:color}
+.over-card::after{content:'';position:absolute;inset:0;z-index:-1;background:rgb(250 247 240 / 60%)}
 .over-step.on .over-card{opacity:1;transform:none}
 .over-card .kick{margin-bottom:.9rem}
 .over-card h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.6rem;line-height:1.15;color:var(--ink);margin-bottom:.9rem}
@@ -183,7 +191,9 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 
 /* ════════ MEMORIAL & FOOTER ════════ */
 .memorial{padding:14vh 1.6rem}
-.mem-inner{max-width:780px;margin:0 auto;background:rgb(255 255 255 / 86%);mix-blend-mode:color;color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--wine);box-shadow:0 30px 80px rgba(10,8,5,.55);padding:4.5rem clamp(1.4rem,4vw,3.4rem)}
+.mem-inner{max-width:780px;margin:0 auto;position:relative;color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--wine);box-shadow:0 30px 80px rgba(10,8,5,.55);padding:4.5rem clamp(1.4rem,4vw,3.4rem)}
+.mem-inner::before{content:'';position:absolute;inset:0;z-index:-2;background:rgb(255 255 255 / 92%);mix-blend-mode:color}
+.mem-inner::after{content:'';position:absolute;inset:0;z-index:-1;background:rgb(250 247 240 / 60%)}
 .memorial h2{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:500;color:var(--ink);text-align:center;margin-bottom:.6rem}
 .memorial .mem-sub{text-align:center;font-style:italic;font-weight:380;color:var(--smoke);margin-bottom:3rem}
 .footer{padding:8rem 1.6rem 9rem;text-align:center;font-size:.76rem;font-weight:400;line-height:2.6;letter-spacing:.16em;text-transform:uppercase;color:rgba(241,236,223,.8);text-shadow:0 1px 3px rgba(0,0,0,.85),0 1px 10px rgba(0,0,0,.6)}
@@ -323,7 +333,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 
 /* ════════ v11: silhouette vignettes ════════ */
 #stage{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-.vg{position:absolute;bottom:0;opacity:0;transition:opacity 1.8s ease;filter:url(#hand) drop-shadow(0 0 14px rgba(0,0,0,.5))}
+.vg{position:absolute;bottom:0;opacity:0;transition:opacity 1.8s ease;filter:url(#hand) sepia(.18) saturate(.85) drop-shadow(3px 5px 7px rgba(0,0,0,.5))}
 .vg.on{opacity:1}
 .vg-wide{left:0;width:100%;height:min(46vh,420px)}
 .vg-right{right:0;width:min(44vw,480px);height:min(58vh,460px)}
@@ -331,7 +341,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 #vg-nyc{height:min(52vh,440px)}
 
 .an-haul{animation:haulup 9s ease-in-out infinite}
-@keyframes haulup{0%,8%{transform:translateY(0)}46%,58%{transform:translateY(-210px)}94%,100%{transform:translateY(0)}}
+@keyframes haulup{0%,8%{transform:translate(0,0)}46%,58%{transform:translate(18px,-210px)}94%,100%{transform:translate(0,0)}}
 .an-pair{transform:translate(560px,222px);animation:pairwalk 16s linear infinite}
 @keyframes pairwalk{from{transform:translate(430px,258px)}to{transform:translate(1120px,124px)}}
 .an-strip .porter{animation:march 13s linear infinite}
@@ -391,6 +401,42 @@ main,#stage,.rail,.alti,#progress{transition:opacity .8s}
 .explore-cta:hover{border-color:#f1ecdf;color:#fff}
 
 /* timeline scrubber (ch4) */
+/* ════════ explore: location record cards ════════ */
+#exploreHint{position:fixed;top:4.6rem;left:50%;transform:translateX(-50%);z-index:10002;font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(241,236,223,.85);text-shadow:0 1px 8px rgba(0,0,0,.9);opacity:0;pointer-events:none;transition:opacity 1s .6s}
+body.explore #exploreHint{opacity:1}
+body.explore.loc-open #exploreHint{opacity:0;transition-delay:0s}
+body.explore .mk-camp2{pointer-events:auto;cursor:pointer}
+body.explore .mk-camp2:hover .l{background:rgba(233,226,208,1);box-shadow:0 2px 10px rgba(20,17,12,.55)}
+#locCard{position:fixed;right:1.6rem;top:50%;transform:translate(120%,-50%);width:min(340px,calc(100vw - 2rem));z-index:10003;background:var(--cream);color:var(--ink);border:1px solid var(--paperline);border-top:2px solid var(--bronze);box-shadow:0 24px 70px rgba(10,8,5,.6);padding:1.6rem 1.5rem 1.1rem;opacity:0;pointer-events:none;transition:transform .7s cubic-bezier(.6,0,.3,1),opacity .7s}
+#locCard.show{transform:translate(0,-50%);opacity:1;pointer-events:auto}
+#locCard .kick{margin-bottom:.45rem}
+#locCard h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.7rem;line-height:1.1;margin-bottom:.55rem}
+#locCard p{font-size:.87rem;font-weight:380;line-height:1.7;color:var(--smoke);margin-bottom:1rem}
+#lcClose{position:absolute;top:.55rem;right:.55rem;background:none;border:0;color:var(--smoke);font-size:.85rem;cursor:pointer;padding:.4rem}
+#lcClose:hover{color:var(--ink)}
+.lc-scrub{display:flex;align-items:center;gap:.55rem;border-top:1px solid var(--paperline);padding-top:1rem}
+.lc-scrub button{background:none;border:1px solid var(--paperline);color:var(--ink);width:1.7rem;height:1.7rem;cursor:pointer;font-size:1rem;line-height:1;flex:none}
+.lc-scrub button:hover{border-color:var(--bronze)}
+#lcRange{flex:1;-webkit-appearance:none;appearance:none;height:3px;background:linear-gradient(90deg,var(--bronze-l),var(--bronze));outline:none;cursor:pointer}
+#lcRange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--ink);border:2px solid var(--cream);box-shadow:0 0 0 1px var(--bronze);cursor:pointer}
+#lcRange::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:var(--ink);border:2px solid var(--cream);box-shadow:0 0 0 1px var(--bronze);cursor:pointer}
+.lc-when{display:flex;justify-content:space-between;gap:.6rem;margin-top:.75rem;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--smoke)}
+.lc-when #lcDate{color:var(--ink);font-weight:500}
+.lc-evtitle{font-family:'Fraunces',serif;font-size:1.06rem;line-height:1.3;margin:.3rem 0 .75rem}
+.lc-evtitle.tragic{color:var(--wine)}
+.lc-state{font-family:'Special Elite',monospace;font-size:.72rem;line-height:1.5;color:var(--smoke);border:1px dashed var(--paperline);padding:.45rem .6rem;margin-bottom:.75rem}
+.lc-who{display:flex;flex-wrap:wrap;gap:.35rem .75rem;margin-bottom:.85rem;min-height:1.1rem}
+.lc-chip{display:inline-flex;align-items:center;gap:.35rem;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.lc-chip i{width:9px;height:9px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 1px rgba(40,34,26,.35)}
+.lc-chip.lost{color:var(--wine)}
+.lc-none{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+.lc-note{font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--smoke);opacity:.8;border-top:1px solid var(--paperline);padding-top:.65rem}
+@media(max-width:860px){
+  #locCard{right:50%;top:auto;bottom:.8rem;transform:translate(50%,130%)}
+  #locCard.show{transform:translate(50%,0)}
+  #exploreHint{top:auto;bottom:5.4rem}
+}
+
 #scrub{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:9999;display:flex;align-items:flex-end;gap:6px;padding:.7rem 1rem .6rem;background:rgba(20,17,12,.55);backdrop-filter:blur(4px);border:1px solid rgba(241,236,223,.2);opacity:0;pointer-events:none;transition:opacity .8s}
 #scrub.show{opacity:1;pointer-events:auto}
 #scrub .tk{width:7px;height:14px;background:rgba(241,236,223,.3);border:0;cursor:pointer;padding:0;transition:.25s}
@@ -407,7 +453,9 @@ main,#stage,.rail,.alti,#progress{transition:opacity .8s}
 .evroom h3{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.9rem,4.5vw,3rem);color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
 .evroom .ev-sub{margin-top:.8rem;font-style:italic;font-weight:380;color:rgba(241,236,223,.85);text-shadow:0 2px 12px rgba(0,0,0,.9)}
 .ev-docs{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
-.doc{background:rgb(255 255 255 / 86%);mix-blend-mode:color;color:var(--ink);border:1px solid var(--paperline);padding:2rem 1.9rem;cursor:pointer;transition:transform .5s ease,box-shadow .5s ease,opacity .5s;box-shadow:0 18px 50px rgba(10,8,5,.5);position:relative}
+/* Evidence documents are paper, not floating cards: solid cream like .record.
+   (Their permanent transforms would trap a blend layer anyway.) */
+.doc{background:var(--cream);color:var(--ink);border:1px solid var(--paperline);padding:2rem 1.9rem;cursor:pointer;transition:transform .5s ease,box-shadow .5s ease,opacity .5s;box-shadow:0 18px 50px rgba(10,8,5,.5);position:relative}
 .doc .d-tab{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--smoke);margin-bottom:1rem}
 .doc h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;margin-bottom:.9rem}
 .doc p{font-size:.9rem;font-weight:380;line-height:1.85;margin-bottom:.8rem}

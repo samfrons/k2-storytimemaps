@@ -104,19 +104,26 @@ posture and must keep their credits in the cards and colophon.
   (Sam, 2026-07-21) — too condensed to read at label sizes; Jost is the
   micro face. Micro type sits at .66–.78rem — do not shrink it back toward
   the old .44–.62rem, which was illegible.
-  **Card treatment** (Sam, 2026-07-21): the four floating card surfaces —
-  `.panel`, `.over-card`, `.mem-inner`, `.doc` — all share
-  `background:rgb(255 255 255 / 86%)` + `mix-blend-mode:color`, with **no
-  `backdrop-filter`**. The frosted blur was what blocked the see-through
-  effect and added the warm tint (`saturate(.85) brightness(1.06)`); the
-  cards are meant to read neutral and see-through, not cream and frosted.
-  `.record` is deliberately excluded — it is a paper document nested inside
-  `.panel`, not a floating card, and keeps solid `--cream`.
+  **Card treatment** (Sam, 2026-07-24; supersedes 2026-07-21): the floating
+  card surfaces `.panel`, `.over-card`, `.mem-inner` are layered for
+  legibility — the element itself has **no background and no blend**; a
+  `::before` (z-index −2) carries `rgb(255 255 255 / 92%)` +
+  `mix-blend-mode:color` (the neutral see-through), and a `::after`
+  (z-index −1) adds a normal-blend `rgb(250 247 240 / 60%)` veil that lifts
+  contrast evenly. Text therefore paints at full ink — putting the blend on
+  the whole element made text luminance depend on the terrain behind it,
+  which is what made it hard to read. Do **not** add `backdrop-filter`, and
+  do **not** give these elements permanent transforms/opacity (that isolates
+  the blend layer and kills the see-through). `.doc` and `.record` are paper
+  documents: solid `--cream`, no blend.
 - `public/js/engine.js` — MapLibre 3D terrain background (keyless: AWS
   terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
   camp/climber markers, the 17-event timeline, vignette + grade + snow
-  control, clip autoplay and sound toggles, memorial flame, explore mode,
-  lite mode.
+  control, clip autoplay and sound toggles, memorial flame, explore mode
+  (incl. the location record cards: in explore, camps are clickable and
+  open `#locCard` — a per-location dossier whose own scrubber steps the 17
+  events by calling `applyEvent(i, true)`; blurbs in `LOCNOTES` restate
+  facts already in the story/data, never new claims), lite mode.
 - `public/js/chrome.js` — progress bar, `.reveal` transitions, chapter
   covers, rail nav highlighting, altimeter.
 - `public/js/extras.js` — WebAudio wind engine, letterbox during video,
