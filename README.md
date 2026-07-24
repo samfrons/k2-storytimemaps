@@ -10,6 +10,25 @@ Every date, altitude, and quotation follows the documented 1939 record; camp
 positions on the terrain are approximations placed along the Abruzzi route.
 Sources are in the site's colophon.
 
+## The four disasters
+
+The site now carries K2's four great catastrophes, each told in the design
+language of its own era, plus a hub that visualizes them together:
+
+- `/` — **1939**, the original page (sealed-archive paper, Fraunces/Jost)
+- `/1986` — **The Black Summer** (Kodachrome slide mounts, typed dispatches)
+- `/1995` — **One Day as a Tiger** (newsprint/tabloid, teletext weather, the
+  headline "trial")
+- `/2008` — **The Bottleneck** (live tracking dashboard, radio log, GPS)
+- `/disasters` — **One Mountain, Four Storms**: century scrubber over the
+  terrain, four era cover cards, a deaths-by-altitude chart, and the full
+  ledger of names
+
+Era pages share `public/js/era-{map,chrome,extras}.js` (a parameterized
+sibling of the 1939 engine/chrome/extras; per-page data lives in a
+`window.__ERA` config inside each `app/<year>/story.html`) and re-skin
+`main.css` with `public/css/era*.css` / `disasters.css`.
+
 ## Architecture
 
 A lean Next.js (App Router, static export) wrapper around a deliberately
@@ -97,3 +116,18 @@ spec.
 - [ ] Lite toggles hillshade off (terrain visibly flattens in shading)
 - [ ] With reduced motion enabled, animations/particles/typewriter are off
 - [ ] Browser console shows no hydration errors or React warnings
+
+Era pages (`/1986`, `/1995`, `/2008`, `/disasters`):
+
+- [ ] Terrain loads on each page; loading veil fades
+- [ ] Camera scrubs through each page's keyframes in both directions
+- [ ] The timeline zone drives markers, HUD, and scrubber on each page
+- [ ] Explore mode: sites clickable, location card scrubber steps that
+      page's events, exit restores the story
+- [ ] 1995: teletext panels render; the four "trial" headlines peel on tap
+- [ ] 2008: radio log types itself; the three evidence files bring forward
+- [ ] 1986: typed dispatches type; slide-mount diagrams render
+- [ ] `/disasters`: century steps recolor the pins; altitude chart marks
+      show name tooltips; cover cards link to all four stories
+- [ ] `.epochs` block on the 1939 page links to the three era pages + hub
+- [ ] Era switcher (`.eranav`) present on era pages and hidden in explore

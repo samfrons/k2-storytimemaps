@@ -1,0 +1,530 @@
+
+
+<div id="bgMap"></div>
+<div id="bgFallback" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg')"></div>
+<div id="bgVeil"></div>
+<div id="grade"></div>
+<canvas id="snow"></canvas>
+
+<div id="bgLoad">
+  <div class="bl-s">35°52′57″N 76°30′48″E · GPS LOCK</div>
+  <div class="bl-t">Acquiring the mountain</div>
+  <div class="bl-line"></div>
+</div>
+
+<canvas id="stars"></canvas>
+<div id="progress"></div>
+<div class="ctrl">
+  <button id="btnVoice">▷ Play story</button>
+  <button id="btnWind">♪ Wind</button>
+  <button id="btnExplore">◈ Explore</button>
+  <button id="btnLite">◐ Lite</button>
+</div>
+<div id="scrub"></div>
+<button id="exploreExit">✕ Return to the story</button>
+<div id="exploreHint">Click any position to open its record</div>
+<aside id="locCard" aria-hidden="true">
+  <button id="lcClose" aria-label="Close">✕</button>
+  <div class="kick" id="lcKick"></div>
+  <h4 id="lcName"></h4>
+  <p id="lcBlurb"></p>
+  <div class="lc-scrub">
+    <button id="lcPrev" aria-label="Earlier event">‹</button>
+    <input type="range" id="lcRange" min="0" max="13" step="1" value="0" aria-label="Timeline">
+    <button id="lcNext" aria-label="Later event">›</button>
+  </div>
+  <div class="lc-when"><span id="lcDate"></span><span id="lcPhase"></span></div>
+  <div class="lc-evtitle" id="lcTitle"></div>
+  <div class="lc-state" id="lcState"></div>
+  <div class="lc-who" id="lcWho"></div>
+  <div class="lc-note">Positions approximate · times &amp; altitudes per the 2008 record</div>
+</aside>
+<nav class="rail" aria-label="Chapters">
+  <a href="#prologue" data-ch="prologue"><span class="dot"></span><span class="lbl">Prologue</span></a>
+  <a href="#ch1" data-ch="ch1"><span class="dot"></span><span class="lbl">I · The Traffic Jam</span></a>
+  <a href="#ch2" data-ch="ch2"><span class="dot"></span><span class="lbl">II · The Rope Runs Out</span></a>
+  <a href="#trk" data-ch="trk"><span class="dot"></span><span class="lbl">Tracked · Aug 1–4</span></a>
+  <a href="#ch3" data-ch="ch3"><span class="dot"></span><span class="lbl">III · The First to Fall</span></a>
+  <a href="#ch4" data-ch="ch4"><span class="dot"></span><span class="lbl">IV · Too Late on Top</span></a>
+  <a href="#ch5" data-ch="ch5"><span class="dot"></span><span class="lbl">V · The Serac</span></a>
+  <a href="#ch6" data-ch="ch6"><span class="dot"></span><span class="lbl">VI · Night on the Ropes</span></a>
+  <a href="#ch7" data-ch="ch7"><span class="dot"></span><span class="lbl">VII · What Gerard Did</span></a>
+  <a href="#evroom08" data-ch="evroom08"><span class="dot"></span><span class="lbl">The Evidence</span></a>
+  <a href="#ch8" data-ch="ch8"><span class="dot"></span><span class="lbl">VIII · The Fourth Serac</span></a>
+  <a href="#ch9" data-ch="ch9"><span class="dot"></span><span class="lbl">IX · Buried in the Sky</span></a>
+  <a href="#memorial" data-ch="memorial"><span class="dot"></span><span class="lbl">The Eleven</span></a>
+</nav>
+<div class="alti" aria-hidden="true">
+  <div class="alti-cap">Altitude</div>
+  <div class="alti-ft" id="altiFt">5,000 m</div>
+  <div class="alti-m" id="altiM">16,400 ft</div>
+  <div class="alti-bar"><div class="alti-fill" id="altiFill"></div></div>
+</div>
+<div class="gpsfix" aria-hidden="true"><span class="dot"></span>35°52′57″N 76°30′48″E</div>
+<div class="m3d-hud" id="m3dHud">
+  <div class="h-phase" id="hudPhase"></div>
+  <div class="h-date" id="hudDate">The Abruzzi Spur</div>
+  <div class="h-sub" id="hudTitle">Four days, tracked</div>
+  <div class="h-alt" id="hudAlt"></div>
+</div>
+<div class="m3d-legend" id="m3dLegend"></div>
+<div class="m3d-note" id="m3dNote">Terrain: real elevation data · Positions approximate<br>Times &amp; altitudes per the 2008 record</div>
+<nav class="eranav" aria-label="The disasters">
+  <a href="/">1939</a><a href="/1986">1986</a><a href="/1995">1995</a><a class="cur" href="/2008" aria-current="page">2008</a><a class="hub" href="/disasters">One Mountain ◈</a>
+</nav>
+
+<main>
+
+<section class="prologue" id="prologue" data-alt="5000">
+  <span class="eyebrow">Karakoram · 2008.08.01 · Live Record</span>
+  <h1>The<br><em>Bottleneck</em></h1>
+  <div class="rule"></div>
+  <p class="sub">Eighteen reached the top. Eleven never came down. Never had a disaster on the mountain been so documented — and never was the truth so contested.</p>
+  <div class="stats">
+    <div class="stat"><b>8,611</b><span>Metres · The Summit</span></div>
+    <div class="stat"><b>18</b><span>Reached the Top</span></div>
+    <div class="stat loss"><b>11</b><span>Never Came Down</span></div>
+    <div class="stat"><b>1</b><span>Tower of Ice</span></div>
+  </div>
+  <div class="cue">Scroll<div class="line"></div></div>
+</section>
+
+<div class="breath"></div>
+<div class="pq pq-sky reveal" id="q08" data-alt="5000">
+  Satellite phones, cameras, radio logs, GPS. A flood of evidence — reported by survivors, or in the radio calls of men who died minutes after making them. The record below is that flood; where the accounts split, this page says so.
+  <span class="att">The most documented catastrophe in K2's history</span>
+</div>
+<div class="breath"></div>
+
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">For sixty-nine years the Bottleneck had been the couloir Fritz Wiessner refused. On July 19, 1939, eight hundred feet from the summit, he judged the ice hanging over it too dangerous and took the rock instead. On the night of August 1, 2008, the thing he had feared finally came down — and it cut the ropes of the climbers still above it.</p>
+  <p class="reveal">This page is the story of that night, told the way 2008 told it: in timestamps. <a href="/">The 1939 page</a> is sealed archive paper you tap open. This one is a tracking dashboard — the dots move while you watch, and the radio log scrolls.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch1" data-n="01" data-alt="5000">
+  <div class="inner">
+    <span class="num">Chapter I</span>
+    <h2>The Traffic Jam</h2>
+    <p class="dek">Ten teams, one window. When the sky finally opened at the end of July, everyone went at once.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <div class="cal08 reveal" aria-hidden="true">
+    <div class="c-m"><b>JUN 2008</b><span class="x">STORM</span><span class="sum">SUMMITS: 0</span></div>
+    <div class="c-m"><b>JUL 2008</b><span class="x">STORM</span><span class="sum">SUMMITS: 0</span></div>
+    <div class="c-m go"><b>AUG 01</b><span class="ok">WINDOW OPEN</span><span class="sum">EVERYONE</span></div>
+  </div>
+  <p class="lede reveal">K2's climbing season runs June to August, and in 2008 the mountain refused most of it. Storm after storm rolled in off Central Asia. By the end of July, ten expeditions were stacked at the foot of the mountain — some had waited nearly two months — watching the same forecast, hoping for the same handful of clear days.</p>
+  <p class="reveal">When the window opened, everyone went at once. On <strong>July 31</strong>, climbers from America, France, Norway, Serbia, and South Korea — with their Nepali Sherpas — and the Dutch-led international Norit team converged on <strong>Camp IV, at about 7,900 metres</strong>: the last staging post below the summit. With them came the Pakistani high-altitude porters, the HAPs, who would do much of the most dangerous work and receive the least of the credit. A Spanish soloist, Alberto Zerain, and the Italian Marco Confortola pushed for the top independently.</p>
+  <p class="reveal">To climb the Bottleneck safely you must move through it fast, because it lives beneath a wall of overhanging ice. To move through it fast, you need fixed ropes already in place. So the teams agreed to pool their effort: an advance party of Sherpas and HAPs would go ahead in the dark and fix the lines for everyone.</p>
+  <p class="reveal"><span class="hl">It was a reasonable plan. Almost every step of what followed was reasonable. Almost every step of it was wrong.</span></p>
+</div></div></div>
+
+<section class="ch-cover" id="ch2" data-n="02" data-alt="7900">
+  <div class="inner">
+    <span class="num">Chapter II · 03:00</span>
+    <h2>The Rope Runs Out</h2>
+    <p class="dek">Line was fixed where none was needed, and missing where it mattered most — under the ice, where the mountain charges by the hour.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">The advance party started fixing lines in the night. They were joined by Alberto Zerain, who had climbed up from Camp III through the darkness and simply kept going, taking a share of the work.</p>
+  <p class="reveal">Then the plan lost its keystone. <strong>Shaheen Baig</strong> — the most experienced HAP on the mountain, the veteran of the fixing party — turned back with altitude sickness. His unofficial command of the rope work went down with him, and the confusion he left behind would cost hours.</p>
+  <div class="record reveal" id="rec08">
+    <div class="rec-meta">RADIO LOG · 01 AUG 2008 · RECONSTRUCTED FROM THE ACCOUNTS</div>
+    <p>03:00 — Main body leaves Camp IV in the dark. Fixed line found laid just above camp, where none was needed.</p>
+    <p>~05:00 — At the mouth of the couloir the rope runs out. Line is stripped from the slopes below and re-laid, at altitude, by headlamp.</p>
+    <p>~08:00 — Climbers finally moving through the Bottleneck. The schedule has no spare hours left in it.</p>
+  </div>
+  <p class="reveal">Some read the delay correctly and quit. <strong>Eric Meyer</strong> and <strong>Fredrik Sträng</strong> of the American team turned back for Camp IV, unwilling to reach the summit too late and unwilling to linger under the ice. <strong>Chris Klinke</strong> pushed on for a few more hours, then abandoned. So did Norit's <strong>Jelle Staleman</strong>.</p>
+  <p class="reveal">The ones who kept going were now hours behind a schedule that had no hours to spare.</p>
+</div></div></div>
+
+<div id="timeline-zone">
+<div class="over-steps">
+  <div class="over-step" data-ev="-1" id="trk" data-alt="7900"><div class="over-card">
+    <span class="kick">Tracked · Aug 1 – Aug 4, 2008</span>
+    <h4>Four days on the dashboard</h4>
+    <p>What follows is the disaster hour by hour, over the real terrain of K2 — every timestamped position drawn from the 2008 record. Each dot is a rope team. Scroll, and watch the mountain go dark.</p>
+    <p class="fn">Positions are placed approximately along the routes; times and altitudes are as documented in 2008.</p>
+  </div></div>
+  <div class="over-step" data-ev="0" id="ev0" data-alt="7900"><div class="over-card">
+    <span class="kick">Jul 31 · 16:00</span>
+    <h4>Convergence on Camp IV</h4>
+    <p>Ten expeditions' summit parties stage at <strong>≈7,900 m</strong> on the Shoulder. Zerain rests at Camp III, planning to climb through the night. The advance party will leave first to fix the Bottleneck.</p>
+  </div></div>
+  <div class="over-step" data-ev="1" id="ev1" data-alt="8000"><div class="over-card">
+    <span class="kick">Aug 1 · 03:00</span>
+    <h4>The lines are wrong</h4>
+    <p>The main body starts up and finds rope fixed above Camp IV where none was needed — and none left at the traverse, where it matters most. Line is stripped from below and re-laid in the dark.</p>
+  </div></div>
+  <div class="over-step" data-ev="2" id="ev2" data-alt="8200"><div class="over-card tragic">
+    <span class="kick">Aug 1 · 08:00</span>
+    <h4>First dot goes dark</h4>
+    <p><strong>Dren Mandić</strong> unclips from the fixed rope in the Bottleneck — to adjust his oxygen, and to pass Cecilie Skog. He loses his balance and falls more than a hundred metres.</p>
+  </div></div>
+  <div class="over-step" data-ev="3" id="ev3" data-alt="8200"><div class="over-card tragic">
+    <span class="kick">Aug 1 · ~10:00</span>
+    <h4>The recovery costs a second life</h4>
+    <p>A party descends to Mandić's body. Lowering it, HAP <strong>Jehan Baig</strong> loses his footing, slides — and makes no attempt to arrest. The recovery is abandoned; the body is fastened to the mountain.</p>
+  </div></div>
+  <div class="over-step" data-ev="4" id="ev4" data-alt="8611"><div class="over-card">
+    <span class="kick">Aug 1 · 15:00</span>
+    <h4>Zerain, alone on top</h4>
+    <p>The Spaniard who climbed through the night summits first, by hours. He is back through the Bottleneck before the light fails — the only climber to come down entirely clean.</p>
+  </div></div>
+  <div class="over-step" data-ev="5" id="ev5" data-alt="8611"><div class="over-card">
+    <span class="kick">Aug 1 · 17:00 – 20:00</span>
+    <h4>Eighteen on the summit</h4>
+    <p>The safe turnaround hour is long gone. Summit parties keep arriving into the evening — some as late as <strong>eight o'clock</strong>. Rolf Bae stops ~100 m short and waits on the traverse for his wife.</p>
+  </div></div>
+  <div class="over-step" data-ev="6" id="ev6" data-alt="8350"><div class="over-card tragic">
+    <span class="kick">Aug 1 · ~20:30</span>
+    <h4>SERAC FALL — LINES CUT</h4>
+    <p>Darkness has enveloped K2. A tower of ice calves from the serac, shears the fixed ropes off the traverse, and strikes <strong>Rolf Bae</strong>. Every climber above is now unroped, at night, above 8,000 metres.</p>
+  </div></div>
+  <div class="over-step" data-ev="7" id="ev7" data-alt="8200"><div class="over-card tragic">
+    <span class="kick">Aug 1 · ~24:00</span>
+    <h4>Free-solo, in the dark</h4>
+    <p>Skog and Nessa downclimb unroped and reach Camp IV. Pemba Gyalje descends alone; Chhiring Dorje descends with Pasang Lama clipped to his harness. Two Bhote Sherpas climb <em>up</em> into the dark for Go Mi-Young. <strong>Hugues d'Aubarède</strong>, out of oxygen, falls.</p>
+  </div></div>
+  <div class="over-step" data-ev="8" id="ev8" data-alt="8300"><div class="over-card tragic">
+    <span class="kick">Aug 2 · Dawn</span>
+    <h4>Still above the couloir</h4>
+    <p>Confortola, van Rooijen and McDonnell have sat out the night in the open, above the traverse. Below them, tangled in the cut ropes where they have hung all night: Jumik Bhote and Korean climbers — alive.</p>
+  </div></div>
+  <div class="over-step" data-ev="9" id="ev9" data-alt="8250"><div class="over-card">
+    <span class="kick">Aug 2 · Morning</span>
+    <h4>Two men stop</h4>
+    <p>McDonnell and Confortola reach the tangled men and work for hours to free them. Van Rooijen, half snow-blind, descends — and loses the route, drifting left of the Česen line. "Big" Pasang Bhote climbs toward the couloir from below.</p>
+  </div></div>
+  <div class="over-step" data-ev="10" id="ev10" data-alt="8250"><div class="over-card tragic">
+    <span class="kick">Aug 2 · ~12:00</span>
+    <h4>Freed — then the ice again</h4>
+    <p>Pasang Bhote radios Gyalje: the trapped men are out of the ropes and moving. He also reports a fourth climber, in a <strong>red-and-black suit</strong>, swept away by icefall behind them. <strong>Gerard McDonnell</strong> is never seen again.</p>
+  </div></div>
+  <div class="over-step" data-ev="11" id="ev11" data-alt="8200"><div class="over-card tragic">
+    <span class="kick">Aug 2 · Minutes later</span>
+    <h4>The fourth serac</h4>
+    <p>Another icefall sweeps the top of the Bottleneck. It takes <strong>Jumik Bhote</strong>, the <strong>Korean climbers</strong> he survived the night with, and <strong>Pasang Bhote</strong>, the rescuer who had just radioed that he'd found them alive. Tsering Bhote, lower on the slope, is spared. The toll reaches eleven.</p>
+  </div></div>
+  <div class="over-step" data-ev="12" id="ev12" data-alt="7100"><div class="over-card">
+    <span class="kick">Aug 3 · Morning</span>
+    <h4>A satphone fixes a position</h4>
+    <p>Van Rooijen, on a second night out with no tent, calls his brother in the Netherlands on a Thuraya satellite phone. The call's GPS coordinates place him on the south face. Van de Gevel and Gyalje climb back up and bring him in.</p>
+  </div></div>
+  <div class="over-step" data-ev="13" id="ev13" data-alt="5000"><div class="over-card">
+    <span class="kick">Aug 4 · 10:00</span>
+    <h4>Helicopters at Base</h4>
+    <p>Pakistani Army helicopters lift the frostbitten survivors to Skardu. Confortola comes off the mountain a day later. Eleven positions on this map never move again.</p>
+  </div></div>
+</div>
+</div>
+
+<section class="ch-cover" id="ch3" data-n="03" data-alt="8200">
+  <div class="inner">
+    <span class="num">Chapter III · 08:00</span>
+    <h2>The First to Fall</h2>
+    <p class="dek">Two men died before the disaster proper had even begun — one passing a stranger, one trying to carry a stranger home.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">At 8:00 in the morning, climbers were finally moving up through the Bottleneck when the Serbian climber <strong>Dren Mandić</strong> unclipped from the fixed rope — to adjust his oxygen system, and to pass the Norwegian Cecilie Skog. He lost his balance. He fell into Skog, who was still clipped in and held. Mandić fell more than a hundred metres down the couloir.</p>
+  <p class="reveal">From Camp IV, some thought they saw him still moving. A recovery party went up. By the time Fredrik Sträng reached the body, the Serbians Predrag Zagorac and Iso Planić and their HAP Mohammed Hussein were already there. There was no pulse.</p>
+  <p class="reveal">As they tried to lower the body they were joined by <strong>Jehan Baig</strong>, a HAP from the French team, who had finished his rope work and been sent down. Something was wrong with him — he was incoherent, offering to help, refusing, returning. He lost his footing and slid into Sträng, who shouted at him to let go of the rope attached to Mandić before all four men were dragged off the mountain. Baig let go.</p>
+  <p class="reveal">And then, to the horror of the men watching, <span class="dng">he made no attempt to arrest his own slide</span>. He did not roll onto his axe. He simply slid, and was gone. No one has ever been able to explain why Jehan Baig did not try to save himself.</p>
+  <p class="reveal">The Serbians wrapped Mandić's body and fastened it to the mountain, and turned for home. It was the correct decision, and it was already too late to matter: the recovery had cost the climbers still above their last margin of daylight.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch4" data-n="04" data-alt="8611">
+  <div class="inner">
+    <span class="num">Chapter IV</span>
+    <h2>Too Late<br>on the Summit</h2>
+    <p class="dek">Eighteen people stood on top of K2 on August 1, 2008. Some of them got there as the sun was going down.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">The safe turnaround hour on K2 falls in the early afternoon — late enough to stand on top, early enough to be back through the Bottleneck and off the traverse before dark. Eighteen people summited on August 1, 2008. Some of them reached the top as late as eight in the evening.</p>
+  <p class="reveal">Only <strong>Alberto Zerain</strong> — the Spaniard who had climbed through the night alone and topped out first, at three in the afternoon — came down clean: through the Bottleneck before the light failed, before the ice came down, before any of it. He walked off the mountain a free man, not knowing how close behind him the catastrophe had been.</p>
+  <p class="reveal"><span class="dng">Everyone else was still up high when the sun went down.</span></p>
+</div></div></div>
+
+<section class="ch-cover" id="ch5" data-n="05" data-alt="8350">
+  <div class="inner">
+    <span class="num">Chapter V · 20:30</span>
+    <h2>The Serac</h2>
+    <p class="dek">The screen goes dark here. The timestamps keep running — but this is the death zone, at night, and no one could see anything at all.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">By 8:30 in the evening, darkness had swallowed K2. The Norwegians Lars Flatø Nessa and Cecilie Skog had nearly finished the traverse back toward the Bottleneck when the mountain made its decision. A serac — a tower of ice hanging off the summit ice field, above the couloir — broke away. As it fell it sheared through the fixed lines, the ropes the whole ascent had been built around. And it struck <strong>Rolf Bae</strong>.</p>
+  <p class="reveal">Bae had turned back about a hundred metres below the summit. He had told Nessa to look after his wife, and he had waited on the traverse for Skog to come down to him. He was still waiting there when the ice found him.</p>
+  <p class="reveal">Skog and Nessa descended the rest of the way without ropes, in the dark, and somehow reached Camp IV alive. Behind them, the serac had changed everything. The fixed lines were gone. The route was littered with ice. And because every climber above had planned on those ropes, almost none of them carried spare line.</p>
+  <p class="reveal">To get down now they would have to <span class="dng">free-solo the Bottleneck — unroped, in the dark, above 8,000 metres</span>, where the body cannot survive for long and the mind cannot be trusted at all.</p>
+  <p class="reveal">By Wilco van Rooijen's account, panic broke out among the climbers stranded above the couloir. Some tried to descend into the blackness. Others sat down in the snow to wait for a dawn that several of them would not live to see.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch6" data-n="06" data-alt="8200">
+  <div class="inner">
+    <span class="num">Chapter VI · Midnight</span>
+    <h2>The Night<br>on the Ropes</h2>
+    <p class="dek">Some got down. The way they did it is why 2008 is remembered not only as a catastrophe but as a night of almost unbelievable courage.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal"><strong>Pemba Gyalje</strong>, the Sherpa climbing as a full member of the Norit team, descended the Bottleneck alone in the dark, without ropes, and reached Camp IV before midnight.</p>
+  <p class="reveal"><strong>Chhiring Dorje</strong> came down with "Little" <strong>Pasang Lama</strong> — who had lost his ice axe — clipped directly to his harness. One man, one axe, two lives, on bare ice in the dark. Ed Viesturs later tried to picture it:</p>
+  <div class="pq reveal" style="text-align:left;margin:2.6rem 0;font-size:1.15rem">
+    "You kick each foot in solid, plant the axe, then tell the other guy to kick with his own feet and punch holds with his hands. Don't move until he's secure. Still, if Pasang had come off, he probably would have taken Chhiring with him. Talk about selfless!"
+    <span class="att">— Ed Viesturs, K2: Life and Death on the World's Most Dangerous Mountain</span>
+  </div>
+  <p class="reveal">The Koreans Kim Jae-soo and <strong>Go Mi-Young</strong> made it through only because two Sherpas from the Korean team's support — <strong>Chhiring Bhote</strong> and "Big" <strong>Pasang Bhote</strong> — climbed up around midnight, found Go stranded and lost in the couloir, and guided her down.</p>
+  <p class="reveal">Not everyone below was so lucky. Norit's <strong>Cas van de Gevel</strong> and the French team's <strong>Hugues d'Aubarède</strong> each took the Bottleneck alone in the dark. Van de Gevel, near the bottom, watched a figure fall past him. It was almost certainly d'Aubarède, who had run out of bottled oxygen hours before and, when van de Gevel passed him, had looked exhausted and waved him on ahead.</p>
+  <p class="reveal">And highest of all, unable to find the way across the ice-strewn traverse, three men sat down to wait for morning: the Italian <strong>Marco Confortola</strong>, the Dutchman <strong>Wilco van Rooijen</strong>, and the Irishman <strong>Gerard McDonnell</strong> — an open bivouac above 8,000 metres. Confortola later said that during that night he heard a roar out of the serac field, screaming, and a head-torch tumbling away below him.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch7" data-n="07" data-alt="8250">
+  <div class="inner">
+    <span class="num">Chapter VII · August 2</span>
+    <h2>What Gerard Did</h2>
+    <p class="dek">He had survived the serac, the free-solo, the open bivouac. He was almost down. He stopped.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Gerard McDonnell was almost down. He had survived the serac, survived the descent in the dark, survived the open bivouac — survived the night that had already killed men stronger than he was. And then, in the morning light above the Bottleneck, he and Confortola came upon three men tangled in the cut ropes: Korean climbers and their guide <strong>Jumik Bhote</strong>. They had been hanging there all night. Some were upside down. Some were bloodied. All of them, impossibly, were still alive.</p>
+  <p class="reveal">He did not have to stop. Every instinct at that altitude screams a single word — <em>down</em> — and van Rooijen, who had come upon the tangled men slightly earlier, had done what almost anyone would do: handed over his spare gloves, been told a rescue party was already climbing up from below, and continued his own descent toward survival, half-blind and freezing.</p>
+  <p class="reveal"><span class="hl">McDonnell stopped. He and Confortola worked for hours in the death zone trying to free strangers from the ropes.</span></p>
+  <p class="reveal">What happened next is the great uncertainty of the day — and it is why this page, like the story of 1939, ends not with an answer but with evidence you must weigh yourself.</p>
+</div></div></div>
+
+<div class="panel-wrap" id="evroom08" style="background:transparent" data-alt="8250"><div class="evroom" style="width:100%">
+  <div class="ev-head reveal">
+    <span class="eyebrow">The Evidence</span>
+    <h3>Three Accounts of the Same Morning</h3>
+    <p class="ev-sub">In 1939 there was too little evidence and fifty years of silence. In 2008 there was a flood of it — and the truth fractured anyway. Tap each file to weigh it.</p>
+  </div>
+  <div class="ev-docs three">
+    <div class="doc front reveal">
+      <div class="d-tab">FILE 1 · Confortola · first to the media</div>
+      <h4>The delusion account</h4>
+      <p>Confortola said that after roughly an hour and a half working the ropes, McDonnell suddenly turned and climbed <em>back up</em> the mountain, leaving him alone with the trapped men. He assumed altitude sickness and delusion. He stayed, did what he could for Jumik Bhote, radioed the rescuers climbing toward them, and finally descended — crawling. Later, near the foot of the couloir, icefall struck close by; in the debris he found a body he identified as McDonnell's.</p>
+      <div class="d-seal">WEAKNESS: he spoke first, while others were still walking out — and parts of his early account did not hold up.</div>
+    </div>
+    <div class="doc back reveal">
+      <div class="d-tab">FILE 2 · Van Rooijen · Surviving K2</div>
+      <h4>The anchor account</h4>
+      <p>Van Rooijen disputes it. He does not believe McDonnell climbed away in delusion — he believes McDonnell climbed up to the highest anchor to take the strain off the ropes that held the tangled men, then came back and spent hours more freeing them. He points to photographs he says support this.</p>
+      <div class="d-seal">WEAKNESS: the photographs are contested — later researchers found them inconclusive.</div>
+    </div>
+    <div class="doc back reveal">
+      <div class="d-tab">FILE 3 · The radio call · ~12:00</div>
+      <h4>The red-and-black suit</h4>
+      <p>Just after noon, "Big" Pasang Bhote radioed Pemba Gyalje: he had met Jumik Bhote and Korean climbers just above the Bottleneck — alive, and <em>freed</em>. Someone had gotten them out of the ropes. He also reported a fourth climber, in a red-and-black suit, swept away by icefall behind them. The suit matched McDonnell's. The implication: McDonnell freed the trapped men, and the ice took him afterward.</p>
+      <div class="d-seal">COMPLICATION: Meherban Karim, missing from every account, wore a pure red suit — close enough that some argue the falling figure was Karim, which would mean Confortola was right after all.</div>
+    </div>
+  </div>
+  <div class="ev-verdict reveal"><b>The record's own verdict:</b> the existence of so many plausible scenarios is itself the point — even the eyewitnesses could not agree on what they had seen. <em>Buried in the Sky</em>, the book that finally centred the Sherpas' and HAPs' experience, raises a possibility darker than all of them: that McDonnell and Karim may still have been alive when the last serac came down.</div>
+  <div class="ev-hint">Tap a file to bring it forward</div>
+</div></div>
+
+<section class="ch-cover" id="ch8" data-n="08" data-alt="8200">
+  <div class="inner">
+    <span class="num">Chapter VIII · Minutes Later</span>
+    <h2>The Fourth Serac</h2>
+    <p class="dek">After the long, slow uncertainty of the evidence — this took a single breath.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Minutes after "Big" Pasang Bhote radioed that he had found his relative Jumik and the Korean climbers alive — another serac fell.</p>
+  <p class="reveal">It swept away all of them: <strong>Jumik Bhote</strong>, the <strong>Korean climbers</strong> who had survived a night hanging in the ropes, and <strong>Pasang Bhote</strong> himself — the rescuer, killed alongside the relative he had climbed up to save.</p>
+  <p class="reveal"><strong>Tsering Bhote</strong>, climbing more slowly, not yet at the top of the couloir, was spared. So were Gyalje and Confortola, below.</p>
+  <p class="reveal"><span class="dng">The death toll had reached eleven.</span></p>
+</div></div></div>
+
+<section class="ch-cover" id="ch9" data-n="09" data-alt="5000">
+  <div class="inner">
+    <span class="num">Chapter IX</span>
+    <h2>Buried in the Sky</h2>
+    <p class="dek">The story the first reports left out was the story of the men at its centre.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">For days, the story the world received was the one told first — by the survivors who reached the media first, while <strong>Pemba Gyalje</strong> was still walking out of the Karakoram. It would be days before he could give his account at all.</p>
+  <p class="reveal">The correction came slowly, and it came from the people who had done the most and been credited the least. The Sherpas and the Pakistani HAPs had fixed the ropes, climbed back up in the dark without oxygen to guide lost strangers down, and died trying to free men from the ice. <strong>Four of the eleven dead were high-altitude workers</strong> — two Pakistani porters, two Nepali Sherpas.</p>
+  <p class="reveal">In time the record was set straighter. Pemba Gyalje was named National Geographic Adventure's <span class="hl">Adventurer of the Year</span> for 2008. And a book — <em>Buried in the Sky</em>, by Peter Zuckerman and Amanda Padoan — finally told the day through the eyes of the Sherpa and HAP climbers who had lived at its centre all along.</p>
+  <p class="reveal">The truth of the day, in the end, rested less on the survivors who wrote the first books than on a Sherpa who was still on the mountain while the story was being told without him.</p>
+</div></div></div>
+
+<div class="panel-wrap" id="wilcoP" data-alt="7100"><div class="panel"><div class="narrative">
+  <span class="eyebrow reveal">The Descent That Wouldn't End</span>
+  <p class="lede reveal" style="margin-top:1.2rem">While the fourth serac was falling, <strong>Wilco van Rooijen</strong> was somewhere else entirely — descending a new line left of the Česen route, bypassing Camp IV, half snow-blind, alone. He spent a second night bivouacked in the open, his feet freezing toward third-degree frostbite — one of a handful of people ever to survive two nights out above the death line.</p>
+  <p class="reveal">He was found because he used his <strong>Thuraya satellite phone</strong> to call his brother — and the GPS coordinates of that call pinpointed him on the mountain. Van de Gevel and Gyalje climbed back up and reached him on the morning of August 3; the three staggered into Base Camp that night. On <strong>August 4</strong>, Pakistani Army helicopters lifted the frostbitten climbers to Skardu. Confortola came off a day later.</p>
+  <p class="reveal"><span class="hl">In 2008, technology could find you. It still could not bring the ice down any slower.</span></p>
+</div></div></div>
+
+<div class="breath tall"></div>
+<section class="memorial" id="memorial" data-alt="5000">
+  <div class="mem-inner">
+    <h2>The Eleven</h2>
+    <p class="mem-sub">August 1–2, 2008 · Their names join Dudley Wolfe's at the Gilkey Memorial above Base Camp</p>
+    <div class="cast" style="text-align:left;margin-top:2.5rem">
+      <div class="cc dead reveal"><div class="cc-name">Dren Mandić</div><div class="cc-role">Serbia · August 1</div>
+        <div class="cc-desc">Fell during the ascent, below the Bottleneck. The first to die — and the reason two more men were on the slope after him.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Jehan Baig</div><div class="cc-role">Pakistan · August 1</div>
+        <div class="cc-desc">A high-altitude porter, lost during the recovery of Mandić's body — a rescue that was already hopeless.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Rolf Bae</div><div class="cc-role">Norway · August 1</div>
+        <div class="cc-desc">Killed by the first serac fall, on the traverse. He had turned back below the summit to wait for his wife, and was waiting still when the ice came down.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Hugues d'Aubarède</div><div class="cc-role">France · August 1</div>
+        <div class="cc-desc">Fell during the night descent of the Bottleneck, hours after his bottled oxygen ran out.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Meherban Karim</div><div class="cc-role">Pakistan · August 2</div>
+        <div class="cc-desc">D'Aubarède's HAP, last seen high on the mountain — lost in the seracs. The man whose fate no account can quite resolve.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Gerard McDonnell</div><div class="cc-role">Ireland · August 2</div>
+        <div class="cc-desc">Swept away by icefall after hours spent freeing the trapped climbers. The first Irishman to stand on K2. He was almost down. He stopped.</div></div>
+      <div class="cc dead full reveal"><div class="cc-name">Kyeong-Hyo Park · Hyo-Gyeong Kim · Dong-Jin Hwang</div><div class="cc-role">South Korea · August 2</div>
+        <div class="cc-desc">Swept away by the fourth serac fall — after a night hanging tangled in the cut ropes, and a morning that had, for one impossible moment, looked like rescue.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Jumik Bhote</div><div class="cc-role">Nepal · August 2</div>
+        <div class="cc-desc">The Korean team's lead Sherpa. Survived the night in the ropes only to die within minutes of being freed — beside the relative who had climbed up to save him.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">"Big" Pasang Bhote</div><div class="cc-role">Nepal · August 2</div>
+        <div class="cc-desc">Guided a lost climber down in the dark, then went back up. His last radio call said he had found Jumik and the Koreans alive — minutes before the ice took them all.</div></div>
+    </div>
+    <p class="reveal" style="margin-top:2.6rem;font-weight:380">K2 was not summited at all in 2009 or 2010; in 2010 the ski-mountaineer Fredrik Ericsson was killed in a fall in the same couloir. The summit was not reached again until August 23, 2011. The Bottleneck is still there. The seracs above it are still there. In 1939 Fritz Wiessner looked up at that ice and chose the rock instead — and, as the American Alpine Club's reviewer wrote, decades later: he was right.</p>
+  </div>
+</section>
+
+<div class="panel-wrap" id="colophon08"><div class="panel colo"><div class="narrative">
+  <h3>Sources &amp; Further Reading</h3>
+  <p class="c-sub">Everything on this page is drawn from the documented record. Where survivors' accounts conflict, the page presents the conflict rather than resolving it.</p>
+  <div class="row reveal"><b>The accounts</b><span>Graham Bowley — <em>No Way Down: Life and Death on K2</em> (2010) · Peter Zuckerman &amp; Amanda Padoan — <em>Buried in the Sky: The Extraordinary Story of the Sherpa Climbers on K2's Deadliest Day</em> (2012)</span></div>
+  <div class="row reveal"><b>Survivors</b><span>Wilco van Rooijen — <em>Surviving K2</em> · Freddie Wilkinson — <em>One Mountain, Thousand Summits</em> (2010)</span></div>
+  <div class="row reveal"><b>Context</b><span>Ed Viesturs &amp; David Roberts — <em>K2: Life and Death on the World's Most Dangerous Mountain</em> (2009) — which also anchors the 1939 story on this site · Jim Curran — <em>K2: The Story of the Savage Mountain</em></span></div>
+  <div class="row reveal"><b>Film</b><span><em>The Summit</em> (2012) — the documentary account of the disaster</span></div>
+  <div class="row reveal"><b>Article</b><span>Wikipedia — <em>2008 K2 disaster</em>, and the sources cited therein</span></div>
+  <div class="row reveal"><b>A note on images</b><span>Unlike 1939, nothing from 2008 is public domain. This page is illustrated with real terrain, typography and the tracking interface — no found photographs.</span></div>
+  <div class="row reveal"><b>Terrain</b><span>Elevation: Mapzen / AWS Open Data · Imagery © Esri, Maxar, Earthstar Geographics · Rendered with MapLibre GL</span></div>
+</div></div></div>
+
+<button class="explore-cta" id="exploreCta">◈ Explore the mountain yourself</button>
+<div class="footer" id="footer08" data-alt="0">
+  Sources: Wikipedia — <em>2008 K2 disaster</em> · Bowley (2010) · Zuckerman &amp; Padoan (2012)<br>
+  van Rooijen · Wilkinson (2010) · Viesturs &amp; Roberts (2009)<br>
+  Part of <a href="/disasters">One Mountain, Four Storms</a> · <a href="/">1939</a> · <a href="/1986">1986</a> · <a href="/1995">1995</a><br>
+  <span class="final">The couloir Wiessner refused in 1939 waited sixty-nine years.<br>He was right.</span>
+</div>
+
+</main>
+
+<script>
+window.__ERA = {
+  year: '2008',
+  hud: {date:'The Abruzzi Spur', title:'Four days, tracked'},
+  points: {
+    base:  {ll:[76.5175,35.8420], m:5000, name:'Base Camp', major:true},
+    c1:    {ll:[76.5232,35.8552], m:6050, name:'Camp I'},
+    c2:    {ll:[76.5226,35.8604], m:6700, name:'Camp II'},
+    c3:    {ll:[76.5210,35.8666], m:7350, name:'Camp III'},
+    c4:    {ll:[76.5163,35.8768], m:7900, name:'Camp IV', major:true, ev:0},
+    btl:   {ll:[76.5137,35.8806], m:8200, name:'The Bottleneck', kind:'site', major:true, ev:2},
+    trv:   {ll:[76.5127,35.8809], m:8350, name:'The Traverse', kind:'site', ev:6},
+    wander:{ll:[76.5117,35.8712], m:7100, name:'Off Route — South Face', kind:'site', ev:12},
+    summit:{ll:[76.5133,35.8814], m:8611, name:'Summit', kind:'peak', major:true, ev:5}
+  },
+  routes: [{keys:['base','c1','c2','c3','c4','btl','trv','summit']}],
+  progColor:'#6fcf9a',
+  people: {
+    zerain:{name:'Zerain', c:'#3e6252'},
+    skog:  {name:'Skog & Nessa', c:'#3f5c77'},
+    bae:   {name:'R. Bae', c:'#2f4f63'},
+    kor:   {name:'Koreans & Jumik', c:'#655c4d'},
+    sher:  {name:'Gyalje · Dorje · Lama', c:'#5e4a1f'},
+    bhote: {name:'"Big" Pasang Bhote', c:'#7d3f2a'},
+    wilco: {name:'Van Rooijen', c:'#82352a'},
+    ger:   {name:'McDonnell', c:'#2d5b46'},
+    marco: {name:'Confortola', c:'#4a4a66'},
+    hugues:{name:'D’Aubarède', c:'#6e4d24'}
+  },
+  events: [
+    {date:'Jul 31 · 16:00', t:'Convergence on Camp IV', phase:'The Window', ph:true, reach:4,
+     pos:{zerain:'c3',skog:'c4',bae:'c4',kor:'c4',sher:'c4',bhote:'c4',wilco:'c4',ger:'c4',marco:'c4',hugues:'c4'}},
+    {date:'Aug 1 · 03:00', t:'The lines are wrong', phase:'The Ascent', ph:true, reach:5,
+     pos:{zerain:'btl',skog:'c4',bae:'c4',kor:'c4',sher:'btl',bhote:'c4',wilco:'c4',ger:'c4',marco:'c4',hugues:'c4'}},
+    {date:'Aug 1 · 08:00', t:'A fall below the Bottleneck', phase:'The Ascent', tragic:true, reach:5,
+     pos:{zerain:'trv',skog:'btl',bae:'btl',kor:'btl',sher:'btl',bhote:'c4',wilco:'btl',ger:'btl',marco:'btl',hugues:'btl'}},
+    {date:'Aug 1 · ~10:00', t:'The recovery — a second fall', phase:'The Ascent', tragic:true, reach:5,
+     pos:{zerain:'trv',skog:'btl',bae:'btl',kor:'btl',sher:'btl',bhote:'c4',wilco:'btl',ger:'btl',marco:'btl',hugues:'btl'}},
+    {date:'Aug 1 · 15:00', t:'Zerain summits, alone', phase:'The Summit', ph:true, reach:7,
+     pos:{zerain:'summit',skog:'trv',bae:'trv',kor:'trv',sher:'trv',bhote:'c4',wilco:'trv',ger:'trv',marco:'trv',hugues:'trv'}},
+    {date:'Aug 1 · 17:00–20:00', t:'Eighteen reach the top', phase:'The Summit', reach:7,
+     pos:{zerain:'c4',skog:'summit',bae:'trv',kor:'summit',sher:'summit',bhote:'c4',wilco:'summit',ger:'summit',marco:'summit',hugues:'summit'}},
+    {date:'Aug 1 · ~20:30', t:'The serac falls — lines cut', phase:'The Fall of Night', ph:true, tragic:true, reach:7,
+     pos:{zerain:'c4',skog:'trv',bae:'trv',kor:'trv',sher:'trv',bhote:'c4',wilco:'trv',ger:'trv',marco:'trv',hugues:'trv'}, lost:['bae']},
+    {date:'Aug 1 · ~24:00', t:'Free-solo in the dark', phase:'The Fall of Night', tragic:true, reach:7,
+     pos:{zerain:'c4',skog:'c4',bae:'trv',kor:'btl',sher:'btl',bhote:'btl',wilco:'trv',ger:'trv',marco:'trv',hugues:'btl'}, lost:['bae','hugues']},
+    {date:'Aug 2 · Dawn', t:'Still above the couloir', phase:'The Fall of Night', tragic:true, reach:7,
+     pos:{zerain:'c2',skog:'c3',bae:'trv',kor:'btl',sher:'c4',bhote:'c4',wilco:'trv',ger:'trv',marco:'trv',hugues:'btl'}, lost:['bae','hugues']},
+    {date:'Aug 2 · Morning', t:'Two men stop', phase:'The Second Day', ph:true, reach:7,
+     pos:{zerain:'c2',skog:'c3',bae:'trv',kor:'btl',sher:'c4',bhote:'btl',wilco:'wander',ger:'btl',marco:'btl',hugues:'btl'}, lost:['bae','hugues']},
+    {date:'Aug 2 · ~12:00', t:'Freed — then the ice again', phase:'The Second Day', tragic:true, reach:7,
+     pos:{zerain:'base',skog:'c2',bae:'trv',kor:'btl',sher:'c4',bhote:'btl',wilco:'wander',ger:'btl',marco:'btl',hugues:'btl'}, lost:['bae','hugues','ger']},
+    {date:'Aug 2 · Minutes later', t:'The fourth serac', phase:'The Second Day', tragic:true, reach:7,
+     pos:{zerain:'base',skog:'c2',bae:'trv',kor:'btl',sher:'c4',bhote:'btl',wilco:'wander',ger:'btl',marco:'btl',hugues:'btl'}, lost:['bae','hugues','ger','kor','bhote']},
+    {date:'Aug 3 · Morning', t:'A satphone fixes a position', phase:'The Rescue', ph:true, reach:7,
+     pos:{zerain:'base',skog:'base',bae:'trv',kor:'btl',sher:'wander',bhote:'btl',wilco:'wander',ger:'btl',marco:'c2',hugues:'btl'}, lost:['bae','hugues','ger','kor','bhote'], pulse:['wilco']},
+    {date:'Aug 4 · 10:00', t:'Helicopters at Base', phase:'The Reckoning', ph:true, reach:7,
+     pos:{zerain:'base',skog:'base',bae:'trv',kor:'btl',sher:'base',bhote:'btl',wilco:'base',ger:'btl',marco:'c1',hugues:'btl'}, lost:['bae','hugues','ger','kor','bhote']}
+  ],
+  features: [
+    {ll:[76.5134,35.8812], label:'The Serac', from:0},
+    {ll:[76.5169,35.8760], label:'The Shoulder', from:0}
+  ],
+  moments: [
+    {ll:[76.5141,35.8798], glyph:'⚠', label:'Mandić unclips to pass — and falls', at:[2]},
+    {ll:[76.5145,35.8792], glyph:'⚠', label:'Jehan Baig — lost in the recovery', at:[3]},
+    {ll:[76.5134,35.8811], glyph:'✕', label:'The serac shears the fixed lines', at:[6]},
+    {ll:[76.5137,35.8804], glyph:'⤓', label:'Chhiring Dorje descends with Pasang on his harness', at:[7]},
+    {ll:[76.5142,35.8796], glyph:'⤒', label:'The Bhotes climb into the dark for Go Mi-Young', at:[7]},
+    {ll:[76.5131,35.8810], glyph:'?', label:'A figure in red and black — swept away', at:[10]},
+    {ll:[76.5117,35.8712], glyph:'✆', label:'The Thuraya call — a GPS fix on van Rooijen', at:[12]}
+  ],
+  locnotes: {
+    base:'Ten expeditions waited out June and July here. On 4 August the helicopters came.',
+    c1:'The first camp on the Abruzzi. Confortola reached it, crawling, on 4 August.',
+    c2:'Mid-mountain camp on the Abruzzi Spur.',
+    c3:'Zerain rested here on 31 July, then climbed through the night — past everyone.',
+    c4:'The last staging post, ≈7,900 m: ten teams pooled their rope-fixing from here on the night of 31 July.',
+    btl:'The couloir under the great serac — climbed fast or not at all. The tangled ropes, the night descents, and the fourth serac fall all happened here.',
+    trv:'The leftward traverse beneath the ice. Rolf Bae was waiting here for his wife when the serac calved at ~20:30.',
+    wander:'Snow-blind, van Rooijen drifted onto a new line left of the Česen route — found two days later by the GPS fix from his satellite phone call.',
+    summit:'8,611 m. Eighteen climbers stood here on 1 August 2008 — some as late as eight in the evening.'
+  },
+  pointStates: {
+    c4:[{from:0,text:'Staging camp — occupied'},{from:13,text:'Struck; the mountain empty again'}],
+    btl:[{from:0,text:'Fixed lines going in'},{from:6,text:'Fixed lines CUT by serac fall'}],
+    trv:[{from:4,text:'Fixed line in place'},{from:6,text:'Lines cut · route littered with ice'}]
+  },
+  keys: [
+    ['prologue','base',10.3,34,336,-.05,''], ['q08','base',10.9,44,344,-.05,''],
+    ['ch1','base',11.5,52,10,-.05,'g-day'], ['ch2','c2',12.2,58,60,-.04,'g-day'],
+    ['rec08','c3',12.6,62,84,-.04,'g-night'],
+    ['trk','c4',12.9,64,100,-.06,'g-day'],
+    ['ev0','c4',13.1,68,112,-.05,'g-day'], ['ev1','btl',13.5,73,90,-.03,'g-night'],
+    ['ev2','btl',13.6,74,78,-.03,'g-day'], ['ev3','btl',13.5,73,70,-.03,'g-day'],
+    ['ev4','summit',13.8,76,54,-.02,'g-day'], ['ev5','summit',13.9,76,40,-.02,'g-dusk'],
+    ['ev6','trv',13.8,76,26,-.02,'g-night'], ['ev7','btl',13.6,74,10,-.03,'g-night'],
+    ['ev8','trv',13.7,75,352,-.02,'g-night'], ['ev9','btl',13.7,75,338,-.03,'g-day'],
+    ['ev10','btl',13.8,76,326,-.02,'g-dusk'], ['ev11','btl',13.6,74,312,-.03,'g-storm'],
+    ['ev12','wander',13.0,68,290,-.04,'g-day'], ['ev13','base',11.6,52,260,-.05,'g-mourn'],
+    ['ch3','btl',13.2,70,240,-.04,'g-day'], ['ch4','summit',13.5,74,224,-.03,'g-dusk'],
+    ['ch5','trv',13.7,76,206,-.02,'g-night'], ['ch6','btl',13.5,74,188,-.03,'g-night'],
+    ['ch7','btl',13.6,74,170,-.03,'g-day'], ['evroom08','btl',12.6,62,150,-.04,'g-mourn'],
+    ['ch8','btl',13.4,72,132,-.03,'g-storm'], ['ch9','base',11.4,50,110,-.05,'g-mourn'],
+    ['wilcoP','wander',12.8,66,90,-.04,'g-day'], ['memorial','base',12.0,55,182,-.05,'g-mourn'],
+    ['colophon08','base',10.2,32,172,-.03,'g-mourn'], ['footer08','base',9.7,28,158,-.02,'']
+  ],
+  flame: {ll:[76.5160,35.8446], label:'Gilkey Memorial'},
+  explore: {center:'btl', zoom:12.6, pitch:64, bearing:150},
+  camStart: {zoom:10.3, pitch:34, bearing:336}
+};
+</script>
+<script src="/js/era-map.js"></script>
+<script src="/js/era-chrome.js"></script>
+<script src="/js/era-extras.js"></script>

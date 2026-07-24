@@ -1,0 +1,382 @@
+
+
+<div id="bgMap"></div>
+<div id="bgFallback" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg')"></div>
+<div id="bgVeil"></div>
+<div id="grade"></div>
+<canvas id="snow"></canvas>
+
+<div id="bgLoad">
+  <div class="bl-s">Karakoram · 35°52′N 76°30′E</div>
+  <div class="bl-t">One mountain, four storms</div>
+  <div class="bl-line"></div>
+</div>
+
+<canvas id="stars"></canvas>
+<div id="progress"></div>
+<div class="ctrl">
+  <button id="btnVoice">▷ Play story</button>
+  <button id="btnWind">♪ Wind</button>
+  <button id="btnExplore">◈ Explore</button>
+  <button id="btnLite">◐ Lite</button>
+</div>
+<div id="scrub"></div>
+<button id="exploreExit">✕ Return to the overview</button>
+<div id="exploreHint">Click any site to open its record</div>
+<aside id="locCard" aria-hidden="true">
+  <button id="lcClose" aria-label="Close">✕</button>
+  <div class="kick" id="lcKick"></div>
+  <h4 id="lcName"></h4>
+  <p id="lcBlurb"></p>
+  <div class="lc-scrub">
+    <button id="lcPrev" aria-label="Earlier disaster">‹</button>
+    <input type="range" id="lcRange" min="0" max="3" step="1" value="0" aria-label="The four disasters">
+    <button id="lcNext" aria-label="Later disaster">›</button>
+  </div>
+  <div class="lc-when"><span id="lcDate"></span><span id="lcPhase"></span></div>
+  <div class="lc-evtitle" id="lcTitle"></div>
+  <div class="lc-state" id="lcState"></div>
+  <div class="lc-who" id="lcWho"></div>
+  <div class="lc-note">Positions approximate · every date &amp; toll per the documented record</div>
+</aside>
+<nav class="rail" aria-label="Sections">
+  <a href="#prologue" data-ch="prologue"><span class="dot"></span><span class="lbl">One Mountain</span></a>
+  <a href="#trkC" data-ch="trkC"><span class="dot"></span><span class="lbl">Four Storms</span></a>
+  <a href="#covers" data-ch="covers"><span class="dot"></span><span class="lbl">The Stories</span></a>
+  <a href="#wall" data-ch="wall"><span class="dot"></span><span class="lbl">The Wall</span></a>
+  <a href="#century" data-ch="century"><span class="dot"></span><span class="lbl">The Century</span></a>
+  <a href="#memorial" data-ch="memorial"><span class="dot"></span><span class="lbl">All the Names</span></a>
+</nav>
+<div class="alti" aria-hidden="true">
+  <div class="alti-cap">Altitude</div>
+  <div class="alti-ft" id="altiFt">5,000 m</div>
+  <div class="alti-m" id="altiM">16,400 ft</div>
+  <div class="alti-bar"><div class="alti-fill" id="altiFill"></div></div>
+</div>
+<div class="m3d-hud" id="m3dHud">
+  <div class="h-phase" id="hudPhase"></div>
+  <div class="h-date" id="hudDate">K2</div>
+  <div class="h-sub" id="hudTitle">The Savage Mountain</div>
+  <div class="h-alt" id="hudAlt"></div>
+</div>
+<div class="m3d-legend" id="m3dLegend"></div>
+<div class="m3d-note" id="m3dNote">Terrain: real elevation data · Site positions approximate<br>Dates &amp; tolls per the documented record</div>
+<nav class="eranav" aria-label="The disasters">
+  <a href="/">1939</a><a href="/1986">1986</a><a href="/1995">1995</a><a href="/2008">2008</a><a class="hub cur" href="/disasters" aria-current="page">One Mountain ◈</a>
+</nav>
+
+<main>
+
+<section class="prologue" id="prologue" data-alt="5000">
+  <span class="eyebrow">K2 · 8,611 m · The Savage Mountain</span>
+  <h1>One Mountain,<br><em>Four</em> Storms</h1>
+  <div class="rule"></div>
+  <p class="sub">1939 · 1986 · 1995 · 2008. Four catastrophes, seven decades apart, on the same few thousand metres of ice — told in the voice of the era that lived each one.</p>
+  <div class="stats">
+    <div class="stat"><b>4</b><span>Disasters · One Ridge</span></div>
+    <div class="stat loss"><b>36</b><span>Lives · Four Seasons</span></div>
+    <div class="stat"><b>69</b><span>Years · 1939 to 2008</span></div>
+    <div class="stat"><b>1</b><span>Couloir, Feared Twice</span></div>
+  </div>
+  <div class="cue">Scroll<div class="line"></div></div>
+</section>
+
+<div class="breath"></div>
+<div class="pq pq-sky reveal" id="qhub" data-alt="5000">
+  The stories rhyme. A summit reached too late. A camp that should not have been empty. A descent the weather would not permit. Only the instruments change — diaries, slide film, teletext, GPS.
+  <span class="att">Scrub the century below</span>
+</div>
+<div class="breath"></div>
+
+<div id="timeline-zone">
+<div class="over-steps">
+  <div class="over-step" data-ev="-1" id="trkC" data-alt="5000"><div class="over-card">
+    <span class="kick">The Four Storms · 1939 – 2008</span>
+    <h4>Scrub the century</h4>
+    <p>Each step below is one disaster, placed on the real terrain of K2. The ✝ pins mark where the mountain kept them — every date and toll from the documented record, every position approximate.</p>
+  </div></div>
+  <div class="over-step" data-ev="0" id="ev0" data-alt="7530"><div class="over-card y39">
+    <span class="kick">1939 · July – August</span>
+    <h4>The Mountain That Swallowed Them</h4>
+    <p>Wiessner turns back 800 feet from the top; the camps beneath him are stripped by mistake. Dudley Wolfe waits alone at Camp VII, and three Sherpas — Pasang Kikuli, Pasang Kitar, Phinsoo — climb into the clouds to bring him down. None return.</p>
+    <p class="tl"><b>4 lost</b> · the highest rescue attempt then ever made</p>
+  </div></div>
+  <div class="over-step" data-ev="1" id="ev1" data-alt="8000"><div class="over-card y86">
+    <span class="kick">1986 · June 21 – August 10</span>
+    <h4>The Black Summer</h4>
+    <p>Twenty-seven summits by five lines — and thirteen dead, across the whole mountain: an avalanche, two descents that never ended, a crevasse at Base Camp, the fixed ropes, and a storm that sealed seven climbers into Camp IV at 8,000 metres.</p>
+    <p class="tl"><b>13 lost</b> · the summer K2's arithmetic changed</p>
+  </div></div>
+  <div class="over-step" data-ev="2" id="ev2" data-alt="8300"><div class="over-card y95">
+    <span class="kick">1995 · August 13 – 15</span>
+    <h4>One Day as a Tiger</h4>
+    <p>Six climbers — Alison Hargreaves first among them — summit at 6:45 in the evening into a perfect sky, and a 160 km/h storm kills them all on the descent. Jeff Lakes, who turned back, dies of exposure two days later.</p>
+    <p class="tl"><b>8 lost that season</b> · and one climber tried by the press</p>
+  </div></div>
+  <div class="over-step" data-ev="3" id="ev3" data-alt="8200"><div class="over-card y08">
+    <span class="kick">2008 · August 1 – 2</span>
+    <h4>The Bottleneck</h4>
+    <p>Eighteen summit — some at eight in the evening. At 20:30 the serac above the Bottleneck calves, cutting every fixed rope. Eleven die in the couloir Wiessner refused in 1939: the deadliest single accident in the mountain's history.</p>
+    <p class="tl"><b>11 lost</b> · the most documented, the most contested</p>
+  </div></div>
+</div>
+</div>
+
+<div class="panel-wrap" id="covers" style="background:transparent" data-alt="5000"><div class="coverwrap">
+  <div class="ev-head reveal">
+    <span class="eyebrow">The Stories</span>
+    <h3>Four Pages, Four Eras</h3>
+    <p class="ev-sub">Each disaster is told in the medium of its own decade — archive paper, slide film, newsprint, telemetry.</p>
+  </div>
+  <div class="covers-grid">
+    <a class="cover cov39 reveal" href="/">
+      <span class="cv-kick">1939 · Sealed archive</span>
+      <span class="cv-title">The Mountain That <em>Swallowed</em> Them</span>
+      <span class="cv-line"></span>
+      <span class="cv-desc">Wolfe, Wiessner, and the Sherpas' last climb — diaries kept sealed for fifty years.</span>
+      <span class="cv-toll">4 lost · Read the story ⟶</span>
+    </a>
+    <a class="cover cov86 reveal" href="/1986">
+      <span class="cv-kick">1986 · Kodachrome</span>
+      <span class="cv-title">THE BLACK SUMMER</span>
+      <span class="cv-line"></span>
+      <span class="cv-desc">Nine expeditions, three new routes, the first women — and thirteen dead by five different ways.</span>
+      <span class="cv-toll">13 lost · Read the story ⟶</span>
+    </a>
+    <a class="cover cov95 reveal" href="/1995">
+      <span class="cv-kick">1995 · Newsprint</span>
+      <span class="cv-title">ONE DAY AS A TIGER</span>
+      <span class="cv-line"></span>
+      <span class="cv-desc">Six died in the same storm. The front pages put one of them — the mother — on trial.</span>
+      <span class="cv-toll">8 lost · Read the story ⟶</span>
+    </a>
+    <a class="cover cov08 reveal" href="/2008">
+      <span class="cv-kick">2008 · Live telemetry</span>
+      <span class="cv-title">THE_BOTTLENECK</span>
+      <span class="cv-line"></span>
+      <span class="cv-desc">The serac falls at 20:30 and the dots go dark one by one — on satphones, radios and GPS.</span>
+      <span class="cv-toll">11 lost · Read the story ⟶</span>
+    </a>
+  </div>
+</div></div>
+
+<div class="panel-wrap" id="wall" data-alt="7000"><div class="panel"><div class="narrative wide">
+  <span class="eyebrow reveal">The Wall</span>
+  <h3 class="wall-h reveal">Where the Mountain Keeps Them</h3>
+  <p class="reveal" style="margin-top:.8rem">Every documented loss of the four disasters, placed by the altitude at which the mountain took them. In 1939 and 1986 K2 killed on every floor of the climb — a crevasse at its foot, an avalanche on the approach, the ropes, the Shoulder. In 1995 and 2008 nearly every mark sits in one thin band: <span class="dng">the death zone, above 8,000 metres</span>, where summits come late and storms shut the door.</p>
+  <div class="chart reveal" role="img" aria-label="Chart: the 35 deaths of the 1939, 1986, 1995 and 2008 K2 disasters plotted by approximate altitude, from 5,000 to 8,611 metres. 1995 and 2008 deaths cluster above 8,000 metres.">
+  <svg viewBox="0 0 740 600">
+    <!-- death zone band -->
+    <rect x="92" y="60" width="608" height="81" fill="rgba(118,44,38,.07)"/>
+    <text x="696" y="76" text-anchor="end" class="cz">THE DEATH ZONE · 8,000 m +</text>
+    <!-- grid -->
+    <g class="cg">
+      <line x1="92" y1="60"  x2="700" y2="60"/><line x1="92" y1="141" x2="700" y2="141"/>
+      <line x1="92" y1="274" x2="700" y2="274"/><line x1="92" y1="407" x2="700" y2="407"/>
+      <line x1="92" y1="540" x2="700" y2="540"/>
+    </g>
+    <g class="cl">
+      <text x="84" y="64" text-anchor="end">8,611</text><text x="84" y="145" text-anchor="end">8,000</text>
+      <text x="84" y="278" text-anchor="end">7,000</text><text x="84" y="411" text-anchor="end">6,000</text>
+      <text x="84" y="544" text-anchor="end">5,000 m</text>
+    </g>
+    <!-- column headers -->
+    <g class="ch"><text x="170" y="34" text-anchor="middle">1939</text><text x="330" y="34" text-anchor="middle">1986</text><text x="490" y="34" text-anchor="middle">1995</text><text x="650" y="34" text-anchor="middle">2008</text></g>
+    <g class="ct"><text x="170" y="50" text-anchor="middle">4 lost</text><text x="330" y="50" text-anchor="middle">13 lost</text><text x="490" y="50" text-anchor="middle">7 lost</text><text x="650" y="50" text-anchor="middle">11 lost</text></g>
+    <!-- 1939 · diamonds #a6752a -->
+    <g class="mk m39">
+      <g><title>Dudley Wolfe — Camp VII, ≈7,530 m</title><rect x="164" y="198" width="12" height="12" transform="rotate(45 170 204)"/></g>
+      <g><title>Pasang Kikuli — above Camp VI, altitude uncertain (≈7,300 m)</title><rect x="146" y="228" width="12" height="12" transform="rotate(45 152 234)"/></g>
+      <g><title>Pasang Kitar — above Camp VI, altitude uncertain (≈7,300 m)</title><rect x="164" y="228" width="12" height="12" transform="rotate(45 170 234)"/></g>
+      <g><title>Phinsoo — above Camp VI, altitude uncertain (≈7,300 m)</title><rect x="182" y="228" width="12" height="12" transform="rotate(45 188 234)"/></g>
+    </g>
+    <!-- 1986 · squares #a83122 -->
+    <g class="mk m86">
+      <g><title>Liliane Barrard — descent from the summit, ≈8,200 m</title><rect x="310" y="109" width="11" height="11"/></g>
+      <g><title>Maurice Barrard — descent from the summit, ≈8,200 m</title><rect x="326" y="109" width="11" height="11"/></g>
+      <g><title>Wojciech Wróż — the fixed ropes above Camp IV, ≈8,100 m</title><rect x="344" y="122" width="11" height="11"/></g>
+      <g><title>Julie Tullis — Camp IV, the Shoulder, ≈8,000 m</title><rect x="306" y="135" width="11" height="11"/></g>
+      <g><title>Alan Rouse — Camp IV, the Shoulder, ≈8,000 m</title><rect x="322" y="135" width="11" height="11"/></g>
+      <g><title>Alfred Imitzer — near Camp IV, ≈7,950 m</title><rect x="338" y="142" width="11" height="11"/></g>
+      <g><title>Hannes Wieser — near Camp IV, ≈7,950 m</title><rect x="354" y="142" width="11" height="11"/></g>
+      <g><title>Tadeusz Piotrowski — descending the Abruzzi, ≈7,900 m</title><rect x="296" y="149" width="11" height="11"/></g>
+      <g><title>Dobrosława Miodowicz-Wolf — the fixed ropes, ≈7,000 m</title><rect x="324" y="268" width="11" height="11"/></g>
+      <g><title>Muhammad Ali — stonefall low on the Abruzzi, ≈5,900 m</title><rect x="324" y="414" width="11" height="11"/></g>
+      <g><title>John Smolich — avalanche on the SSW approach, ≈5,800 m</title><rect x="308" y="428" width="11" height="11"/></g>
+      <g><title>Alan Pennington — avalanche on the SSW approach, ≈5,800 m</title><rect x="340" y="428" width="11" height="11"/></g>
+      <g><title>Renato Casarotto — crevasse near Base Camp, ≈5,100 m</title><rect x="324" y="521" width="11" height="11"/></g>
+    </g>
+    <!-- 1995 · circles #33589e -->
+    <g class="mk m95">
+      <g><title>Alison Hargreaves — the summit slopes, ≈8,300 m</title><circle cx="466" cy="106" r="6"/></g>
+      <g><title>Javier Olivar — the summit slopes, ≈8,300 m</title><circle cx="482" cy="106" r="6"/></g>
+      <g><title>Rob Slater — the summit slopes, ≈8,300 m</title><circle cx="498" cy="106" r="6"/></g>
+      <g><title>Javier Escartín — the summit slopes, ≈8,300 m</title><circle cx="514" cy="106" r="6"/></g>
+      <g><title>Lorenzo Ortíz — the summit slopes, ≈8,300 m</title><circle cx="474" cy="120" r="6"/></g>
+      <g><title>Bruce Grant — the summit slopes, ≈8,300 m</title><circle cx="490" cy="120" r="6"/></g>
+      <g><title>Jeff Lakes — a lower camp, ≈6,700 m (died of exposure after descending)</title><circle cx="490" cy="314" r="6"/></g>
+    </g>
+    <!-- 2008 · triangles #2e7d46 -->
+    <g class="mk m08">
+      <g><title>Rolf Bae — the Traverse, ≈8,350 m</title><path d="M650 88 l7 12 h-14 z"/></g>
+      <g><title>Gerard McDonnell — above the Bottleneck, ≈8,300 m</title><path d="M628 99 l7 12 h-14 z"/></g>
+      <g><title>Meherban Karim — the serac field, ≈8,300 m</title><path d="M672 99 l7 12 h-14 z"/></g>
+      <g><title>Kyeong-Hyo Park — top of the Bottleneck, ≈8,250 m</title><path d="M614 108 l7 12 h-14 z"/></g>
+      <g><title>Hyo-Gyeong Kim — top of the Bottleneck, ≈8,250 m</title><path d="M630 112 l7 12 h-14 z"/></g>
+      <g><title>Dong-Jin Hwang — top of the Bottleneck, ≈8,250 m</title><path d="M646 112 l7 12 h-14 z"/></g>
+      <g><title>Jumik Bhote — top of the Bottleneck, ≈8,250 m</title><path d="M662 112 l7 12 h-14 z"/></g>
+      <g><title>"Big" Pasang Bhote — top of the Bottleneck, ≈8,250 m</title><path d="M678 108 l7 12 h-14 z"/></g>
+      <g><title>Hugues d'Aubarède — night descent of the Bottleneck, ≈8,200 m</title><path d="M638 126 l7 12 h-14 z"/></g>
+      <g><title>Dren Mandić — fall below the Bottleneck, ≈8,100 m</title><path d="M624 137 l7 12 h-14 z"/></g>
+      <g><title>Jehan Baig — fall during the recovery, ≈8,100 m</title><path d="M656 137 l7 12 h-14 z"/></g>
+    </g>
+  </svg>
+  </div>
+  <p class="chart-cap reveal">One mark per person · altitudes approximate, per the documented accounts · Jordi Anglès (1995, altitude unrecorded) appears in the ledger below. Hover any mark for the name; the full ledger follows.</p>
+</div></div></div>
+
+<div class="panel-wrap" id="century" data-alt="5000"><div class="panel"><div class="narrative wide">
+  <span class="eyebrow reveal">The Century</span>
+  <h3 class="wall-h reveal">A Timeline of the Savage Mountain</h3>
+  <div class="strip reveal">
+    <div class="st"><b>1902</b><span>First attempt on K2 — the northeast ridge</span></div>
+    <div class="st"><b>1909</b><span>The Duke of the Abruzzi names the ridge; Sella's photographs</span></div>
+    <div class="st"><b>1938</b><span>Houston's reconnaissance opens the route to 26,000 ft</span></div>
+    <div class="st y39"><b>1939</b><span>Wolfe and three Sherpas lost — the first K2 disaster</span></div>
+    <div class="st"><b>1953</b><span>Gilkey is lost; his cairn becomes the mountain's memorial</span></div>
+    <div class="st"><b>1954</b><span>First ascent — Lacedelli &amp; Compagnoni, 15 years to the day after the last 1939 rescue climb began</span></div>
+    <div class="st y86"><b>1986</b><span>The Black Summer — 27 summits, 13 dead</span></div>
+    <div class="st"><b>1993</b><span>The glacier begins returning the men of 1939</span></div>
+    <div class="st y95"><b>1995</b><span>Hargreaves and five others die descending; Lakes follows</span></div>
+    <div class="st"><b>2002</b><span>Dudley Wolfe found on the Godwin-Austen, 63 years on</span></div>
+    <div class="st y08"><b>2008</b><span>The serac falls on the Bottleneck — 11 dead in two days</span></div>
+    <div class="st"><b>2011</b><span>The first summit after 2008 — Kaltenbrunner's oxygen-free fourteenth</span></div>
+  </div>
+</div></div></div>
+
+<div class="breath tall"></div>
+<section class="memorial" id="memorial" data-alt="5000">
+  <div class="mem-inner">
+    <h2>All the Names</h2>
+    <p class="mem-sub">Thirty-six, four seasons · at the Gilkey Memorial they share one cairn</p>
+    <div class="ledger">
+      <div class="lg reveal"><h4 class="y39h">1939</h4>
+        <ul><li>Dudley Wolfe</li><li>Pasang Kikuli</li><li>Pasang Kitar</li><li>Phinsoo</li></ul></div>
+      <div class="lg reveal"><h4 class="y86h">1986</h4>
+        <ul><li>John Smolich</li><li>Alan Pennington</li><li>Liliane Barrard</li><li>Maurice Barrard</li><li>Tadeusz Piotrowski</li><li>Renato Casarotto</li><li>Wojciech Wróż</li><li>Muhammad Ali</li><li>Julie Tullis</li><li>Alan Rouse</li><li>Alfred Imitzer</li><li>Hannes Wieser</li><li>Dobrosława Miodowicz-Wolf</li></ul></div>
+      <div class="lg reveal"><h4 class="y95h">1995</h4>
+        <ul><li>Alison Hargreaves</li><li>Javier Olivar</li><li>Rob Slater</li><li>Javier Escartín</li><li>Lorenzo Ortíz</li><li>Bruce Grant</li><li>Jeff Lakes</li><li>Jordi Anglès</li></ul></div>
+      <div class="lg reveal"><h4 class="y08h">2008</h4>
+        <ul><li>Dren Mandić</li><li>Jehan Baig</li><li>Rolf Bae</li><li>Hugues d'Aubarède</li><li>Meherban Karim</li><li>Gerard McDonnell</li><li>Kyeong-Hyo Park</li><li>Hyo-Gyeong Kim</li><li>Dong-Jin Hwang</li><li>Jumik Bhote</li><li>"Big" Pasang Bhote</li></ul></div>
+    </div>
+    <p class="reveal" style="margin-top:2.6rem;font-weight:380">Different decades, different instruments, the same few thousand metres of ice. The 1939 men waited fifty years for the truth to come down; the 2008 dead were tracked by satellite and are argued over still. The mountain has never cared how well we record what it does.</p>
+  </div>
+</section>
+
+<div class="panel-wrap" id="colophonHub"><div class="panel colo"><div class="narrative">
+  <h3>Sources</h3>
+  <p class="c-sub">This overview only restates what the four story pages document — see each page's colophon for its full sources.</p>
+  <div class="row reveal"><b>1939</b><span>Kauffman &amp; Putnam (1992) · Jordan (2010) · <a href="/">the 1939 page</a></span></div>
+  <div class="row reveal"><b>1986</b><span>Curran, <em>K2: Triumph and Tragedy</em> (1987) · Diemberger (1991) · <a href="/1986">the 1986 page</a></span></div>
+  <div class="row reveal"><b>1995</b><span>Rose &amp; Douglas, <em>Regions of the Heart</em> (1999) · <a href="/1995">the 1995 page</a></span></div>
+  <div class="row reveal"><b>2008</b><span>Bowley (2010) · Zuckerman &amp; Padoan (2012) · <a href="/2008">the 2008 page</a></span></div>
+  <div class="row reveal"><b>Throughout</b><span>Ed Viesturs &amp; David Roberts — <em>K2: Life and Death on the World's Most Dangerous Mountain</em> (2009) · Wikipedia's disaster articles and the sources cited therein</span></div>
+  <div class="row reveal"><b>Terrain</b><span>Elevation: Mapzen / AWS Open Data · Imagery © Esri, Maxar, Earthstar Geographics · Rendered with MapLibre GL</span></div>
+</div></div></div>
+
+<button class="explore-cta" id="exploreCta">◈ Explore the mountain yourself</button>
+<div class="footer" id="footerHub" data-alt="0">
+  <a href="/">1939 · The Mountain That Swallowed Them</a><br>
+  <a href="/1986">1986 · The Black Summer</a> · <a href="/1995">1995 · One Day as a Tiger</a> · <a href="/2008">2008 · The Bottleneck</a><br>
+  <span class="final">"They have, as their monument, a more beautiful structure<br>than any man will ever erect, K2." — Fritz Wiessner, 1940</span>
+</div>
+
+</main>
+
+<script>
+window.__ERA = {
+  year: '',
+  hud: {date:'K2', title:'The Savage Mountain'},
+  points: {
+    base:   {ll:[76.5175,35.8420], m:5000, name:'Base Camp', major:true},
+    crev86: {ll:[76.5120,35.8480], m:5100, name:'The Crevasse · 1986', kind:'x', ev:1},
+    ssw86:  {ll:[76.5033,35.8660], m:5800, name:'The Avalanche · 1986', kind:'x', ev:1},
+    ropes86:{ll:[76.5219,35.8636], m:7000, name:'The Fixed Ropes · 1986', kind:'x', ev:1},
+    sface86:{ll:[76.5110,35.8730], m:7400, name:'The Polish Line · 1986', kind:'site', ev:1},
+    c7_39:  {ll:[76.5181,35.8746], m:7530, name:'Camp VII · 1939', major:true, ev:0},
+    c4_95:  {ll:[76.5178,35.8750], m:7600, name:'Camp 4 · 1995', ev:2},
+    shldr:  {ll:[76.5163,35.8768], m:8000, name:'Camp IV — the Shoulder · 1986', major:true, ev:1},
+    btl:    {ll:[76.5137,35.8806], m:8200, name:'The Bottleneck · 2008', kind:'site', major:true, ev:3},
+    trv:    {ll:[76.5127,35.8809], m:8350, name:'The Traverse · 2008', kind:'site', ev:3},
+    upper95:{ll:[76.5140,35.8800], m:8300, name:'The Summit Slopes · 1995', kind:'site', ev:2},
+    summit: {ll:[76.5133,35.8814], m:8611, name:'Summit', kind:'peak', major:true, ev:0}
+  },
+  routes: [
+    {keys:['base','ropes86','c7_39','shldr','btl','trv','summit']},
+    {keys:['base','sface86','summit'], c:'#e8c15a'},
+    {keys:['base','ssw86','summit'], c:'#d4553e'}
+  ],
+  people: {},
+  events: [
+    {date:'1939', t:'The Mountain That Swallowed Them', phase:'The First Storm', ph:true, tragic:true, pos:{},
+     hialt:'4 lost · Wolfe and the three Sherpas'},
+    {date:'1986', t:'The Black Summer', phase:'The Second Storm', ph:true, tragic:true, pos:{},
+     hialt:'13 lost · across the whole mountain'},
+    {date:'1995', t:'One Day as a Tiger', phase:'The Third Storm', ph:true, tragic:true, pos:{},
+     hialt:'8 lost that season · 6 above 8,000 m'},
+    {date:'2008', t:'The Bottleneck', phase:'The Fourth Storm', ph:true, tragic:true, pos:{},
+     hialt:'11 lost · the deadliest single accident'}
+  ],
+  features: [
+    {ll:[76.5134,35.8812], label:'The Serac', from:0},
+    {ll:[76.5169,35.8760], label:'The Shoulder', from:0}
+  ],
+  moments: [
+    {ll:[76.5181,35.8746], glyph:'✝', label:'Wolfe — alone at Camp VII', at:[0]},
+    {ll:[76.5191,35.8722], glyph:'✝', label:'Kikuli · Kitar · Phinsoo — the last rescue', at:[0]},
+    {ll:[76.5033,35.8660], glyph:'✝', label:'Smolich & Pennington — June 21', at:[1]},
+    {ll:[76.5120,35.8480], glyph:'✝', label:'Casarotto — July 16', at:[1]},
+    {ll:[76.5172,35.8757], glyph:'✝', label:'Piotrowski — July 10', at:[1]},
+    {ll:[76.5163,35.8768], glyph:'✝', label:'Tullis · Rouse · Imitzer · Wieser — the storm camp', at:[1]},
+    {ll:[76.5219,35.8636], glyph:'✝', label:'Mrufka Wolf — the fixed ropes', at:[1]},
+    {ll:[76.5140,35.8800], glyph:'✝', label:'The six of August 13 — the storm', at:[2]},
+    {ll:[76.5226,35.8604], glyph:'✝', label:'Jeff Lakes — August 15, a lower camp', at:[2]},
+    {ll:[76.5127,35.8809], glyph:'✝', label:'Rolf Bae — the serac, 20:30', at:[3]},
+    {ll:[76.5137,35.8806], glyph:'✝', label:'Ten more — the couloir and the seracs', at:[3]}
+  ],
+  locnotes: {
+    base:'Every era staged from this glacier. The Gilkey Memorial — the mountain’s cenotaph — stands just above it.',
+    crev86:'Renato Casarotto fell 40 m through an ice bridge here on 16 July 1986, minutes from his tent, and rests where he fell.',
+    ssw86:'The avalanche of 21 June 1986 — Smolich and Pennington — the Black Summer’s first day.',
+    ropes86:'The web of fixed ropes where Mrufka Wolf was found a year after the 1986 storm, still clipped in.',
+    sface86:'Kukuczka and Piotrowski’s 1986 Polish Line — never repeated in full; it cost Piotrowski the descent.',
+    c7_39:'Dudley Wolfe waited here alone in 1939; Pasang Kikuli, Pasang Kitar and Phinsoo climbed toward him and vanished.',
+    c4_95:'The 1995 party’s last camp, ≈7,600 m — at least twelve hours below the summit they reached at 6:45 PM.',
+    shldr:'Camp IV at ≈8,000 m: seven climbers trapped by the 1986 storm; five never left the Shoulder.',
+    btl:'The couloir under the serac. Feared by Wiessner in 1939; in 2008 it took eleven lives in two days.',
+    trv:'The traverse under the ice, where the first serac fall of 2008 cut the ropes and killed Rolf Bae.',
+    upper95:'The slopes where the 1995 storm caught all six summiters on the night of 13 August.',
+    summit:'8,611 m. First reached 1954 · first by a woman 1986 · still the deadliest of the great summits.'
+  },
+  pointStates: {},
+  keys: [
+    ['prologue','base',10.3,34,336,-.05,''], ['qhub','base',10.9,44,320,-.05,''],
+    ['trkC','base',11.2,48,300,-.06,'g-day'],
+    ['ev0','c7_39',13.3,71,270,-.03,'g-dusk'],
+    ['ev1','shldr',12.6,64,220,-.04,'g-storm'],
+    ['ev2','upper95',13.5,74,180,-.02,'g-storm'],
+    ['ev3','btl',13.7,75,150,-.02,'g-night'],
+    ['covers','base',11.0,46,120,-.05,'g-day'],
+    ['wall','c7_39',12.2,58,90,-.04,'g-dusk'],
+    ['century','base',10.8,42,60,-.04,'g-day'],
+    ['memorial','base',12.0,55,182,-.05,'g-mourn'],
+    ['colophonHub','base',10.2,32,172,-.03,'g-mourn'], ['footerHub','base',9.7,28,158,-.02,'']
+  ],
+  flame: {ll:[76.5160,35.8446], label:'Gilkey Memorial'},
+  explore: {center:'shldr', zoom:12.3, pitch:62, bearing:150},
+  camStart: {zoom:10.3, pitch:34, bearing:336}
+};
+</script>
+<script src="/js/era-map.js"></script>
+<script src="/js/era-chrome.js"></script>
+<script src="/js/era-extras.js"></script>

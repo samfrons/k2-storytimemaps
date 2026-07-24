@@ -490,3 +490,14 @@ body.memnight .memorial .cc-name{letter-spacing:.1em}
 /* typewriter */
 .record.typing p:not(.rec-meta){min-height:1em}
 
+/* ════════ v14: the other disasters — cross-links before the footer ════════ */
+.epochs{position:relative;z-index:3;text-align:center;padding:14vh 1.6rem 10vh}
+.epochs h3{margin-top:1.4rem;font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.9rem,4.4vw,3rem);color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
+.epochs .ep-sub{margin:.8rem auto 2.4rem;max-width:520px;font-style:italic;font-weight:380;color:rgba(241,236,223,.85);text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.epochs .ep-links{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.epochs .ep-links a,.epochs .ep-here{font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;padding:.85rem 1.6rem;border:1px solid rgba(241,236,223,.45);color:var(--ivory);background:rgba(20,17,12,.45);backdrop-filter:blur(3px);transition:.3s;min-width:min(420px,86vw)}
+.epochs .ep-links a:hover{border-color:#f1ecdf;color:#fff;background:rgba(20,17,12,.7)}
+.epochs .ep-here{opacity:.55;border-style:dashed;pointer-events:none}
+.epochs .ep-hub{border-color:rgba(201,168,106,.7)}
+.epochs .ep-hub:hover{border-color:var(--bronze-l)}
+

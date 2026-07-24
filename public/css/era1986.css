@@ -1,0 +1,105 @@
+/* ═════════ ERA 1986 — Kodachrome and carbon paper ═════════
+   Loads after main.css and reskins it: warm slide-mount cardboard, Kodak
+   red, heavy 80s grotesk display (Archivo Black), electric-typewriter
+   dispatches (Courier Prime — vs the 1939 page's worn manual Special Elite).
+   The era of expedition books, base-camp radios and slide carousels. */
+:root{
+  --ivory:#f2ead8;
+  --cream:#efe7d2;
+  --paperline:rgba(33,28,21,.2);
+  --ink:#211c15;
+  --smoke:#6b6152;
+  --bronze:#a03222;        /* Kodak red hairlines */
+  --bronze-l:#d4553e;
+  --wine:#7a1f16;
+  --wine-l:#c25b4e;
+  --night:#161209;
+}
+body{font-family:'Archivo',Helvetica,Arial,sans-serif;font-size:17px;line-height:1.85}
+
+/* micro layer: Jost → Archivo semi-bold caps */
+.eyebrow,.rail .lbl,.alti,.cue,figure.photo figcaption,.kick,.cc-role,.footer,
+.m3d-hud .h-sub,.m3d-hud .h-alt,.m3d-legend span,.m3d-note,.m3d-hud .h-phase,
+.ctrl button,#exploreExit,#exploreHint,.explore-cta,#scrub .sd,.lc-when,.lc-chip,
+.lc-none,.lc-note,.doc .d-tab,.ev-hint,.colo .row b,.pq .att,.mk-camp2 .l,.mk-feat .fl,.mk-mom .ml,
+.bl-s,.stat span{font-family:'Archivo',sans-serif!important;font-weight:600}
+
+/* display layer: Fraunces → Archivo Black */
+.prologue h1{font-family:'Archivo Black',sans-serif;font-weight:400;text-transform:uppercase;
+  letter-spacing:-.01em;line-height:.96;font-size:clamp(2.7rem,8vw,6.6rem);color:#f6efdd;
+  filter:drop-shadow(0 4px 26px rgba(0,0,0,.9))}
+.prologue h1 em{font-style:normal;color:var(--bronze-l)}
+.ch-cover h2{font-family:'Archivo Black',sans-serif;font-weight:400;text-transform:uppercase;
+  letter-spacing:-.005em;font-size:clamp(2.1rem,5.2vw,4.3rem);color:#f6efdd;
+  filter:drop-shadow(0 3px 22px rgba(0,0,0,.85))}
+.ch-cover::before{font-family:'Archivo Black',sans-serif;-webkit-text-stroke:1px rgba(212,85,62,.5)}
+.ch-cover .num{color:rgba(242,234,216,.85)}
+.ch-cover .dek{border-left-color:var(--bronze-l)}
+.pq,.evroom h3,.stat b,.over-card h4,#locCard h4,.cc-name,.colo h3,.memorial h2,
+.lc-evtitle,.doc h4,.bl-t,.footer .final{font-family:'Archivo',sans-serif;font-weight:700}
+.memorial h2,.colo h3{font-family:'Archivo Black',sans-serif;font-weight:400;text-transform:uppercase}
+.pq{font-style:normal}
+.narrative .lede::first-letter{font-family:'Archivo Black',sans-serif;color:var(--bronze)}
+.m3d-hud .h-date{font-family:'Archivo Black',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(1.6rem,3.4vw,2.5rem)}
+.m3d-hud.tragic .h-date{color:var(--wine-l)}
+#progress{background:var(--bronze-l)}
+.alti .alti-fill{background:var(--bronze-l)}
+
+/* warm Kodachrome paper panels */
+.panel,.over-card{border-top:4px solid var(--bronze)}
+.panel::before,.over-card::before,.mem-inner::before{background:rgb(255 252 240 / 93%)}
+.panel::after,.over-card::after,.mem-inner::after{background:rgb(242 234 216 / 66%)}
+.over-card.tragic{border-top-color:var(--wine)}
+.mem-inner{border-top:4px solid var(--wine)}
+.kick{color:var(--bronze);letter-spacing:.34em}
+.over-card .fn{font-size:.68rem;color:var(--smoke);font-weight:500}
+.hl{color:#7a3a12;font-weight:700}
+.pq::before{background:var(--bronze)}
+.pq-sky{border-color:rgba(212,85,62,.45)}
+
+/* the typed dispatch: electric typewriter on onionskin */
+.record{font-family:'Courier Prime',monospace;background:#f6efdd;transform:rotate(-.2deg)}
+.record .rec-meta{font-family:'Courier Prime',monospace;letter-spacing:.14em}
+.record p{font-size:.88rem;line-height:1.95;letter-spacing:.01em}
+
+/* slide mounts — cardboard frames around drawn diagrams */
+.slide{margin:3rem auto 0;max-width:460px;background:#e9e2cf;border:1px solid rgba(33,28,21,.3);
+  border-radius:4px;padding:1.1rem 1.1rem .8rem;box-shadow:0 16px 44px rgba(10,8,5,.45),
+  inset 0 0 0 1px rgba(255,255,255,.5);transform:rotate(.4deg)}
+.slide .s-frame{background:#101418;border-radius:2px;overflow:hidden;
+  box-shadow:inset 0 0 0 2px rgba(0,0,0,.85)}
+.slide .s-frame svg{display:block;width:100%;height:auto}
+.slide .s-edge{margin-top:.7rem;font-family:'Courier Prime',monospace;font-size:.62rem;
+  letter-spacing:.16em;color:#8a7f68;text-align:center}
+.slide .s-edge i{font-style:normal}
+
+/* markers: vintage-print, per the house rule — ink figures, cream chips */
+.mk-sil,.lg-sil{filter:drop-shadow(1px 1px 0 rgba(244,239,228,.55))}
+.mk-camp2 .tent{filter:drop-shadow(1px 1px 0 rgba(244,239,228,.6))}
+.mk-feat .fl{font-family:'Archivo',sans-serif;font-style:normal;font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.prologue .sub{font-style:normal}
+
+/* location card + colophon accents */
+#locCard{border-top-color:var(--bronze)}
+.lc-when #lcDate{color:var(--bronze)}
+.lc-evtitle.tragic{color:var(--wine)}
+.lc-state{font-family:'Courier Prime',monospace}
+.ev-verdict{border-left-color:var(--bronze-l)}
+.colo{border-top-color:var(--bronze)}
+
+/* era switcher */
+.eranav{position:fixed;top:1.3rem;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:.35rem}
+.eranav a{font-family:'Archivo',sans-serif;font-weight:600;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+  color:#e6dcc4;text-decoration:none;padding:.4rem .7rem;border:1px solid rgba(230,220,196,.35);
+  background:rgba(22,18,9,.6);backdrop-filter:blur(3px);transition:.25s}
+.eranav a:hover{color:#fff;border-color:rgba(242,234,216,.85)}
+.eranav a.cur{color:var(--bronze-l);border-color:var(--bronze-l)}
+.eranav a.hub{color:#f6efdd}
+body.explore .eranav{opacity:0;pointer-events:none;transition:opacity .8s}
+@media(max-width:860px){.eranav{top:auto;bottom:4.6rem;flex-wrap:wrap;justify-content:center;max-width:94vw}}
+
+/* grades: Kodachrome warmth by day, deep storm greys */
+#grade.g-day{background:linear-gradient(180deg,rgba(150,90,40,.1),transparent 42%,rgba(22,18,9,.22))}
+#grade.g-storm{background:linear-gradient(180deg,rgba(50,56,66,.34),rgba(36,40,48,.18) 50%,rgba(12,13,16,.4))}
+#grade.g-mourn{background:linear-gradient(180deg,rgba(64,60,56,.24),rgba(42,40,38,.12) 50%,rgba(15,14,12,.34))}

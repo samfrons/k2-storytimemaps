@@ -1,0 +1,484 @@
+
+
+<div id="bgMap"></div>
+<div id="bgFallback" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg')"></div>
+<div id="bgVeil"></div>
+<div id="grade"></div>
+<canvas id="snow"></canvas>
+
+<div id="bgLoad">
+  <div class="bl-s">Karakoram · 35°52′N 76°30′E · ASA 64</div>
+  <div class="bl-t">Loading the carousel</div>
+  <div class="bl-line"></div>
+</div>
+
+<canvas id="stars"></canvas>
+<div id="progress"></div>
+<div class="ctrl">
+  <button id="btnVoice">▷ Play story</button>
+  <button id="btnWind">♪ Wind</button>
+  <button id="btnExplore">◈ Explore</button>
+  <button id="btnLite">◐ Lite</button>
+</div>
+<div id="scrub"></div>
+<button id="exploreExit">✕ Return to the story</button>
+<div id="exploreHint">Click any position to open its record</div>
+<aside id="locCard" aria-hidden="true">
+  <button id="lcClose" aria-label="Close">✕</button>
+  <div class="kick" id="lcKick"></div>
+  <h4 id="lcName"></h4>
+  <p id="lcBlurb"></p>
+  <div class="lc-scrub">
+    <button id="lcPrev" aria-label="Earlier event">‹</button>
+    <input type="range" id="lcRange" min="0" max="11" step="1" value="0" aria-label="Timeline">
+    <button id="lcNext" aria-label="Later event">›</button>
+  </div>
+  <div class="lc-when"><span id="lcDate"></span><span id="lcPhase"></span></div>
+  <div class="lc-evtitle" id="lcTitle"></div>
+  <div class="lc-state" id="lcState"></div>
+  <div class="lc-who" id="lcWho"></div>
+  <div class="lc-note">Positions approximate · dates &amp; altitudes per the 1986 record</div>
+</aside>
+<nav class="rail" aria-label="Chapters">
+  <a href="#prologue" data-ch="prologue"><span class="dot"></span><span class="lbl">Prologue</span></a>
+  <a href="#ch1" data-ch="ch1"><span class="dot"></span><span class="lbl">I · Nine Expeditions</span></a>
+  <a href="#trk86" data-ch="trk86"><span class="dot"></span><span class="lbl">The Ledger · Jun–Aug</span></a>
+  <a href="#ch2" data-ch="ch2"><span class="dot"></span><span class="lbl">II · The First Woman</span></a>
+  <a href="#ch3" data-ch="ch3"><span class="dot"></span><span class="lbl">III · The Polish Line</span></a>
+  <a href="#ch4" data-ch="ch4"><span class="dot"></span><span class="lbl">IV · The Soloist</span></a>
+  <a href="#ch5" data-ch="ch5"><span class="dot"></span><span class="lbl">V · The Magic Line</span></a>
+  <a href="#ch6" data-ch="ch6"><span class="dot"></span><span class="lbl">VI · Seven in the Trap</span></a>
+  <a href="#ch7" data-ch="ch7"><span class="dot"></span><span class="lbl">VII · The Break</span></a>
+  <a href="#memorial" data-ch="memorial"><span class="dot"></span><span class="lbl">The Thirteen</span></a>
+</nav>
+<div class="alti" aria-hidden="true">
+  <div class="alti-cap">Altitude</div>
+  <div class="alti-ft" id="altiFt">5,000 m</div>
+  <div class="alti-m" id="altiM">16,400 ft</div>
+  <div class="alti-bar"><div class="alti-fill" id="altiFill"></div></div>
+</div>
+<div class="m3d-hud" id="m3dHud">
+  <div class="h-phase" id="hudPhase"></div>
+  <div class="h-date" id="hudDate">Five Routes</div>
+  <div class="h-sub" id="hudTitle">The summer of 1986</div>
+  <div class="h-alt" id="hudAlt"></div>
+</div>
+<div class="m3d-legend" id="m3dLegend"></div>
+<div class="m3d-note" id="m3dNote">Terrain: real elevation data · Positions approximate<br>Dates &amp; altitudes per the 1986 record</div>
+<nav class="eranav" aria-label="The disasters">
+  <a href="/">1939</a><a class="cur" href="/1986" aria-current="page">1986</a><a href="/1995">1995</a><a href="/2008">2008</a><a class="hub" href="/disasters">One Mountain ◈</a>
+</nav>
+
+<main>
+
+<section class="prologue" id="prologue" data-alt="5000">
+  <span class="eyebrow">Karakoram · Summer 1986 · Kodachrome</span>
+  <h1>The Black<br><em>Summer</em></h1>
+  <div class="rule"></div>
+  <p class="sub">Nine expeditions. Three new routes. The first women on the summit. And a mountain that killed in ones and twos all season — then five at once.</p>
+  <div class="stats">
+    <div class="stat"><b>8,611</b><span>Metres · The Summit</span></div>
+    <div class="stat"><b>27</b><span>Reached the Top</span></div>
+    <div class="stat loss"><b>13</b><span>Never Came Home</span></div>
+    <div class="stat"><b>3</b><span>New Routes · At a Price</span></div>
+  </div>
+  <div class="cue">Scroll<div class="line"></div></div>
+</section>
+
+<div class="breath"></div>
+<div class="pq pq-sky reveal" id="q86" data-alt="5000">
+  1986 is when K2's arithmetic changed. Everything the modern mountain would become — the crowds, the brilliance, the new lines, the storm that shuts the door at 8,000 metres — happened in one summer, on one slide carousel.
+  <span class="att">Twenty-seven up · thirteen gone</span>
+</div>
+<div class="breath"></div>
+
+<section class="ch-cover" id="ch1" data-n="01" data-alt="5000">
+  <div class="inner">
+    <span class="num">Chapter I</span>
+    <h2>Nine Expeditions</h2>
+    <p class="dek">The strongest alpinists of a golden generation converged on one mountain at once — Poles, Italians, French, Austrians, British, Americans, Koreans.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">By 1986, K2 had been climbed by exactly one line: the Abruzzi Spur, the ridge of the 1939 tragedy, finally completed by the Italians in 1954. That summer, nine expeditions gathered below the mountain to change the map — the cream of the golden age of Himalayan climbing, all at once.</p>
+  <p class="reveal">There were the Poles of the high-altitude school that was rewriting the sport — <strong>Jerzy Kukuczka</strong> and <strong>Tadeusz Piotrowski</strong> aiming straight up the unclimbed south face, <strong>Wanda Rutkiewicz</strong> aiming to be the first woman on the summit. The Italian <strong>Renato Casarotto</strong> came to solo the south-southwest pillar — the "Magic Line." The French husband and wife <strong>Maurice and Liliane Barrard</strong> climbed as a pair, high-altitude romantics. The Austrians and the British international team took the Abruzzi; with the British came <strong>Alan Rouse</strong>, and the film team of <strong>Kurt Diemberger</strong> and <strong>Julie Tullis</strong>, who had been working the great peaks together since 1981.</p>
+  <p class="reveal">Between June 21 and August 10, twenty-seven climbers reached the summit — more than in the previous thirty-two years combined. <span class="dng">Thirteen people did not come home.</span> The mountain spent the whole summer teaching the same lesson, and nobody could afford to hear it until it was over.</p>
+  <div class="slide reveal" aria-hidden="true">
+    <div class="s-frame">
+      <svg viewBox="0 0 320 200" role="img" aria-label="Sketch of K2's 1986 routes">
+        <rect width="320" height="200" fill="#101418"/>
+        <path d="M20 190 L120 60 L160 20 L200 70 L300 190 Z" fill="#2a2f36" stroke="#3d444d" stroke-width="1"/>
+        <path d="M160 20 L120 60 L20 190" fill="none" stroke="#5b6672" stroke-width="1" stroke-dasharray="3 3"/>
+        <path d="M60 190 C 90 150, 120 90, 160 22" fill="none" stroke="#d4553e" stroke-width="2"/>
+        <path d="M150 190 C 150 140, 152 80, 160 22" fill="none" stroke="#e8c15a" stroke-width="2" stroke-dasharray="5 3"/>
+        <path d="M280 190 C 240 150, 200 90, 160 22" fill="none" stroke="#efe7d2" stroke-width="2" stroke-dasharray="2 3"/>
+        <circle cx="160" cy="20" r="3" fill="#efe7d2"/>
+      </svg>
+    </div>
+    <div class="s-edge">K2 · SUMMER 1986 — <i style="color:#d4553e">■</i> MAGIC LINE · <i style="color:#e8c15a">■</i> SOUTH FACE · <i style="color:#efe7d2">■</i> ABRUZZI — DIAGRAM, NOT TO SCALE</div>
+  </div>
+</div></div></div>
+
+<div id="timeline-zone">
+<div class="over-steps">
+  <div class="over-step" data-ev="-1" id="trk86" data-alt="5000"><div class="over-card">
+    <span class="kick">The Ledger · June 21 – August 11, 1986</span>
+    <h4>One summer, frame by frame</h4>
+    <p>What follows is the Black Summer over the real terrain of K2 — every dated position drawn from the 1986 record, across three faces of the mountain at once. Each figure is a rope team.</p>
+    <p class="fn">Positions approximate along the routes; dates and altitudes as documented in 1986.</p>
+  </div></div>
+  <div class="over-step" data-ev="0" id="ev0" data-alt="5800"><div class="over-card tragic">
+    <span class="kick">June 21</span>
+    <h4>An avalanche below the Negrotto Col</h4>
+    <p>The Americans <strong>John Smolich</strong> and <strong>Alan Pennington</strong> are swept away by an avalanche low on the south-southwest route. Pennington's body is recovered and buried near Base Camp. The summer is one day old.</p>
+  </div></div>
+  <div class="over-step" data-ev="1" id="ev1" data-alt="8611"><div class="over-card">
+    <span class="kick">June 23</span>
+    <h4>The first woman on K2</h4>
+    <p><strong>Wanda Rutkiewicz</strong> summits by the Abruzzi — the first woman ever to stand on K2. Thirty minutes behind her come <strong>Liliane and Maurice Barrard</strong>, with Michel Parmentier. Liliane is the second woman on top, beside her husband.</p>
+  </div></div>
+  <div class="over-step" data-ev="2" id="ev2" data-alt="8300"><div class="over-card tragic">
+    <span class="kick">June 24</span>
+    <h4>The Barrards do not come down</h4>
+    <p>Descending after a high bivouac, the Barrards fall behind and vanish on the upper mountain. Rutkiewicz and Parmentier make it down. <strong>Liliane's body is found three weeks later</strong> at the mountain's foot.</p>
+  </div></div>
+  <div class="over-step" data-ev="3" id="ev3" data-alt="8611"><div class="over-card">
+    <span class="kick">July 8</span>
+    <h4>The Polish Line</h4>
+    <p><strong>Kukuczka and Piotrowski</strong> summit K2 by a new route straight up the south face, in alpine style — a line of such danger it has never been repeated in full. They top out late, into worsening weather.</p>
+  </div></div>
+  <div class="over-step" data-ev="4" id="ev4" data-alt="7900"><div class="over-card tragic">
+    <span class="kick">July 10</span>
+    <h4>Piotrowski's crampons</h4>
+    <p>Descending the Abruzzi, exhausted, <strong>Tadeusz Piotrowski</strong> loses first one crampon, then the other, and falls past Kukuczka — two days after the greatest climb of his life.</p>
+  </div></div>
+  <div class="over-step" data-ev="5" id="ev5" data-alt="5100"><div class="over-card tragic">
+    <span class="kick">July 16</span>
+    <h4>Casarotto, within sight of the tents</h4>
+    <p>Retreating from his third solo attempt on the Magic Line, <strong>Renato Casarotto</strong> breaks through an ice bridge minutes from safety and falls 40 metres into a crevasse. He is brought out alive, and dies at its lip.</p>
+  </div></div>
+  <div class="over-step" data-ev="6" id="ev6" data-alt="8300"><div class="over-card tragic">
+    <span class="kick">August 3–4</span>
+    <h4>The Magic Line falls — at a price</h4>
+    <p><strong>Piasecki, Božík and Wróż</strong> complete Casarotto's pillar and descend by the Abruzzi in the dark. <strong>Wojciech Wróż</strong> slips from the end of a fixed rope and is lost. Low on the Spur, the porter <strong>Muhammad Ali</strong> is killed by stonefall.</p>
+  </div></div>
+  <div class="over-step" data-ev="7" id="ev7" data-alt="8611"><div class="over-card">
+    <span class="kick">August 4</span>
+    <h4>The first Briton · the film team at 7 PM</h4>
+    <p><strong>Alan Rouse</strong> summits around 4 PM — the first Briton on K2. Mrufka Wolf turns back below the top. Around 7 PM, <strong>Kurt Diemberger and Julie Tullis</strong> — the highest film team in the world — stand on the summit they have chased for years.</p>
+  </div></div>
+  <div class="over-step" data-ev="8" id="ev8" data-alt="8000"><div class="over-card tragic">
+    <span class="kick">August 4–5</span>
+    <h4>Seven in the trap</h4>
+    <p>Tullis falls on the descent; Diemberger's belay holds. They bivouac, then reach <strong>Camp IV on the Shoulder, ≈8,000 m</strong> — where a storm slams the door. Seven climbers are pinned in the tents in the death zone.</p>
+  </div></div>
+  <div class="over-step" data-ev="9" id="ev9" data-alt="8000"><div class="over-card tragic">
+    <span class="kick">August 6–7</span>
+    <h4>The night the storm took Julie</h4>
+    <p>Battered by the fall and the altitude, <strong>Julie Tullis dies in the night</strong> at Camp IV. The storm does not pause. The six left have almost no food, and the gas for melting snow is running out.</p>
+  </div></div>
+  <div class="over-step" data-ev="10" id="ev10" data-alt="8000"><div class="over-card tragic">
+    <span class="kick">August 10</span>
+    <h4>The break for life</h4>
+    <p>The snowfall stops; five stagger out. <strong>Rouse cannot stand and is left in his tent. Imitzer and Wieser collapse a few hundred feet from camp.</strong> Bauer, Diemberger and Mrufka fight down toward the ropes.</p>
+  </div></div>
+  <div class="over-step" data-ev="11" id="ev11" data-alt="5000"><div class="over-card tragic">
+    <span class="kick">August 10–11</span>
+    <h4>Two men come down</h4>
+    <p><strong>Willi Bauer</strong>, then <strong>Kurt Diemberger</strong>, reach Base Camp — frostbitten, barely alive. <strong>Mrufka Wolf never arrives</strong>: a year later a Japanese team finds her still clipped to the fixed ropes. The Black Summer's toll stands at thirteen.</p>
+  </div></div>
+</div>
+</div>
+
+<section class="ch-cover" id="ch2" data-n="02" data-alt="8611">
+  <div class="inner">
+    <span class="num">Chapter II · June 23</span>
+    <h2>The First Woman</h2>
+    <p class="dek">Wanda Rutkiewicz reached the top ahead of the couple climbing behind her — and only one of the three women on K2 that summer came home.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">On June 23, 1986, <strong>Wanda Rutkiewicz</strong> of Poland became the first woman to stand on the summit of K2 — climbing without supplemental oxygen, at the front of the era's hardest school of mountaineering. Half an hour behind her came <strong>Liliane Barrard</strong>, beside her husband Maurice, with Michel Parmentier: the first married couple on the summit of the second-highest mountain on Earth.</p>
+  <p class="reveal">The Barrards climbed the way they lived — light, high, together. On the descent, after a bivouac high on the mountain, they fell behind. Rutkiewicz and Parmentier came down; <span class="dng">the Barrards never did</span>. Three weeks later the mountain gave Liliane back, at its foot, and she was buried near Base Camp. Maurice it kept until 1998.</p>
+  <div class="record reveal" id="rec86">
+    <div class="rec-meta">EXPEDITION DISPATCH · TYPED AT BASE CAMP · JUNE 1986</div>
+    <p>23 JUNE — RUTKIEWICZ SUMMIT 1015. FIRST WOMAN ON K2. BARRARDS + PARMENTIER SUMMIT 30 MIN LATER. ALL WITHOUT OXYGEN.</p>
+    <p>24 JUNE — SUMMIT PARTY BIVOUACKED HIGH. RUTKIEWICZ, PARMENTIER DESCENDING SLOW. BARRARDS NOT SEEN SINCE MORNING.</p>
+    <p>25 JUNE — WATCHING THE UPPER MOUNTAIN THROUGH THE LONG LENS. NOTHING MOVES ABOVE THE SHOULDER.</p>
+  </div>
+  <p class="reveal">It was the summer's pattern in miniature, set in its first week: a magnificent first, and a descent that cost more than the summit was worth. The season's ledger would repeat it, line by line.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch3" data-n="03" data-alt="8611">
+  <div class="inner">
+    <span class="num">Chapter III · July 8</span>
+    <h2>The Polish Line</h2>
+    <p class="dek">Straight up the unclimbed south face, in alpine style — a route so dangerous it has never been repeated in full.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Jerzy Kukuczka was in the middle of the greatest run in the history of high-altitude climbing — racing Reinhold Messner to all fourteen 8,000-metre peaks, and doing it by new routes and in winter. For K2 he chose the unclimbed <strong>south face</strong>, with <strong>Tadeusz Piotrowski</strong>: no fixed camps above the face's base, no oxygen, no retreat once committed.</p>
+  <p class="reveal">On <strong>July 8</strong>, in deteriorating weather, the two Poles pulled over the top of the face and stood on the summit. The route — the <span class="hl">"Polish Line"</span> — was hailed at once as one of the boldest climbs ever made at that altitude, and it has never been repeated in full.</p>
+  <p class="reveal">The mountain collected its fee on the way down the Abruzzi. On <strong>July 10</strong>, exhausted, out of food and descending in bad snow, Piotrowski stopped to wait for Kukuczka. Then, downclimbing steep ice: one crampon came off. As he reached to fix it — <span class="dng">the other</span>. Tadeusz Piotrowski fell past his partner and was gone. Kukuczka descended alone, and lived to finish the fourteen.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch4" data-n="04" data-alt="5100">
+  <div class="inner">
+    <span class="num">Chapter IV · July 16</span>
+    <h2>The Soloist</h2>
+    <p class="dek">Renato Casarotto survived the Magic Line three times. The glacier under his own tent-line did not let him pass.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Renato Casarotto was the finest solo climber of his generation, and he had come to K2 for the hardest unclimbed line on the mountain: the south-southwest pillar, the <strong>Magic Line</strong> — alone. Three times he went up. Three times the mountain turned him back, the last from nearly 8,300 metres.</p>
+  <p class="reveal">On <strong>July 16</strong> he gave it up and came down for good. A short distance from Base Camp — on flat glacier, the climb finished, his wife Goretta waiting at the tents — an ice bridge collapsed under him, and he fell <strong>40 metres</strong> into a crevasse.</p>
+  <p class="reveal">He was still alive. He raised the alarm on his radio, and climbers ran onto the glacier and hauled him to the surface. He tried to take a few steps, and died at the lip of the crevasse — of internal injuries the fall had already decided. He was laid to rest, at Goretta's wish, in the crevasse that had taken him.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch5" data-n="05" data-alt="8300">
+  <div class="inner">
+    <span class="num">Chapter V · August 3–4</span>
+    <h2>The Magic Line</h2>
+    <p class="dek">The pillar Casarotto died leaving was climbed eighteen days later — and it, too, took a life on the way down.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">On <strong>August 3</strong>, the Poles <strong>Przemysław Piasecki</strong> and <strong>Wojciech Wróż</strong>, with the Slovak <strong>Peter Božík</strong>, completed the Magic Line — the third new route of the summer, and to this day one of the hardest ever climbed on K2.</p>
+  <p class="reveal">They descended the Abruzzi in the dark, exhausted, rappelling and downclimbing a web of old fixed ropes. Somewhere above Camp IV, <strong>Wojciech Wróż slipped from the end of a fixed rope</strong> and fell to his death — the summer's cruellest arithmetic: a first ascent for a life, hours apart.</p>
+  <p class="reveal">The same days took the season's quietest casualty: <strong>Muhammad Ali</strong>, a Pakistani sirdar working for the Korean expedition, killed by stonefall low on the Spur — the man on the mountain who had not come to climb it.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch6" data-n="06" data-alt="8000">
+  <div class="inner">
+    <span class="num">Chapter VI · August 4–10</span>
+    <h2>Seven in the Trap</h2>
+    <p class="dek">The summit day was jubilant: the first Briton, the film team at seven in the evening. Then the storm shut the door at 8,000 metres.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">On <strong>August 4</strong> the Abruzzi gave up its last summits of the summer. Around four in the afternoon, <strong>Alan Rouse</strong> broke trail to the top and became the first Briton to climb K2; Mrufka Wolf, climbing with him, turned back below the summit. Around seven in the evening came <strong>Kurt Diemberger and Julie Tullis</strong> — the "highest film team in the world," partners on the great peaks since 1981, standing at last on the mountain they had circled for years.</p>
+  <p class="reveal">It was far too late in the day, and the price began immediately. On the descent Tullis slipped and pulled Diemberger off; his belay held both, but the fall left her hurt. They bivouacked in the open above 8,300 metres, then crawled into <strong>Camp IV at about 8,000 metres</strong> — as a storm arrived and sealed the Shoulder shut.</p>
+  <p class="reveal">Seven climbers were now pinned in the death zone: Rouse and Mrufka, Diemberger and Tullis, and the Austrians <strong>Willi Bauer, Alfred Imitzer and Hannes Wieser</strong> — with a handful of food, failing gas, and tents that the wind was tearing apart.</p>
+  <div class="record reveal">
+    <div class="rec-meta">CAMP IV · THE SHOULDER · ≈8,000 M · AUGUST 1986</div>
+    <p>AUG 5 — STORM. NO VISIBILITY, NO DESCENT. SEVEN IN THREE TENTS.</p>
+    <p>AUG 6 — STORM. GAS LOW. SNOW BURYING THE TENTS FASTER THAN IT CAN BE DUG.</p>
+    <p>AUG 7 — JULIE TULLIS DIED IN THE NIGHT. STORM UNBROKEN.</p>
+    <p>AUG 8–9 — NO FOOD. ALMOST NO WATER. THE OTHERS WEAKENING BY THE HOUR.</p>
+    <p>AUG 10 — SNOWFALL STOPPED. THOSE WHO CAN STAND ARE GOING DOWN.</p>
+  </div>
+  <p class="reveal">Julie Tullis — the first British woman to summit K2 — died in the night of <strong>August 6–7</strong>, in the tent, beside the partner she had filmed the mountains with for fifteen years. She was buried on the mountainside. The storm kept blowing for three more days.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch7" data-n="07" data-alt="8000">
+  <div class="inner">
+    <span class="num">Chapter VII · August 10</span>
+    <h2>The Break for Life</h2>
+    <p class="dek">When the snow finally stopped, five went for the door. Two came through it.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">On the morning of <strong>August 10</strong>, after five days of storm, the snowfall stopped. Alan Rouse — the strongest of them a week before, who had broken trail to the summit — could no longer stand. <span class="dng">He was left in his tent</span>, delirious; there was no way on earth to carry him. Alfred Imitzer and Hannes Wieser collapsed within a few hundred feet of the camp and could not be raised.</p>
+  <p class="reveal">Three kept moving: <strong>Willi Bauer</strong> in front, breaking the trail; <strong>Mrufka Wolf</strong>; <strong>Kurt Diemberger</strong> behind. Somewhere on the endless fixed ropes below the Shoulder, in the wind and the coming dark, Mrufka fell out of the world's sight. A year later, a Japanese expedition found her — <span class="dng">still attached to the fixed ropes, upright</span>, as though the mountain had simply stopped her clock.</p>
+  <p class="reveal">Bauer staggered into Base Camp on the evening of the 10th, past frostbite, barely able to speak; Diemberger came down behind him. Of the seven who had been trapped at Camp IV, <strong>two came home</strong>. The Black Summer was over. Thirteen were dead — and the arguments about what it all meant, in the books and journals of the decade that followed, never really ended.</p>
+  <div class="slide reveal" aria-hidden="true">
+    <div class="s-frame">
+      <svg viewBox="0 0 320 200" role="img" aria-label="Sketch of the Shoulder and Camp IV">
+        <rect width="320" height="200" fill="#101418"/>
+        <path d="M20 190 L140 70 L170 25 L210 80 L300 190 Z" fill="#2a2f36" stroke="#3d444d" stroke-width="1"/>
+        <path d="M280 190 C 240 150, 200 95, 170 27" fill="none" stroke="#efe7d2" stroke-width="2" stroke-dasharray="2 3"/>
+        <circle cx="204" cy="103" r="4" fill="none" stroke="#d4553e" stroke-width="2"/>
+        <text x="212" y="107" fill="#d4553e" font-family="Courier Prime,monospace" font-size="11">CAMP IV · 8000M</text>
+        <circle cx="170" cy="25" r="3" fill="#efe7d2"/>
+      </svg>
+    </div>
+    <div class="s-edge">K2 · THE SHOULDER · AUG 4–10 1986 — SEVEN TRAPPED · TWO CAME DOWN — DIAGRAM, NOT TO SCALE</div>
+  </div>
+</div></div></div>
+
+<div class="breath tall"></div>
+<section class="memorial" id="memorial" data-alt="5000">
+  <div class="mem-inner">
+    <h2>The Thirteen</h2>
+    <p class="mem-sub">June 21 – August 10, 1986 · Their names rest at the Gilkey Memorial above Base Camp</p>
+    <div class="cast" style="text-align:left;margin-top:2.5rem">
+      <div class="cc dead reveal"><div class="cc-name">John Smolich</div><div class="cc-role">United States · June 21</div>
+        <div class="cc-desc">Swept away with his partner by an avalanche low on the south-southwest route. His body was never found.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Alan Pennington</div><div class="cc-role">United States · June 21</div>
+        <div class="cc-desc">Killed in the same avalanche; recovered, and buried near Base Camp — the summer's first grave.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Liliane Barrard</div><div class="cc-role">France · June 24</div>
+        <div class="cc-desc">The second woman to summit K2, beside her husband. Lost with him on the descent; the mountain returned her three weeks later.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Maurice Barrard</div><div class="cc-role">France · June 24</div>
+        <div class="cc-desc">Vanished with Liliane descending from the summit. The glacier kept him until 1998.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Tadeusz Piotrowski</div><div class="cc-role">Poland · July 10</div>
+        <div class="cc-desc">Co-author of the Polish Line, the south face route never repeated in full. Lost both crampons descending the Abruzzi, two days after the summit.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Renato Casarotto</div><div class="cc-role">Italy · July 16</div>
+        <div class="cc-desc">The great soloist. Survived three attempts on the Magic Line, and died in a crevasse minutes from Base Camp, his wife at the tents.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Wojciech Wróż</div><div class="cc-role">Poland · August 3–4</div>
+        <div class="cc-desc">First ascent of the Magic Line — then, descending the Abruzzi in the dark, he slipped from the end of a fixed rope.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Muhammad Ali</div><div class="cc-role">Pakistan · August 4</div>
+        <div class="cc-desc">Sirdar for the Korean expedition, killed by stonefall low on the Abruzzi Spur — the man who had not come to climb.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Julie Tullis</div><div class="cc-role">United Kingdom · August 6–7</div>
+        <div class="cc-desc">First British woman to summit K2, half of the highest film team in the world. Died in the storm at Camp IV, and was buried on the mountainside.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Alan Rouse</div><div class="cc-role">United Kingdom · August 10</div>
+        <div class="cc-desc">The first Briton on the summit of K2. Too weak to stand when the storm broke, he was left in his tent on the Shoulder.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Alfred Imitzer</div><div class="cc-role">Austria · August 10</div>
+        <div class="cc-desc">Summited on August 4. Collapsed a few hundred feet from Camp IV in the break for the ropes.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Hannes Wieser</div><div class="cc-role">Austria · August 10</div>
+        <div class="cc-desc">Collapsed beside Imitzer, minutes out of the doomed camp.</div></div>
+      <div class="cc dead full reveal"><div class="cc-name">Dobrosława Miodowicz-Wolf · "Mrufka"</div><div class="cc-role">Poland · August 10</div>
+        <div class="cc-desc">Turned back below the summit, survived six nights in the death zone, and died on the fixed ropes on the way down. A Japanese expedition found her a year later, still clipped in, upright — the Black Summer's last unfinished descent.</div></div>
+    </div>
+    <p class="reveal" style="margin-top:2.6rem;font-weight:380">Of the women of 1986: Wanda Rutkiewicz, the first woman on K2, climbed on — she died on Kangchenjunga in 1992, chasing the third of the three highest mountains, the same trilogy Alison Hargreaves would chase in 1995. The mountain's ledgers rhyme across the decades. That is why these pages exist together.</p>
+  </div>
+</section>
+
+<div class="panel-wrap" id="colophon86"><div class="panel colo"><div class="narrative">
+  <h3>Sources &amp; Further Reading</h3>
+  <p class="c-sub">Everything on this page is drawn from the documented record. The typed dispatches are period-style summaries of documented facts, not archival documents.</p>
+  <div class="row reveal"><b>The account</b><span>Jim Curran — <em>K2: Triumph and Tragedy</em> (1987), written from Base Camp that summer</span></div>
+  <div class="row reveal"><b>The survivor</b><span>Kurt Diemberger — <em>The Endless Knot: K2, Mountain of Dreams and Destiny</em> (1991)</span></div>
+  <div class="row reveal"><b>Histories</b><span>Ed Viesturs &amp; David Roberts — <em>K2: Life and Death on the World's Most Dangerous Mountain</em> (2009) · Jim Curran — <em>K2: The Story of the Savage Mountain</em></span></div>
+  <div class="row reveal"><b>Article</b><span>Wikipedia — <em>1986 K2 disaster</em>, and the sources cited therein</span></div>
+  <div class="row reveal"><b>A note on images</b><span>The photographs of 1986 — Diemberger's and Tullis's own footage among them — remain under copyright. This page is illustrated with real terrain, typography, and drawn diagrams only.</span></div>
+  <div class="row reveal"><b>Terrain</b><span>Elevation: Mapzen / AWS Open Data · Imagery © Esri, Maxar, Earthstar Geographics · Rendered with MapLibre GL</span></div>
+</div></div></div>
+
+<button class="explore-cta" id="exploreCta">◈ Explore the mountain yourself</button>
+<div class="footer" id="footer86" data-alt="0">
+  Sources: Wikipedia — <em>1986 K2 disaster</em> · Curran, <em>K2: Triumph and Tragedy</em> (1987)<br>
+  Diemberger, <em>The Endless Knot</em> (1991) · Viesturs &amp; Roberts (2009)<br>
+  Part of <a href="/disasters">One Mountain, Four Storms</a> · <a href="/">1939</a> · <a href="/1995">1995</a> · <a href="/2008">2008</a><br>
+  <span class="final">Twenty-seven reached the summit. Thirteen never came home.</span>
+</div>
+
+</main>
+
+<script>
+window.__ERA = {
+  year: '1986',
+  hud: {date:'Five Routes', title:'The summer of 1986'},
+  points: {
+    base:  {ll:[76.5175,35.8420], m:5000, name:'Base Camp', major:true},
+    ssw:   {ll:[76.5033,35.8660], m:5800, name:'Below the Negrotto Col', kind:'x', ev:0},
+    magicp:{ll:[76.5060,35.8740], m:7600, name:'The Magic Line — SSW Pillar', kind:'site', ev:6},
+    sface: {ll:[76.5110,35.8730], m:7400, name:'The South Face — Polish Line', kind:'site', ev:3},
+    crev:  {ll:[76.5120,35.8480], m:5100, name:'The Crevasse — de Filippi Glacier', kind:'x', ev:5},
+    c2:    {ll:[76.5226,35.8604], m:6700, name:'Camp II — Abruzzi'},
+    ropes: {ll:[76.5219,35.8636], m:7000, name:'The Fixed Ropes', kind:'x', ev:10},
+    fall:  {ll:[76.5172,35.8757], m:7900, name:'Where Piotrowski Fell', kind:'x', ev:4},
+    c4:    {ll:[76.5163,35.8768], m:8000, name:'Camp IV — the Shoulder', major:true, ev:8},
+    btl:   {ll:[76.5137,35.8806], m:8300, name:'The Bottleneck', kind:'site'},
+    summit:{ll:[76.5133,35.8814], m:8611, name:'Summit', kind:'peak', major:true, ev:1}
+  },
+  routes: [
+    {keys:['base','c2','ropes','c4','btl','summit']},
+    {keys:['base','sface','summit'], c:'#e8c15a'},
+    {keys:['base','ssw','magicp','summit'], c:'#d4553e'}
+  ],
+  progColor:'#d4553e',
+  people: {
+    americans: {name:'Smolich & Pennington', c:'#3f5c77'},
+    wanda:     {name:'Rutkiewicz & Parmentier', c:'#82352a'},
+    barrards:  {name:'The Barrards', c:'#655c4d'},
+    kukuczka:  {name:'Kukuczka', c:'#5e4a1f'},
+    piotrowski:{name:'Piotrowski', c:'#7d3f2a'},
+    renato:    {name:'Casarotto', c:'#3e6252'},
+    magic:     {name:'Piasecki · Božík · Wróż', c:'#4a4a66'},
+    rouse:     {name:'Rouse', c:'#2d5b46'},
+    mrufka:    {name:'Mrufka Wolf', c:'#6e4d24'},
+    kurtjulie: {name:'Diemberger & Tullis', c:'#2f4f63'},
+    austrians: {name:'Bauer · Imitzer · Wieser', c:'#575d3e'}
+  },
+  events: [
+    {date:'June 21', t:'Avalanche below the Negrotto Col', phase:'Early Season', ph:true, tragic:true, reach:1,
+     pos:{americans:'ssw',wanda:'base',barrards:'base',kukuczka:'base',piotrowski:'base',renato:'base',magic:'base',rouse:'base',mrufka:'base',kurtjulie:'base',austrians:'base'},
+     lost:['americans']},
+    {date:'June 23', t:'The first woman on K2', phase:'Early Season', reach:5,
+     pos:{americans:'ssw',wanda:'summit',barrards:'summit',kukuczka:'base',piotrowski:'base',renato:'base',magic:'base',rouse:'base',mrufka:'base',kurtjulie:'base',austrians:'base'},
+     lost:['americans']},
+    {date:'June 24', t:'The Barrards do not come down', phase:'Early Season', tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'c4',barrards:'btl',kukuczka:'base',piotrowski:'base',renato:'base',magic:'base',rouse:'base',mrufka:'base',kurtjulie:'base',austrians:'base'},
+     lost:['americans','barrards']},
+    {date:'July 8', t:'The Polish Line', phase:'The South Face', ph:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'summit',piotrowski:'summit',renato:'magicp',magic:'base',rouse:'base',mrufka:'base',kurtjulie:'base',austrians:'base'},
+     lost:['americans','barrards']},
+    {date:'July 10', t:'Piotrowski’s crampons', phase:'The South Face', tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'c2',piotrowski:'fall',renato:'base',magic:'base',rouse:'base',mrufka:'base',kurtjulie:'base',austrians:'base'},
+     lost:['americans','barrards','piotrowski']},
+    {date:'July 16', t:'Casarotto, within sight of the tents', phase:'The Magic Line', ph:true, tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'base',rouse:'c2',mrufka:'c2',kurtjulie:'c2',austrians:'c2'},
+     lost:['americans','barrards','piotrowski','renato']},
+    {date:'August 3–4', t:'The Magic Line falls — at a price', phase:'The Magic Line', tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'btl',rouse:'c4',mrufka:'c4',kurtjulie:'c4',austrians:'c4'},
+     lost:['americans','barrards','piotrowski','renato']},
+    {date:'August 4', t:'The first Briton · the film team at 7 PM', phase:'The Shoulder', ph:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'base',rouse:'summit',mrufka:'btl',kurtjulie:'summit',austrians:'btl'},
+     lost:['americans','barrards','piotrowski','renato']},
+    {date:'August 4–5', t:'Seven in the trap', phase:'The Storm', ph:true, tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'base',rouse:'c4',mrufka:'c4',kurtjulie:'c4',austrians:'c4'},
+     lost:['americans','barrards','piotrowski','renato']},
+    {date:'August 6–7', t:'The night the storm took Julie', phase:'The Storm', tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'base',rouse:'c4',mrufka:'c4',kurtjulie:'c4',austrians:'c4'},
+     lost:['americans','barrards','piotrowski','renato'], pulse:['kurtjulie']},
+    {date:'August 10', t:'The break for life', phase:'The Storm', tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'base',rouse:'c4',mrufka:'ropes',kurtjulie:'c2',austrians:'c2'},
+     lost:['americans','barrards','piotrowski','renato','rouse','mrufka']},
+    {date:'August 10–11', t:'Two men come down', phase:'The Reckoning', ph:true, tragic:true, reach:5,
+     pos:{americans:'ssw',wanda:'base',barrards:'btl',kukuczka:'base',piotrowski:'fall',renato:'crev',magic:'base',rouse:'c4',mrufka:'ropes',kurtjulie:'base',austrians:'base'},
+     lost:['americans','barrards','piotrowski','renato','rouse','mrufka']}
+  ],
+  features: [
+    {ll:[76.5169,35.8760], label:'The Shoulder', from:6},
+    {ll:[76.5134,35.8812], label:'The Serac', from:0}
+  ],
+  moments: [
+    {ll:[76.5033,35.8660], glyph:'⚠', label:'Avalanche — Smolich & Pennington', at:[0]},
+    {ll:[76.5133,35.8814], glyph:'✦', label:'Rutkiewicz — first woman on K2', at:[1]},
+    {ll:[76.5150,35.8790], glyph:'✝', label:'Wróż — lost from the fixed ropes', at:[6]},
+    {ll:[76.5230,35.8560], glyph:'✝', label:'Muhammad Ali — stonefall on the Spur', at:[6]},
+    {ll:[76.5163,35.8768], glyph:'✝', label:'Julie Tullis — night of Aug 6–7', at:[9]},
+    {ll:[76.5165,35.8765], glyph:'✝', label:'Imitzer & Wieser — a few hundred feet out', at:[10]},
+    {ll:[76.5120,35.8480], glyph:'✆', label:'Casarotto raises the alarm by radio', at:[5]}
+  ],
+  locnotes: {
+    base:'Nine expeditions shared this glacier in 1986. Curran filmed here; Bauer and Diemberger staggered back to it on August 10–11.',
+    ssw:'The lower south-southwest route, where the June 21 avalanche caught Smolich and Pennington.',
+    magicp:'Casarotto tried the pillar alone three times; Piasecki, Božík and Wróż completed it on August 3.',
+    sface:'The unclimbed south face — the Polish Line of Kukuczka and Piotrowski, July 8. Never repeated in full.',
+    crev:'The ice bridge that collapsed under Casarotto on July 16, minutes from Base Camp. He rests here, at his wife’s wish.',
+    c2:'Mid-mountain camp on the Abruzzi — the survivors’ last staging post on the way down.',
+    ropes:'The web of fixed ropes below the Shoulder. Mrufka Wolf was found here a year later, still clipped in.',
+    fall:'Descending the Abruzzi on July 10, Piotrowski lost both crampons and fell past Kukuczka.',
+    c4:'The Shoulder at ≈8,000 m. Seven climbers were trapped here August 4–10; two came down.',
+    btl:'The couloir under the serac, on the summit route of the Abruzzi.',
+    summit:'8,611 m. Twenty-seven climbers stood here in 1986 — by five different lines.'
+  },
+  pointStates: {
+    c4:[{from:6,text:'Occupied — the last camp'},{from:8,text:'STORM — seven trapped, tents failing'},{from:11,text:'Abandoned. One tent, one man, left on the Shoulder'}],
+    summit:[{from:1,text:'First reached June 23 — by a woman'}]
+  },
+  keys: [
+    ['prologue','base',10.3,34,336,-.05,''], ['q86','base',10.9,44,320,-.05,''],
+    ['ch1','base',11.3,48,290,-.05,'g-day'],
+    ['trk86','base',11.0,46,260,-.06,'g-day'],
+    ['ev0','ssw',12.6,60,230,-.05,'g-storm'], ['ev1','summit',13.6,74,260,-.02,'g-day'],
+    ['ev2','btl',13.5,73,280,-.03,'g-dusk'], ['ev3','sface',13.0,70,300,-.03,'g-day'],
+    ['ev4','fall',13.4,72,330,-.03,'g-dusk'], ['ev5','crev',12.8,62,350,-.05,'g-day'],
+    ['ev6','magicp',13.0,68,310,-.04,'g-dusk'], ['ev7','summit',13.7,75,60,-.02,'g-day'],
+    ['ev8','c4',13.6,74,80,-.03,'g-storm'], ['ev9','c4',13.7,75,95,-.03,'g-storm'],
+    ['ev10','ropes',13.2,70,115,-.04,'g-storm'], ['ev11','base',11.5,50,140,-.06,'g-mourn'],
+    ['ch2','summit',13.5,73,170,-.02,'g-day'], ['ch3','sface',13.1,70,210,-.03,'g-day'],
+    ['ch4','crev',12.9,64,250,-.04,'g-day'], ['ch5','magicp',13.1,69,290,-.04,'g-dusk'],
+    ['ch6','c4',13.6,74,330,-.03,'g-storm'], ['ch7','ropes',13.1,69,0,-.04,'g-mourn'],
+    ['memorial','base',12.0,55,182,-.05,'g-mourn'],
+    ['colophon86','base',10.2,32,172,-.03,'g-mourn'], ['footer86','base',9.7,28,158,-.02,'']
+  ],
+  flame: {ll:[76.5160,35.8446], label:'Gilkey Memorial'},
+  explore: {center:'c4', zoom:12.4, pitch:62, bearing:150},
+  camStart: {zoom:10.3, pitch:34, bearing:336}
+};
+</script>
+<script src="/js/era-map.js"></script>
+<script src="/js/era-chrome.js"></script>
+<script src="/js/era-extras.js"></script>

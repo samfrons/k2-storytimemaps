@@ -1,0 +1,122 @@
+/* ═════════ THE HUB — One Mountain, Four Storms ═════════
+   Loads after main.css. The hub keeps the site's home (1939) identity —
+   Fraunces/Jost on ivory — and adds the four year accents (validated
+   categorical palette) plus the era-styled cover cards, the altitude wall,
+   the century strip and the ledger. */
+:root{
+  --y39:#a6752a;
+  --y86:#a83122;
+  --y95:#33589e;
+  --y08:#2e7d46;
+}
+
+/* year-accented step cards */
+.over-card.y39{border-top-color:var(--y39)}   .over-card.y39 .kick{color:var(--y39)}
+.over-card.y86{border-top-color:var(--y86)}   .over-card.y86 .kick{color:var(--y86)}
+.over-card.y95{border-top-color:var(--y95)}   .over-card.y95 .kick{color:var(--y95)}
+.over-card.y08{border-top-color:var(--y08)}   .over-card.y08 .kick{color:var(--y08)}
+.over-card .tl{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--smoke)}
+.over-card .tl b{color:var(--wine);font-weight:600}
+
+/* filter refs from main.css that don't exist on this page */
+.prologue h1,.ch-cover h2{filter:drop-shadow(0 4px 26px rgba(0,0,0,.9))}
+.mk-sil,.lg-sil{filter:drop-shadow(1px 1px 0 rgba(244,239,228,.55))}
+.mk-camp2 .tent{filter:drop-shadow(1px 1px 0 rgba(244,239,228,.6))}
+
+/* ── the four cover cards ── */
+.coverwrap{max-width:1040px;margin:0 auto;width:100%}
+.covers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.4rem}
+.cover{display:flex;flex-direction:column;gap:.9rem;min-height:330px;padding:1.8rem 1.6rem;
+  text-decoration:none;border:1px solid var(--paperline);position:relative;
+  box-shadow:0 24px 60px rgba(10,8,5,.55);transition:transform .35s ease,box-shadow .35s ease}
+.cover:hover{transform:translateY(-6px);box-shadow:0 34px 80px rgba(10,8,5,.7)}
+.cover .cv-kick{font-size:.66rem;letter-spacing:.34em;text-transform:uppercase}
+.cover .cv-title{font-size:1.55rem;line-height:1.12;flex:0 0 auto}
+.cover .cv-line{display:block;width:38px;height:2px}
+.cover .cv-desc{font-size:.85rem;line-height:1.7;flex:1 1 auto}
+.cover .cv-toll{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;margin-top:auto}
+/* 1939 — letterpress ivory */
+.cov39{background:#efe9da;color:#28221a}
+.cov39 .cv-kick,.cov39 .cv-toll{font-family:'Jost',sans-serif;color:#6e6557}
+.cov39 .cv-title{font-family:'Fraunces',serif;font-weight:600}
+.cov39 .cv-title em{font-style:italic}
+.cov39 .cv-line{background:var(--y39)}
+.cov39 .cv-desc{font-family:'Newsreader',serif}
+.cov39{border-top:3px solid var(--y39)}
+/* 1986 — Kodachrome slide */
+.cov86{background:#e9e2cf;color:#211c15;border-radius:4px;border-top:4px solid var(--y86)}
+.cov86 .cv-kick,.cov86 .cv-toll{font-family:'IBM Plex Mono',monospace;color:#6b6152;letter-spacing:.2em}
+.cov86 .cv-title{font-family:'Archivo Black',sans-serif;letter-spacing:-.01em;color:#a83122}
+.cov86 .cv-line{background:#211c15}
+.cov86 .cv-desc{font-family:'Jost',sans-serif}
+/* 1995 — newsprint front page */
+.cov95{background:#f4f1e6;color:#1c1a17;border-top:3px double #1c1a17;
+  background-image:radial-gradient(rgba(20,18,14,.4) .7px,transparent 1px);background-size:3.5px 3.5px}
+.cov95 .cv-kick{font-family:'Oswald',sans-serif;background:var(--y95);color:#f4f1e6;padding:.25rem .6rem;align-self:flex-start}
+.cov95 .cv-title{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase}
+.cov95 .cv-line{background:#a8231d}
+.cov95 .cv-desc{font-family:'Georgia',serif}
+.cov95 .cv-toll{font-family:'Oswald',sans-serif;color:#5c574d}
+/* 2008 — dark console */
+.cov08{background:#0b1310;color:#d5e2da;border:1px solid rgba(111,207,154,.35);border-top:2px solid #6fcf9a}
+.cov08 .cv-kick,.cov08 .cv-toll{font-family:'IBM Plex Mono',monospace;color:#6fcf9a}
+.cov08 .cv-title{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:-.02em;color:#eaf3ed}
+.cov08 .cv-line{background:#6fcf9a}
+.cov08 .cv-desc{font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:#8aa196}
+
+/* ── the wall: deaths by altitude ── */
+.narrative.wide{max-width:720px}
+.wall-h{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.7rem,3.6vw,2.5rem);color:var(--ink)}
+/* solid paper, like .record — map labels must not ghost through the data */
+.chart{margin:2.6rem 0 0;border:1px solid var(--paperline);background:var(--cream);padding:.6rem}
+.chart svg{display:block;width:100%;height:auto}
+.chart .cg line{stroke:rgba(40,34,26,.14);stroke-width:1}
+.chart .cl text{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.06em;fill:var(--smoke)}
+.chart .cz{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.3em;fill:var(--wine)}
+.chart .ch text{font-family:'Fraunces',serif;font-size:22px;font-weight:600;fill:var(--ink)}
+.chart .ct text{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.28em;fill:var(--smoke);text-transform:uppercase}
+.chart .mk *{stroke:#f4efe4;stroke-width:2;transition:transform .2s}
+.chart .m39 rect{fill:var(--y39)}
+.chart .m86 rect{fill:var(--y86)}
+.chart .m95 circle{fill:var(--y95)}
+.chart .m08 path{fill:var(--y08)}
+.chart .mk g:hover *{stroke:var(--ink)}
+.chart-cap{margin-top:1rem;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--smoke);line-height:2}
+
+/* ── the century strip ── */
+.strip{margin-top:2.4rem;border-left:2px solid var(--paperline);display:flex;flex-direction:column}
+.st{display:grid;grid-template-columns:86px 1fr;gap:1.2rem;padding:.75rem 0 .75rem 1.4rem;
+  border-bottom:1px solid var(--paperline);position:relative}
+.st::before{content:'';position:absolute;left:-5px;top:1.35rem;width:8px;height:8px;border-radius:50%;
+  background:var(--paperline)}
+.st b{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;color:var(--ink)}
+.st span{font-size:.9rem;font-weight:380;color:var(--smoke);align-self:center}
+.st.y39 b{color:var(--y39)} .st.y39::before{background:var(--y39)}
+.st.y86 b{color:var(--y86)} .st.y86::before{background:var(--y86)}
+.st.y95 b{color:var(--y95)} .st.y95::before{background:var(--y95)}
+.st.y08 b{color:var(--y08)} .st.y08::before{background:var(--y08)}
+
+/* ── the ledger ── */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.6rem;text-align:left}
+.ledger .lg h4{font-family:'Fraunces',serif;font-weight:600;font-size:1.6rem;border-bottom:1px solid var(--paperline);
+  padding-bottom:.5rem;margin-bottom:.8rem}
+.ledger .y39h{color:var(--y39)} .ledger .y86h{color:var(--y86)}
+.ledger .y95h{color:var(--y95)} .ledger .y08h{color:var(--y08)}
+.ledger ul{list-style:none;margin:0;padding:0}
+.ledger li{font-size:.9rem;font-weight:380;line-height:2;color:var(--ink)}
+
+/* era switcher (hub voice = the house Jost) */
+.eranav{position:fixed;top:1.3rem;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:.35rem}
+.eranav a{font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(241,236,223,.75);text-decoration:none;padding:.4rem .7rem;border:1px solid rgba(241,236,223,.3);
+  background:rgba(20,17,12,.6);backdrop-filter:blur(3px);transition:.25s}
+.eranav a:hover{color:#fff;border-color:rgba(241,236,223,.85)}
+.eranav a.cur{color:var(--bronze-l);border-color:var(--bronze-l)}
+.eranav a.hub{color:#f1ecdf}
+body.explore .eranav{opacity:0;pointer-events:none;transition:opacity .8s}
+@media(max-width:860px){.eranav{top:auto;bottom:4.6rem;flex-wrap:wrap;justify-content:center;max-width:94vw}}
+
+/* footer links */
+.footer a{color:rgba(241,236,223,.85);text-decoration:none}
+.footer a:hover{color:#fff}

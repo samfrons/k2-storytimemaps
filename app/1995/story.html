@@ -1,0 +1,420 @@
+
+
+<div id="bgMap"></div>
+<div id="bgFallback" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/K2%20East%20Face%201909.jpg')"></div>
+<div id="bgVeil"></div>
+<div id="grade"></div>
+<canvas id="snow"></canvas>
+
+<div id="bgLoad">
+  <div class="bl-s">Karakoram · 35°52′N 76°30′E</div>
+  <div class="bl-t">Holding the front page</div>
+  <div class="bl-line"></div>
+</div>
+
+<canvas id="stars"></canvas>
+<div id="progress"></div>
+<div class="ctrl">
+  <button id="btnVoice">▷ Play story</button>
+  <button id="btnWind">♪ Wind</button>
+  <button id="btnExplore">◈ Explore</button>
+  <button id="btnLite">◐ Lite</button>
+</div>
+<div id="scrub"></div>
+<button id="exploreExit">✕ Return to the story</button>
+<div id="exploreHint">Click any position to open its record</div>
+<aside id="locCard" aria-hidden="true">
+  <button id="lcClose" aria-label="Close">✕</button>
+  <div class="kick" id="lcKick"></div>
+  <h4 id="lcName"></h4>
+  <p id="lcBlurb"></p>
+  <div class="lc-scrub">
+    <button id="lcPrev" aria-label="Earlier event">‹</button>
+    <input type="range" id="lcRange" min="0" max="7" step="1" value="0" aria-label="Timeline">
+    <button id="lcNext" aria-label="Later event">›</button>
+  </div>
+  <div class="lc-when"><span id="lcDate"></span><span id="lcPhase"></span></div>
+  <div class="lc-evtitle" id="lcTitle"></div>
+  <div class="lc-state" id="lcState"></div>
+  <div class="lc-who" id="lcWho"></div>
+  <div class="lc-note">Positions approximate · dates &amp; altitudes per the 1995 record</div>
+</aside>
+<nav class="rail" aria-label="Chapters">
+  <a href="#prologue" data-ch="prologue"><span class="dot"></span><span class="lbl">Front Page</span></a>
+  <a href="#ch1" data-ch="ch1"><span class="dot"></span><span class="lbl">I · The Tiger</span></a>
+  <a href="#ch2" data-ch="ch2"><span class="dot"></span><span class="lbl">II · The Waiting Game</span></a>
+  <a href="#trk95" data-ch="trk95"><span class="dot"></span><span class="lbl">The Wire · August</span></a>
+  <a href="#ch3" data-ch="ch3"><span class="dot"></span><span class="lbl">III · 6:45 PM</span></a>
+  <a href="#ch4" data-ch="ch4"><span class="dot"></span><span class="lbl">IV · The Storm</span></a>
+  <a href="#ch5" data-ch="ch5"><span class="dot"></span><span class="lbl">V · The Anorak</span></a>
+  <a href="#trial95" data-ch="trial95"><span class="dot"></span><span class="lbl">The Trial</span></a>
+  <a href="#ch6" data-ch="ch6"><span class="dot"></span><span class="lbl">VI · The Ones After</span></a>
+  <a href="#memorial" data-ch="memorial"><span class="dot"></span><span class="lbl">In Memoriam</span></a>
+</nav>
+<div class="alti" aria-hidden="true">
+  <div class="alti-cap">Altitude</div>
+  <div class="alti-ft" id="altiFt">5,000 m</div>
+  <div class="alti-m" id="altiM">16,400 ft</div>
+  <div class="alti-bar"><div class="alti-fill" id="altiFill"></div></div>
+</div>
+<div class="m3d-hud" id="m3dHud">
+  <div class="h-phase" id="hudPhase"></div>
+  <div class="h-date" id="hudDate">The Abruzzi Spur</div>
+  <div class="h-sub" id="hudTitle">The summer of 1995</div>
+  <div class="h-alt" id="hudAlt"></div>
+</div>
+<div class="m3d-legend" id="m3dLegend"></div>
+<div class="m3d-note" id="m3dNote">Terrain: real elevation data · Positions approximate<br>Dates &amp; altitudes per the 1995 record</div>
+<nav class="eranav" aria-label="The disasters">
+  <a href="/">1939</a><a href="/1986">1986</a><a class="cur" href="/1995" aria-current="page">1995</a><a href="/2008">2008</a><a class="hub" href="/disasters">One Mountain ◈</a>
+</nav>
+
+<main>
+
+<section class="prologue" id="prologue" data-alt="5000">
+  <div class="masthead"><span>THE MOUNTAIN GAZETTE</span><span class="md-r">SPECIAL EDITION · AUGUST 1995 · 30p</span></div>
+  <span class="eyebrow">Karakoram · 35°52′N 76°30′E</span>
+  <h1>One Day<br>as a <em>Tiger</em></h1>
+  <div class="rule"></div>
+  <p class="sub">Six climbers summited K2 on 13 August 1995, and the storm killed them all coming down. The papers put only one of them on trial.</p>
+  <div class="stats">
+    <div class="stat"><b>8,611</b><span>Metres · The Summit</span></div>
+    <div class="stat"><b>6:45</b><span>PM · The Hour She Reached It</span></div>
+    <div class="stat loss"><b>6</b><span>Summited · Died Descending</span></div>
+    <div class="stat loss"><b>1</b><span>Name the Papers Tried</span></div>
+  </div>
+  <div class="cue">Scroll<div class="line"></div></div>
+</section>
+
+<div class="breath"></div>
+<div class="pq pq-sky reveal" id="q95" data-alt="5000">
+  "It is better to live one day as a tiger than a thousand years as a sheep."
+  <span class="att">— a line Alison Hargreaves gave an interviewer, and came to regret handing the world</span>
+</div>
+<div class="breath"></div>
+
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">She had already done the impossible thing. On May 13, 1995, Alison Hargreaves stood on the summit of Everest without bottled oxygen and without Sherpa support — the first woman ever to climb it that way. Three months later she stood on the summit of K2, the harder and crueller mountain, in the last good light of a fine evening.</p>
+  <p class="reveal">She was dead within hours. And then, because she was a mother of two, the mountain's verdict was overruled by a louder one — delivered not by the weather, but by the front pages of her own country.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch1" data-n="01" data-alt="5000">
+  <div class="inner">
+    <span class="num">Chapter I</span>
+    <h2>The Tiger</h2>
+    <p class="dek">Establish her before the press gets its hands on her.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Alison Hargreaves was thirty-three, from Derbyshire, and one of the finest mountaineers Britain had produced. In 1993 she had set out to solo the six great north faces of the Alps in a single season. She had climbed the north face of the Eiger while six months pregnant — a fact the papers would later hold against her as though the child had objected.</p>
+  <p class="reveal">Her ambition in 1995 was singular and clean: the three highest mountains on Earth — Everest, K2, Kangchenjunga — without supplemental oxygen. In May she took the first. On <strong>June 11</strong> she flew to Pakistan for the second.</p>
+  <p class="reveal">She had two young children at home, <strong>Tom and Kate</strong>. She missed them with an intensity she never hid. She also could not stop climbing, and did not believe she should have to choose — a position that costs a man nothing and, in the summer of 1995, would cost her everything.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch2" data-n="02" data-alt="5000">
+  <div class="inner">
+    <span class="num">Chapter II · June – July</span>
+    <h2>The Waiting Game</h2>
+    <p class="dek">The weather that summer was foul and relentless — and the forecast panels kept coming back wrong.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <div class="ttx reveal" aria-label="Teletext weather panel">
+    <div class="t-head"><span>P401</span><span>K2 FORECAST</span><span>JUL 1995</span></div>
+    <pre>KARAKORAM  8611M   OUTLOOK: STORM
+WIND NW 60KT+  SNOW ABV 6000M
+SUMMIT WINDOW ............ NONE
+NEXT UPDATE .......... TOMORROW</pre>
+    <span class="t-cur">▮</span>
+  </div>
+  <p class="lede reveal">She reached Base Camp and joined the international crowd at the foot of the mountain — Spanish climbers of Montañeros de Aragón of Zaragoza and the Peña Guara club of Huesca, an American team, New Zealanders, Canadians. Through June and July she made attempt after attempt, and the mountain turned her back every time.</p>
+  <p class="reveal">By early August the season was closing. The Americans called for porters and began to leave — all but <strong>Rob Slater</strong>, who stayed to try once more with the New Zealanders. Slater had never climbed above 7,000 metres; K2 would be his first seven-thousander and his first eight-thousander at once. He was not going home.</p>
+  <p class="reveal">Hargreaves planned one more attempt, in August. <span class="dng">She was warned not to</span> — in those conditions, on that mountain, others told her, it could kill her.</p>
+</div></div></div>
+
+<div id="timeline-zone">
+<div class="over-steps">
+  <div class="over-step" data-ev="-1" id="trk95" data-alt="5000"><div class="over-card">
+    <span class="kick">The Wire · June – August 1995</span>
+    <h4>The season, as it moved</h4>
+    <p>What follows is the 1995 season over the real terrain of K2 — every dated position drawn from the record. Each figure is a rope team. Watch how close together the prudent and the dead stood.</p>
+    <p class="fn">Positions approximate along the Abruzzi route; dates and altitudes as documented.</p>
+  </div></div>
+  <div class="over-step" data-ev="0" id="ev0" data-alt="5000"><div class="over-card">
+    <span class="kick">June – July</span>
+    <h4>The mountain refuses the season</h4>
+    <p>Storm after storm. Hargreaves makes repeated attempts through June and July; every team on the mountain is turned back. <strong>Earlier in the season, Jordi Anglès dies in a fall on K2</strong> — the summer's first loss.</p>
+  </div></div>
+  <div class="over-step" data-ev="1" id="ev1" data-alt="7600"><div class="over-card">
+    <span class="kick">August 12–13</span>
+    <h4>The last window — Camp 4</h4>
+    <p>Four clear days. The remnants of the American team and Hargreaves join the New Zealand and Canadian climbers at <strong>Camp 4, ≈7,600 m</strong> — at least twelve hours below the summit.</p>
+  </div></div>
+  <div class="over-step" data-ev="2" id="ev2" data-alt="8000"><div class="over-card">
+    <span class="kick">August 13 · Midday</span>
+    <h4>Hillary reads the sky</h4>
+    <p>Above Camp 4, <strong>Peter Hillary</strong> — son of Everest's pioneer — judges that the weather which has held for four days is beginning to change. He turns around. <strong>Jeff Lakes</strong> also turns back, below the summit.</p>
+  </div></div>
+  <div class="over-step" data-ev="3" id="ev3" data-alt="8611"><div class="over-card">
+    <span class="kick">August 13 · 6:45 PM</span>
+    <h4>Six on the summit</h4>
+    <p>In fine, windless conditions: <strong>Hargreaves and Javier Olivar</strong>, then Rob Slater, Javier Escartín, Lorenzo Ortíz, Bruce Grant. Hours too late to be there — but the sky is clear and the air is still.</p>
+  </div></div>
+  <div class="over-step" data-ev="4" id="ev4" data-alt="8300"><div class="over-card tragic">
+    <span class="kick">August 13 · Night</span>
+    <h4>The storm on the descent</h4>
+    <p>Winds estimated at more than <strong>160 kilometres per hour</strong> tear across the summit slopes in the dark. All six who stood on the summit die coming down. Not one of them reaches a tent.</p>
+  </div></div>
+  <div class="over-step" data-ev="5" id="ev5" data-alt="6900"><div class="over-card tragic">
+    <span class="kick">August 14</span>
+    <h4>Two men descend through the wreckage</h4>
+    <p>Pepe Garcés and Lorenzo Ortas, who rode out the storm at Camp 4, start down — frostbitten, exhausted. Before Camp 3 they find <strong>a bloodstained anorak, a single boot, a harness</strong>. They recognise the gear.</p>
+  </div></div>
+  <div class="over-step" data-ev="6" id="ev6" data-alt="6700"><div class="over-card tragic">
+    <span class="kick">August 15</span>
+    <h4>The mountain takes the prudent, too</h4>
+    <p><strong>Jeff Lakes</strong>, who turned back below the summit — the correct choice, the Hillary choice — fights his way down to a lower camp, and dies there of exposure.</p>
+  </div></div>
+  <div class="over-step" data-ev="7" id="ev7" data-alt="5000"><div class="over-card tragic">
+    <span class="kick">Late August</span>
+    <h4>Never brought down</h4>
+    <p>Garcés and Ortas survive six days without a tent and are airlifted out. No body from the summit party is recovered. K2 keeps her, the way it keeps most of the people it takes.</p>
+  </div></div>
+</div>
+</div>
+
+<section class="ch-cover" id="ch3" data-n="03" data-alt="8611">
+  <div class="inner">
+    <span class="num">Chapter III · August 13 · 6:45 PM</span>
+    <h2>The Summit</h2>
+    <p class="dek">The single most beautiful beat of the season. The disaster is already inside this moment, invisible.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <div class="ttx fine reveal" aria-label="Teletext weather panel">
+    <div class="t-head"><span>P401</span><span>K2 FORECAST</span><span>13 AUG 1995</span></div>
+    <pre>KARAKORAM  8611M   OUTLOOK: FINE
+FOURTH CLEAR DAY   WIND: LIGHT
+SUMMIT WINDOW ............ OPEN
+LATE CHANGE POSSIBLE .... WATCH</pre>
+    <span class="t-cur">▮</span>
+  </div>
+  <p class="lede reveal">At 6:45 in the evening, in fine conditions, Alison Hargreaves and the Spaniard Javier Olivar reached the summit of K2. Behind them came Rob Slater — the first eight-thousander of his life, and he had made it. Then Javier Escartín and Lorenzo Ortíz. Then the New Zealander Bruce Grant. Six people on the second-highest point on Earth, in the last good light of the day.</p>
+  <p class="reveal">It was hours too late to be there. The safe turnaround on K2 falls in the early afternoon. But the sky was clear and the air was still, and standing on that summit it would have been almost impossible to believe the mountain meant to kill them all.</p>
+  <p class="reveal"><span class="dng">It did.</span></p>
+  <p class="reveal">Lower on the mountain, Peter Hillary was already descending. He had read the same sky and turned back — the decision that saved his life, and the decision the papers would never think to praise, because he did not die and so had no lesson to be made of him.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch4" data-n="04" data-alt="8300">
+  <div class="inner">
+    <span class="num">Chapter IV · That Night</span>
+    <h2>The Storm<br>on the Descent</h2>
+    <p class="dek">The forecast panel keeps scrolling — a machine reporting a catastrophe it cannot feel.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <div class="ttx storm reveal" aria-label="Teletext weather panel">
+    <div class="t-head"><span>P401</span><span>K2 · URGENT</span><span>13 AUG · 22:00</span></div>
+    <pre>WIND 160 KM/H PLUS AND RISING
+TEMP FALLING FAST   VIS: NIL
+SIX CLIMBERS ABOVE 8000M
+SUMMIT WINDOW .......... CLOSED</pre>
+    <span class="t-cur">▮</span>
+  </div>
+  <p class="lede reveal">The storm came in with a violence the survivors below could barely comprehend. On nearby Broad Peak, Scott Fischer described brutal cold and winds past 160 kilometres an hour. On K2's summit slopes, in the dark, all six who had stood on top died coming down. Not one of them reached a tent.</p>
+  <p class="reveal">The Canadian <strong>Jeff Lakes</strong> had turned back below the summit earlier in the day — the correct choice. He fought his way down through the storm and reached one of the lower camps alive. The mountain took him anyway: he died of exposure on August 15.</p>
+  <p class="reveal"><span class="dng">Seven dead.</span> And the papers, six thousand kilometres away, had already chosen which one of them they would put on trial.</p>
+</div></div></div>
+
+<section class="ch-cover" id="ch5" data-n="05" data-alt="6900">
+  <div class="inner">
+    <span class="num">Chapter V · August 14</span>
+    <h2>The Anorak<br>in the Snow</h2>
+    <p class="dek">The most restrained beat of the story, before the fury of the next one.</p>
+  </div>
+</section>
+<div class="panel-wrap"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Two Spanish climbers, Pepe Garcés and Lorenzo Ortas, had survived the storm at Camp 4. The next day they began to descend, frostbitten and half-destroyed — they would end up airlifted out after six days without a tent.</p>
+  <p class="reveal">On the way down, before Camp 3, they came upon <strong>a bloodstained anorak</strong> in the snow. A single climbing boot. A harness. They recognised the gear. It was Alison's.</p>
+  <p class="reveal">From Camp 3 they could see a body in the distance, lower on the mountain. They did not go to it — they had nothing left, and could barely save themselves. So it was never positively identified. But they had little doubt. The wind, they concluded, had blown her from the mountain.</p>
+  <p class="reveal">She was never brought down. <span class="hl">K2 kept her, the way it keeps most of the people it takes.</span></p>
+</div></div></div>
+
+<div class="panel-wrap" id="trial95" style="background:transparent" data-alt="5000"><div class="evroom" style="width:100%">
+  <div class="ev-head reveal">
+    <span class="eyebrow">The Trial</span>
+    <h3>The Headline vs. The Human</h3>
+    <p class="ev-sub">The facts were never in dispute. Only the judgement was — and the judgement was a lie the size of a front page. Tap each headline to peel it back.</p>
+    <p class="ev-note">The front pages below are period-style pastiches — invented mastheads, no real newspaper reproduced. The judgements they carry were made, in those words' spirit, across the British press in August 1995.</p>
+  </div>
+  <div class="trial">
+    <div class="tr-item reveal">
+      <div class="tr-truth"><p>Rob Slater died on the same descent, in the same storm, chasing the first eight-thousander of his life. Bruce Grant died. Javier Olivar, Javier Escartín, Lorenzo Ortíz, Jeff Lakes — all died. Not one of their obituaries led with whether they were fathers. <strong>Five of the seven dead were men</strong>, and the mountain had not asked any of them for a note from home.</p></div>
+      <div class="tr-head"><div class="th-mast">DAILY CLARION</div><div class="th-line">MOTHER OF TWO DIES ON KILLER PEAK</div><div class="th-sub">Tap to peel back the page ⌄</div></div>
+    </div>
+    <div class="tr-item reveal">
+      <div class="tr-truth"><p>No newspaper asked how Rob Slater could leave the people who loved him, or interrogated the parenting of the fathers on that mountain. The question was reserved, exclusively, for the woman — as though ambition in a mother were a crime, and as though the risk she took were somehow more selfish than the identical risk taken by the men who died beside her.</p></div>
+      <div class="tr-head"><div class="th-mast">THE SUNDAY MERIDIAN</div><div class="th-line">HOW COULD SHE LEAVE HER CHILDREN?</div><div class="th-sub">Tap to peel back the page ⌄</div></div>
+    </div>
+    <div class="tr-item reveal">
+      <div class="tr-truth"><p>She was one of the most technically accomplished climbers of her generation, who had soloed Everest without oxygen three months earlier. She was warned about the August window and weighed it as a professional. So did Peter Hillary, who read the same sky, turned back, and lived. The difference between "reckless" and "prudent" was, that day, a matter of hours and luck. <strong>The difference in how the press treated the dead was a matter of sex.</strong></p></div>
+      <div class="tr-head"><div class="th-mast">EVENING SENTINEL</div><div class="th-line">SELFISH? RECKLESS? THE WOMAN WHO GAMBLED WITH DEATH</div><div class="th-sub">Tap to peel back the page ⌄</div></div>
+    </div>
+    <div class="tr-item reveal">
+      <div class="tr-truth"><p>She said it once, to an interviewer — better to live one day as a tiger than a thousand years as a sheep — and the papers handed it back to her as an epitaph and an indictment in the same breath. It was quoted as proof of a death wish. It was never read as what it plainly was: <strong>the ordinary creed of every serious mountaineer</strong>, man or woman, alive or dead, who has ever chosen the mountain knowing what the mountain can do.</p></div>
+      <div class="tr-head"><div class="th-mast">THE NATIONAL EXAMINER</div><div class="th-line">"ONE DAY AS A TIGER" — HER OWN WORDS CONDEMN HER</div><div class="th-sub">Tap to peel back the page ⌄</div></div>
+    </div>
+  </div>
+  <div class="ev-verdict reveal"><b>The verdict this page returns:</b> the mountain killed six climbers on 13 August 1995, without preference or malice. It did not know which of them was a mother. Everything cruel said afterward was said by people who were warm, and safe, and reading a newspaper.</div>
+</div></div>
+
+<section class="ch-cover" id="ch6" data-n="06" data-alt="5000">
+  <div class="inner">
+    <span class="num">Chapter VI · Epilogue</span>
+    <h2>The Ones<br>Who Came After</h2>
+    <p class="dek">The newsprint drops away here. The press is gone. Only the family is left.</p>
+  </div>
+</section>
+<div class="panel-wrap plain95"><div class="panel"><div class="narrative">
+  <p class="lede reveal">Her children grew up. Her son, <strong>Tom Ballard</strong>, became a climber of extraordinary gift. He spoke of his mother without bitterness, and he climbed toward her.</p>
+  <p class="reveal">In February 2019, Tom Ballard died on Nanga Parbat — in the same Pakistani ranges that had taken Alison. Mother and son, both of them, lost to the great peaks.</p>
+  <p class="reveal">The tigers, it turned out, ran in the family. <span class="hl">So did the mountains' habit of keeping what they love.</span></p>
+</div></div></div>
+
+<div class="breath tall"></div>
+<section class="memorial" id="memorial" data-alt="5000">
+  <div class="mem-inner">
+    <h2>In Memoriam</h2>
+    <p class="mem-sub">August 1995 · Their names rest at the Gilkey Memorial above Base Camp, with no front page to divide them</p>
+    <div class="cast" style="text-align:left;margin-top:2.5rem">
+      <div class="cc dead full reveal"><div class="cc-name">Alison Hargreaves</div><div class="cc-role">United Kingdom · 13 August</div>
+        <div class="cc-desc">Blown from the mountain in the storm; never recovered. Soloist of Everest without oxygen; mother of two; tried by the press as though those two facts could not both be true.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Javier Olivar</div><div class="cc-role">Spain · 13 August</div>
+        <div class="cc-desc">Reached the summit first, alongside Hargreaves. Lost in the storm on the descent.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Rob Slater</div><div class="cc-role">United States · 13 August</div>
+        <div class="cc-desc">The first eight-thousander of his life, and he made it to the top. No headline asked about the family he left.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Javier Escartín</div><div class="cc-role">Spain · 13 August</div>
+        <div class="cc-desc">Lost in the storm on the descent.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Lorenzo Ortíz</div><div class="cc-role">Spain · 13 August</div>
+        <div class="cc-desc">Lost in the storm on the descent. Not to be confused with Lorenzo Ortas, who survived at Camp 4.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Bruce Grant</div><div class="cc-role">New Zealand · 13 August</div>
+        <div class="cc-desc">Lost in the storm on the descent.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Jeff Lakes</div><div class="cc-role">Canada · 15 August</div>
+        <div class="cc-desc">Turned back below the summit — the prudent choice — reached a lower camp alive, and died of exposure anyway.</div></div>
+      <div class="cc dead reveal"><div class="cc-name">Jordi Anglès</div><div class="cc-role">Spain · Earlier that season</div>
+        <div class="cc-desc">Died in a fall on K2 before the August window opened — the summer's first loss.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="panel-wrap" id="colophon95"><div class="panel colo"><div class="narrative">
+  <h3>Sources &amp; Further Reading</h3>
+  <p class="c-sub">Everything on this page is drawn from the documented record; the pastiche front pages are the page's argument, not its sources.</p>
+  <div class="row reveal"><b>The essential account</b><span>David Rose &amp; Ed Douglas — <em>Regions of the Heart: The Triumph and Tragedy of Alison Hargreaves</em> (1999) — the corrective to the 1995 coverage</span></div>
+  <div class="row reveal"><b>Context</b><span>Ed Viesturs &amp; David Roberts — <em>K2: Life and Death on the World's Most Dangerous Mountain</em> (2009), which also anchors the 1939 and 2008 pages on this site · Jim Curran — <em>K2: The Story of the Savage Mountain</em></span></div>
+  <div class="row reveal"><b>The record</b><span>The British and international press coverage of August 1995 — cited here not as a source of truth but as the subject of this page's argument</span></div>
+  <div class="row reveal"><b>Article</b><span>Wikipedia — <em>1995 K2 disaster</em> · <em>Alison Hargreaves</em>, and the sources cited therein</span></div>
+  <div class="row reveal"><b>A note on images</b><span>Nothing from 1995 is public domain. The front pages here are invented pastiches in the period style; no photograph of Hargreaves or reproduction of a real newspaper appears on this page.</span></div>
+  <div class="row reveal"><b>Terrain</b><span>Elevation: Mapzen / AWS Open Data · Imagery © Esri, Maxar, Earthstar Geographics · Rendered with MapLibre GL</span></div>
+</div></div></div>
+
+<button class="explore-cta" id="exploreCta">◈ Explore the mountain yourself</button>
+<div class="footer" id="footer95" data-alt="0">
+  Sources: Wikipedia — <em>1995 K2 disaster</em> · <em>Alison Hargreaves</em><br>
+  Rose &amp; Douglas, <em>Regions of the Heart</em> (1999) · Viesturs &amp; Roberts (2009)<br>
+  Part of <a href="/disasters">One Mountain, Four Storms</a> · <a href="/">1939</a> · <a href="/1986">1986</a> · <a href="/2008">2008</a><br>
+  <span class="final">The mountain did not know which of them was a mother.</span>
+</div>
+
+</main>
+
+<script>
+window.__ERA = {
+  year: '1995',
+  hud: {date:'The Abruzzi Spur', title:'The summer of 1995'},
+  points: {
+    base:  {ll:[76.5175,35.8420], m:5000, name:'Base Camp', major:true},
+    c2:    {ll:[76.5226,35.8604], m:6700, name:'Camp 2'},
+    c3:    {ll:[76.5216,35.8646], m:7100, name:'Camp 3'},
+    c4:    {ll:[76.5178,35.8750], m:7600, name:'Camp 4', major:true, ev:1},
+    anorak:{ll:[76.5221,35.8626], m:6900, name:'The Anorak', kind:'x', ev:5},
+    upper: {ll:[76.5140,35.8800], m:8300, name:'The Summit Slopes', kind:'site', ev:4},
+    summit:{ll:[76.5133,35.8814], m:8611, name:'Summit', kind:'peak', major:true, ev:3}
+  },
+  routes: [{keys:['base','c2','c3','c4','upper','summit']}],
+  progColor:'#c9c2b2',
+  people: {
+    alison: {name:'Hargreaves', c:'#82352a'},
+    spain:  {name:'Olivar · Escartín · Ortíz', c:'#3e6252'},
+    slater: {name:'Slater', c:'#3f5c77'},
+    grant:  {name:'Grant', c:'#655c4d'},
+    hillary:{name:'Hillary', c:'#5e4a1f'},
+    lakes:  {name:'Lakes', c:'#4a4a66'},
+    garces: {name:'Garcés & Ortas', c:'#2f4f63'}
+  },
+  events: [
+    {date:'June – July', t:'The mountain refuses the season', phase:'The Siege', ph:true, reach:2,
+     pos:{alison:'base',spain:'base',slater:'base',grant:'base',hillary:'base',lakes:'base',garces:'base'}},
+    {date:'August 12–13', t:'The last window — Camp 4', phase:'The Window', ph:true, reach:3,
+     pos:{alison:'c4',spain:'c4',slater:'c4',grant:'c4',hillary:'c4',lakes:'c4',garces:'c4'}},
+    {date:'August 13 · Midday', t:'Hillary reads the sky', phase:'The Window', reach:4,
+     pos:{alison:'upper',spain:'upper',slater:'upper',grant:'upper',hillary:'c4',lakes:'upper',garces:'c4'}},
+    {date:'August 13 · 6:45 PM', t:'Six on the summit', phase:'The Summit', ph:true, reach:5,
+     pos:{alison:'summit',spain:'summit',slater:'summit',grant:'summit',hillary:'c3',lakes:'c4',garces:'c4'}},
+    {date:'August 13 · Night', t:'The storm on the descent', phase:'The Storm', ph:true, tragic:true, reach:5,
+     pos:{alison:'upper',spain:'upper',slater:'upper',grant:'upper',hillary:'c2',lakes:'c4',garces:'c4'},
+     lost:['alison','spain','slater','grant']},
+    {date:'August 14', t:'Two men descend through the wreckage', phase:'The Storm', tragic:true, reach:5,
+     pos:{alison:'upper',spain:'upper',slater:'upper',grant:'upper',hillary:'base',lakes:'c3',garces:'anorak'},
+     lost:['alison','spain','slater','grant']},
+    {date:'August 15', t:'The mountain takes the prudent, too', phase:'The Storm', tragic:true, reach:5,
+     pos:{alison:'upper',spain:'upper',slater:'upper',grant:'upper',hillary:'base',lakes:'c2',garces:'c2'},
+     lost:['alison','spain','slater','grant','lakes']},
+    {date:'Late August', t:'Never brought down', phase:'The Verdict', ph:true, tragic:true, reach:5,
+     pos:{alison:'upper',spain:'upper',slater:'upper',grant:'upper',hillary:'base',lakes:'c2',garces:'base'},
+     lost:['alison','spain','slater','grant','lakes']}
+  ],
+  features: [
+    {ll:[76.5169,35.8760], label:'The Shoulder', from:1},
+    {ll:[76.5222,35.8590], label:'The Abruzzi Spur', from:0}
+  ],
+  moments: [
+    {ll:[76.5150,35.8790], glyph:'❄', label:'160 km/h+ — the storm on the summit slopes', at:[4]},
+    {ll:[76.5178,35.8750], glyph:'△', label:'Garcés & Ortas ride it out at Camp 4', at:[4]},
+    {ll:[76.5221,35.8626], glyph:'✕', label:'A bloodstained anorak · one boot · a harness', at:[5]},
+    {ll:[76.5216,35.8646], glyph:'◎', label:'From Camp 3: a body, far off. They could not reach it', at:[5]}
+  ],
+  locnotes: {
+    base:'The 1995 crowd waited out June and July here — Spanish, American, New Zealand and Canadian teams together.',
+    c2:'Mid-mountain camp on the Abruzzi. Jeff Lakes reached the lower camps on 14 August and died there of exposure.',
+    c3:'From here, descending on 14 August, Garcés and Ortas saw a distant body they could not reach.',
+    c4:'≈7,600 m — the last camp, at least twelve hours below the summit. Garcés and Ortas survived the storm here.',
+    anorak:'Before Camp 3, the descending Spaniards found a bloodstained anorak, a boot and a harness. It was Alison’s gear.',
+    upper:'The summit slopes where the storm caught all six climbers on the night of 13 August.',
+    summit:'8,611 m. Reached at 6:45 PM on 13 August 1995 — hours too late.'
+  },
+  pointStates: {
+    c4:[{from:1,text:'Occupied — the last camp'},{from:7,text:'Abandoned; the season over'}],
+    upper:[{from:4,text:'Storm: winds past 160 km/h'}]
+  },
+  keys: [
+    ['prologue','base',10.3,34,336,-.05,''], ['q95','base',10.9,44,348,-.05,''],
+    ['ch1','base',11.4,50,0,-.05,'g-day'], ['ch2','c2',12.0,56,40,-.04,'g-storm'],
+    ['trk95','base',11.2,50,80,-.06,'g-day'],
+    ['ev0','base',11.6,54,100,-.06,'g-storm'], ['ev1','c4',13.0,66,120,-.05,'g-day'],
+    ['ev2','c4',13.2,70,104,-.04,'g-day'], ['ev3','summit',13.8,76,60,-.02,'g-dusk'],
+    ['ev4','upper',13.6,75,30,-.02,'g-storm'], ['ev5','anorak',13.2,70,0,-.04,'g-mourn'],
+    ['ev6','c2',12.6,62,330,-.05,'g-mourn'], ['ev7','base',11.4,48,300,-.06,'g-mourn'],
+    ['ch3','summit',13.7,76,270,-.02,'g-dusk'], ['ch4','upper',13.5,74,240,-.03,'g-storm'],
+    ['ch5','anorak',13.1,68,210,-.04,'g-mourn'], ['trial95','c2',11.8,52,190,-.05,'g-mourn'],
+    ['ch6','base',11.0,44,170,-.05,'g-day'], ['memorial','base',12.0,55,182,-.05,'g-mourn'],
+    ['colophon95','base',10.2,32,172,-.03,'g-mourn'], ['footer95','base',9.7,28,158,-.02,'']
+  ],
+  flame: {ll:[76.5160,35.8446], label:'Gilkey Memorial'},
+  explore: {center:'c4', zoom:12.5, pitch:63, bearing:150},
+  camStart: {zoom:10.3, pitch:34, bearing:336}
+};
+</script>
+<script src="/js/era-map.js"></script>
+<script src="/js/era-chrome.js"></script>
+<script src="/js/era-extras.js"></script>

@@ -138,6 +138,49 @@ guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`, `__alt`,
 `__flame`, `__exploreOn`, `setGrade`). Load order (engine → chrome → extras)
 matters — keep it.
 
+## The era pages (added 2026-07-24): /1986 · /1995 · /2008 · /disasters
+
+The 1939 story gained three sibling disaster pages and a hub, each following
+the same injection pattern (verbatim story HTML via `dangerouslySetInnerHTML`;
+never React-ify):
+
+- `app/1986/`, `app/1995/`, `app/2008/`, `app/disasters/` — each holds a
+  `page.tsx` (metadata + era font/CSS links via `precedence`, injects its
+  sibling `story.html`) and a `story.html`. **Era pages use absolute asset
+  paths** (`/js/…`, `/css/…`) because they serve from sub-routes; only the
+  1939 page keeps relative paths.
+- Era pages inherit the root layout (1939 fonts + `main.css`) and re-skin it
+  with a per-era stylesheet loaded after it: `public/css/era1986.css`
+  (Kodachrome/carbon-paper: Archivo Black, Courier Prime, Kodak red),
+  `era1995.css` (newsprint/tabloid: Oswald, Tinos, VT323 teletext, halftone,
+  the "trial" peel-back headlines — pastiche mastheads only, never real
+  papers), `era2008.css` (dark tracking console: IBM Plex Mono/Sans, signal
+  green, timestamps), `disasters.css` (hub keeps the 1939 identity; year
+  accents `--y39/--y86/--y95/--y08` are a validated colorblind-safe set).
+- Shared era JS (classic-script IIFEs, same `window.__*` globals contract as
+  the 1939 files, load order era-map → era-chrome → era-extras):
+  - `public/js/era-map.js` — generalized engine.js. **All story data comes
+    from `window.__ERA`**, set by an inline script at the end of each era
+    `story.html`: points/routes/people/events/features/moments/camera `keys`
+    (anchored to DOM ids — renaming an id silently breaks the camera),
+    locnotes/pointStates (explore cards), flame, explore view. The timeline
+    zone is `#timeline-zone` with `.over-step[data-ev]` steps `#ev0…`.
+  - `public/js/era-chrome.js` — chrome.js sibling; rail links discovered
+    from the DOM; altimeter is **metric-first** (era `data-alt` values are
+    metres; 1939 stays feet).
+  - `public/js/era-extras.js` — extras.js sibling; scrubber dates read from
+    `__ERA.events`; adds the 1995 `.tr-item` peel toggle; narration/wind/
+    typewriter/evidence-docs/stars work as on the 1939 page.
+- The 1939 page links onward via the `.epochs` block before the footer, and
+  every era page carries the fixed `.eranav` switcher + footer cross-links.
+- Content accuracy rule applies in full: the 1986/1995/2008 pages follow the
+  documented record (Curran 1987, Diemberger 1991, Rose & Douglas 1999,
+  Bowley 2010, Zuckerman & Padoan 2012, Viesturs & Roberts 2009, and the
+  Wikipedia disaster articles). No 1986/1995/2008 photography may be added —
+  nothing from those years is public domain; the pages are illustrated with
+  terrain, typography, and original drawn diagrams only. The 1995 front
+  pages must stay invented pastiches and say so on-page.
+
 ## Where the data lives
 
 In `public/js/engine.js`:
