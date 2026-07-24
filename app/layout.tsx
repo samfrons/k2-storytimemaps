@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 const FONTS_HREF =
-  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Jost:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Special+Elite&display=swap';
+  'https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Jost:wght@300;400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Special+Elite&display=swap';
 
 const DESCRIPTION =
   '800 feet from the greatest prize in mountaineering. Four men left on the mountain. Fifty years before the truth came down. An immersive 3D story of the 1939 American K2 expedition.';

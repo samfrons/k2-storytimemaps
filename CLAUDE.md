@@ -88,12 +88,14 @@ posture and must keep their credits in the cards and colophon.
   and the three script tags. Relative asset paths (`clips/…`, `js/…`) resolve
   against the `/` route — keep them relative.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
-  inspired; type system (settled 2026-07-20): **Fraunces** (display/headlines/
-  numerals — variable, opsz 9–144, real italics; hero + covers at 600, solid
-  ivory with the `#hand-text` letterpress-worn filter), **Jost** (geometric
-  sans for the micro layer — kickers/HUD/labels/buttons/altimeter),
-  **Newsreader** (body — 1930s-newsprint-derived; body weight 380, not 300),
-  **Special Elite** (the typewritten record — keep).
+  inspired; type system (revised 2026-07-24; supersedes 2026-07-20):
+  **Besley** (display/headlines/numerals — a Clarendon press slab, variable
+  400–900 with real italics; hero + covers at 600, solid ivory with the
+  `#hand-text` letterpress-worn filter), **Jost** (geometric sans for the
+  micro layer — kickers/HUD/labels/buttons/altimeter), **Source Serif 4**
+  (body — crisp transitional; body weight 400), **Special Elite** (the
+  typewritten record — keep). **Fraunces and Newsreader were retired**
+  (Sam, 2026-07-24) as too generic — do not bring them back.
   Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
   Standing rules (Sam, 2026-07-20): **no tan/bronze-colored text** — bronze
   lives only in hairlines, borders, and the progress bar; markers and map
