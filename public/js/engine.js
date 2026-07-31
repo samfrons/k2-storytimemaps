@@ -206,7 +206,13 @@
         });
 
         map.on('move',()=>{ const far=map.getZoom()<12.45;
-          document.body.classList.toggle('lbl-far',far); });
+          document.body.classList.toggle('lbl-far',far); scheduleClamp(); });
+        // MapLibre re-places markers after 'move' (terrain elevation resolves
+        // late), so a clamp keyed only to 'move' reads stale geometry. 'render'
+        // fires after each repaint; the rAF in scheduleClamp coalesces it to at
+        // most one pass per frame, and 'idle' catches the settled position.
+        map.on('render', scheduleClamp);
+        map.on('idle', scheduleClamp);
         ready=true; camDirty=true;
         applyEvent(curEv, true);
         setTimeout(()=>bgLoad.classList.add('off'), 400);
@@ -215,6 +221,48 @@
   }
   function line(keys){ return {type:'Feature',geometry:{type:'LineString',
     coordinates:(keys.length>1?keys:['base','base']).map(k=>CAMPS[k].ll)}}; }
+
+  // ── keep marker labels on screen (narrow viewports)
+  // A marker near the edge of a phone screen hangs its label off it; the body
+  // clips the overflow, so the text was simply cut in half. Nudge the label
+  // back inside horizontally — the marker itself stays where the terrain puts
+  // it. Only the label moves, and only when it would otherwise be unreadable.
+  const LBL_PAD = 8;
+  let clampRaf = null;
+  function labelEls(){
+    const out = [];
+    ROUTE.forEach(k=>{ const el=camps[k]; if(el){const l=el.querySelector('.l'); if(l) out.push(l);} });
+    feats.forEach(f=>{ const l=f.el.querySelector('.fl'); if(l) out.push(l); });
+    moms.forEach(m=>{ const l=m.el.querySelector('.ml'); if(l) out.push(l); });
+    return out;
+  }
+  function clampLabels(){
+    clampRaf = null;
+    const narrow = innerWidth <= 860;
+    labelEls().forEach(l=>{
+      const dx = +(l.dataset.dx || 0);
+      const reset = ()=>{ if(dx){ l.style.transform=''; l.dataset.dx='0'; } };
+      if(!narrow) return reset();
+      const mk = l.closest('.maplibregl-marker');
+      if(!mk) return reset();
+      // Only nudge labels whose marker is itself on screen. The camera routinely
+      // leaves markers far outside the viewport (the map clips them); dragging
+      // one of those labels into view would label a peak nobody can see.
+      const m = mk.getBoundingClientRect();
+      const ax = m.left + m.width/2;
+      if(ax < 0 || ax > innerWidth || m.bottom < 0 || m.top > innerHeight) return reset();
+      const r = l.getBoundingClientRect();
+      if(!r.width) return;
+      const left = r.left - dx, right = r.right - dx;   // position before our nudge
+      let want = 0;
+      if(left < LBL_PAD) want = LBL_PAD - left;
+      else if(right > innerWidth - LBL_PAD) want = innerWidth - LBL_PAD - right;
+      want = Math.round(want);
+      if(want !== dx){ l.dataset.dx=String(want); l.style.transform = want?('translateX('+want+'px)'):''; }
+    });
+  }
+  function scheduleClamp(){ if(ready && !clampRaf) clampRaf = requestAnimationFrame(clampLabels); }
+  addEventListener('resize', scheduleClamp);
 
   // ── camera keyframes (page-order path)
   const KEYS = [
@@ -326,6 +374,7 @@
     feats.forEach(f=>f.el.classList.toggle('off', i<f.from));
     moms.forEach(f=>f.el.classList.toggle('off', !ch4Active || !f.at.includes(i)));
     if(window.__vig && !zoneVigActive()) window.__vig.vigForEvent(ch4Active?i:-1);
+    scheduleClamp();
   }
 
   loadLib(initMap);

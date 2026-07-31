@@ -501,3 +501,131 @@ body.memnight .memorial .cc-name{letter-spacing:.1em}
 .epochs .ep-hub{border-color:rgba(201,168,106,.7)}
 .epochs .ep-hub:hover{border-color:var(--bronze-l)}
 
+/* On a phone, a nowrap label longer than the screen can't be nudged back into
+   view — cap it so the clamp in engine.js/era-map.js always has room to work.
+   (Positional clamping lives in JS; this is only the width backstop.) */
+@media (max-width:860px){
+  .mk-camp2 .l,.mk-feat .fl{max-width:calc(100vw - 24px);overflow:hidden;text-overflow:ellipsis}
+  .mk-mom .ml{max-width:min(200px,calc(100vw - 24px))}
+  /* the colophon carries bare URLs (publications.americanalpineclub.org) that
+     have no break opportunity — on a phone they ran past the panel and were
+     clipped. Let long tokens break rather than overflow. */
+  .colo .row span{overflow-wrap:anywhere}
+}
+
+/* ════════ v15: HERO VARIANTS — mid-century survival-manual covers ════════
+   Three alternative treatments for the opening screen, after the Air Ministry
+   Pamphlet 224 / FM 21-76 / Houston & Bates "K2 — The Savage Mountain" covers.
+   Preview with /?hero=pamphlet | savage | manual; with no parameter the
+   original prologue renders untouched. Display face: The Foregen Rough One
+   (Vultype Co). The Burn Out cuts supplied alongside are watermarked
+   personal-use demos — their digits render as the foundry's badge — and are
+   not in the repo at all: anything under public/ is served publicly, so
+   shipping them would republish a personal-use font from our own domain.
+   The Vultype faces still need a web/@font-face licence confirmed. */
+@font-face{font-family:'Foregen Rough';src:url('../fonts/TheForegenRough-One.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Foregen';src:url('../fonts/TheForegen-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'Grahm Rough';src:url('../fonts/GrahmSansRough-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+
+.hero-v{display:none}
+body[data-hero] .prologue > :not(.hero-v){display:none}
+body[data-hero] .prologue{padding:0;justify-content:center}
+/* the satellite ground is bright and busy — hold a scrim under the cover so
+   paper, ink and the loose caption lines all read at full contrast */
+body[data-hero] .prologue::before{background:
+  linear-gradient(180deg,rgba(20,17,12,.62) 0%,rgba(20,17,12,.3) 34%,
+                  rgba(20,17,12,.34) 62%,rgba(20,17,12,.68) 100%)}
+body[data-hero="pamphlet"] .hv-pamphlet,
+body[data-hero="savage"] .hv-savage,
+body[data-hero="manual"] .hv-manual{display:block}
+.hero-v .hv-cue{margin-top:2.4rem;text-align:center;font-family:'Jost',sans-serif;font-size:.72rem;
+  letter-spacing:.5em;text-transform:uppercase;color:rgba(241,236,223,.75)}
+.hero-v .hv-cue i{display:block;width:1px;height:44px;margin:.8rem auto 0;background:var(--bronze-l);
+  animation:drop 2.4s ease-in-out infinite}
+
+/* ── A · PAMPHLET — cream bands laid across the mountain (Air Ministry 224) */
+.hv-pamphlet{width:100vw;margin-inline:calc(50% - 50vw)}
+.pm-band{background:#efe9da;color:#14110c;padding:.5rem clamp(1rem,5vw,4rem);
+  border-top:1px solid rgba(20,17,12,.35);border-bottom:1px solid rgba(20,17,12,.35);
+  box-shadow:0 14px 40px rgba(10,8,5,.5)}
+/* Size each line from its own length (≈.47em per character in this face) so
+   both bands fill the same optical width, as on the pamphlet covers — and so
+   the longer line stops short of the fixed altimeter instead of running under
+   it. max-width can't do this: nowrap text overflows its box rather than
+   shrinking. The 340px gutter is the rail + altimeter reserve; on a phone
+   those move out of the way, so only a small margin is held back. */
+.pm-band h2{font-family:'Foregen Rough',Impact,sans-serif;font-weight:400;text-transform:uppercase;
+  line-height:.98;letter-spacing:-.005em;text-align:center;white-space:nowrap;
+  margin:0 auto;filter:url(#hand-fine)}
+.pm-b1 h2{font-size:min(11rem,calc((100vw - 340px) / 5.6))}   /* THE MOUNTAIN — 12ch */
+.pm-b2 h2{font-size:min(7rem, calc((100vw - 340px) / 8.9))}   /* THAT SWALLOWED THEM — 19ch */
+@media(max-width:860px){
+  .pm-b1 h2{font-size:calc((100vw - 26px) / 5.6)}
+  .pm-b2 h2{font-size:calc((100vw - 26px) / 8.9)}
+}
+.pm-gap{height:clamp(.5rem,1.4vh,1rem)}
+.pm-rule{height:clamp(1.1rem,2.6vh,1.8rem);background:rgba(58,74,102,.72);
+  border-top:1px solid rgba(20,17,12,.3);border-bottom:1px solid rgba(20,17,12,.3)}
+.pm-foot{margin-top:clamp(1.2rem,4vh,3rem);background:#efe9da;color:#14110c;
+  padding:.55rem clamp(1rem,5vw,4rem);display:flex;align-items:center;justify-content:center;gap:1rem;
+  border-top:1px solid rgba(20,17,12,.35);border-bottom:1px solid rgba(20,17,12,.35)}
+.pm-foot span{font-family:'Jost',sans-serif;font-size:clamp(.62rem,1.5vw,.8rem);font-weight:500;
+  letter-spacing:.42em;text-transform:uppercase}
+.pm-foot i{width:22px;height:22px;border-radius:50%;border:1.5px solid #14110c;flex:none;
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:.6rem;
+  font-family:'Jost',sans-serif;letter-spacing:0}
+.pm-sub{margin:clamp(1rem,3vh,2rem) auto 0;max-width:620px;padding:0 1.4rem;text-align:center;
+  font-style:italic;font-weight:380;font-size:1.02rem;color:rgba(241,236,223,.95);
+  text-shadow:0 2px 4px rgba(0,0,0,.95),0 2px 18px rgba(0,0,0,.9)}
+
+/* ── B · SAVAGE — cut-paper letters on the photograph (Houston & Bates) */
+/* left-aligned like the jacket it comes from, and held clear of the altimeter */
+.hv-savage{padding:0 clamp(1.2rem,6vw,5rem);width:min(1180px,calc(100vw - 220px));margin:0 auto;text-align:left}
+@media(max-width:860px){.hv-savage{width:100%}}
+.sv-dek{display:inline-block;background:rgba(58,106,112,.82);color:#eef3ee;
+  padding:.85rem 1.1rem;max-width:23ch;font-family:'Jost',sans-serif;font-weight:400;
+  font-size:clamp(.76rem,1.6vw,.95rem);line-height:1.65;letter-spacing:.02em;margin-bottom:1.6rem}
+.sv-title{font-family:'Foregen Rough',Impact,sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(3.4rem,15vw,11rem);line-height:.84;letter-spacing:-.015em;color:#12100b;
+  text-shadow:2px 0 0 #efe9da,-2px 0 0 #efe9da,0 2px 0 #efe9da,0 -2px 0 #efe9da,
+              6px 7px 0 rgba(10,8,5,.42);filter:url(#hand-fine)}
+.sv-strip{display:inline-block;margin-top:.9rem;background:var(--wine);color:#f6f1e6;
+  padding:.5rem 1.3rem .6rem;font-family:'Foregen',Impact,sans-serif;
+  font-size:clamp(1.3rem,4vw,2.7rem);line-height:1.1;letter-spacing:.01em;
+  box-shadow:0 10px 30px rgba(10,8,5,.5)}
+.sv-credit{display:inline-block;margin-top:2rem;font-family:'Jost',sans-serif;font-weight:500;
+  font-size:clamp(.66rem,1.5vw,.82rem);letter-spacing:.4em;text-transform:uppercase;
+  color:rgba(241,236,223,.95);background:rgba(20,17,12,.55);padding:.5rem .9rem;
+  backdrop-filter:blur(3px);text-shadow:0 1px 10px rgba(0,0,0,.9)}
+.sv-credit b{color:var(--bronze-l);font-weight:500}
+
+/* ── C · FIELD MANUAL — the issued sheet (FM 21-76 / Funk & Wagnalls) */
+.hv-manual{width:min(760px,92vw);margin:0 auto;background:#efe9da;color:#14110c;
+  border-top:9px solid #14110c;border-bottom:9px solid #14110c;
+  box-shadow:0 30px 80px rgba(10,8,5,.6);padding:clamp(1.4rem,4vw,2.6rem)}
+.fm-head{display:flex;justify-content:space-between;gap:1rem;
+  font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(.6rem,1.4vw,.74rem);
+  letter-spacing:.34em;text-transform:uppercase;color:#5a5142;
+  border-bottom:1px solid rgba(20,17,12,.3);padding-bottom:.7rem;margin-bottom:clamp(1rem,3vw,1.8rem)}
+.hv-manual h2{font-family:'Foregen Rough',Impact,sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(2.1rem,7.4vw,4.6rem);line-height:.94;letter-spacing:-.01em;filter:url(#hand-fine)}
+.fm-sub{margin-top:.9rem;font-family:'Newsreader',Georgia,serif;font-style:italic;font-weight:380;
+  font-size:clamp(.9rem,2vw,1.05rem);line-height:1.6;color:#4b4335;max-width:44ch}
+.fm-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(1.2rem,3.4vw,2rem);
+  border-top:3px solid #14110c;border-left:1px solid rgba(20,17,12,.28)}
+.fm-cell{border-right:1px solid rgba(20,17,12,.28);border-bottom:1px solid rgba(20,17,12,.28);
+  padding:.9rem .7rem;text-align:center}
+.fm-cell b{display:block;font-family:'Foregen',Impact,sans-serif;font-weight:400;
+  font-size:clamp(1.4rem,4.2vw,2.5rem);line-height:1}
+.fm-cell span{display:block;margin-top:.45rem;font-family:'Jost',sans-serif;font-size:.6rem;
+  letter-spacing:.24em;text-transform:uppercase;color:#5a5142;line-height:1.5}
+.fm-cell.loss b{color:var(--wine)}
+.fm-foot{margin-top:clamp(1rem,2.6vw,1.5rem);display:flex;justify-content:space-between;gap:1rem;
+  align-items:center;font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(.56rem,1.3vw,.68rem);
+  letter-spacing:.3em;text-transform:uppercase;color:#5a5142}
+@media(max-width:640px){
+  .fm-grid{grid-template-columns:repeat(2,1fr)}
+  .fm-head,.fm-foot{flex-direction:column;gap:.3rem;text-align:center}
+  .sv-dek{max-width:100%}
+}
+

@@ -118,15 +118,18 @@
   // block as it speaks (Web Speech API: keyless, local, free)
   const vBtn=document.getElementById('btnVoice');
   if(vBtn && 'speechSynthesis' in window){
-    const SEL='.prologue h1,.prologue .sub,.pq-sky,.ch-cover .inner,.narrative > p,.narrative > .pq,.record p,.cast .cc,.over-card,.evroom .ev-head,.doc,.ev-verdict,.mem-inner > p,.footer .final';
+    const SEL='.prologue h1,.prologue .sub,.hero-v h2,.hero-v .sv-dek,.hero-v .sv-strip,.hero-v .pm-sub,.hero-v .fm-sub,.pq-sky,.ch-cover .inner,.narrative > p,.narrative > .pq,.record p,.cast .cc,.over-card,.evroom .ev-head,.doc,.ev-verdict,.mem-inner > p,.footer .final';
     const blockText=el=>{
       const c=el.cloneNode(true);
       c.querySelectorAll('figure,figcaption,.snd,.src,.mono,.film-more').forEach(n=>n.remove());
       return c.textContent.replace(/·/g,', ').replace(/[†✝◈]/g,'')
         .replace(/−/g,'minus ').replace(/~/g,'about ').replace(/\s+/g,' ').trim();
     };
-    // snapshot text at load — the typewriter empties the record's <p>s later
-    const blocks=[...document.querySelectorAll(SEL)].map(el=>({el,text:blockText(el)})).filter(b=>b.text.length>2);
+    // snapshot text at load — the typewriter empties the record's <p>s later.
+    // getClientRects() drops display:none blocks, so the inactive hero
+    // variants are never read aloud (only the chosen opening is).
+    const blocks=[...document.querySelectorAll(SEL)].map(el=>({el,text:blockText(el)}))
+      .filter(b=>b.text.length>2 && b.el.getClientRects().length);
     let voice=null;
     function pickVoice(){
       const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));

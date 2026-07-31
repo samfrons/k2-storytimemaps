@@ -181,6 +181,46 @@ never React-ify):
   terrain, typography, and original drawn diagrams only. The 1995 front
   pages must stay invented pastiches and say so on-page.
 
+## Hero variants — undecided (2026-07-30)
+
+The 1939 opening has three alternative cover treatments parked behind a
+query parameter, after the mid-century survival-manual and expedition-book
+covers Sam collected. **None is the default**; with no parameter the original
+prologue renders untouched.
+
+- `/?hero=pamphlet` — Air Ministry Pamphlet 224: cream bands across the
+  terrain, heavy caps knocked in, blue rule, AAC imprint band.
+- `/?hero=savage` — Houston & Bates *K2: The Savage Mountain*: cut-paper
+  caps on the photograph, teal dek block, wine strip under the subtitle.
+- `/?hero=manual` — FM 21-76 / *The Survival Book*: bordered ivory sheet,
+  index line, four-cell stat register.
+
+Markup: the `.hero-v` blocks inside `.prologue` in `app/story.html`; styles
+in the v15 section of `main.css`; the switch is a parse-time inline script at
+the top of `app/story.html` (inline so there's no flash of the default —
+inline scripts execute because the story is server-rendered into the HTML,
+not injected client-side). **When one is chosen, fold it into the prologue
+markup and delete the other two plus the switch.**
+
+Two rules the variants encode, worth keeping if they're rewritten:
+
+- Band lines are sized from their own character count (`(100vw - 340px) / Nch`),
+  not a shared `clamp()`, so both fill the same optical width and the long
+  line stops clear of the fixed altimeter. `max-width` cannot do this —
+  nowrap text overflows its box instead of shrinking.
+- The narration snapshot in `extras.js` skips `display:none` blocks, so only
+  the active variant is read aloud.
+
+**Fonts (licensing unresolved).** Display face is The Foregen Rough One /
+The Foregen (Vultype Co), self-hosted in `public/fonts/`; GRAHM Sans Rough
+is declared as an unused alternate. All three are marked "All rights
+reserved" with no embedded licence — **confirm a web/`@font-face` licence
+before a variant ships.** The Burn Out cuts Sam sent are watermarked
+personal-use demos (every digit renders as the foundry's badge) and are
+deliberately **not** in the repo: anything under `public/` is served
+publicly, so committing them would republish a personal-use font from
+k2.storytimemaps.com.
+
 ## Where the data lives
 
 In `public/js/engine.js`:
