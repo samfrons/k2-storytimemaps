@@ -170,3 +170,10 @@
     addEventListener('beforeunload',()=>speechSynthesis.cancel());
   } else if(vBtn) vBtn.style.display='none';
 })();
+
+// ── vignette figure style: archival cutouts (default) ⇄ engraved figures
+(function(){
+  const b=document.getElementById('btnFig'), st=document.getElementById('stage');
+  if(!b||!st) return;
+  b.addEventListener('click',()=>{ b.classList.toggle('on', st.classList.toggle('eng')); });
+})();

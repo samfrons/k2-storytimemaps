@@ -134,7 +134,11 @@ posture and must keep their credits in the cards and colophon.
   trigger, and the "Play story" narration (Web Speech API — keyless/free;
   reads curated narrative blocks in DOM order, auto-scrolling to each; text
   is snapshotted at load because the typewriter empties the record's
-  paragraphs; stops on toggle or on entering explore mode).
+  paragraphs; stops on toggle or on entering explore mode), and the
+  vignette-figure style toggle (`#btnFig` toggles `#stage.eng`; every
+  vignette figure exists twice in `app/story.html` — `.fig-cut` archival
+  cutout `<image>`s (default) and `.fig-eng` hand-tinted engraving vectors —
+  inside the same animated groups, so both ride the same keyframes).
 
 The three JS files are classic-script IIFEs; they communicate only through
 guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`, `__alt`,
