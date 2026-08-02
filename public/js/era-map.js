@@ -308,10 +308,12 @@
     if(!e.isIntersecting) applyEvent(-1);
   })},{rootMargin:'-15% 0px -15% 0px'}).observe(zone);
 
-  // ── color grade + snow (same classes as the 1939 page)
+  // ── color grade + snow (same classes as the 1939 page). weather.js, when
+  // present, owns the rendered atmosphere + snow — see engine.js.
   const gradeEl=document.getElementById('grade'); let curGrade='__';
   function setGrade(g){ if(g===curGrade) return; curGrade=g; window.__grade=g;
-    if(gradeEl) gradeEl.className=g||''; snowSet(g); }
+    if(gradeEl) gradeEl.className=g||'';
+    if(window.__wx) window.__wx.grade(g, map); else snowSet(g); }
   window.setGrade=setGrade;
 
   const sc=document.getElementById('snow'), sx=sc?sc.getContext('2d'):null;
@@ -327,7 +329,9 @@
     flakes = Array.from({length:n},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
       r:.6+Math.random()*1.8, s:.4+Math.random()*1.4, w:Math.random()*Math.PI*2}));
   }
-  (function snowLoop(){
+  // fallback loop only — weather.js (loaded first, when present) owns the
+  // canvas; two writers would fight over clearRect.
+  if(!window.__wx) (function snowLoop(){
     if(!sc) return;
     if(flakes.length && !reduce){
       sx.clearRect(0,0,sc.width,sc.height); sx.fillStyle='rgba(241,236,223,.75)';

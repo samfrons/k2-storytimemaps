@@ -1,6 +1,8 @@
-# The Mountain That Swallowed Them — K2, 1939
+# K2 — One Mountain, Four Storms
 
-An immersive single-page scrollytelling site about the 1939 American K2
+An immersive scrollytelling site about K2's four great disasters. The
+original page — **A Mountain to Die On** (1939) — is a single-page story
+about the 1939 American K2
 expedition: a persistent MapLibre GL 3D-terrain background scroll-scrubbed
 through ~45 camera keyframes, a 17-event expedition timeline over the real
 terrain of the Abruzzi Spur, silhouette vignettes, a synthesized wind engine,

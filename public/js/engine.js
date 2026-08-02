@@ -429,10 +429,13 @@
   function vigForEvent(i){ setVig(zoneVig || (i>=0 && VIG[i]) || ''); }
   window.__vig={setVig,vigForEvent,z:v=>{zoneVig=v;setVig(v|| (curEv>=0&&ch4Active&&VIG[curEv]) || '');}};
 
-  // ── color grade
+  // ── color grade — the CSS tint layer, plus the rendered atmosphere when
+  // weather.js is present (it owns fog/relighting/snow; see its header).
+  // setGrade only ever fires from camTick, i.e. after the map is ready.
   const gradeEl=document.getElementById('grade'); let curGrade='__';
   function setGrade(g){ if(g===curGrade) return; curGrade=g; window.__grade=g;
-    gradeEl.className=g||''; snowSet(g); }
+    gradeEl.className=g||'';
+    if(window.__wx) window.__wx.grade(g, map); else snowSet(g); }
   window.setGrade=setGrade;
 
   // ── snow / storm particles
@@ -448,7 +451,9 @@
     flakes = Array.from({length:n},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
       r:.6+Math.random()*1.8, s:.4+Math.random()*1.4, w:Math.random()*Math.PI*2}));
   }
-  (function snowLoop(){
+  // fallback loop only — weather.js (loaded first, when present) owns the
+  // canvas; two writers would fight over clearRect.
+  if(!window.__wx) (function snowLoop(){
     if(flakes.length && !reduce){
       sx.clearRect(0,0,sc.width,sc.height); sx.fillStyle='rgba(241,236,223,.75)';
       const gale = mode==='storm'?3.4 : .35;

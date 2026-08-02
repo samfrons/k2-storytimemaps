@@ -143,10 +143,16 @@ posture and must keep their credits in the cards and colophon.
   is snapshotted at load because the typewriter empties the record's
   paragraphs; stops on toggle or on entering explore mode).
 
-The three JS files are classic-script IIFEs; they communicate only through
+The story JS files are classic-script IIFEs; they communicate only through
 guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`, `__alt`,
-`__flame`, `__exploreOn`, `setGrade`). Load order (engine → chrome → extras)
-matters — keep it.
+`__flame`, `__exploreOn`, `__wx`, `setGrade`). Load order (weather → engine
+→ chrome → extras) matters — keep it. `public/js/weather.js` (2026-07-30) is
+shared by the 1939 and era engines: per-grade MapLibre sky/fog presets and
+terrain relighting eased over ~2 s, plus the layered snow/cloud canvas
+(parallax depths, storm streaks, drifting cloud banks, density ramps). The
+engines delegate to `window.__wx.grade(g, map)` from `setGrade` and keep
+their old flat snow as a fallback when weather.js is absent — never let both
+write the `#snow` canvas.
 
 ## The era pages (added 2026-07-24): /1986 · /1995 · /2008 · /disasters
 
@@ -168,7 +174,7 @@ never React-ify):
   green, timestamps), `disasters.css` (hub keeps the 1939 identity; year
   accents `--y39/--y86/--y95/--y08` are a validated colorblind-safe set).
 - Shared era JS (classic-script IIFEs, same `window.__*` globals contract as
-  the 1939 files, load order era-map → era-chrome → era-extras):
+  the 1939 files, load order weather → era-map → era-chrome → era-extras):
   - `public/js/era-map.js` — generalized engine.js. **All story data comes
     from `window.__ERA`**, set by an inline script at the end of each era
     `story.html`: points/routes/people/events/features/moments/camera `keys`
