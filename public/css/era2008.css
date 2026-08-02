@@ -158,3 +158,10 @@ body.memnight #grade{background:radial-gradient(ellipse 120% 90% at 50% 26%,rgba
 #grade.g-day{background:linear-gradient(180deg,rgba(40,70,60,.1),transparent 40%,rgba(6,11,9,.24))}
 #grade.g-night{background:radial-gradient(ellipse 120% 90% at 50% 30%,rgba(10,26,38,.3),rgba(4,8,14,.5) 100%)}
 #grade.g-mourn{background:linear-gradient(180deg,rgba(50,60,56,.24),rgba(30,38,34,.12) 50%,rgba(8,12,10,.36))}
+
+/* ── media (2026-07-30): telemetry-toned photographs + reserved reel ── */
+figure.photo img{filter:saturate(.85) brightness(.94);border:1px solid rgba(140,180,158,.25)}
+.film-cap,.film .snd{font-family:'IBM Plex Mono',monospace!important}
+.film-frame{position:relative}
+.film-frame.noreel::after{content:'[ NO FEED · REEL PENDING · SEE clips/README ]';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.2em;color:#6fcf9a;pointer-events:none}
+.film-frame.noreel .snd{display:none}

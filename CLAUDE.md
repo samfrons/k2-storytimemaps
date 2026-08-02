@@ -1,14 +1,20 @@
-# K2 1939 — "The Mountain That Swallowed Them"
+# K2 — "One Mountain, Four Storms"
 
-Immersive single-page scrollytelling site about the 1939 American K2
-expedition, deployed at **k2.storytimemaps.com**. A lean Next.js (App Router,
-`output: 'export'`) shell around a deliberately plain static story. Package
-manager: **pnpm**.
+Immersive scrollytelling site about K2's four great disasters, deployed at
+**k2.storytimemaps.com**. A lean Next.js (App Router, `output: 'export'`)
+shell around deliberately plain static stories. Package manager: **pnpm**.
+
+Routes (restructured 2026-07-30): **`/` is the hub** (One Mountain, Four
+Storms); the original 1939 story lives at **`/1939`**; the era pages at
+`/1986`, `/1995`, `/2008`. `/disasters` 301-redirects to `/` (vercel.json).
+**All pages use absolute asset paths** (`/js/…`, `/img/…`, `/clips/…`) — the
+old "1939 keeps relative paths" rule died with the move to `/1939`.
 
 ## Working practices for agents
 
-- **Sam edits `app/story.html`, `public/css/main.css`, and this file directly
-  between sessions.** Never edit from memory of a previous session's file
+- **Sam edits `app/1939/story.html` (the 1939 story), `app/hub.html` (the
+  hub at `/`), `public/css/main.css`, and this file directly between
+  sessions.** Never edit from memory of a previous session's file
   state — re-read the current file first. Editorial HTML comments in the
   story (e.g. the day-count reconciliation note at ev7) are binding guidance.
 - Verify changes with `pnpm build` plus a local browser pass
@@ -29,8 +35,8 @@ run `pnpm build && pnpm preview` and go through the smoke checklist in
 
 ## The story stays plain HTML/CSS/JS — do not React-ify it
 
-`app/story.html` is the entire story markup **verbatim** (including its three
-classic `<script>` tags at the end). `app/page.tsx` injects it untouched via
+`app/1939/story.html` is the entire 1939 story markup **verbatim** (including its three
+classic `<script>` tags at the end). `app/1939/page.tsx` injects it untouched via
 `dangerouslySetInnerHTML` inside a `display: contents` wrapper, so the
 browser parses and executes it exactly like the original single-file page —
 scripts run synchronously, in order, after the DOM above them, before React
@@ -83,10 +89,14 @@ posture and must keep their credits in the cards and colophon.
 
 - `app/layout.tsx` — head only: metadata, favicon, Google Fonts +
   `/css/main.css` links (React 19 `precedence` hoisting).
-- `app/page.tsx` — reads and injects `app/story.html`. Nothing else.
-- `app/story.html` — all story markup, incl. the vignette SVGs in `#stage`
-  and the three script tags. Relative asset paths (`clips/…`, `js/…`) resolve
-  against the `/` route — keep them relative.
+- `app/page.tsx` — the hub: metadata + hub fonts/`disasters.css` links,
+  injects `app/hub.html`. `app/1939/page.tsx` — metadata only, injects
+  `app/1939/story.html` (fonts + `main.css` come from the layout).
+- `app/1939/story.html` — the 1939 story markup, incl. the vignette SVGs in
+  `#stage` and the three script tags. Asset paths are absolute (`/clips/…`,
+  `/js/…`) because the page serves from `/1939`.
+- `app/hub.html` — the hub markup (century scrubber, cover cards, the
+  altitude wall, the ledger); loads the era-* scripts like an era page.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
   inspired; type system (settled 2026-07-20): **Fraunces** (display/headlines/
   numerals — variable, opsz 9–144, real italics; hero + covers at 600, solid
@@ -171,15 +181,23 @@ never React-ify):
   - `public/js/era-extras.js` — extras.js sibling; scrubber dates read from
     `__ERA.events`; adds the 1995 `.tr-item` peel toggle; narration/wind/
     typewriter/evidence-docs/stars work as on the 1939 page.
-- The 1939 page links onward via the `.epochs` block before the footer, and
+- The 1939 page links onward via the `.epochs` block before the footer (its hub link points to `/`), and
   every era page carries the fixed `.eranav` switcher + footer cross-links.
 - Content accuracy rule applies in full: the 1986/1995/2008 pages follow the
   documented record (Curran 1987, Diemberger 1991, Rose & Douglas 1999,
   Bowley 2010, Zuckerman & Padoan 2012, Viesturs & Roberts 2009, and the
-  Wikipedia disaster articles). No 1986/1995/2008 photography may be added —
-  nothing from those years is public domain; the pages are illustrated with
-  terrain, typography, and original drawn diagrams only. The 1995 front
-  pages must stay invented pastiches and say so on-page.
+  Wikipedia disaster articles). Imagery (owner's decision, Sam 2026-07-30):
+  the era pages may carry **freely licensed photography** (public domain /
+  CC via Wikimedia Commons, hotlinked with license + photographer credited
+  in the caption and colophon — verify the license via the Commons API
+  before adding) and **reserved film frames** (`/clips/k86-…`, `k95-…`,
+  `k08-…`) that degrade to an era-styled "reel pending" state until Sam cuts
+  short credited excerpts under the same fair-use posture as 1939 (see
+  `public/clips/README.md`). **No unlicensed 1986–2008 photography, ever**;
+  nothing from the disaster seasons themselves is freely licensed. The 1995
+  front pages must stay invented pastiches and say so on-page — and no
+  free-license photograph of Alison Hargreaves exists, a fact the 1995 page
+  states deliberately.
 
 ## Hero variants — undecided (2026-07-30)
 
@@ -188,16 +206,16 @@ query parameter, after the mid-century survival-manual and expedition-book
 covers Sam collected. **None is the default**; with no parameter the original
 prologue renders untouched.
 
-- `/?hero=pamphlet` — Air Ministry Pamphlet 224: cream bands across the
+- `/1939?hero=pamphlet` — Air Ministry Pamphlet 224: cream bands across the
   terrain, heavy caps knocked in, blue rule, AAC imprint band.
-- `/?hero=savage` — Houston & Bates *K2: The Savage Mountain*: cut-paper
+- `/1939?hero=savage` — Houston & Bates *K2: The Savage Mountain*: cut-paper
   caps on the photograph, teal dek block, wine strip under the subtitle.
-- `/?hero=manual` — FM 21-76 / *The Survival Book*: bordered ivory sheet,
+- `/1939?hero=manual` — FM 21-76 / *The Survival Book*: bordered ivory sheet,
   index line, four-cell stat register.
 
-Markup: the `.hero-v` blocks inside `.prologue` in `app/story.html`; styles
+Markup: the `.hero-v` blocks inside `.prologue` in `app/1939/story.html`; styles
 in the v15 section of `main.css`; the switch is a parse-time inline script at
-the top of `app/story.html` (inline so there's no flash of the default —
+the top of `app/1939/story.html` (inline so there's no flash of the default —
 inline scripts execute because the story is server-rendered into the HTML,
 not injected client-side). **When one is chosen, fold it into the prologue
 markup and delete the other two plus the switch.**
@@ -236,7 +254,7 @@ In `public/js/engine.js`:
 - `FEATURES` / `MOMENTS` (≈line 64) — named-feature pins and moment pins.
 - `KEYS` (≈line 219) — the ~45 camera keyframes:
   `[dom-id, camp, zoom, pitch, bearing, y-offset, grade]`. Keyframes anchor
-  to DOM element ids, so renaming/removing an id in `app/story.html` silently
+  to DOM element ids, so renaming/removing an id in `app/1939/story.html` silently
   breaks the camera path. The 7th field is the color-grade class
   (`g-day`, `g-storm`, `g-night`, `g-dusk`, `g-mourn`, `g-city`) styled in
   `public/css/main.css`; `snowSet()` maps grades to snow-particle modes.
@@ -248,7 +266,7 @@ In `public/js/extras.js`: the scrubber's own `DATES` (≈line 54) plus
 `engine.js`.
 
 The 17 timeline steps are the `.over-step[data-ev]` elements in
-`app/story.html` (`#ev0`–`#ev16`); `data-alt` attributes drive the altimeter.
+`app/1939/story.html` (`#ev0`–`#ev16`); `data-alt` attributes drive the altimeter.
 
 ## Build / deploy notes
 

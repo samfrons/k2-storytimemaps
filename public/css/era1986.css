@@ -103,3 +103,11 @@ body.explore .eranav{opacity:0;pointer-events:none;transition:opacity .8s}
 #grade.g-day{background:linear-gradient(180deg,rgba(150,90,40,.1),transparent 42%,rgba(22,18,9,.22))}
 #grade.g-storm{background:linear-gradient(180deg,rgba(50,56,66,.34),rgba(36,40,48,.18) 50%,rgba(12,13,16,.4))}
 #grade.g-mourn{background:linear-gradient(180deg,rgba(64,60,56,.24),rgba(42,40,38,.12) 50%,rgba(15,14,12,.34))}
+
+/* ── media (2026-07-30): Kodachrome photographs + reserved film reels ── */
+figure.photo img{filter:saturate(1.12) contrast(1.06)}
+figure.photo figcaption{font-family:'Courier Prime',monospace!important;letter-spacing:.08em;text-transform:none}
+.film-cap,.film .snd,figure.filmfig .snd,figure.filmfig figcaption{font-family:'Courier Prime',monospace!important;letter-spacing:.1em}
+.film-frame,.ff-wrap{position:relative}
+.film-frame.noreel::after,.ff-wrap.noreel::after{content:'REEL PENDING · SEE clips/README';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Courier Prime',monospace;font-size:.68rem;letter-spacing:.34em;color:#8a7f68;pointer-events:none}
+.film-frame.noreel .snd,.ff-wrap.noreel .snd{display:none}

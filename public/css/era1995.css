@@ -149,3 +149,10 @@ body.explore .eranav{opacity:0;pointer-events:none;transition:opacity .8s}
 /* grades: newsprint grey storms */
 #grade.g-storm{background:linear-gradient(180deg,rgba(60,62,66,.34),rgba(44,46,50,.18) 50%,rgba(14,15,17,.4))}
 #grade.g-mourn{background:linear-gradient(180deg,rgba(70,70,72,.24),rgba(46,46,48,.12) 50%,rgba(16,16,17,.34))}
+
+/* ── media (2026-07-30): newsprint photographs + reserved bulletin reel ── */
+figure.photo img{filter:grayscale(1) contrast(1.1) brightness(1.02)}
+.film-cap,.film .snd{font-family:'Oswald',sans-serif!important}
+.film-frame{position:relative}
+.film-frame.noreel::after{content:'NO SIGNAL — REEL PENDING · SEE clips/README';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'VT323',monospace;font-size:1.2rem;letter-spacing:.16em;color:#37e46f;text-shadow:0 0 6px rgba(55,228,111,.5);pointer-events:none}
+.film-frame.noreel .snd{display:none}

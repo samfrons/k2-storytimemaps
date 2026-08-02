@@ -100,6 +100,29 @@
     if(head) head.addEventListener('click',()=>item.classList.toggle('open'));
   });
 
+  // ── LOCAL CLIPS: play when visible, tap button for sound, letterbox while
+  // on screen (same behavior as the 1939 engine/extras). A missing file
+  // degrades to the era-styled empty frame — the slot machinery still works.
+  const vids=[...document.querySelectorAll('video.clip')];
+  if(vids.length){
+    const vIO=new IntersectionObserver(es=>{es.forEach(e=>{
+      const v=e.target;
+      if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+    })},{threshold:.35});
+    const visClips=new Set();
+    const lbIO=new IntersectionObserver(es=>{es.forEach(e=>{
+      if(e.isIntersecting) visClips.add(e.target); else visClips.delete(e.target);
+      document.body.classList.toggle('filmy', visClips.size>0);
+    })},{threshold:.4});
+    vids.forEach(v=>{ vIO.observe(v); lbIO.observe(v);
+      v.addEventListener('error',()=>v.closest('.film-frame,.ff-wrap')?.classList.add('noreel'),true); });
+    document.querySelectorAll('.snd').forEach(b=>{
+      b.addEventListener('click',()=>{ const v=b.parentElement.querySelector('video');
+        if(!v) return;
+        v.muted=!v.muted; b.textContent=v.muted?'Sound on':'Mute'; if(!v.muted) v.play().catch(()=>{}); });
+    });
+  }
+
   // ── STARFIELD + memorial night
   const st=document.getElementById('stars');
   if(st){ const c=st.getContext('2d');

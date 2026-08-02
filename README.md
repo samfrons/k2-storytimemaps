@@ -15,14 +15,15 @@ Sources are in the site's colophon.
 The site now carries K2's four great catastrophes, each told in the design
 language of its own era, plus a hub that visualizes them together:
 
-- `/` — **1939**, the original page (sealed-archive paper, Fraunces/Jost)
+- `/` — **One Mountain, Four Storms**, the hub: century scrubber, four era
+  cover cards, the deaths-by-altitude chart, and the full ledger of names
+- `/1939` — **1939**, the original page (sealed-archive paper, Fraunces/Jost)
 - `/1986` — **The Black Summer** (Kodachrome slide mounts, typed dispatches)
 - `/1995` — **One Day as a Tiger** (newsprint/tabloid, teletext weather, the
   headline "trial")
 - `/2008` — **The Bottleneck** (live tracking dashboard, radio log, GPS)
-- `/disasters` — **One Mountain, Four Storms**: century scrubber over the
-  terrain, four era cover cards, a deaths-by-altitude chart, and the full
-  ledger of names
+
+`/disasters` permanently redirects to `/` (vercel.json).
 
 Era pages share `public/js/era-{map,chrome,extras}.js` (a parameterized
 sibling of the 1939 engine/chrome/extras; per-page data lives in a
@@ -34,8 +35,8 @@ sibling of the 1939 engine/chrome/extras; per-page data lives in a
 A lean Next.js (App Router, static export) wrapper around a deliberately
 plain static story:
 
-- `app/story.html` — the entire story markup, **verbatim HTML** (including
-  its three classic `<script>` tags), injected untouched by `app/page.tsx`.
+- `app/1939/story.html` — the entire 1939 story markup, **verbatim HTML** (including
+  its three classic `<script>` tags), injected untouched by `app/1939/page.tsx`.
   It is intentionally not React components — see `CLAUDE.md`.
 - `app/layout.tsx` — head only: title/OG metadata, favicon, font + stylesheet
   links.
@@ -117,7 +118,7 @@ spec.
 - [ ] With reduced motion enabled, animations/particles/typewriter are off
 - [ ] Browser console shows no hydration errors or React warnings
 
-Era pages (`/1986`, `/1995`, `/2008`, `/disasters`):
+Era pages and the hub (`/`, `/1986`, `/1995`, `/2008`):
 
 - [ ] Terrain loads on each page; loading veil fades
 - [ ] Camera scrubs through each page's keyframes in both directions
@@ -127,7 +128,10 @@ Era pages (`/1986`, `/1995`, `/2008`, `/disasters`):
 - [ ] 1995: teletext panels render; the four "trial" headlines peel on tap
 - [ ] 2008: radio log types itself; the three evidence files bring forward
 - [ ] 1986: typed dispatches type; slide-mount diagrams render
-- [ ] `/disasters`: century steps recolor the pins; altitude chart marks
-      show name tooltips; cover cards link to all four stories
+- [ ] `/` (hub): century steps drive the pins; altitude chart marks show
+      name tooltips; cover cards link to all four stories; `/disasters`
+      redirects to `/`
+- [ ] Era media: Commons figures load with credits; film frames show the
+      era-styled "reel pending" state while clips are absent
 - [ ] `.epochs` block on the 1939 page links to the three era pages + hub
 - [ ] Era switcher (`.eranav`) present on era pages and hidden in explore

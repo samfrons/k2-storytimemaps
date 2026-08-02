@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/disasters", "destination": "/", "permanent": true }
+  ]
+}
