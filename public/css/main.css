@@ -199,6 +199,9 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 .footer{padding:8rem 1.6rem 9rem;text-align:center;font-size:.76rem;font-weight:400;line-height:2.6;letter-spacing:.16em;text-transform:uppercase;color:rgba(241,236,223,.8);text-shadow:0 1px 3px rgba(0,0,0,.85),0 1px 10px rgba(0,0,0,.6)}
 .footer em{font-style:normal;color:var(--ivory)}
 .footer .final{display:block;margin-top:2.6rem;font-family:'Fraunces',serif;font-size:1.5rem;font-style:italic;letter-spacing:0;text-transform:none;color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
+.footer .rights{display:block;margin-top:2.8rem;font-size:.66rem;line-height:2;color:rgba(241,236,223,.55)}
+.footer .rights a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(241,236,223,.26)}
+.footer .rights a:hover{color:var(--ivory);border-bottom-color:var(--ivory)}
 
 /* spacing beats between blocks so the mountain breathes */
 .breath{height:44vh;pointer-events:none}
