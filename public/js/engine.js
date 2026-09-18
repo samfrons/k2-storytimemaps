@@ -143,7 +143,7 @@
     let ctSrc=null;
     try{
       if(window.mlcontour){
-        const ds=new mlcontour.DemSource({url:DEM_TILES[0],encoding:'terrarium',maxzoom:14,worker:false});
+        const ds=new mlcontour.DemSource({url:DEM_TILES[0],encoding:'terrarium',maxzoom:14,worker:true});
         ds.setupMaplibre(maplibregl);
         ctSrc={type:'vector',maxzoom:15,tiles:[ds.contourProtocolUrl({
           multiplier:1, elevationKey:'ele', levelKey:'level', contourLayer:'contours',
@@ -193,8 +193,15 @@
       // Cross-fade the poster out on the map's first *idle* (tiles/terrain
       // actually drawn), not 'load' (fires before the first paint) — 'once'
       // so later idle events (post-scrub, resize) don't re-trigger it.
-      map.once('idle', ()=>{ fallback.classList.add('off'); });
+      // On a slow connection the first idle can be many seconds away (a
+      // high-pitch view pulls tiles to the horizon), so also release the
+      // poster 3.5 s after 'load' — a half-drawn live mountain beats a stale
+      // still. window.__mapIdle marks the true first idle (scripts/poster.mjs
+      // waits on it so the poster is always shot from a settled frame).
+      const release=()=>fallback.classList.add('off');
+      map.once('idle', ()=>{ window.__mapIdle=true; release(); });
       map.on('load', ()=>{
+        setTimeout(release, 3500);
         map.setTerrain({source:'dem', exaggeration:1.35});
 
         // full route (faint dashed) + progress (reached so far) + rescue line

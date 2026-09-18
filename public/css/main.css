@@ -32,7 +32,7 @@ a{color:var(--wine-l)}
    cross-fades out on the live map's first 'idle' event (see engine.js);
    .off only changes opacity so the fade animates, and it stays 'on'
    (never faded) if initMap() fails, per fail() in engine.js. */
-#bgFallback{position:fixed;inset:0;z-index:0;display:none;background-size:cover;background-position:center;filter:sepia(.3) brightness(.75) contrast(1.05);opacity:1;transition:opacity 1.2s ease;pointer-events:none}
+#bgFallback{position:fixed;inset:0;z-index:0;display:none;background-size:cover;background-position:center;opacity:1;transition:opacity 1.2s ease;pointer-events:none}
 #bgFallback.on{display:block}
 #bgFallback.off{opacity:0}
 #bgVeil{position:fixed;inset:0;z-index:1;pointer-events:none;background:

@@ -99,15 +99,14 @@ await ctx.route('https://**', async (route) => {
 });
 
 const page = await ctx.newPage();
-await page.goto(`http://127.0.0.1:${port}/1939/`, { waitUntil: 'load' });
+await page.goto(`http://127.0.0.1:${port}/1939/`, { waitUntil: 'domcontentloaded', timeout: 120000 });
 
-// Wait for the map to actually settle: engine.js adds the 'off' class to
-// #bgFallback itself on the map's first 'idle' event (terrain + tiles
-// drawn) — waiting on that real signal instead of a fixed delay avoids
-// screenshotting a still-black canvas on a slow tile fetch.
+// Wait for the map to actually settle: engine.js sets window.__mapIdle on
+// the map's first 'idle' event (terrain + tiles drawn). #bgFallback also
+// fades on a 3.5 s timer after 'load', so the class is not a settled signal.
 await page.waitForFunction(
-  () => document.getElementById('bgFallback')?.classList.contains('off'),
-  { timeout: 45000 },
+  () => window.__mapIdle === true,
+  { timeout: 240000 },
 ).catch(() => {});
 await page.waitForTimeout(1500); // let the last frame settle
 await page.evaluate(() => {
