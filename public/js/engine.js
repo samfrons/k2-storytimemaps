@@ -95,20 +95,29 @@
 
   let ch4Active=false, _zoneVig=''; function zoneVigActive(){return !!_zoneVig;} let map=null, ready=false, markers={}, camps={}, feats=[], moms=[], keyPts=[], camDirty=true, curEv=-99;
 
-  function fail(){ fallback.classList.add('on'); bgLoad.classList.add('off'); }
+  // Poster (fallback) is already visible by default (see story.html); on
+  // failure just make sure it never gets the fade-out class and surface the
+  // small error veil instead of a silently-stuck poster.
+  function fail(){ fallback.classList.remove('off'); fallback.classList.add('on'); bgLoad.classList.add('on'); }
 
   function loadLib(cb){
     if(window.maplibregl) return cb();
+    // Self-hosted first (also what the preload <link> in <head> warms up),
+    // then cdnjs, then unpkg as last-resort fallbacks.
     const css=document.createElement('link'); css.rel='stylesheet';
-    css.href='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css';
-    css.onerror=()=>{css.href='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css';};
+    css.href='/vendor/maplibre-gl.min.css';
+    css.onerror=()=>{ css.onerror=()=>{css.href='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css';};
+      css.href='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css'; };
     document.head.appendChild(css);
     const s=document.createElement('script');
-    s.src='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js';
+    s.src='/vendor/maplibre-gl.min.js';
     s.onload=cb;
     s.onerror=()=>{ const s2=document.createElement('script');
-      s2.src='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js';
-      s2.onload=cb; s2.onerror=fail; document.head.appendChild(s2); };
+      s2.src='https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js';
+      s2.onload=cb; s2.onerror=()=>{ const s3=document.createElement('script');
+        s3.src='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js';
+        s3.onload=cb; s3.onerror=fail; document.head.appendChild(s3); };
+      document.head.appendChild(s2); };
     document.head.appendChild(s);
   }
 
@@ -147,6 +156,10 @@
         canvasContextAttributes:{antialias:false, powerPreference:'high-performance'}
       });
       map.on('error', ()=>{ if(!ready) fail(); });
+      // Cross-fade the poster out on the map's first *idle* (tiles/terrain
+      // actually drawn), not 'load' (fires before the first paint) — 'once'
+      // so later idle events (post-scrub, resize) don't re-trigger it.
+      map.once('idle', ()=>{ fallback.classList.add('off'); });
       map.on('load', ()=>{
         map.setTerrain({source:'dem', exaggeration:1.55});
 
@@ -215,7 +228,6 @@
         map.on('idle', scheduleClamp);
         ready=true; camDirty=true;
         applyEvent(curEv, true);
-        setTimeout(()=>bgLoad.classList.add('off'), 400);
       });
     }catch(e){ fail(); }
   }

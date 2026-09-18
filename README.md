@@ -94,7 +94,10 @@ Verify against `pnpm build && pnpm preview`; the original single-file
 version's behavior (git history: `index.html` at the initial commits) is the
 spec.
 
-- [ ] Terrain loads behind the loading veil ("Raising the mountain" fades out)
+- [ ] The poster frame (`/img/poster-1939.jpg`) is visible instantly on load
+      (no black flash); the live map cross-fades in over it once terrain/tiles
+      settle (~1.2s fade, triggered by the map's first `idle` event, not
+      `load`); "Raising the mountain" only appears if the map fails to load
 - [ ] Camera scrubs on scroll, smoothly, in **both** directions
 - [ ] All 17 timeline steps (Ch IV) update markers, HUD, and scrubber
 - [ ] Camp states flip at the **July 20–21** step (Camps I–IV, VI–VII turn

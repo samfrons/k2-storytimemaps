@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { preconnect, preload } from 'react-dom';
 import type { Metadata } from 'next';
 
 const DESCRIPTION =
@@ -24,6 +25,19 @@ export const metadata: Metadata = {
 const story = readFileSync(join(process.cwd(), 'app/1939/story.html'), 'utf8');
 
 export default function Page() {
+  // Warm up the map's network + script dependencies in parallel with HTML
+  // parsing, instead of waiting for the story's own <script> tags
+  // (weather.js -> engine.js -> chrome.js -> extras.js) to run before
+  // engine.js's loadLib() even starts fetching MapLibre. react-dom's
+  // preload/preconnect are the canonical React 19 resource-hint API — they
+  // dedupe and hoist into <head> regardless of call site, unlike a raw
+  // <link> (which Next/React render literally and can end up emitted twice
+  // alongside its own float-scanned copy).
+  preconnect('https://server.arcgisonline.com');
+  preconnect('https://s3.amazonaws.com');
+  preconnect('https://fonts.gstatic.com', { crossOrigin: 'anonymous' });
+  preload('/vendor/maplibre-gl.min.js', { as: 'script' });
+  preload('/vendor/maplibre-gl.min.css', { as: 'style' });
   return (
     <div
       style={{ display: 'contents' }}
