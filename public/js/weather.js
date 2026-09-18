@@ -21,35 +21,41 @@
   // ── atmosphere presets ─────────────────────────────────────────────────
   // sky: MapLibre sky spec · hs: hillshade paint · ras: raster paint
   const BASE = {
-    sky:{c:'#0d1320',h:'#c9b895',f:'#3a3629',shb:.6,hfb:.55,fgb:.62},
-    hs:{ex:.35,sh:'#221c14',hi:'#f6ecd6',ac:'#3a342a'},
-    ras:{sat:-.45,con:.08,bri:.92}
+    sky:{c:'#101a2a',h:'#c9ab86',f:'#4b4a44',shb:.7,hfb:.65,fgb:.7},
+    hs:{ex:.42,dir:300,sh:'#1a150e',hi:'#fff6e4',ac:'#2a241c'},
+    ras:{sat:-.12,con:.12,bri:.96}
   };
+  // Colour comes from the imagery; mood comes from sky/fog + the #grade
+  // gradient. Only storm/night/mourn desaturate hard (2026-09-18).
+  // hs.dir = hillshade illumination direction: one sun per grade, eased.
   const P = {
     '': BASE,
-    'g-day':  {sky:{c:'#2a3f5c',h:'#d8c9a0',f:'#4a443a',shb:.55,hfb:.5, fgb:.55},
-               hs:{ex:.35,sh:'#241d14',hi:'#fff2d8',ac:'#3a342a'},
-               ras:{sat:-.35,con:.1, bri:.95}},
-    'g-storm':{sky:{c:'#3f4650',h:'#6d7580',f:'#5c636e',shb:.85,hfb:.85,fgb:.95},
-               hs:{ex:.28,sh:'#2a2f38',hi:'#b8c0cc',ac:'#3a4048'},
-               ras:{sat:-.75,con:0,  bri:.62}},
-    'g-night':{sky:{c:'#050a16',h:'#16223c',f:'#0e1626',shb:.7, hfb:.7, fgb:.8},
-               hs:{ex:.45,sh:'#04060c',hi:'#7d95bd',ac:'#101826'},
-               ras:{sat:-.7, con:.06,bri:.5}},
-    'g-dusk': {sky:{c:'#2a1e30',h:'#c07a48',f:'#4e3226',shb:.65,hfb:.6, fgb:.68},
-               hs:{ex:.4, sh:'#301a12',hi:'#f0c896',ac:'#402a1c'},
-               ras:{sat:-.3, con:.08,bri:.78}},
+    'g-day':  {sky:{c:'#274a73',h:'#e2b98e',f:'#7d7466',shb:.7, hfb:.62,fgb:.6},
+               hs:{ex:.42,dir:295,sh:'#1c1610',hi:'#fff2d8',ac:'#2c261c'},
+               ras:{sat:-.05,con:.12,bri:1}},
+    'g-storm':{sky:{c:'#20242a',h:'#5c6066',f:'#5a5d60',shb:.85,hfb:.85,fgb:.92},
+               hs:{ex:.3, dir:330,sh:'#2a2f38',hi:'#b8c0cc',ac:'#3a4048'},
+               ras:{sat:-.5, con:.04,bri:.7}},
+    'g-night':{sky:{c:'#03050c',h:'#131c2e',f:'#0a1020',shb:.7, hfb:.7, fgb:.8},
+               hs:{ex:.55,dir:200,sh:'#04060c',hi:'#7d95bd',ac:'#101826'},
+               ras:{sat:-.55,con:.08,bri:.54}},
+    'g-dusk': {sky:{c:'#2a1e30',h:'#d08a52',f:'#4e3226',shb:.68,hfb:.6, fgb:.66},
+               hs:{ex:.44,dir:250,sh:'#301a12',hi:'#f0c896',ac:'#402a1c'},
+               ras:{sat:.05, con:.1, bri:.86}},
     'g-mourn':{sky:{c:'#565a60',h:'#a8a49a',f:'#84827c',shb:.75,hfb:.7, fgb:.8},
-               hs:{ex:.3, sh:'#26262a',hi:'#d8d6d0',ac:'#3c3c40'},
-               ras:{sat:-.85,con:.02,bri:.78}},
-    'g-city': {sky:{c:'#1a1210',h:'#8a5c34',f:'#33251a',shb:.65,hfb:.6, fgb:.66},
-               hs:{ex:.38,sh:'#241410',hi:'#e0b880',ac:'#38241a'},
-               ras:{sat:-.5, con:.08,bri:.7}}
+               hs:{ex:.34,dir:320,sh:'#26262a',hi:'#d8d6d0',ac:'#3c3c40'},
+               ras:{sat:-.55,con:.06,bri:.82}},
+    'g-city': {sky:{c:'#1a1210',h:'#b57a44',f:'#33251a',shb:.68,hfb:.6, fgb:.64},
+               hs:{ex:.4, dir:300,sh:'#241410',hi:'#e0b880',ac:'#38241a'},
+               ras:{sat:-.25,con:.1, bri:.8}}
   };
+
 
   const hex2rgb = x=>[parseInt(x.slice(1,3),16),parseInt(x.slice(3,5),16),parseInt(x.slice(5,7),16)];
   const rgb2hex = c=>'#'+c.map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join('');
   const lerp=(a,b,t)=>a+(b-a)*t;
+  // illumination direction is an angle: take the short way round
+  const lerpA=(a,b,t)=>{const d=((b-a+540)%360)-180; return (a+d*t+360)%360;};
   const lerpC=(a,b,t)=>rgb2hex(hex2rgb(a).map((v,i)=>lerp(v,hex2rgb(b)[i],t)));
   const ease=t=>t<.5?2*t*t:-1+(4-2*t)*t;
 
@@ -61,6 +67,7 @@
       if(map.setSky) map.setSky({'sky-color':v.sky.c,'horizon-color':v.sky.h,'fog-color':v.sky.f,
         'sky-horizon-blend':v.sky.shb,'horizon-fog-blend':v.sky.hfb,'fog-ground-blend':v.sky.fgb});
       map.setPaintProperty('hs','hillshade-exaggeration',v.hs.ex);
+      map.setPaintProperty('hs','hillshade-illumination-direction',v.hs.dir);
       map.setPaintProperty('hs','hillshade-shadow-color',v.hs.sh);
       map.setPaintProperty('hs','hillshade-highlight-color',v.hs.hi);
       map.setPaintProperty('hs','hillshade-accent-color',v.hs.ac);
@@ -80,7 +87,7 @@
       cur = {
         sky:{c:lerpC(from.sky.c,tgt.sky.c,k),h:lerpC(from.sky.h,tgt.sky.h,k),f:lerpC(from.sky.f,tgt.sky.f,k),
              shb:lerp(from.sky.shb,tgt.sky.shb,k),hfb:lerp(from.sky.hfb,tgt.sky.hfb,k),fgb:lerp(from.sky.fgb,tgt.sky.fgb,k)},
-        hs:{ex:lerp(from.hs.ex,tgt.hs.ex,k),sh:lerpC(from.hs.sh,tgt.hs.sh,k),
+        hs:{ex:lerp(from.hs.ex,tgt.hs.ex,k),dir:lerpA(from.hs.dir,tgt.hs.dir,k),sh:lerpC(from.hs.sh,tgt.hs.sh,k),
             hi:lerpC(from.hs.hi,tgt.hs.hi,k),ac:lerpC(from.hs.ac,tgt.hs.ac,k)},
         ras:{sat:lerp(from.ras.sat,tgt.ras.sat,k),con:lerp(from.ras.con,tgt.ras.con,k),bri:lerp(from.ras.bri,tgt.ras.bri,k)}
       };

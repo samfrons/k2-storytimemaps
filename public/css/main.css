@@ -330,6 +330,13 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 .mk-camp2.cleared .l{background:rgba(241,236,223,.92)}
 .mk-feat .fl{background:rgba(241,236,223,.9);padding:.15rem .6rem;box-shadow:0 1px 4px rgba(20,17,12,.3)}
 .lbl-far .mk-camp2:not(.major) .l{opacity:0;transition:opacity .5s}
+/* Labels that don't stack (2026-09-18): inside Chapter IV only the current
+   event's highest camp keeps its text, alongside the two anchors (Base Camp,
+   Summit). The tent/point glyph stays for every camp. Explore mode shows all
+   labels again. */
+body.lbl-ev .mk-camp2:not(.cur):not(.anchor) .l{opacity:0;transition:opacity .5s}
+body.explore .mk-camp2 .l{opacity:1!important}
+body.explore .mk-feat:not(.off){opacity:1!important}
 .lbl-far .mk-feat{opacity:0!important}
 .mk-camp2 .l{transition:opacity .5s}
 .mk-mom .ml{background:rgba(241,236,223,.92)}
