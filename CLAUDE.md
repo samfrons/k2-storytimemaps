@@ -98,12 +98,17 @@ posture and must keep their credits in the cards and colophon.
 - `app/hub.html` — the hub markup (century scrubber, cover cards, the
   altitude wall, the ledger); loads the era-* scripts like an era page.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
-  inspired; type system (settled 2026-07-20): **Fraunces** (display/headlines/
-  numerals — variable, opsz 9–144, real italics; hero + covers at 600, solid
-  ivory with the `#hand-text` letterpress-worn filter), **Jost** (geometric
-  sans for the micro layer — kickers/HUD/labels/buttons/altimeter),
-  **Newsreader** (body — 1930s-newsprint-derived; body weight 380, not 300),
-  **Special Elite** (the typewritten record — keep).
+  inspired; type system (settled 2026-07-20, title face updated 2026-09-18):
+  **Fraunces** (headlines below the title level, numerals, chapter body
+  headings — variable, opsz 9–144, real italics), **Archivo** (the title
+  face: `.prologue h1` and `.ch-cover h2` — variable `wdth`/`wght`/`ital`,
+  set at `wdth 68`, weight 850, italic, uppercase, tight `line-height:.9`,
+  letter-spacing `.03em`, solid ivory with a restrained drop shadow; no
+  `#hand-text` filter and no glow halo on these two — the letterforms carry
+  the treatment on their own now), **Jost** (geometric sans for the micro
+  layer — kickers/HUD/labels/buttons/altimeter), **Newsreader** (body —
+  1930s-newsprint-derived; body weight 380, not 300), **Special Elite** (the
+  typewritten record — keep).
   Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
   Standing rules (Sam, 2026-07-20): **no tan/bronze-colored text** — bronze
   lives only in hairlines, borders, and the progress bar; markers and map
@@ -113,19 +118,27 @@ posture and must keep their credits in the cards and colophon.
   `public/fonts/` unused. **Big Shoulders Text was tried and rejected**
   (Sam, 2026-07-21) — too condensed to read at label sizes; Jost is the
   micro face. Micro type sits at .66–.78rem — do not shrink it back toward
-  the old .44–.62rem, which was illegible.
-  **Card treatment** (Sam, 2026-07-24; supersedes 2026-07-21): the floating
-  card surfaces `.panel`, `.over-card`, `.mem-inner` are layered for
-  legibility — the element itself has **no background and no blend**; a
-  `::before` (z-index −2) carries `rgb(255 255 255 / 92%)` +
-  `mix-blend-mode:color` (the neutral see-through), and a `::after`
-  (z-index −1) adds a normal-blend `rgb(250 247 240 / 60%)` veil that lifts
-  contrast evenly. Text therefore paints at full ink — putting the blend on
-  the whole element made text luminance depend on the terrain behind it,
-  which is what made it hard to read. Do **not** add `backdrop-filter`, and
-  do **not** give these elements permanent transforms/opacity (that isolates
-  the blend layer and kills the see-through). `.doc` and `.record` are paper
-  documents: solid `--cream`, no blend.
+  the old .44–.62rem, which was illegible. Eyebrow/cue/kicker letter-spacing
+  runs .16–.24em (dropped from an earlier .42–.5em, which read as overwide).
+  **Card treatment** (Sam, 2026-09-18; supersedes 2026-07-24): the floating
+  card surfaces `.panel`, `.over-card`, `.mem-inner`, `#locCard` (and the
+  `.pq-sky` and `.ch-cover .dek` plates) are dark glass — `background:
+  rgba(10,9,7,.56)`, a real `backdrop-filter: blur(14px) saturate(1.1)`
+  (+ `-webkit-` prefix) so the terrain shows through softened rather than
+  color-blended, `border:1px solid rgba(255,255,255,.12)`, and
+  `box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 30px 60px -20px
+  rgba(0,0,0,.6)`. Sharp corners, no border-radius, no top bronze bar. Text
+  inside paints ivory: body `rgba(241,236,223,.9)`, headings `var(--ivory)`,
+  muted/kicker/caption text `rgba(241,236,223,.62)`, hairlines
+  `rgba(241,236,223,.14)`, `.dng`/tragic accents `var(--wine-l)`. The
+  `.tragic` variant (`.over-card.tragic`, the memorial's `.mem-inner`) gets a
+  2px `var(--wine-l)` **left** border instead of a top bar. `backdrop-filter`
+  is expected here now — the old `::before`/`::after` mix-blend-mode
+  layering (2026-07-24) is gone; there's nothing left to keep in sync when a
+  new glass surface is added, just apply the same five declarations.
+  `.doc` and `.record` stay solid `--cream` paper with ink text — they now
+  sit inside a dark glass panel, not a light one, so re-check their shadow
+  and spacing before assuming they still read as loose sheets on top of it.
 - `public/js/engine.js` — MapLibre 3D terrain background (keyless: AWS
   terrarium DEM + Esri imagery + hillshade), scroll-scrubbed camera,
   camp/climber markers, the 17-event timeline, vignette + grade + snow

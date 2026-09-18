@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 const FONTS_HREF =
-  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Jost:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Special+Elite&display=swap';
+  'https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Jost:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Special+Elite&display=swap';
 
 // Shared metadata only — every page (the hub at /, the four stories) sets
 // its own title/description/OG in its page.tsx.
