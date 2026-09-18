@@ -112,7 +112,36 @@
     document.head.appendChild(s);
   }
 
+  // ── contour lines (maplibre-contour, self-hosted)
+  // Loaded after maplibre and before initMap; the library registers a custom
+  // protocol on maplibregl, so it has to be in place before the Map is built.
+  // Failure is silent: initMap checks window.mlcontour and simply omits the
+  // contour source/layer, leaving the rest of the style identical.
+  // worker:false on purpose — the 0.1.0 UMD bundle needs a separate
+  // index.worker.min.js served at workerUrl for worker:true, which we do not
+  // self-host; the main-thread decoder keeps up at our zoom range.
+  function loadContour(cb){
+    if(window.mlcontour) return cb();
+    const s=document.createElement('script');
+    s.src='/vendor/maplibre-contour.min.js';
+    s.onload=cb; s.onerror=()=>cb();
+    document.head.appendChild(s);
+  }
+
+  const DEM_TILES=['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'];
+
   function initMap(){
+    let ctSrc=null;
+    try{
+      if(window.mlcontour){
+        const ds=new mlcontour.DemSource({url:DEM_TILES[0],encoding:'terrarium',maxzoom:14,worker:false});
+        ds.setupMaplibre(maplibregl);
+        ctSrc={type:'vector',maxzoom:15,tiles:[ds.contourProtocolUrl({
+          multiplier:1, elevationKey:'ele', levelKey:'level', contourLayer:'contours',
+          thresholds:{10:[500,2000],11:[200,1000],12:[100,500],13:[100,500],14:[50,250]}
+        })]};
+      }
+    }catch(e){ ctSrc=null; }
     try{
       map = new maplibregl.Map({
         container:'bgMap',
@@ -123,32 +152,37 @@
               tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
               tileSize:256, maxzoom:17,
               attribution:'Imagery © Esri, Maxar, Earthstar Geographics'},
-            demhs:{type:'raster-dem',
-              tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
-              tileSize:256, encoding:'terrarium', maxzoom:14},
+            // one DEM source feeds both the terrain mesh and the hillshade
             dem:{type:'raster-dem',
-              tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+              tiles:DEM_TILES,
               tileSize:256, encoding:'terrarium', maxzoom:14,
-              attribution:'Terrain: Mapzen/AWS Open Data'}
+              attribution:'Terrain: Mapzen/AWS Open Data'},
+            ...(ctSrc?{contours:ctSrc}:{})
           },
           layers:[
             {id:'bg',type:'background',paint:{'background-color':'#14110c'}},
             {id:'sat',type:'raster',source:'sat',
-             paint:{'raster-saturation':-0.45,'raster-contrast':0.08,'raster-brightness-max':0.92}},
-            {id:'hs',type:'hillshade',source:'demhs',
-             paint:{'hillshade-exaggeration':0.35,'hillshade-shadow-color':'#221c14','hillshade-highlight-color':'#f6ecd6','hillshade-accent-color':'#3a342a'}}
+             paint:{'raster-saturation':-0.12,'raster-contrast':0.12,
+                    'raster-brightness-min':0.02,'raster-brightness-max':0.96,
+                    'raster-fade-duration':0}},
+            {id:'hs',type:'hillshade',source:'dem',
+             paint:{'hillshade-exaggeration':0.42,'hillshade-illumination-direction':300,
+                    'hillshade-shadow-color':'#1a150e','hillshade-highlight-color':'#fff6e4','hillshade-accent-color':'#2a241c'}},
+            ...(ctSrc?[{id:'ct',type:'line',source:'contours','source-layer':'contours',
+             paint:{'line-color':'rgba(241,236,223,0.22)',
+                    'line-width':['match',['get','level'],1,0.9,0.45]}}]:[])
           ],
-          sky:{'sky-color':'#0d1320','horizon-color':'#c9b895','fog-color':'#3a3629',
-               'sky-horizon-blend':0.6,'horizon-fog-blend':0.55,'fog-ground-blend':0.62}
+          sky:{'sky-color':'#101a2a','horizon-color':'#c9ab86','fog-color':'#4b4a44',
+               'sky-horizon-blend':0.7,'horizon-fog-blend':0.65,'fog-ground-blend':0.7}
         },
-        center:CAMPS.base.ll, zoom:10.3, pitch:34, bearing:336,
+        center:CAMPS.c1.ll, zoom:11.6, pitch:72, bearing:348,
         maxPitch:80, minZoom:8, maxZoom:15.5,
         interactive:false, attributionControl:{compact:true},
         canvasContextAttributes:{antialias:false, powerPreference:'high-performance'}
       });
       map.on('error', ()=>{ if(!ready) fail(); });
       map.on('load', ()=>{
-        map.setTerrain({source:'dem', exaggeration:1.55});
+        map.setTerrain({source:'dem', exaggeration:1.35});
 
         // full route (faint dashed) + progress (reached so far) + rescue line
         map.addSource('route',{type:'geojson',data:line(ROUTE)});
@@ -177,6 +211,9 @@
             +'<div class="l">'+c.name+' · '+c.ft.toLocaleString('en-US')+'\u2032</div>';
           if(noTent) el.classList.add('pknode');
           if(k==='base'||k==='c2'||k==='c7'||k==='summit') el.classList.add('major');
+          // Base Camp and the Summit always keep their label (the two fixed
+          // reference points); every other camp's label is event-driven.
+          if(k==='base'||k==='summit') el.classList.add('anchor');
           el.addEventListener('click',e=>{ if(window.__exploreOn){ e.stopPropagation(); lcOpen(k); } });
           camps[k]=el;
           new maplibregl.Marker({element:mkWrap(el),anchor:'top'}).setLngLat(c.ll).addTo(map);
@@ -265,30 +302,36 @@
   addEventListener('resize', scheduleClamp);
 
   // ── camera keyframes (page-order path)
+  // Framing rule (2026-09-18): pitch high enough that the horizon and sky stay
+  // in shot, bearings looking *up* the Abruzzi Ridge toward the summit
+  // (~330–20°, the summit sits N/NNW of Base Camp). Adjacent keys stay within
+  // a few dozen degrees so the scrub reads smooth in both directions; the
+  // evidence-room / colophon / footer keys keep their lower, flatter framing.
   const KEYS = [
-    ['prologue','base',10.3,34,336,-.05,''], ['k-quote','base',10.9,44,344,-.05,''],
-    ['ch1','base',11.4,50,354,-.05,'g-city'], ['k-ch1-end','c1',11.7,53,12,-.05,'g-city'],
-    ['clipB1','c1',11.8,54,18,-.05,'g-day'], ['ch2','c1',11.9,55,26,-.05,'g-day'], ['k-ch2-end','c2',12.1,57,44,-.05,'g-day'],
-    ['ch3','c2',12.3,60,62,-.04,'g-day'], ['k-ch3-end','c3',12.5,62,82,-.04,'g-day'],
-    ['clip1','c3',12.4,58,96,-.04,'g-day'],
-    ['ch4','base',11.2,50,128,-.06,'g-day'],
-    ['ev0','base',11.6,55,150,-.06,'g-day'], ['ev1','c2',12.6,62,135,-.05,'g-day'],
-    ['ev2','c4',12.9,66,120,-.05,'g-storm'], ['ev3','c5',13.1,68,110,-.04,'g-day'],
-    ['ev4','c7',13.1,70,102,-.04,'g-day'], ['ev5','c6',13.2,70,95,-.04,'g-day'],
-    ['ev6','c8',13.3,72,85,-.04,'g-day'], ['ev7','c9',13.5,74,70,-.03,'g-day'],
-    ['ev8','highpt',13.8,76,55,-.02,'g-night'], ['ev9','c7',12.8,68,72,-.05,'g-dusk'],
-    ['ev10','c7',13.4,72,88,-.03,'g-dusk'], ['ev11','base',11.9,58,116,-.06,'g-dusk'],
-    ['ev12','c6',12.7,68,104,-.05,'g-day'], ['ev13','c7',13.6,73,94,-.03,'g-dusk'],
-    ['ev14','c7',12.2,50,132,-.06,'g-dusk'], ['ev15','base',11.3,46,148,-.06,'g-mourn'],
-    ['ev16','c1',12.0,52,160,-.07,'g-mourn'],
-    ['clip3','c8',13.4,72,50,-.03,'g-night'], ['ch5','highpt',13.6,76,44,-.03,'g-night'],
-    ['ov5-0','c9',13.6,75,34,-.03,'g-night'], ['ov5-1','highpt',13.9,77,16,-.02,'g-night'],
-    ['ov5-2','highpt',13.7,76,356,-.03,'g-night'], ['ov5-3','c9',13.4,73,336,-.03,'g-night'],
-    ['ch6','c7',13.1,70,312,-.04,'g-dusk'], ['k-ch6-body','c5',12.5,62,288,-.05,'g-dusk'],
-    ['k-ch6-record','c7',13.3,71,262,-.03,'g-dusk'],
-    ['ch7','c2',11.2,46,232,-.05,'g-mourn'], ['k-ch7-body','base',10.8,40,208,-.05,'g-mourn'], ['evroom','c2',11.6,48,214,-.05,'g-mourn'], ['clip4','base',11.0,42,196,-.04,'g-mourn'], ['colophon','base',10.2,32,172,-.03,'g-mourn'],
-    ['memorial','base',12.0,55,182,-.05,'g-mourn'], ['footer','base',9.7,28,158,-.02,'']
+    ['prologue','c1',11.6,72,348,0,''], ['k-quote','base',11.3,70,352,-.02,''],
+    ['ch1','base',11.5,66,358,-.02,'g-city'], ['k-ch1-end','c1',11.8,70,4,-.02,'g-city'],
+    ['clipB1','c1',12.0,72,10,0,'g-day'], ['ch2','c1',12.0,73,6,0,'g-day'], ['k-ch2-end','c2',12.2,74,358,0,'g-day'],
+    ['ch3','c2',12.4,74,352,0,'g-day'], ['k-ch3-end','c3',12.6,75,346,0,'g-day'],
+    ['clip1','c3',12.5,74,342,0,'g-day'],
+    ['ch4','base',11.4,72,348,0,'g-day'],
+    ['ev0','base',11.7,72,354,0,'g-day'], ['ev1','c2',12.6,74,2,0,'g-day'],
+    ['ev2','c4',13.0,74,18,0,'g-storm'], ['ev3','c5',13.15,77,352,0,'g-day'],
+    ['ev4','c7',13.1,76,344,0,'g-day'], ['ev5','c6',13.2,76,350,0,'g-day'],
+    ['ev6','c8',13.3,77,338,0,'g-day'], ['ev7','c9',13.45,77,344,0,'g-day'],
+    ['ev8','highpt',13.5,78,338,0,'g-night'], ['ev9','c7',12.9,74,346,0,'g-dusk'],
+    ['ev10','c7',13.4,76,356,0,'g-dusk'], ['ev11','base',12.0,72,4,0,'g-dusk'],
+    ['ev12','c6',12.9,75,352,0,'g-day'], ['ev13','c7',13.5,77,344,0,'g-dusk'],
+    ['ev14','c7',12.4,70,352,-.02,'g-dusk'], ['ev15','base',11.5,68,358,-.02,'g-mourn'],
+    ['ev16','c1',12.1,70,6,-.02,'g-mourn'],
+    ['clip3','c8',13.4,76,350,0,'g-night'], ['ch5','highpt',13.5,78,342,0,'g-night'],
+    ['ov5-0','c9',13.5,77,336,0,'g-night'], ['ov5-1','highpt',13.8,78,344,0,'g-night'],
+    ['ov5-2','highpt',13.6,77,354,0,'g-night'], ['ov5-3','c9',13.4,75,2,0,'g-night'],
+    ['ch6','c7',13.1,72,8,0,'g-dusk'], ['k-ch6-body','c5',12.6,68,356,-.02,'g-dusk'],
+    ['k-ch6-record','c7',13.2,71,346,-.02,'g-dusk'],
+    ['ch7','c2',11.6,58,338,-.05,'g-mourn'], ['k-ch7-body','base',11.2,52,330,-.05,'g-mourn'], ['evroom','c2',11.8,54,336,-.05,'g-mourn'], ['clip4','base',11.2,50,344,-.04,'g-mourn'], ['colophon','base',10.8,44,352,-.03,'g-mourn'],
+    ['memorial','base',12.0,60,358,-.05,'g-mourn'], ['footer','base',10.2,40,6,-.02,'']
   ];
+
   function measure(){
     keyPts = KEYS.map(([id,camp,zoom,pitch,bearing,off,grade])=>{
       const el=document.getElementById(id); if(!el) return null;
@@ -332,12 +375,13 @@
       if(!ready) return;
       Object.values(markers).forEach(m=>m.el.classList.add('hide'));
       moms.forEach(f=>f.el.classList.add('off'));
+      document.body.classList.remove('lbl-ev');
       return;
     }
     hudPhase.textContent=PHASES[i]; hudDate.textContent=DATES[i]; hudTitle.textContent=TITLES[i];
     if(window.__scrubSet) window.__scrubSet(i, ch4Active);
     hud.classList.toggle('tragic',TRAGIC[i]);
-    let hi=0,hiName='';
+    let hi=0,hiName='',hiKey='';
     const lost=POS[i].lost||[];
     Object.keys(PEOPLE).forEach(k=>{
       const ck=POS[i][k];
@@ -351,9 +395,9 @@
           lerpMarker(m,CAMPS[ck].ll);
         }
       }
-      if(ck&&CAMPS[ck].ft>hi){hi=CAMPS[ck].ft;hiName=PEOPLE[k].name;}
+      if(ck&&CAMPS[ck].ft>hi){hi=CAMPS[ck].ft;hiName=PEOPLE[k].name;hiKey=ck;}
     });
-    if(i===8){hi=27450;hiName='Wiessner · P. Lama';}
+    if(i===8){hi=27450;hiName='Wiessner · P. Lama';hiKey='highpt';}
     hudAlt.textContent=hi?('Highest: '+hiName+' · '+hi.toLocaleString('en-US')+' ft'):'';
     if(!ready) return;
 
@@ -364,7 +408,11 @@
       el.classList.toggle('future', i<est && k!=='summit' && k!=='highpt');
       el.classList.toggle('cleared', CLEARED[k]!==undefined && i>=CLEARED[k]);
       el.classList.toggle('dim', DIMMED[k]!==undefined && i>=DIMMED[k] && !(CLEARED[k]!==undefined&&i>=CLEARED[k]));
+      // labels that don't stack: only the event's highest camp carries text
+      // (plus the two anchors, Base Camp and Summit). See .lbl-ev in main.css.
+      el.classList.toggle('cur', k===hiKey);
     });
+    document.body.classList.add('lbl-ev');
     // progress + rescue lines
     map.getSource('prog').setData(line(ROUTE.slice(0,REACH[i]+1)));
     const rescueOn = i>=12 && i<=14;
@@ -377,7 +425,7 @@
     scheduleClamp();
   }
 
-  loadLib(initMap);
+  loadLib(function(){ loadContour(initMap); });
   addEventListener('load', measure); measure();
   addEventListener('resize', ()=>{measure();camDirty=true;});
   let raf=null,lastY=-1;
@@ -624,7 +672,7 @@
     if(!ready) return;
     lite=!lite; bL.classList.toggle('on',lite);
     try{ map.setLayoutProperty('hs','visibility', lite?'none':'visible'); }catch(e){}
-    try{ map.setTerrain({source:'dem', exaggeration: lite?1.2:1.55}); }catch(e){}
+    try{ map.setTerrain({source:'dem', exaggeration: lite?1.15:1.35}); }catch(e){}
     try{ if(map.setPixelRatio) map.setPixelRatio(lite?1:(window.devicePixelRatio||1)); }catch(e){}
     document.getElementById('snow').style.display=lite?'none':'';
   });
