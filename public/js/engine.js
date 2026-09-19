@@ -24,6 +24,12 @@
   const CLEARED = {c1:9,c2:9,c3:9,c4:9,c6:9,c7:9};   // per Cromwell's order (IV & below) and the Sherpas (VI–VII)
   const DIMMED  = {c8:10,c9:10,c5:10};               // abandoned, never restocked
 
+  // Route colours. ROUTE_C is the hub's 1939 year accent — token --y39 in
+  // public/css/disasters.css (#a6752a) — so the hub and the story agree.
+  // RESC_C is --wine-l in public/css/main.css. CASE_C is the dark casing that
+  // keeps the lines legible through cloud, snow and bright snowfields.
+  const ROUTE_C = '#a6752a', RESC_C = '#c96a5c', CASE_C = '#0b0a08';
+
   const PEOPLE = {
     wiessner:{name:'Wiessner', c:'#5e4a1f'},
     wolfe:   {name:'Wolfe',    c:'#82352a'},
@@ -92,7 +98,15 @@
     s.innerHTML='<i class="lg-sil" style="color:'+p.c+'">'+SVG_CLIMBER+'</i>'+p.name;
     legend.appendChild(s);
   });
+  // route swatches, same chip styling as the climber chips
+  [[ROUTE_C,'Route climbed',''],[ROUTE_C,'Route ahead',' dash'],[RESC_C,'Rescue','']]
+    .forEach(([c,label,cls])=>{
+      const s=document.createElement('span');
+      s.innerHTML='<i class="lg-line'+cls+'" style="--lc:'+c+'"></i>'+label;
+      legend.appendChild(s);
+    });
 
+  let plateOn=false;
   let ch4Active=false, _zoneVig=''; function zoneVigActive(){return !!_zoneVig;} let map=null, ready=false, markers={}, camps={}, feats=[], moms=[], keyPts=[], camDirty=true, curEv=-99;
 
   // Poster (fallback) is already visible by default (see story.html); on
@@ -208,18 +222,24 @@
         setTimeout(release, 3500);
         map.setTerrain({source:'dem', exaggeration:1.35});
 
-        // full route (faint dashed) + progress (reached so far) + rescue line
+        // The traversed route, unmistakable: a dark casing under a bold
+        // coloured line. 'route' is the whole Abruzzi line (its un-reached
+        // remainder shows as the same hue, dashed and faded); 'prog' is what
+        // the party had reached by the current event, solid and full strength;
+        // 'resc' is the Sherpas' rescue attempt, in wine, with its own casing.
         map.addSource('route',{type:'geojson',data:line(ROUTE)});
         map.addLayer({id:'route-case',type:'line',source:'route',
-          paint:{'line-color':'#14110c','line-width':4,'line-opacity':.5}});
+          paint:{'line-color':CASE_C,'line-width':6,'line-opacity':.75,'line-blur':.4}});
         map.addLayer({id:'route',type:'line',source:'route',
-          paint:{'line-color':'#f1ecdf','line-width':1.4,'line-dasharray':[2.2,2],'line-opacity':.55}});
+          paint:{'line-color':ROUTE_C,'line-width':2.4,'line-dasharray':[2.2,2],'line-opacity':.35}});
         map.addSource('prog',{type:'geojson',data:line(['base'])});
         map.addLayer({id:'prog',type:'line',source:'prog',
-          paint:{'line-color':'#c9a86a','line-width':2.6,'line-opacity':.95}});
+          paint:{'line-color':ROUTE_C,'line-width':3.2,'line-opacity':1}});
         map.addSource('resc',{type:'geojson',data:line(['base'])});
+        map.addLayer({id:'resc-case',type:'line',source:'resc',
+          paint:{'line-color':CASE_C,'line-width':5.4,'line-opacity':0,'line-blur':.4}});
         map.addLayer({id:'resc',type:'line',source:'resc',
-          paint:{'line-color':'#c96a5c','line-width':2.2,'line-dasharray':[1.4,1.2],'line-opacity':0}});
+          paint:{'line-color':RESC_C,'line-width':2.6,'line-opacity':0}});
 
         // MapLibre stomps inline opacity on the marker root for terrain
         // occlusion (opacityWhenCovered) — it would override our class-based
@@ -275,6 +295,7 @@
         map.on('render', scheduleClamp);
         map.on('idle', scheduleClamp);
         ready=true; camDirty=true;
+        window.__map=map;            // exposed for the screenshot harness only
         applyEvent(curEv, true);
       });
     }catch(e){ fail(); }
@@ -440,7 +461,8 @@
     map.getSource('prog').setData(line(ROUTE.slice(0,REACH[i]+1)));
     const rescueOn = i>=12 && i<=14;
     map.getSource('resc').setData(line(['base','c1','c2','c3','c4','c5','c6','c7']));
-    map.setPaintProperty('resc','line-opacity', rescueOn?0.95:0);
+    map.setPaintProperty('resc','line-opacity', rescueOn?1:0);
+    map.setPaintProperty('resc-case','line-opacity', rescueOn?.75:0);
     // features + moments
     feats.forEach(f=>f.el.classList.toggle('off', i<f.from));
     moms.forEach(f=>f.el.classList.toggle('off', !ch4Active || !f.at.includes(i)));
@@ -452,7 +474,7 @@
   addEventListener('load', measure); measure();
   addEventListener('resize', ()=>{measure();camDirty=true;});
   let raf=null,lastY=-1;
-  function loop(){ if(!window.__exploreOn && (scrollY!==lastY||camDirty)){lastY=scrollY;camDirty=false;camTick();} raf=requestAnimationFrame(loop); }
+  function loop(){ if(!window.__exploreOn && !plateOn && (scrollY!==lastY||camDirty)){lastY=scrollY;camDirty=false;camTick();} raf=requestAnimationFrame(loop); }
   if(reduce){ addEventListener('scroll',camTick,{passive:true}); setTimeout(camTick,1500); }
   else loop();
   setTimeout(measure,1200); setTimeout(measure,3500);
@@ -602,9 +624,11 @@
     if(on){
       exploreReturnEv = curEv===-99?-1:curEv;
       exploreNeutral();
+      lensBuild(); lensMark(-1);
       map.easeTo({center:CAMPS.c5.ll, zoom:12.4, pitch:62, bearing:150, duration:2200, offset:[0,0]});
     } else {
       lcClose();
+      lensMark(-1);
       camDirty=true;
       applyEvent(exploreReturnEv===null?(curEv===-99?-1:curEv):exploreReturnEv, true);
       exploreReturnEv=null;
@@ -662,7 +686,7 @@
       : '<span class="lc-none">No one here on this date</span>';
     applyEvent(i,true);
   }
-  function lcOpen(k){
+  function lcOpen(k, opt){
     if(!lcEls) return;
     lcKey=k; const c=CAMPS[k];
     lcEls.kick.textContent=c.ft.toLocaleString('en-US')+' ft · '+Math.round(c.ft*0.3048).toLocaleString('en-US')+' m';
@@ -672,8 +696,9 @@
     lcRender();
     lcRoot.classList.add('show'); lcRoot.setAttribute('aria-hidden','false');
     document.body.classList.add('loc-open');
-    map.easeTo({center:c.ll, zoom:13.2, pitch:68, bearing:map.getBearing(),
-      duration:1400, offset:[innerWidth>860?-innerWidth*.13:0, innerWidth>860?0:-innerHeight*.14]});
+    if(!(opt&&opt.noCam))
+      map.easeTo({center:c.ll, zoom:13.2, pitch:68, bearing:map.getBearing(),
+        duration:1400, offset:[innerWidth>860?-innerWidth*.13:0, innerWidth>860?0:-innerHeight*.14]});
   }
   function lcClose(){
     if(!lcRoot) return;
@@ -688,6 +713,194 @@
     lcEls.next.addEventListener('click',()=>{if(lcEv<16){lcEv++;lcRender();}});
     lcEls.close.addEventListener('click',lcClose);
   }
+
+
+  // ── LENSES — named vantage points along the route. Each is a camera the
+  // reader can jump to in explore mode: {id, label, ll, zoom, pitch, bearing}.
+  // Coordinates come from CAMPS / FEATURES, so the camp lat/lons here are the
+  // same flagged approximations the rest of the page declares.
+  //
+  // Why the numbers look the way they do: MapLibre puts the camera at
+  // altitude ~= 779 * (metres-per-pixel) * cos(pitch) above the map plane, and
+  // with terrain exaggeration 1.35 the rendered mountain is up to 11.6 km
+  // high. Zoom in past that and the camera ends up INSIDE the massif (the mesh
+  // renders from within, as a hole) — measured by screenshotting. So the low
+  // lenses keep a high, oblique pitch at a wide zoom (a climber's view up the
+  // spur) and the high lenses trade pitch for closeness, flattening toward a
+  // plan view. The zoom 14+/pitch 70+ combination simply does not exist here.
+  // Some `ll` values are nudged north of their subject: the marker for a camp
+  // sits at its (exaggerated) elevation, several hundred pixels above the
+  // ground point, so aiming at the camp itself throws it off the top of frame.
+  // `off` is a screen offset in pixels — kept small, and only where the
+  // location card would otherwise cover the subject, because at high pitch the
+  // offset is applied on the ground plane and magnifies fast.
+  // `camp` opens that location's record card; `evCamps` maps a Chapter IV
+  // event's highest camp to the lens that frames it.
+  const LENSES = [
+    {id:'base',      label:'Base Camp',          ll:CAMPS.base.ll,      zoom:12.2, pitch:66, bearing:352, off:[-140,0], camp:'base',   evCamps:['base']},
+    {id:'glacier',   label:'Glacier approach',   ll:[76.5205,35.8300],  zoom:12.1, pitch:72, bearing:6},
+    {id:'chimney',   label:'House Chimney',      ll:[76.5202,35.8689],  zoom:12.8, pitch:48, bearing:344, evCamps:['c1','c2','c3','c4']},
+    {id:'pyramid',   label:'Black Pyramid',      ll:[76.5193,35.8712],  zoom:12.8, pitch:40, bearing:16, evCamps:['c5','c6']},
+    {id:'shoulder',  label:'Shoulder \u00b7 Camp VIII',ll:CAMPS.c8.ll, zoom:12.7, pitch:38, bearing:344, off:[-140,0], camp:'c8',     evCamps:['c7','c8']},
+    {id:'c9',        label:'Camp IX',            ll:[76.5151,35.8896], zoom:12.6, pitch:36, bearing:330, camp:'c9',     evCamps:['c9']},
+    {id:'bottleneck',label:'Bottleneck \u00b7 high point',ll:[76.5137,35.9006],zoom:12.6,pitch:34,bearing:20, camp:'highpt', evCamps:['highpt']},
+    {id:'summit',    label:'Summit',             ll:[76.5133,35.9114],  zoom:12.4, pitch:34, bearing:355, camp:'summit', evCamps:['summit']}
+  ];
+  let lensIdx=-1, lensStrip=null, lensBtns=[];
+  function lensBuild(){
+    if(lensStrip) return;
+    lensStrip=document.createElement('div'); lensStrip.id='lenses';
+    lensStrip.innerHTML='<span class="lz-cap">Lenses</span>';
+    LENSES.forEach((L,i)=>{
+      const b=document.createElement('button'); b.className='lz'; b.type='button';
+      b.textContent=L.label; b.addEventListener('click',()=>lensGo(i));
+      lensStrip.appendChild(b); lensBtns.push(b);
+    });
+    document.body.appendChild(lensStrip);
+  }
+  function lensMark(i){ lensIdx=i; lensBtns.forEach((b,k)=>b.classList.toggle('on',k===i)); }
+  function lensGo(i){
+    const L=LENSES[i]; if(!L||!ready) return;
+    lensBuild(); lensMark(i);
+    // A lens flies itself and passes noCam so lcOpen does not also ease the
+    // camera to its own sidebar-offset framing, which would undo the vantage.
+    if(L.camp) lcOpen(L.camp, {noCam:true}); else lcClose();
+    map.flyTo({center:L.ll, zoom:L.zoom, pitch:L.pitch, bearing:L.bearing,
+      duration:1600, essential:true, offset:L.off||[0,0]});
+  }
+  function lensForEvent(i){
+    if(i<0) return 0;
+    let hi=-1, key=null;
+    Object.keys(PEOPLE).forEach(k=>{ const ck=POS[i][k];
+      if(ck && CAMPS[ck] && CAMPS[ck].ft>hi){ hi=CAMPS[ck].ft; key=ck; } });
+    if(i===8) key='highpt';
+    if(!key) return 0;
+    const at=LENSES.findIndex(L=>L.evCamps && L.evCamps.includes(key));
+    return at<0?0:at;
+  }
+  window.__lens=i=>lensGo(i);
+
+  // "Look closer" affordance on each Chapter IV step. Injected from JS as a
+  // SIBLING of .over-card (never inside it) so story.html stays untouched and
+  // the narration playlist selector in extras.js — which reads .over-card —
+  // never picks the button up.
+  document.querySelectorAll('#ch4-zone .over-step[data-ev]').forEach(step=>{
+    const ev=+step.dataset.ev; if(!(ev>=0)) return;
+    const card=step.querySelector('.over-card'); if(!card) return;
+    const b=document.createElement('button');
+    b.className='lens-cta'; b.type='button'; b.textContent='◎ Look closer';
+    b.addEventListener('click',()=>{
+      const i=lensForEvent(ev);
+      if(!window.__exploreOn){ if(bE) bE.click(); else exploreSet(true); }
+      setTimeout(()=>lensGo(i), 160);
+    });
+    const holder=document.createElement('div'); holder.className='lens-cta-wrap';
+    holder.appendChild(b);
+    // .over-step is a flex row with align-items:center, so a sibling would sit
+    // BESIDE the card. Stack them in a column wrapper instead — the card
+    // element itself is untouched, so the narration selector and the
+    // typewriter still see exactly what they saw before.
+    const stack=document.createElement('div'); stack.className='oc-stack';
+    card.parentNode.insertBefore(stack, card);
+    stack.appendChild(card); stack.appendChild(holder);
+  });
+
+  // explore-only keyboard zoom (mouse-wheel zoom is enabled by exploreSet);
+  // Escape closes the location card, then leaves explore.
+  addEventListener('keydown',e=>{
+    if(plateOn){ if(e.key==='Escape') plateClose(); return; }
+    if(!window.__exploreOn) return;
+    if(e.key==='Escape'){
+      if(lcRoot&&lcRoot.classList.contains('show')) lcClose(); else exploreSet(false);
+      lensMark(-1); return;
+    }
+    if(e.key==='+'||e.key==='='){ map.zoomIn({duration:300}); }
+    else if(e.key==='-'||e.key==='_'){ map.zoomOut({duration:300}); }
+  });
+
+  // ── PLATES — photo-matched vantage views. This is the honest version of a
+  // "digital twin": no geometry is reconstructed from the photographs (that
+  // would be invented terrain). For each documented public-domain plate we
+  // searched the real DEM for the camera that reproduces its view, and let the
+  // reader cross-fade photograph against terrain. The vantage is approximate
+  // and the overlay says so on screen.
+  // Each `cam.center` is a point on the glacier the photograph was made from,
+  // not the summit: MapLibre measures the camera's height from the centre's
+  // terrain elevation, so centring on an 8.6 km peak lifts the camera above
+  // the whole range and flattens the view. Both vantages still sit further
+  // back and higher than the photographer stood:
+  // MapLibre's camera altitude is fixed by zoom and pitch (alt = k*m-per-px*
+  // cos(pitch)) and the camera cannot tilt upward past the horizon, so a
+  // ground-level view looking UP at an 8,611 m peak — which is what Sella
+  // made — is not expressible. The match is therefore of the skyline and the
+  // main ridgelines, not of the photographer's exact station.
+  const PLATES = [
+    {id:'sella-west',
+     match:'K2%20pictured%20from%20west',
+     src:'https://commons.wikimedia.org/wiki/Special:FilePath/Vittorio%20Sella%20Himalayas%20K2%20pictured%20from%20west%20c1900.jpg',
+     title:'K2 from the west',
+     credit:'Vittorio Sella, c. 1900 · Wikimedia Commons · public domain',
+     cam:{center:[76.4850,35.8814], zoom:13.4, pitch:79, bearing:92}},
+    {id:'sella-gag',
+     match:'K2%20from%20Godwin-Austen%20glacier',
+     src:'https://commons.wikimedia.org/wiki/Special:FilePath/K2%20from%20Godwin-Austen%20glacier%2C%20Vittorio%20Sella%2C%201909.jpg',
+     title:'K2 from the Godwin-Austen Glacier',
+     credit:'Vittorio Sella, 1909 Duke of the Abruzzi expedition · Wikimedia Commons · public domain',
+     cam:{center:[76.5230,35.8100], zoom:13.2, pitch:79, bearing:350}}
+  ];
+  let plRoot=null, plImg=null, plRange=null, plTitle=null, plCredit=null;
+  function plateUI(){
+    if(plRoot) return;
+    plRoot=document.createElement('div'); plRoot.id='plateView'; plRoot.setAttribute('aria-hidden','true');
+    plRoot.innerHTML='<img id="plImg" alt="">'
+      +'<div class="pl-bar">'
+      +'<div class="pl-t"><b id="plTitle"></b><span id="plCredit"></span></div>'
+      +'<label class="pl-sl"><span>Photograph ↔ Terrain</span>'
+      +'<input type="range" id="plRange" min="0" max="100" step="1" value="70" aria-label="Photograph opacity"></label>'
+      +'<div class="pl-note">Vantage matched on the terrain model \u2014 same '
+      +'direction and skyline, but from further back and higher than the '
+      +'photographer stood: the map camera cannot tilt upward, so a view from '
+      +'the glacier floor is not expressible. Approximate.</div>'
+      +'<button id="plClose" type="button">✕ Close</button></div>';
+    document.body.appendChild(plRoot);
+    plImg=$('plImg'); plRange=$('plRange'); plTitle=$('plTitle'); plCredit=$('plCredit');
+    plRange.addEventListener('input',()=>{ plImg.style.opacity=(+plRange.value/100); });
+    $('plClose').addEventListener('click',plateClose);
+  }
+  function plateOpen(P){
+    if(!ready) return;
+    plateUI();
+    plTitle.textContent=P.title; plCredit.textContent=P.credit;
+    plImg.src=P.src; plRange.value=70; plImg.style.opacity=.7;
+    plateOn=true; plRoot.classList.add('show'); plRoot.setAttribute('aria-hidden','false');
+    document.body.classList.add('plate-on');
+    document.documentElement.style.overflow='hidden';
+    const cam={center:P.cam.center, zoom:P.cam.zoom, pitch:P.cam.pitch,
+      bearing:P.cam.bearing, offset:[0,0]};
+    map.flyTo({...cam, duration:1800, essential:true});
+    // MapLibre measures the camera's height from the centre's *terrain*
+    // elevation, and that elevation is only known once the DEM around the
+    // target has arrived — so the first move from wherever the reader was
+    // lands short of the vantage and stays there. Flying the identical camera
+    // a second time, after the first has settled, resolves to the documented
+    // framing. It has to be another animated move: a jumpTo re-uses the same
+    // stale elevation and changes nothing (measured).
+    map.once('moveend', ()=>{ setTimeout(()=>{
+      if(plateOn) map.easeTo({...cam, duration:600, essential:true}); }, 700); });
+  }
+  function plateClose(){
+    if(!plateOn) return;
+    plateOn=false;
+    plRoot.classList.remove('show'); plRoot.setAttribute('aria-hidden','true');
+    document.body.classList.remove('plate-on');
+    document.documentElement.style.overflow='';
+    camDirty=true;   // the scroll camera resumes where the reader was
+  }
+  window.__plate=id=>{ const P=PLATES.find(p=>p.id===id); if(P) plateOpen(P); };
+  PLATES.forEach(P=>{
+    const b=document.querySelector('[data-plate="'+P.id+'"]');
+    if(b) b.addEventListener('click',()=>plateOpen(P));
+  });
 
   // ── LITE MODE
   const bL=document.getElementById('btnLite'); let lite=false;

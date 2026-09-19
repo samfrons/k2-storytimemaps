@@ -29,6 +29,39 @@
 
   const fmtM = m=>m.toLocaleString('en-US')+' m';
 
+  // Route colours. The primary route takes the page's hub year accent — tokens
+  // --y86/--y95/--y08 in public/css/disasters.css; a secondary route (1986 draws
+  // three) takes the next colour from ROUTE_ALT, chosen to stay distinct from
+  // the year accent and from each other. CASE_C is the dark casing that keeps a
+  // line legible through cloud, snow and bright snowfields.
+  const YEAR_C   = {'1939':'#a6752a','1986':'#a83122','1995':'#33589e','2008':'#2e7d46'};
+  const ROUTE_ALT = ['#e8c15a','#4f97b8','#9d7cb5'];
+  const CASE_C   = '#0b0a08';
+  const ROUTE_C  = YEAR_C[E.year] || '#a6752a';
+  const routeColor = (r,ri)=> ri===0 ? ROUTE_C : (ROUTE_ALT[(ri-1)%ROUTE_ALT.length]);
+  const routeLabel = (r,ri)=>{
+    if(r.label) return r.label;
+    if(ri===0) return 'Route climbed';
+    // name a secondary route after the named line it follows — the `site`
+    // point on it ("The Magic Line", "The South Face") rather than the first
+    // waypoint, which is usually just a col or a camp.
+    const k = r.keys.find(k=>POINTS[k] && POINTS[k].kind==='site') || r.keys[1];
+    const pt = POINTS[k];
+    return pt ? pt.name.split('\u2014')[0].trim() : 'Route '+(ri+1);
+  };
+
+  // route swatches first, then the climber chips — same chip styling
+  if(legend) ROUTES.forEach((r,ri)=>{
+    const s=document.createElement('span');
+    s.innerHTML='<i class="lg-line" style="--lc:'+routeColor(r,ri)+'"></i>'+routeLabel(r,ri);
+    legend.appendChild(s);
+  });
+  if(legend && ROUTES.length===1){
+    const s=document.createElement('span');
+    s.innerHTML='<i class="lg-line dash" style="--lc:'+ROUTE_C+'"></i>Route ahead';
+    legend.appendChild(s);
+  }
+
   if(legend) Object.values(PEOPLE).forEach(p=>{
     const s=document.createElement('span');
     s.innerHTML='<i class="lg-sil" style="color:'+p.c+'">'+SVG_CLIMBER+'</i>'+p.name;
@@ -132,17 +165,21 @@
       map.on('load', ()=>{
         map.setTerrain({source:'dem', exaggeration:1.55});
 
+        // dark casing under a bold coloured line; on the primary route the
+        // un-reached remainder stays the same hue, dashed and faded, with the
+        // solid 'prog' line drawn over what has been reached.
         ROUTES.forEach((r,ri)=>{
           const id='route'+ri;
           map.addSource(id,{type:'geojson',data:line(r.keys)});
           map.addLayer({id:id+'-case',type:'line',source:id,
-            paint:{'line-color':'#14110c','line-width':4,'line-opacity':.5}});
+            paint:{'line-color':CASE_C,'line-width':6,'line-opacity':.75,'line-blur':.4}});
           map.addLayer({id,type:'line',source:id,
-            paint:{'line-color':r.c||'#f1ecdf','line-width':1.4,'line-dasharray':[2.2,2],'line-opacity':.55}});
+            paint:{'line-color':routeColor(r,ri),'line-width':2.4,'line-dasharray':[2.2,2],
+                   'line-opacity':ri===0?.35:.8}});
         });
         map.addSource('prog',{type:'geojson',data:line([MAIN[0]])});
         map.addLayer({id:'prog',type:'line',source:'prog',
-          paint:{'line-color':E.progColor||'#c9a86a','line-width':2.6,'line-opacity':.95}});
+          paint:{'line-color':ROUTE_C,'line-width':3.2,'line-opacity':1}});
 
         // plain wrapper: MapLibre stomps inline opacity on the marker root
         const mkWrap = el=>{const w=document.createElement('div');w.appendChild(el);return w;};

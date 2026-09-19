@@ -642,3 +642,87 @@ body[data-hero="manual"] .hv-manual{display:block}
   .sv-dek{max-width:100%}
 }
 
+
+/* ════════ v16 · route legend swatches · lenses · photo-matched plates ════════ */
+.m3d-legend{max-width:min(68vw,880px)}
+.m3d-legend i.lg-line{width:22px;height:3px;border-radius:0;border:0;background:var(--lc);
+  box-shadow:0 0 0 1.5px rgba(11,10,8,.85)}
+.m3d-legend i.lg-line.dash{background:repeating-linear-gradient(90deg,var(--lc) 0 5px,transparent 5px 9px);
+  box-shadow:none;opacity:.8}
+
+/* explore: the lenses strip — named vantage points along the route */
+#lenses{position:fixed;left:50%;bottom:2.2rem;transform:translate(-50%,180%);z-index:10003;
+  display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:.4rem;
+  max-width:min(94vw,980px);padding:.55rem .7rem;
+  background:rgba(10,9,7,.56);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);backdrop-filter:blur(14px) saturate(1.1);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.6);
+  transition:transform .8s cubic-bezier(.6,0,.3,1);pointer-events:none}
+body.explore #lenses{transform:translate(-50%,0);pointer-events:auto}
+#lenses .lz-cap{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(241,236,223,.62);padding:0 .5rem 0 .2rem}
+#lenses .lz{font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ivory);background:rgba(241,236,223,.08);border:1px solid rgba(241,236,223,.28);
+  padding:.42rem .7rem;cursor:pointer;transition:.25s;white-space:nowrap}
+#lenses .lz:hover{background:rgba(241,236,223,.2);border-color:#f1ecdf}
+#lenses .lz.on{background:var(--ivory);color:#1a1611;border-color:var(--ivory)}
+
+/* story: the "Look closer" affordance under each Chapter IV card */
+.oc-stack{display:flex;flex-direction:column;align-items:flex-start;max-width:460px}
+.lens-cta-wrap{margin-top:-1px}
+.lens-cta{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ivory);background:rgba(10,9,7,.56);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);backdrop-filter:blur(14px) saturate(1.1);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.6);
+  padding:.5rem .9rem;cursor:pointer;opacity:0}
+.over-step.on .lens-cta{opacity:1;transition:opacity .9s .25s ease,color .25s,background .25s}
+.lens-cta:hover{background:rgba(241,236,223,.92);color:#1a1611;border-color:var(--ivory)}
+
+/* figures: "Match the view" */
+.plate-cta{margin-top:.7rem;font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--paperline);
+  padding:.45rem .85rem;cursor:pointer;transition:.25s}
+.plate-cta:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+
+/* the photo-match overlay */
+#plateView{position:fixed;inset:0;z-index:10050;opacity:0;pointer-events:none;transition:opacity .7s}
+#plateView.show{opacity:1;pointer-events:auto}
+/* contain, not cover: the plates are portrait and the viewport is landscape,
+   so cover would crop the summit clean out of the photograph. Centred, the
+   photograph's peak sits over the terrain's peak at the matched vantage. */
+#plateView #plImg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  object-position:center;opacity:.7}
+#plateView .pl-bar{position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);
+  width:min(94vw,720px);display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;
+  padding:1rem 1.2rem;background:rgba(10,9,7,.56);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);backdrop-filter:blur(14px) saturate(1.1);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.6);
+  font-family:'Jost',sans-serif;color:var(--ivory)}
+#plateView .pl-t{flex:1 1 220px;min-width:180px}
+#plateView .pl-t b{display:block;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase}
+#plateView .pl-t span{display:block;margin-top:.25rem;font-size:.66rem;letter-spacing:.08em;
+  color:rgba(241,236,223,.62)}
+#plateView .pl-sl{flex:1 1 240px;display:flex;flex-direction:column;gap:.35rem}
+#plateView .pl-sl span{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(241,236,223,.8)}
+#plateView .pl-sl input{width:100%;accent-color:var(--bronze-l)}
+#plateView .pl-note{flex:1 1 100%;font-size:.66rem;letter-spacing:.1em;color:rgba(241,236,223,.62)}
+#plateView #plClose{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);background:rgba(241,236,223,.95);
+  border:1px solid var(--paperline);padding:.5rem .9rem;cursor:pointer}
+body.plate-on .rail,body.plate-on .alti,body.plate-on .ctrl,body.plate-on #scrub,
+body.plate-on .m3d-hud,body.plate-on .m3d-legend,body.plate-on .m3d-note,
+body.plate-on main{opacity:0;pointer-events:none;transition:opacity .6s}
+body.plate-on #grade,body.plate-on #snow,body.plate-on #stars{opacity:0!important}
+/* a photo comparison wants the bare terrain: no camp labels, no vignettes */
+body.plate-on #stage{opacity:0;transition:opacity .6s}
+body.plate-on .maplibregl-marker{opacity:0!important;pointer-events:none;transition:opacity .5s}
+
+@media(max-width:860px){
+  #lenses{bottom:1rem;gap:.3rem;padding:.45rem .5rem;max-height:34vh;overflow:auto}
+  #lenses .lz{font-size:.66rem;padding:.35rem .55rem;letter-spacing:.12em}
+  .lens-cta{letter-spacing:.16em}
+}

@@ -146,7 +146,8 @@ posture and must keep their credits in the cards and colophon.
   (incl. the location record cards: in explore, camps are clickable and
   open `#locCard` — a per-location dossier whose own scrubber steps the 17
   events by calling `applyEvent(i, true)`; blurbs in `LOCNOTES` restate
-  facts already in the story/data, never new claims), lite mode.
+  facts already in the story/data, never new claims), lite mode, the lenses
+  strip and the photo-matched plates (see "Routes, lenses and plates" below).
 - `public/js/chrome.js` — progress bar, `.reveal` transitions, chapter
   covers, rail nav highlighting, altimeter.
 - `public/js/extras.js` — WebAudio wind engine, letterbox during video,
@@ -277,6 +278,24 @@ In `public/js/engine.js`:
   breaks the camera path. The 7th field is the color-grade class
   (`g-day`, `g-storm`, `g-night`, `g-dusk`, `g-mourn`, `g-city`) styled in
   `public/css/main.css`; `snowSet()` maps grades to snow-particle modes.
+- `LENSES` — the eight named vantage points the reader can fly to in explore
+  mode (Base Camp → Summit): `{id,label,ll,zoom,pitch,bearing,off?,camp?,
+  evCamps?}`. Read the comment above the table before touching the numbers:
+  MapLibre's camera altitude is `~779 * m-per-px * cos(pitch)` above the
+  centre's terrain elevation, and with exaggeration 1.35 the mountain renders
+  up to 11.6 km high — zoom in past that and the camera ends up inside the
+  massif. So the low lenses are wide and steeply pitched and the high ones
+  trade pitch for closeness; **zoom 14 at pitch 70+ does not exist here**.
+  Some `ll` values are nudged north of their subject because a camp marker
+  sits at its exaggerated elevation, well above its ground point.
+- `PLATES` — the two photo-matched vantages, one per public-domain Sella
+  plate on the page, keyed to the `data-plate` buttons in those two
+  figcaptions: `{id,src,title,credit,cam:{center,zoom,pitch,bearing}}`.
+  `cam.center` is a point on the glacier the photograph was made from, never
+  the summit (centring on the peak lifts the camera above the whole range).
+  The camera is flown twice — the second animated move is what resolves the
+  centre's terrain elevation and lands the documented framing; a `jumpTo`
+  re-uses the stale elevation and changes nothing.
 - `VIG` (≈line 373) — event-index → vignette mapping; zone vignettes are
   bound just below it (`ch1-zone`→nyc, `ch6-zone`→tent, ch5 steps→pair).
 
@@ -286,6 +305,41 @@ In `public/js/extras.js`: the scrubber's own `DATES` (≈line 54) plus
 
 The 17 timeline steps are the `.over-step[data-ev]` elements in
 `app/1939/story.html` (`#ev0`–`#ev16`); `data-alt` attributes drive the altimeter.
+
+## Routes, lenses and plates (2026-09-19)
+
+- **Route colours.** The traversed route is a dark casing (`#0b0a08`, width 6,
+  opacity .75, slight blur) under a bold coloured line. The 1939 hue is the
+  hub's year accent `--y39` (`#a6752a`), kept as `ROUTE_C` in `engine.js` with
+  a comment naming the token; `prog` (reached so far) is solid at width 3.2,
+  the un-reached remainder is the same hue dashed at .35, and the rescue line
+  is `--wine-l` (`#c96a5c`) with its own casing. `#m3dLegend` carries three
+  matching swatch chips (`.lg-line`, `.lg-line.dash`). The era engine does the
+  same from `YEAR_C` (`--y86/--y95/--y08`); a secondary route takes the next
+  colour from `ROUTE_ALT` and is named after the `site` point on it, so 1986
+  reads Route climbed / The South Face / The Magic Line. The legend's
+  `max-width` was widened to `min(68vw,880px)` so the extra chips still clear
+  the control column at bottom-left.
+- **Lenses.** In explore mode a fixed `#lenses` strip (dark glass, Jost chips)
+  flies the camera to a `LENSES` vantage and opens that location's card when
+  the lens is a camp. In the story each Chapter IV card gains a "◎ Look
+  closer" button, injected from JS into an `.oc-stack` column wrapper so
+  `story.html` and the `.over-card` element itself stay untouched (the
+  narration selector `SEL` in `extras.js` reads `.over-card`, so it never
+  picks the button up). Clicking enters explore through the existing button
+  and flies to that event's highest camp; leaving explore restores the scroll
+  camera. `+`/`-` zoom and `Escape` work in explore only.
+- **Plates ("digital twin", honestly).** No geometry is reconstructed from the
+  1939-era photographs — that would be invented terrain. Instead each of the
+  two public-domain Sella plates gets a "◎ Match the view" button in its
+  figcaption; it flies to a searched vantage and cross-fades the photograph
+  over the terrain (`#plateView`, opacity slider, credit, caveat). The match
+  is of direction and skyline only: MapLibre's camera cannot tilt above the
+  horizon, so a view from the glacier floor looking **up** at an 8,611 m peak
+  is not expressible, and both vantages sit further back and higher than the
+  photographer stood. The overlay says so on screen; do not upgrade that
+  wording into a precision claim. The photograph is `object-fit: contain` —
+  the plates are portrait, and `cover` cropped the summit out.
 
 ## Build / deploy notes
 
