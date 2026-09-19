@@ -164,13 +164,45 @@ posture and must keep their credits in the cards and colophon.
 The story JS files are classic-script IIFEs; they communicate only through
 guarded `window.__*` globals (`__scrubSet`, `__vig`, `__grade`, `__alt`,
 `__flame`, `__exploreOn`, `__wx`, `setGrade`). Load order (weather → engine
-→ chrome → extras) matters — keep it. `public/js/weather.js` (2026-07-30) is
-shared by the 1939 and era engines: per-grade MapLibre sky/fog presets and
-terrain relighting eased over ~2 s, plus the layered snow/cloud canvas
-(parallax depths, storm streaks, drifting cloud banks, density ramps). The
-engines delegate to `window.__wx.grade(g, map)` from `setGrade` and keep
-their old flat snow as a fallback when weather.js is absent — never let both
-write the `#snow` canvas.
+→ chrome → extras) matters — keep it. `public/js/weather.js` (2026-07-30,
+rebuilt 2026-09-19) is shared by the 1939 and era engines and does two
+things: the per-grade MapLibre sky/fog presets and terrain relighting, eased
+over ~2 s; and the `#snow` canvas, now a layered weather system rather than
+flat snow. The engines delegate to `window.__wx.grade(g, map)` from
+`setGrade` and keep their old flat snow as a fallback when weather.js is
+absent — never let both write the `#snow` canvas.
+
+The canvas side holds six layers, each a weight in `Z` easing toward the
+grade's row in `GRADES` over ~2.5 s (frost over 6 s) so the weather turns
+with the relight: **cloud banks** (a valley cloud sea and thin cirrus on
+day/dusk, thick fast cloud on storm/mourn, a faint mist band at night),
+**spindrift** blowing downwind off a screen-space anchor near the summit
+ridge, the **storm system** (fixed-angle streaks, a radial whiteout falloff,
+edge frost), the **night sky** (two pre-rendered star layers cross-fading to
+twinkle, plus a Milky Way band, drawn only in the top ~36 % so they never
+land on terrain), **snowfall** in three depth classes, and the **lite**
+fallback. Rules that hold it together:
+
+- **Nothing is computed per pixel per frame.** The fBm noise tiles, the star
+  fields and the whiteout/frost masks are rendered once onto offscreen
+  canvases and only ever blitted. Noise tiles wrap on a whole number of
+  periods in x (so a band repeats across the screen with no seam) and fade
+  to nothing at their own top and bottom (so a band has no rectangle edge) —
+  if you retune a tile, keep `per` an integer. Measured cost: ~1.2 ms/frame
+  in storm, ~0.1 ms otherwise, under software rendering.
+- The eases run on **wall-clock** time (`de`) while the particles run on a
+  hard-clamped `dt`, so a frame-starved machine still changes weather in
+  2.5 s instead of stretching the transition out.
+- Parallax reads `map.getBearing()`/`getPitch()` from the cached `map` the
+  engine passed in; bearing is unwrapped so it never jumps at ±180°.
+- The loop parks itself when `document.hidden` and when every weight has
+  decayed to zero. `prefers-reduced-motion` draws one static frame per grade
+  and never starts the loop; `body.lite` (set by the lite buttons in
+  `engine.js`/`era-map.js`) drops to cloud banks only.
+- Also public: `__wx.wind(0..1)` biases the gale/spindrift (it follows
+  `window.__windLevel` if extras.js ever publishes one) and
+  `__wx.anchor(x,y)` moves the spindrift source. Both are optional.
+- `?wxdebug` logs a rolling average frame cost and exposes `window.__wxZ`.
 
 ## The era pages (added 2026-07-24): /1986 · /1995 · /2008 · /disasters
 

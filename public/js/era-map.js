@@ -493,6 +493,10 @@
     try{ map.setLayoutProperty('hs','visibility', lite?'none':'visible'); }catch(e){}
     try{ map.setTerrain({source:'dem', exaggeration: lite?1.2:1.55}); }catch(e){}
     try{ if(map.setPixelRatio) map.setPixelRatio(lite?1:(window.devicePixelRatio||1)); }catch(e){}
-    const sn=document.getElementById('snow'); if(sn) sn.style.display=lite?'none':'';
+    // lite drops the weather canvas to cloud banks only (weather.js reads
+    // body.lite); without weather.js the canvas simply hides as before.
+    document.body.classList.toggle('lite', lite);
+    const sn=document.getElementById('snow');
+    if(sn && !window.__wx) sn.style.display=lite?'none':'';
   });
 })();
