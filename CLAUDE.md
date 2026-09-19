@@ -92,9 +92,12 @@ posture and must keep their credits in the cards and colophon.
 - `app/page.tsx` — the hub: metadata + hub fonts/`disasters.css` links,
   injects `app/hub.html`. `app/1939/page.tsx` — metadata only, injects
   `app/1939/story.html` (fonts + `main.css` come from the layout).
-- `app/1939/story.html` — the 1939 story markup, incl. the vignette SVGs in
-  `#stage` and the three script tags. Asset paths are absolute (`/clips/…`,
-  `/js/…`) because the page serves from `/1939`.
+- `app/1939/story.html` — the 1939 story markup, incl. the `#stage` layer
+  (now just the `hand-fine`/`hand-text` filter defs — the photo-cutout
+  vignette illustrations that used to slide in there were retired
+  2026-09-19, see "Markers, no vignettes" below) and the three script tags.
+  Asset paths are absolute (`/clips/…`, `/js/…`) because the page serves
+  from `/1939`.
 - `app/hub.html` — the hub markup (century scrubber, cover cards, the
   altitude wall, the ledger); loads the era-* scripts like an era page.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
@@ -112,8 +115,9 @@ posture and must keep their credits in the cards and colophon.
   Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
   Standing rules (Sam, 2026-07-20): **no tan/bronze-colored text** — bronze
   lives only in hairlines, borders, and the progress bar; markers and map
-  labels are **vintage-print style** — solid deep-ink figures (no SVG
-  strokes, no glows, offset-print paper shadow) and cream paper chips with
+  labels are **vintage-print style** — solid figures with a hard, unblurred
+  offset shadow (never a soft/glow shadow, never the `#hand-fine` wobble
+  filter — see "Markers, no vignettes" below) and cream paper chips with
   ink text. The Wochita brush font was tried and rejected; files remain in
   `public/fonts/` unused. **Big Shoulders Text was tried and rejected**
   (Sam, 2026-07-21) — too condensed to read at label sizes; Jost is the
@@ -296,15 +300,48 @@ In `public/js/engine.js`:
   The camera is flown twice — the second animated move is what resolves the
   centre's terrain elevation and lands the documented framing; a `jumpTo`
   re-uses the stale elevation and changes nothing.
-- `VIG` (≈line 373) — event-index → vignette mapping; zone vignettes are
-  bound just below it (`ch1-zone`→nyc, `ch6-zone`→tent, ch5 steps→pair).
-
 In `public/js/extras.js`: the scrubber's own `DATES` (≈line 54) plus
 `TRG`/`PH` (tragic/phase tick indices) — keep in sync with the 17 events in
 `engine.js`.
 
 The 17 timeline steps are the `.over-step[data-ev]` elements in
 `app/1939/story.html` (`#ev0`–`#ev16`); `data-alt` attributes drive the altimeter.
+
+## Markers, no vignettes (2026-09-19)
+
+The hand-inked photo-cutout vignettes (porters, the summit pair, the fall,
+the rescue, the lone tent, the NYC skyline) that used to slide in from
+`#stage` are **gone** — they read as illustration pasted onto the new
+cartographic terrain rather than part of it. `#stage` now holds only the
+`hand-fine`/`hand-text` filter defs (still used by the hero variants and
+elsewhere); its `#vg-*` SVGs, the `.vg`/`.an-*` CSS and keyframes, the
+`photo`/`soft`/`soft2`/`hand` filters and `gv-*` gradients (vignette-only)
+are deleted from `story.html`/`main.css`. `window.__vig` stays defined as a
+no-op shim (`setVig`/`vigForEvent`/`z` all do nothing) so nothing has to
+guard for its absence; the `VIG` event-index table and the
+`ch1-zone`/`ch6-zone`/ch5-steps zone bindings that used to drive it are
+gone from `engine.js`. The unused `/img/vig/*.png` cutout art is left in
+the repo (unreferenced, harmless) rather than deleted as part of this pass.
+
+Map figures instead read as clean print-poster glyphs, no wobble filter, no
+blurred glow — a hard, unblurred outline/ring (stacked zero-blur
+`drop-shadow`s) plus one hard offset shadow do the lifting:
+
+- **Climbers** (`.mk-sil`, legend chips `.lg-sil`) are `SVG_CLIMBER` in
+  `public/js/engine.js` — a walking figure with a pack and a raised ice axe,
+  filled in the person's colour, ringed with a 1px ivory outline and a
+  `1px 1px 0 rgba(13,12,10,.6)` offset shadow. `lost` (ghost) stays a
+  hollow outline (`stroke:currentColor`, `fill:none`) pulsing via the
+  existing `ghost` keyframe; `pulse` keeps its expanding ring.
+- **Camps** (`.mk-camp2 .tent`) are `SVG_TENT`, a solid ivory A-frame with a
+  2px dark ring (four zero-blur `drop-shadow`s); `future` = hollow ivory
+  outline at 45% opacity; `cleared` = `var(--wine-l)` fill with the
+  existing ivory strike; `dim` = 45% opacity. The summit/high-point glyphs
+  (`.pk`, no tent) are small ivory triangles (`▲` filled for the summit,
+  `△` for the high point) with the same hard offset shadow.
+- **Label chips** (`.l`, `.fl`, `.ml`) keep the cream-paper-chip look but
+  with a single hard `1px 1px 0 rgba(13,12,10,.6)` shadow, not a blurred
+  one.
 
 ## Routes, lenses and plates (2026-09-19)
 

@@ -84,9 +84,19 @@
     {ll:[76.5200,35.8500], glyph:'✦', label:'Wolfe\u2019s remains found here · 2002', at:[16]}
   ];
 
-  // Silhouette SVGs
+  // Marker glyphs — clean solid figures, no hand-inked wobble (2026-09-19).
+  // Tent: a plain A-frame silhouette, ring/fill colour set in CSS by state.
   const SVG_TENT = '<svg viewBox="0 0 24 16" width="22" height="15"><path d="M12 1 L23 15 H15 L12 9 L9 15 H1 Z" fill="currentColor"/></svg>';
-  const SVG_CLIMBER = '<svg viewBox="0 0 20 26" width="15" height="20"><g fill="currentColor"><circle cx="9.5" cy="4" r="3"/><path d="M9.5 7.5 L6 12 L5.5 19 L7.5 25 H9 L9.5 18 L11.5 25 H13 L12.5 16 L13.5 11 L16.5 14.5 L18 13 L13 7.5 Z"/><path d="M4.5 25 L5.5 8 L4 7.8 L3 25 Z"/></g></svg>';
+  // Climber: walking figure, pack on the back, ice axe raised — a crisp
+  // scale-figure silhouette in the person's colour (outline/shadow in CSS).
+  const SVG_CLIMBER = '<svg viewBox="0 0 22 28" width="16" height="20"><g fill="currentColor">'
+    + '<circle cx="10.5" cy="4" r="3"/>'
+    + '<rect x="5.6" y="8.2" width="4.6" height="7" rx="1.4"/>'
+    + '<path d="M10.5 7.5 L7 12 L6.5 19 L8.5 25 H10 L10.5 18 L12.5 25 H14 L13.5 16 L14.5 11 L17 13.6 L18.6 12 L13.7 7.3 Z"/>'
+    + '<rect x="16.6" y="8.6" width="1.5" height="7.4" rx=".7" transform="rotate(34 17.3 8.6)"/>'
+    + '<rect x="15.6" y="6.6" width="4" height="1.6" rx=".7" transform="rotate(34 17.6 7.4)"/>'
+    + '<path d="M5.5 25 L6.5 9 L5 8.8 L4 25 Z"/>'
+    + '</g></svg>';
 
   const $ = id=>document.getElementById(id);
   const bgLoad=$('bgLoad'), fallback=$('bgFallback');
@@ -250,7 +260,8 @@
           const c=CAMPS[k];
           const el=document.createElement('div'); el.className='mk-camp2 future';
           const noTent = (k==='highpt'||k==='summit');
-          el.innerHTML=(noTent?'<div class="pk">'+(k==='summit'?'△':'✕')+'</div>'
+          // summit/high-point glyphs are small triangles, not tents
+          el.innerHTML=(noTent?'<div class="pk">'+(k==='summit'?'▲':'△')+'</div>'
                               :'<div class="tent">'+SVG_TENT+'</div>')
             +'<div class="l">'+c.name+' · '+c.ft.toLocaleString('en-US')+'\u2032</div>';
           if(noTent) el.classList.add('pknode');
@@ -512,15 +523,11 @@
     } else if(curEv<0){ markers.wolfe && markers.wolfe.el.classList.add('hide'); }
   })},{rootMargin:'-10% 0px -10% 0px'}).observe(ch6);
 
-  // ── silhouette vignettes
-  const VIG = {3:'haul',8:'pair',9:'strip',10:'fall',12:'rescue',13:'rescue',15:'tent',16:'tent'};
-  const vgs = {}; document.querySelectorAll('.vg').forEach(v=>vgs[v.id.replace('vg-','')]=v);
-  let zoneVig='';
-  function setVig(name){
-    Object.entries(vgs).forEach(([k,el])=>el.classList.toggle('on', k===name));
-  }
-  function vigForEvent(i){ setVig(zoneVig || (i>=0 && VIG[i]) || ''); }
-  window.__vig={setVig,vigForEvent,z:v=>{zoneVig=v;setVig(v|| (curEv>=0&&ch4Active&&VIG[curEv]) || '');}};
+  // ── silhouette vignettes — retired 2026-09-19 (the #stage cut-out
+  // illustrations are gone; the map's own cartography carries the mood).
+  // __vig stays as a no-op shim so callers elsewhere (zoneVigActive check
+  // above, extras.js if it ever touches it) don't have to guard for it.
+  window.__vig={setVig(){},vigForEvent(){},z(){}};
 
   // ── color grade — the CSS tint layer, plus the rendered atmosphere when
   // weather.js is present (it owns fog/relighting/snow; see its header).
@@ -569,25 +576,6 @@
     b.addEventListener('click',()=>{ const v=b.parentElement.querySelector('video');
       v.muted=!v.muted; b.textContent=v.muted?'Sound on':'Mute'; if(!v.muted) v.play().catch(()=>{}); });
   });
-
-  function bindZone(id, name){
-    const el=document.getElementById(id); if(!el) return;
-    new IntersectionObserver(es=>{es.forEach(e=>{
-      if(e.isIntersecting){ _zoneVig=name; window.__vig.z(name); }
-      else if(_zoneVig===name){ _zoneVig=''; window.__vig.z(''); if(ch4Active&&curEv>=0) window.__vig.vigForEvent(curEv); }
-    })},{rootMargin:'-12% 0px -12% 0px'}).observe(el);
-  }
-  bindZone('ch1-zone','nyc');
-  bindZone('ch6-zone','tent');
-  // ch5 pair vignette: bind on the summit-night steps container
-  const ov0=document.getElementById('ov5-0');
-  if(ov0){ bindZoneEl(ov0.parentElement,'pair'); }
-  function bindZoneEl(el,name){
-    new IntersectionObserver(es=>{es.forEach(e=>{
-      if(e.isIntersecting){ _zoneVig=name; window.__vig.z(name); }
-      else if(_zoneVig===name){ _zoneVig=''; window.__vig.z(''); if(ch4Active&&curEv>=0) window.__vig.vigForEvent(curEv); }
-    })},{rootMargin:'-12% 0px -12% 0px'}).observe(el);
-  }
 
   // ── FLAME at the memorial point (Gilkey site, near Base Camp — approximate)
   let flameEl=null;
