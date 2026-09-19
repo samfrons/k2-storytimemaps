@@ -199,7 +199,11 @@
       // still. window.__mapIdle marks the true first idle (scripts/poster.mjs
       // waits on it so the poster is always shot from a settled frame).
       const release=()=>fallback.classList.add('off');
-      map.once('idle', ()=>{ window.__mapIdle=true; release(); });
+      const onIdle=()=>{ release();
+        // "settled" for the poster means the terrain mesh is up and every
+        // tile in view has arrived — the first idle can precede both.
+        if(map.getTerrain() && map.areTilesLoaded()){ window.__mapIdle=true; map.off('idle', onIdle); } };
+      map.on('idle', onIdle);
       map.on('load', ()=>{
         setTimeout(release, 3500);
         map.setTerrain({source:'dem', exaggeration:1.35});

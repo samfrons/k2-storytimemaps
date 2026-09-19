@@ -330,6 +330,9 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
    Summit). The tent/point glyph stays for every camp. Explore mode shows all
    labels again. */
 body.lbl-ev .mk-camp2:not(.cur):not(.anchor) .l{opacity:0;transition:opacity .5s}
+/* outside Chapter IV and explore, camp chips are points only — the prologue
+   and covers otherwise stack four labels on the ridge */
+body:not(.lbl-ev):not(.explore) .mk-camp2 .l{opacity:0}
 body.explore .mk-camp2 .l{opacity:1!important}
 body.explore .mk-feat:not(.off){opacity:1!important}
 .lbl-far .mk-feat{opacity:0!important}

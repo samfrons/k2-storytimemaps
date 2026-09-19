@@ -119,6 +119,7 @@ await page.evaluate(() => {
   style.textContent = `
     body *{visibility:hidden!important}
     #bgMap,#bgMap *,#bgVeil,#grade{visibility:visible!important}
+    #bgMap .maplibregl-ctrl,#bgMap .maplibregl-ctrl *{visibility:hidden!important}
   `;
   document.head.appendChild(style);
   document.body.style.background = '#000';
