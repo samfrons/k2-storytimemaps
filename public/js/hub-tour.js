@@ -179,7 +179,9 @@
     try{ history.replaceState(null, '', location.pathname); }catch(e){}
     // back to the normal page, at the four covers
     const cv = document.getElementById('covers');
-    if(cv) window.scrollTo(0, cv.getBoundingClientRect().top + scrollY);
+    // instant, not the page's smooth scroll: the camera hand-back below reads
+    // the scroll position right away
+    if(cv) window.scrollTo({top: cv.getBoundingClientRect().top + scrollY, behavior:'instant'});
     const a = api();
     setLinesVisible(false);
     if(a){ a.map.stop(); a.routes(true); a.focus(-1);

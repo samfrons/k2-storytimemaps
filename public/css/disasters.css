@@ -171,9 +171,14 @@ body.explore .eranav{opacity:0;pointer-events:none;transition:opacity .8s}
    has actually loaded (and the whole section drops out if it fails), so the
    reader never meets an empty blurred block below the covers */
 #plate-hub .panel:not(.ok){display:none}
-/* Chromium keeps painting a backdrop-filter on an element at opacity 0, so
-   the glass only switches on once the reveal has fired */
-#plate-hub .panel.reveal:not(.on){backdrop-filter:none;-webkit-backdrop-filter:none}
+/* The hub's glass panels (plate, wall, century) reveal as one piece, so their
+   empty top edge never peeks in below the covers ahead of the text. Chromium
+   keeps painting a backdrop-filter on an element at opacity 0, so the glass
+   itself only switches on once the reveal has fired. */
+.panel.reveal:not(.on){backdrop-filter:none;-webkit-backdrop-filter:none}
+
+/* the hub's route-swatch legend sat on top of the control column */
+@media(min-width:861px){.m3d-legend{left:12.5rem}}
 
 /* ── prologue call to action ── */
 #prologue{padding-top:6.5rem}
