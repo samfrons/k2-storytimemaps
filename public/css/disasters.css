@@ -251,7 +251,8 @@ body.tour #scrub,body.tour #progress,body.tour #exploreHint,body.tour .eranav{op
 
 @media(max-width:860px){
   .stop-yr{font-size:2.5rem}
-  .tour-card{left:0;right:0;top:auto;bottom:3.9rem;width:auto;max-height:52vh;transform:none;padding:1.3rem 1.25rem 1.4rem;
+  .cr-auto{white-space:nowrap}
+  .tour-card{left:0;right:0;top:auto;bottom:3.9rem;width:auto;max-height:48vh;transform:none;padding:1.3rem 1.25rem 1.4rem;
     border-left:1px solid rgba(255,255,255,.12);border-top:2px solid var(--yc,var(--wine-l))}
   .tour-card.out{transform:translateY(40px)}
   .tour-card .stop-yr{font-size:2.1rem;margin-bottom:.35rem}

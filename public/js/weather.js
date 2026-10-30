@@ -294,7 +294,11 @@
     // cannot teleport them; `de` drives the eases and follows wall-clock,
     // so a grade transition still takes ~2.5 s on a slow, frame-starved
     // machine instead of stretching out with the frame rate.
-    const raw = now-last || 16;
+    // the rAF timestamp is the frame's start, which can precede the
+    // performance.now() that kick() stored in `last` — a negative step would
+    // ease every weight *away* from its target and park the loop for good
+    // (seen when a grade is set from a fully parked state, e.g. a hub deep link)
+    const raw = Math.max(0, now-last) || 16;
     const dt = Math.min(60, raw), de = Math.min(600, raw); last=now;
 
     // ease every weight toward its target; frost creeps in much slower (6 s)
@@ -303,7 +307,9 @@
       Z[k] += ((T[k]||0) - Z[k]) * Math.min(1, de/tau);
     }
 
-    if(!active()){ sx.clearRect(0,0,W,H); return; }   // park
+    // park only once everything has decayed AND nothing is easing in — the
+    // first step from a parked state is tiny and must not park the loop
+    if(!active() && !(T.sea||T.cir||T.thick||T.mist||T.star||T.drift||T.snow||T.white||T.frost)){ sx.clearRect(0,0,W,H); return; }
     raf = requestAnimationFrame(frame);
 
     // parallax from the camera: bearing scrolls the banks sideways, pitch

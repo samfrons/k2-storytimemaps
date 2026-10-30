@@ -16,6 +16,7 @@
   const FLY = 2400, DRAW = 1500, AUTO = 12000, N = STOPS.length;
   const stopsEls = [...rail.querySelectorAll('.cr-stop')];
   const narrow = ()=>innerWidth <= 860;
+  let flown = false;
   let on = false, cur = -1, drawRaf = null, flyTimer = null, swapTimer = null, waitTimer = null;
 
   // ── the route lines (own sources/layers, created on first use)
@@ -27,10 +28,10 @@
       map.addSource('tour'+j, {type:'geojson', data:fc([])});
       map.addLayer({id:'tour'+j+'-case', type:'line', source:'tour'+j,
         layout:{'line-cap':'round','line-join':'round'},
-        paint:{'line-color':'#0b0a08','line-width':7,'line-opacity':.75,'line-blur':.4}});
+        paint:{'line-color':'#0b0a08','line-width':8,'line-opacity':.8,'line-blur':.4}});
       map.addLayer({id:'tour'+j, type:'line', source:'tour'+j,
         layout:{'line-cap':'round','line-join':'round'},
-        paint:{'line-color':'#a6752a','line-width':j===0?3.6:2.6,'line-opacity':j===0?1:.9}});
+        paint:{'line-color':'#a6752a','line-width':j===0?4.2:3,'line-opacity':j===0?1:.9}});
     }
   }
   function fc(coords){ return {type:'Feature', geometry:{type:'LineString',
@@ -82,12 +83,38 @@
     const s=STOPS[i], c=s.cam;
     a.routes(false); a.focus(s.ev); clearLines();
     if(window.setGrade) window.setGrade(s.grade);
-    const off = narrow() ? [0, -innerHeight*.17] : [Math.round(innerWidth*.17), 0];
+    // phones: the bottom sheet covers the lower half, so frame the route in
+    // the top band and pull back a little for the narrow screen
+    const nw = narrow();
+    const cam = {center:c.center, zoom:c.zoom-(nw?.75:0), pitch:c.pitch, bearing:c.bearing,
+      offset: nw ? [0, -Math.round(innerHeight*.27)] : [Math.round(innerWidth*.17), 0]};
     a.map.stop();
-    a.map.flyTo({center:c.center, zoom:c.zoom, pitch:c.pitch, bearing:c.bearing, offset:off,
-      duration: reduce?0:FLY, essential:true, curve:1.3});
+    if(!flown && !a.map.loaded()){
+      // first flight of a page load (a deep link, or a click before the
+      // terrain has settled): go straight there, let the DEM tiles arrive,
+      // then ease in — an animated move only resolves the centre's terrain
+      // elevation from tiles that are already loaded
+      flown = true;
+      a.map.jumpTo(cam);
+      a.map.once('idle', ()=>{ if(on && cur===i){
+        a.map.easeTo(Object.assign({duration: reduce?0:1200, essential:true}, cam,
+          {zoom:cam.zoom+.02})); } });
+    } else {
+      flown = true;
+      a.map.flyTo(Object.assign({duration: reduce?0:FLY, essential:true, curve:1.3}, cam));
+    }
     clearTimeout(flyTimer);
-    flyTimer = setTimeout(()=>{ if(on && cur===i) drawLines(i); }, reduce?0:FLY*.82);
+    flyTimer = setTimeout(()=>{
+      if(!(on && cur===i)) return;
+      // a second, short move re-resolves the centre's terrain elevation —
+      // the first lands wrong whenever the DEM tiles arrived mid-flight
+      // (always on a deep link). See PLATES in CLAUDE.md.
+      a.map.easeTo(Object.assign({duration: reduce?0:900, essential:true}, cam));
+      drawLines(i);
+      // …and once more when every tile has arrived (slow first loads)
+      a.map.once('idle', ()=>{ if(on && cur===i)
+        a.map.easeTo(Object.assign({duration: reduce?0:700, essential:true}, cam)); });
+    }, reduce?0:FLY+60);
     return true;
   }
   // the map may still be loading on a deep link — retry until it's up
