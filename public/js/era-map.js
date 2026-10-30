@@ -240,16 +240,23 @@
   const lerp=(a,b,t)=>a+(b-a)*t;
   function lerpAng(a,b,t){let d=((b-a+540)%360)-180;return (a+d*t+360)%360;}
   const ease=t=>t<.5?2*t*t:-1+(4-2*t)*t;
-  function camTick(){
-    if(!ready||!keyPts.length) return;
+  // the scroll-scrubbed pose for the current scroll position
+  function pose(){
     const yr=scrollY+innerHeight*.5;
     let a=keyPts[0], b=keyPts[0];
     for(let i=0;i<keyPts.length;i++){ if(keyPts[i].y<=yr){a=keyPts[i];b=keyPts[i+1]||keyPts[i];} }
     const t=a===b?0:ease(Math.min(1,Math.max(0,(yr-a.y)/(b.y-a.y))));
-    map.jumpTo({center:[lerp(a.ll[0],b.ll[0],t),lerp(a.ll[1],b.ll[1],t)],
+    return {cam:{center:[lerp(a.ll[0],b.ll[0],t),lerp(a.ll[1],b.ll[1],t)],
       zoom:lerp(a.zoom,b.zoom,t), pitch:lerp(a.pitch,b.pitch,t),
-      bearing:lerpAng(a.bearing,b.bearing,t), offset:[0,innerHeight*lerp(a.off,b.off,t)]});
-    setGrade(t>.55?b.grade:a.grade);
+      bearing:lerpAng(a.bearing,b.bearing,t), offset:[0,innerHeight*lerp(a.off,b.off,t)]},
+      grade:t>.55?b.grade:a.grade};
+  }
+  function camTick(){
+    // the hub's guided tour (hub-tour.js) owns the camera while it runs
+    if(!ready||!keyPts.length||window.__tourOn) return;
+    const p=pose();
+    map.jumpTo(p.cam);
+    setGrade(p.grade);
   }
 
   function lerpMarker(m,to){
@@ -323,7 +330,7 @@
   addEventListener('load', measure); measure();
   addEventListener('resize', ()=>{measure();camDirty=true;});
   let raf=null,lastY=-1;
-  function loop(){ if(!window.__exploreOn && (scrollY!==lastY||camDirty)){lastY=scrollY;camDirty=false;camTick();} raf=requestAnimationFrame(loop); }
+  function loop(){ if(!window.__exploreOn && !window.__tourOn && (scrollY!==lastY||camDirty)){lastY=scrollY;camDirty=false;camTick();} raf=requestAnimationFrame(loop); }
   if(reduce){ addEventListener('scroll',camTick,{passive:true}); setTimeout(camTick,1500); }
   else loop();
   setTimeout(measure,1200); setTimeout(measure,3500);
@@ -484,6 +491,37 @@
     lcEls.next.addEventListener('click',()=>{if(lcEv<LAST){lcEv++;lcRender();}});
     lcEls.close.addEventListener('click',lcClose);
   }
+
+  // ── hooks for the hub's guided century tour (public/js/hub-tour.js). Only
+  // the hub loads that file; on the era pages this object is simply unused.
+  window.__eraMap = {
+    get map(){ return map; }, get ready(){ return ready; },
+    // dim every year-tagged site that isn't this stop's, pin its ✝ moments
+    focus(i){
+      if(!ready) return;
+      Object.keys(POINTS).forEach(k=>{ const el=camps[k], ev=POINTS[k].ev;
+        if(el) el.classList.toggle('dim', i>=0 && ev!==undefined && ev!==i); });
+      moms.forEach(f=>f.el.classList.toggle('off', i<0 || !f.at.includes(i)));
+      feats.forEach(f=>f.el.classList.toggle('off', i<f.from));
+    },
+    // show/hide the page's own route lines (the tour draws its own)
+    routes(on){
+      if(!ready) return;
+      ROUTES.forEach((r,ri)=>['route'+ri,'route'+ri+'-case'].forEach(id=>{
+        try{ map.setLayoutProperty(id,'visibility',on?'visible':'none'); }catch(e){} }));
+      try{ map.setLayoutProperty('prog','visibility',on?'visible':'none'); }catch(e){}
+    },
+    // ease back to the scroll camera, then hand it back to the scroll loop
+    release(ms, done){
+      measure();
+      const fin=()=>{ camDirty=true; applyEvent(curEv===-99?-1:curEv, true); if(done) done(); };
+      if(!ready||!keyPts.length) return fin();
+      const p=pose(); setGrade(p.grade);
+      if(reduce||!ms){ map.jumpTo(p.cam); return fin(); }
+      map.easeTo(Object.assign({duration:ms, essential:true}, p.cam));
+      setTimeout(fin, ms+60);
+    }
+  };
 
   // ── LITE MODE
   const bL=document.getElementById('btnLite'); let lite=false;

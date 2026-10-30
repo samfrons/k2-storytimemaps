@@ -98,7 +98,8 @@ posture and must keep their credits in the cards and colophon.
   2026-09-19, see "Markers, no vignettes" below) and the three script tags.
   Asset paths are absolute (`/clips/…`, `/js/…`) because the page serves
   from `/1939`.
-- `app/hub.html` — the hub markup (century scrubber, cover cards, the
+- `app/hub.html` — the hub markup (the guided century — see "The hub's
+  guided century" below — cover cards, the
   altitude wall, the ledger); loads the era-* scripts like an era page.
 - `public/css/main.css` — all styles. Design language: Kopke1638/L'Équipe-
   inspired; type system (settled 2026-07-20, title face updated 2026-09-18):
@@ -262,6 +263,57 @@ never React-ify):
   front pages must stay invented pastiches and say so on-page — and no
   free-license photograph of Alison Hargreaves exists, a fact the 1995 page
   states deliberately.
+
+## The hub's guided century (2026-10-30)
+
+`/` is built so a visitor can't skim past the four stories:
+
+- **Stop cards are the single source.** `#ev0`–`#ev3` in `app/hub.html` are
+  one `.over-card.stop.y39|y86|y95|y08` per storm: Fraunces year numeral in
+  the year colour (`--yc`, set by the `.yNN` class), muted kick, title, the
+  paragraph, toll, an "Inside this story" fact row (`.inside`) and a "Read
+  the 19xx story →" link (`.stop-act`). The scroll path shows them as-is;
+  the tour clones their innerHTML. Narration skips `.inside`/`.stop-act`.
+- **Fact counts are never typed by hand.** Every `<b data-n="YEAR:key">N</b>`
+  (stop cards and the covers' `.cv-facts` line) is rewritten at build time
+  by `insideCounts()` in `app/page.tsx`, counted from the story pages
+  themselves (over-steps, `LENSES` in engine.js, `data-plate`, unique 1939
+  clips, era `routes`, `ch-cover`s, `.ttx`, `.tr-item`, `.doc`). An unknown
+  key fails the build. To add a fact, add a key there, not a number.
+- **Tour mode** — `public/js/hub-tour.js` (hub only, loads after
+  era-extras.js). "Begin the century" (`#tourBegin`, prologue) starts it.
+  Per stop: the camera flies (2.4 s, `essential:true`) to `__ERA.tour[i].cam`
+  (offset right of the card; on phones pulled back and framed in the top
+  band above the bottom sheet), the year's route draws in over 1.5 s on the
+  tour's own `tour0..2` line layers (the hub's composite routes are hidden
+  while it runs), `__eraMap.focus(ev)` dims other years' sites and pins that
+  year's ✝ moments, and the grade switches via `setGrade` (1939 dusk,
+  1986/1995 storm, 2008 night). `__ERA.tour[i].lines` are each page's own
+  route data copied verbatim (1939 to the High Point; 1986 all three lines
+  in that page's colours) — same approximate-positions caveat. The `#crail`
+  century rail (bottom, glass) lights the current stop, clicks/←→/swipe
+  move, "Auto" advances every 12 s (pauses on hover or a hidden tab).
+  ✕/Escape/a deliberate scroll or vertical swipe leaves the tour at
+  `#covers` and eases the camera back to the scroll pose
+  (`__eraMap.release`). The scroll camera in `era-map.js` stands down while
+  `window.__tourOn` is true.
+- **Public:** `window.__tour = {start(i), stop()}`. Deep links: `/#tour`
+  (1939), `/#1939`…`/#2008`, `/?tour=1995`; the hash follows the stop while
+  the tour runs and is cleared on exit — story pages can link back into a
+  given stop.
+- **First flight of a load** (deep links) jumps to the vantage, waits for
+  `idle`, then eases in: an animated move only resolves the centre's terrain
+  elevation from tiles already loaded (same lesson as `PLATES`).
+- The hub's glass panels (plate, wall, century) carry `.reveal` themselves,
+  and `.panel.reveal:not(.on)` drops the backdrop-filter — Chromium paints a
+  backdrop-filter even at opacity 0, which showed as an empty blurred block
+  below the covers. The plate panel also stays `display:none` until its
+  hotlinked photograph has loaded (the whole section drops out on error).
+- `weather.js` loop fix (same pass): the rAF timestamp can precede the
+  `performance.now()` stored by `kick()`; the negative step eased weights
+  away from their targets and parked the loop, so a grade set from a fully
+  parked state (any hub deep link) never showed. `raw` is now clamped ≥ 0
+  and the loop doesn't park while a grade is still easing in.
 
 ## Hero variants — undecided (2026-07-30)
 

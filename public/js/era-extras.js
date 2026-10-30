@@ -144,7 +144,7 @@
     const SEL='.prologue h1,.prologue .sub,.pq-sky,.ch-cover .inner,.narrative > p,.narrative > .pq,.record p,.cast .cc,.over-card,.evroom .ev-head,.doc,.ev-verdict,.ttx,.tr-item,.mem-inner > p,.footer .final';
     const blockText=el=>{
       const c=el.cloneNode(true);
-      c.querySelectorAll('figure,figcaption,.snd,.src,.mono,.film-more').forEach(n=>n.remove());
+      c.querySelectorAll('figure,figcaption,.snd,.src,.mono,.film-more,.inside,.stop-act').forEach(n=>n.remove());
       return c.textContent.replace(/·/g,', ').replace(/[†✝◈◇]/g,'')
         .replace(/−/g,'minus ').replace(/~/g,'about ').replace(/\s+/g,' ').trim();
     };

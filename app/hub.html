@@ -41,7 +41,10 @@
 </aside>
 <nav class="rail" aria-label="Sections">
   <a href="#prologue" data-ch="prologue"><span class="dot"></span><span class="lbl">One Mountain</span></a>
-  <a href="#trkC" data-ch="trkC"><span class="dot"></span><span class="lbl">Four Storms</span></a>
+  <a href="#ev0" data-ch="ev0" class="y39"><span class="dot"></span><span class="lbl">1939 · A Mountain to Die On</span></a>
+  <a href="#ev1" data-ch="ev1" class="y86"><span class="dot"></span><span class="lbl">1986 · The Black Summer</span></a>
+  <a href="#ev2" data-ch="ev2" class="y95"><span class="dot"></span><span class="lbl">1995 · One Day as a Tiger</span></a>
+  <a href="#ev3" data-ch="ev3" class="y08"><span class="dot"></span><span class="lbl">2008 · The Bottleneck</span></a>
   <a href="#covers" data-ch="covers"><span class="dot"></span><span class="lbl">The Stories</span></a>
   <a href="#wall" data-ch="wall"><span class="dot"></span><span class="lbl">The Wall</span></a>
   <a href="#century" data-ch="century"><span class="dot"></span><span class="lbl">The Century</span></a>
@@ -65,6 +68,22 @@
   <a href="/1939">1939</a><a href="/1986">1986</a><a href="/1995">1995</a><a href="/2008">2008</a><a class="hub cur" href="/" aria-current="page">One Mountain ◈</a>
 </nav>
 
+<!-- THE CENTURY TOUR (public/js/hub-tour.js): a stepped walk through the
+     four storms. The stop card is filled from the matching #evN .over-card. -->
+<div id="tour" aria-hidden="true">
+  <article id="tourCard" class="tour-card" role="region" aria-live="polite" aria-label="The century tour"></article>
+  <button type="button" id="tourX" class="tour-x">✕ Leave the tour</button>
+</div>
+<nav id="crail" aria-label="The four storms">
+  <div class="cr-track">
+    <button type="button" class="cr-stop y39" data-i="0"><i></i><b>1939</b></button>
+    <button type="button" class="cr-stop y86" data-i="1"><i></i><b>1986</b></button>
+    <button type="button" class="cr-stop y95" data-i="2"><i></i><b>1995</b></button>
+    <button type="button" class="cr-stop y08" data-i="3"><i></i><b>2008</b></button>
+  </div>
+  <button type="button" id="tourAuto" class="cr-auto" aria-pressed="false">Auto <span aria-hidden="true">▷</span></button>
+</nav>
+
 <main>
 
 <section class="prologue" id="prologue" data-alt="5000">
@@ -72,6 +91,10 @@
   <h1>One Mountain,<br><em>Four</em> Storms</h1>
   <div class="rule"></div>
   <p class="sub">1939 · 1986 · 1995 · 2008. Four catastrophes, seven decades apart, on the same few thousand metres of ice — told in the voice of the era that lived each one.</p>
+  <div class="tour-cta">
+    <button type="button" id="tourBegin" class="tour-go">Begin the century <span aria-hidden="true">›</span></button>
+    <a class="tour-or" href="#ev0">or scroll</a>
+  </div>
   <div class="stats">
     <div class="stat"><b>4</b><span>Disasters · One Ridge</span></div>
     <div class="stat loss"><b>36</b><span>Lives · Four Seasons</span></div>
@@ -84,40 +107,55 @@
 <div class="breath"></div>
 <div class="pq pq-sky reveal" id="qhub" data-alt="5000">
   The stories rhyme. A summit reached too late. A camp that should not have been empty. A descent the weather would not permit. Only the instruments change — diaries, slide film, teletext, GPS.
-  <span class="att">Scrub the century below</span>
+  <span class="att">The four storms, in order, below</span>
 </div>
 <div class="breath"></div>
 
 <div id="timeline-zone">
-<div class="over-steps">
-  <div class="over-step" data-ev="-1" id="trkC" data-alt="5000"><div class="over-card">
-    <span class="kick">The Four Storms · 1939 – 2008</span>
-    <h4>Scrub the century</h4>
-    <p>Each step below is one disaster, placed on the real terrain of K2. The ✝ pins mark where the mountain kept them — every date and toll from the documented record, every position approximate.</p>
-  </div></div>
-  <div class="over-step" data-ev="0" id="ev0" data-alt="7530"><div class="over-card y39">
-    <span class="kick">1939 · July – August</span>
+<!-- One stop per storm. The tour (public/js/hub-tour.js) clones each
+     .over-card.stop into its stop card, so this markup is the single source
+     for both paths. The <b data-n> counts are recomputed at build time from
+     each story page (app/page.tsx) — never type a new number in by hand. -->
+<div class="over-steps" id="trkC">
+  <div class="over-step" data-ev="0" id="ev0" data-alt="7530"><div class="over-card stop y39" data-year="1939">
+    <span class="stop-yr">1939</span>
+    <span class="kick">The First Storm · July – August</span>
     <h4>A Mountain to Die On</h4>
     <p>Wiessner turns back 800 feet from the top; the camps beneath him are stripped by mistake. Dudley Wolfe waits alone at Camp VII, and three Sherpas — Pasang Kikuli, Pasang Kitar, Phinsoo — climb into the clouds to bring him down. None return.</p>
     <p class="tl"><b>4 lost</b> · the highest rescue attempt then ever made</p>
+    <div class="inside"><span class="in-h">Inside this story</span>
+      <span class="in-f"><b data-n="1939:steps">17</b> map steps</span><span class="in-f"><b data-n="1939:lenses">8</b> explore lenses</span><span class="in-f"><b data-n="1939:plates">2</b> photo-matched Sella plates</span><span class="in-f"><b data-n="1939:clips">9</b> film excerpts</span></div>
+    <div class="stop-act"><a class="stop-read" href="/1939">Read the 1939 story <span aria-hidden="true">→</span></a></div>
   </div></div>
-  <div class="over-step" data-ev="1" id="ev1" data-alt="8000"><div class="over-card y86">
-    <span class="kick">1986 · June 21 – August 10</span>
+  <div class="over-step" data-ev="1" id="ev1" data-alt="8000"><div class="over-card stop y86" data-year="1986">
+    <span class="stop-yr">1986</span>
+    <span class="kick">The Second Storm · June 21 – August 10</span>
     <h4>The Black Summer</h4>
     <p>Twenty-seven summits by five lines — and thirteen dead, across the whole mountain: an avalanche, two descents that never ended, a crevasse at Base Camp, the fixed ropes, and a storm that sealed seven climbers into Camp IV at 8,000 metres.</p>
     <p class="tl"><b>13 lost</b> · the summer K2's arithmetic changed</p>
+    <div class="inside"><span class="in-h">Inside this story</span>
+      <span class="in-f"><b data-n="1986:steps">12</b> map steps</span><span class="in-f"><b data-n="1986:routes">3</b> routes on the terrain</span><span class="in-f"><b data-n="1986:chapters">7</b> chapters</span></div>
+    <div class="stop-act"><a class="stop-read" href="/1986">Read the 1986 story <span aria-hidden="true">→</span></a></div>
   </div></div>
-  <div class="over-step" data-ev="2" id="ev2" data-alt="8300"><div class="over-card y95">
-    <span class="kick">1995 · August 13 – 15</span>
+  <div class="over-step" data-ev="2" id="ev2" data-alt="8300"><div class="over-card stop y95" data-year="1995">
+    <span class="stop-yr">1995</span>
+    <span class="kick">The Third Storm · August 13 – 15</span>
     <h4>One Day as a Tiger</h4>
     <p>Six climbers — Alison Hargreaves first among them — summit at 6:45 in the evening into a perfect sky, and a 160 km/h storm kills them all on the descent. Jeff Lakes, who turned back, dies of exposure two days later.</p>
     <p class="tl"><b>8 lost that season</b> · and one climber tried by the press</p>
+    <div class="inside"><span class="in-h">Inside this story</span>
+      <span class="in-f"><b data-n="1995:steps">8</b> map steps</span><span class="in-f"><b data-n="1995:ttx">3</b> teletext weather panels</span><span class="in-f"><b data-n="1995:trials">4</b> trial headlines to peel back</span></div>
+    <div class="stop-act"><a class="stop-read" href="/1995">Read the 1995 story <span aria-hidden="true">→</span></a></div>
   </div></div>
-  <div class="over-step" data-ev="3" id="ev3" data-alt="8200"><div class="over-card y08">
-    <span class="kick">2008 · August 1 – 2</span>
+  <div class="over-step" data-ev="3" id="ev3" data-alt="8200"><div class="over-card stop y08" data-year="2008">
+    <span class="stop-yr">2008</span>
+    <span class="kick">The Fourth Storm · August 1 – 2</span>
     <h4>The Bottleneck</h4>
     <p>Eighteen summit — some at eight in the evening. At 20:30 the serac above the Bottleneck calves, cutting every fixed rope. Eleven die in the couloir Wiessner refused in 1939: the deadliest single accident in the mountain's history.</p>
     <p class="tl"><b>11 lost</b> · the most documented, the most contested</p>
+    <div class="inside"><span class="in-h">Inside this story</span>
+      <span class="in-f"><b data-n="2008:steps">14</b> map steps</span><span class="in-f"><b data-n="2008:files">3</b> evidence files</span><span class="in-f"><b data-n="2008:chapters">9</b> chapters</span></div>
+    <div class="stop-act"><a class="stop-read" href="/2008">Read the 2008 story <span aria-hidden="true">→</span></a></div>
   </div></div>
 </div>
 </div>
@@ -134,6 +172,7 @@
       <span class="cv-title">A Mountain to <em>Die</em> On</span>
       <span class="cv-line"></span>
       <span class="cv-desc">Wolfe, Wiessner, and the Sherpas' last climb — diaries kept sealed for fifty years.</span>
+      <span class="cv-facts"><b data-n="1939:steps">17</b> map steps · <b data-n="1939:lenses">8</b> lenses · <b data-n="1939:plates">2</b> Sella plates · <b data-n="1939:clips">9</b> film excerpts</span>
       <span class="cv-toll">4 lost · Read the story ⟶</span>
     </a>
     <a class="cover cov86 reveal" href="/1986">
@@ -141,6 +180,7 @@
       <span class="cv-title">THE BLACK SUMMER</span>
       <span class="cv-line"></span>
       <span class="cv-desc">Nine expeditions, three new routes, the first women — and thirteen dead by five different ways.</span>
+      <span class="cv-facts"><b data-n="1986:steps">12</b> map steps · <b data-n="1986:routes">3</b> routes · <b data-n="1986:chapters">7</b> chapters</span>
       <span class="cv-toll">13 lost · Read the story ⟶</span>
     </a>
     <a class="cover cov95 reveal" href="/1995">
@@ -148,6 +188,7 @@
       <span class="cv-title">ONE DAY AS A TIGER</span>
       <span class="cv-line"></span>
       <span class="cv-desc">Six died in the same storm. The front pages put one of them — the mother — on trial.</span>
+      <span class="cv-facts"><b data-n="1995:steps">8</b> map steps · <b data-n="1995:ttx">3</b> teletext panels · <b data-n="1995:trials">4</b> trial headlines</span>
       <span class="cv-toll">8 lost · Read the story ⟶</span>
     </a>
     <a class="cover cov08 reveal" href="/2008">
@@ -155,14 +196,15 @@
       <span class="cv-title">THE_BOTTLENECK</span>
       <span class="cv-line"></span>
       <span class="cv-desc">The serac falls at 20:30 and the dots go dark one by one — on satphones, radios and GPS.</span>
+      <span class="cv-facts"><b data-n="2008:steps">14</b> map steps · <b data-n="2008:files">3</b> evidence files · <b data-n="2008:chapters">9</b> chapters</span>
       <span class="cv-toll">11 lost · Read the story ⟶</span>
     </a>
   </div>
 </div></div>
 
-<div class="panel-wrap plate-panel" id="plate-hub" data-alt="6000"><div class="panel"><div class="narrative"><figure class="photo reveal"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/K2%2C%20Mount%20Godwin%20Austen%2C%20Chogori%2C%20Savage%20Mountain.jpg" alt="K2 from the south" loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>One mountain. K2 from the Baltoro side — every storm on this page happened on the few thousand metres of ice in this frame · CC BY 2.0 · Wikimedia Commons</figcaption></figure></div></div></div>
+<div class="panel-wrap plate-panel" id="plate-hub" data-alt="6000"><div class="panel reveal"><div class="narrative"><figure class="photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/K2%2C%20Mount%20Godwin%20Austen%2C%20Chogori%2C%20Savage%20Mountain.jpg" alt="K2 from the south" onload="this.closest('.panel').classList.add('ok')" onerror="this.closest('.panel-wrap').style.display='none'"><figcaption>One mountain. K2 from the Baltoro side — every storm on this page happened on the few thousand metres of ice in this frame · CC BY 2.0 · Wikimedia Commons</figcaption></figure></div></div></div>
 
-<div class="panel-wrap" id="wall" data-alt="7000"><div class="panel"><div class="narrative wide">
+<div class="panel-wrap" id="wall" data-alt="7000"><div class="panel reveal"><div class="narrative wide">
   <span class="eyebrow reveal">The Wall</span>
   <h3 class="wall-h reveal">Where the Mountain Keeps Them</h3>
   <p class="reveal" style="margin-top:.8rem">Every documented loss of the four disasters, placed by the altitude at which the mountain took them. In 1939 and 1986 K2 killed on every floor of the climb — a crevasse at its foot, an avalanche on the approach, the ropes, the Shoulder. In 1995 and 2008 nearly every mark sits in one thin band: <span class="dng">the death zone, above 8,000 metres</span>, where summits come late and storms shut the door.</p>
@@ -237,7 +279,7 @@
   <p class="chart-cap reveal">One mark per person · altitudes approximate, per the documented accounts · Jordi Anglès (1995, altitude unrecorded) appears in the ledger below. Hover any mark for the name; the full ledger follows.</p>
 </div></div></div>
 
-<div class="panel-wrap" id="century" data-alt="5000"><div class="panel"><div class="narrative wide">
+<div class="panel-wrap" id="century" data-alt="5000"><div class="panel reveal"><div class="narrative wide">
   <span class="eyebrow reveal">The Century</span>
   <h3 class="wall-h reveal">A Timeline of the Savage Mountain</h3>
   <div class="strip reveal">
@@ -364,7 +406,6 @@ window.__ERA = {
   pointStates: {},
   keys: [
     ['prologue','base',10.3,34,336,-.05,''], ['qhub','base',10.9,44,320,-.05,''],
-    ['trkC','base',11.2,48,300,-.06,'g-day'],
     ['ev0','c7_39',13.3,71,270,-.03,'g-dusk'],
     ['ev1','shldr',12.6,64,220,-.04,'g-storm'],
     ['ev2','upper95',13.5,74,180,-.02,'g-storm'],
@@ -377,6 +418,29 @@ window.__ERA = {
   ],
   flame: {ll:[76.5160,35.8446], label:'Gilkey Memorial'},
   explore: {center:'shldr', zoom:12.3, pitch:62, bearing:150},
+  // The century tour (public/js/hub-tour.js) — one stop per storm, in time
+  // order; `ev` indexes events[] above and the #evN stop card. Each line is
+  // that page's own route data, copied verbatim (1939: CAMPS/ROUTE in
+  // engine.js, Base Camp → the High Point; the eras: their __ERA.routes),
+  // so the same approximate-positions caveat applies. lines[0] is the route
+  // climbed and takes the year accent; 1986's other two are its South Face
+  // and Magic Line in that page's own ROUTE_ALT colours.
+  tour: [
+    {ev:0, year:'1939', grade:'g-dusk',
+     cam:{center:[76.5190,35.8620], zoom:11.7, pitch:54, bearing:290},
+     lines:[{c:'#a6752a', ll:[[76.5175,35.8420],[76.5232,35.8552],[76.5226,35.8604],[76.5216,35.8646],[76.5206,35.8680],[76.5199,35.8697],[76.5191,35.8722],[76.5181,35.8746],[76.5166,35.8766],[76.5151,35.8786],[76.5141,35.8801]]}]},
+    {ev:1, year:'1986', grade:'g-storm',
+     cam:{center:[76.5130,35.8620], zoom:11.6, pitch:50, bearing:320},
+     lines:[{c:'#a83122', ll:[[76.5175,35.8420],[76.5226,35.8604],[76.5219,35.8636],[76.5163,35.8768],[76.5137,35.8806],[76.5133,35.8814]]},
+            {c:'#e8c15a', ll:[[76.5175,35.8420],[76.5110,35.8730],[76.5133,35.8814]]},
+            {c:'#4f97b8', ll:[[76.5175,35.8420],[76.5033,35.8660],[76.5060,35.8740],[76.5133,35.8814]]}]},
+    {ev:2, year:'1995', grade:'g-storm',
+     cam:{center:[76.5185,35.8640], zoom:11.8, pitch:55, bearing:262},
+     lines:[{c:'#33589e', ll:[[76.5175,35.8420],[76.5226,35.8604],[76.5216,35.8646],[76.5178,35.8750],[76.5140,35.8800],[76.5133,35.8814]]}]},
+    {ev:3, year:'2008', grade:'g-night',
+     cam:{center:[76.5175,35.8660], zoom:11.9, pitch:56, bearing:305},
+     lines:[{c:'#2e7d46', ll:[[76.5175,35.8420],[76.5232,35.8552],[76.5226,35.8604],[76.5210,35.8666],[76.5163,35.8768],[76.5137,35.8806],[76.5127,35.8809],[76.5133,35.8814]]}]}
+  ],
   camStart: {zoom:10.3, pitch:34, bearing:336}
 };
 </script>
@@ -384,3 +448,4 @@ window.__ERA = {
 <script src="/js/era-map.js"></script>
 <script src="/js/era-chrome.js"></script>
 <script src="/js/era-extras.js"></script>
+<script src="/js/hub-tour.js"></script>
