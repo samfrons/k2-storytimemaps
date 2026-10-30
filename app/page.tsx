@@ -38,8 +38,9 @@ function insideCounts(): Record<string, number> {
   const chapters = (s: string) => count(s, /class="ch-cover"/g);
   const lensBlock = eng.slice(eng.indexOf('const LENSES'), eng.indexOf('];', eng.indexOf('const LENSES')));
   const eraRoutes = (s: string) => {
+    // routes: [ {keys:[…]}, … ] — up to the next top-level key of __ERA
     const i = s.indexOf('routes:');
-    return count(s.slice(i, s.indexOf('],', i)), /\{keys:\[/g);
+    return count(s.slice(i, s.indexOf('\n  people:', i)), /\{keys:\[/g);
   };
   return {
     '1939:steps': steps(s39),
