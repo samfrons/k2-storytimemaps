@@ -490,15 +490,6 @@ body.memnight .memorial .cc-name{letter-spacing:.1em}
 .record.typing p:not(.rec-meta){min-height:1em}
 
 /* ════════ v14: the other disasters — cross-links before the footer ════════ */
-.epochs{position:relative;z-index:3;text-align:center;padding:14vh 1.6rem 10vh}
-.epochs h3{margin-top:1.4rem;font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.9rem,4.4vw,3rem);color:var(--ivory);text-shadow:0 3px 26px rgba(0,0,0,.8)}
-.epochs .ep-sub{margin:.8rem auto 2.4rem;max-width:520px;font-style:italic;font-weight:380;color:rgba(241,236,223,.85);text-shadow:0 2px 12px rgba(0,0,0,.8)}
-.epochs .ep-links{display:flex;flex-direction:column;align-items:center;gap:.6rem}
-.epochs .ep-links a,.epochs .ep-here{font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;padding:.85rem 1.6rem;border:1px solid rgba(241,236,223,.45);color:var(--ivory);background:rgba(20,17,12,.45);backdrop-filter:blur(3px);transition:.3s;min-width:min(420px,86vw)}
-.epochs .ep-links a:hover{border-color:#f1ecdf;color:#fff;background:rgba(20,17,12,.7)}
-.epochs .ep-here{opacity:.55;border-style:dashed;pointer-events:none}
-.epochs .ep-hub{border-color:rgba(201,168,106,.7)}
-.epochs .ep-hub:hover{border-color:var(--bronze-l)}
 
 /* On a phone, a nowrap label longer than the screen can't be nudged back into
    view — cap it so the clamp in engine.js/era-map.js always has room to work.
@@ -712,3 +703,58 @@ body.plate-on .maplibregl-marker{opacity:0!important;pointer-events:none;transit
   #lenses .lz{font-size:.66rem;padding:.35rem .55rem;letter-spacing:.12em}
   .lens-cta{letter-spacing:.16em}
 }
+
+/* ===== Century rail (.eranav.rail4) + "Continue the century" handoff (.handoff) =====
+   Year tokens mirror disasters.css (:root) so every page can paint year colours. */
+:root{--y39:#a6752a;--y86:#a83122;--y95:#33589e;--y08:#2e7d46}
+nav.eranav.rail4{position:fixed;top:.9rem;left:50%;transform:translateX(-50%);z-index:10000;display:flex;align-items:center;gap:0;padding:.3rem .45rem;
+  background:rgba(10,9,7,.56);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 30px -14px rgba(0,0,0,.6);max-width:none;flex-wrap:nowrap}
+nav.eranav.rail4 a{font-family:'Jost',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.16em;text-transform:none;text-decoration:none;color:rgba(241,236,223,.78);
+  padding:.32rem .6rem;border:1px solid transparent;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .25s,color .25s}
+nav.eranav.rail4 a:hover{color:#fff;border-color:rgba(241,236,223,.45)}
+nav.eranav.rail4 a.cur{color:var(--ivory);pointer-events:none;border-color:rgba(241,236,223,.55)}
+nav.eranav.rail4 a.c39.cur{background:var(--y39)}nav.eranav.rail4 a.c86.cur{background:var(--y86)}
+nav.eranav.rail4 a.c95.cur{background:var(--y95)}nav.eranav.rail4 a.c08.cur{background:var(--y08)}
+nav.eranav.rail4 a.hub{color:rgba(241,236,223,.7);letter-spacing:.1em}
+nav.eranav.rail4 .rt{display:block;width:1.1rem;height:2px;background:rgba(241,236,223,.22);flex:none}
+nav.eranav.rail4 .rt.done{background:var(--bronze-l,#c9a86a)}
+nav.eranav.rail4 .rt.rs{width:.7rem;margin-left:.3rem;background:rgba(241,236,223,.14)}
+body.explore nav.eranav.rail4{opacity:0;pointer-events:none;transition:opacity .8s}
+@media(max-width:860px){
+  nav.eranav.rail4{top:.5rem;max-width:96vw}
+  body:has(nav.eranav.rail4) .m3d-hud{top:3.2rem}
+  nav.eranav.rail4 a{padding:.3rem .45rem;font-size:.7rem;letter-spacing:.08em}
+  nav.eranav.rail4 .rt{width:.6rem}
+  nav.eranav.rail4 a.hub span{display:none}
+}
+
+.handoff{position:relative;z-index:3;padding:14vh 0 0}
+.handoff .hf-inner{background:rgba(10,9,7,.56);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);
+  border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.6);
+  padding:clamp(3rem,9vh,6rem) 1.6rem clamp(2rem,6vh,3.6rem);text-align:center}
+.handoff .hf-card{max-width:760px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.handoff .hf-kick{font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(241,236,223,.7)}
+.handoff .hf-year{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(4.4rem,16vw,9rem);line-height:1;letter-spacing:-.02em;color:var(--ivory);margin-top:.4rem;
+  -webkit-text-stroke:1px rgba(241,236,223,.5);text-shadow:3px 3px 0 rgba(13,12,10,.6)}
+.handoff .hf-year.y39{color:var(--y39)}.handoff .hf-year.y86{color:var(--y86)}.handoff .hf-year.y95{color:var(--y95)}.handoff .hf-year.y08{color:var(--y08)}
+.handoff .hf-title{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 68;font-weight:850;font-style:italic;text-transform:uppercase;font-size:clamp(2.2rem,6vw,4.6rem);
+  line-height:.9;letter-spacing:.03em;color:var(--ivory);text-shadow:0 2px 4px rgba(0,0,0,.55),0 0 40px rgba(0,0,0,.35)}
+.handoff .hf-desc{margin:1.2rem auto 0;max-width:520px;font-family:'Newsreader',serif;font-style:italic;font-weight:380;font-size:1.12rem;line-height:1.55;color:rgba(241,236,223,.9)}
+.handoff .hf-toll{margin-top:.9rem;font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--wine-l)}
+.handoff .hf-go{margin-top:1.8rem;display:inline-block;font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(.9rem,2.6vw,1.1rem);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;
+  color:var(--ivory);padding:1.1rem 2.4rem;border:1px solid rgba(241,236,223,.55);background:rgba(10,9,7,.5);transition:background .3s,border-color .3s}
+.handoff .hf-go:hover{border-color:var(--ivory)}
+.handoff .hf-go.y86{background:var(--y86)}.handoff .hf-go.y95{background:var(--y95)}.handoff .hf-go.y08{background:var(--y08)}.handoff .hf-go.y39{background:var(--y39)}
+.handoff .hf-go.hub:hover{background:rgba(241,236,223,.12)}
+.handoff .hf-foot{margin:clamp(2.4rem,6vh,3.6rem) auto 0;padding-top:1.6rem;border-top:1px solid rgba(241,236,223,.14);max-width:760px;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.handoff .hf-years{display:flex;align-items:center}
+.handoff .hf-years a{font-family:'Jost',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.16em;text-decoration:none;color:rgba(241,236,223,.8);padding:.4rem .8rem;border:1px solid rgba(241,236,223,.22)}
+.handoff .hf-years a:hover{border-color:var(--ivory);color:#fff}
+.handoff .hf-years a.cur{color:var(--ivory);pointer-events:none;border-color:rgba(241,236,223,.55)}
+.handoff .hf-years a.c39.cur{background:var(--y39)}.handoff .hf-years a.c86.cur{background:var(--y86)}.handoff .hf-years a.c95.cur{background:var(--y95)}.handoff .hf-years a.c08.cur{background:var(--y08)}
+.handoff .hf-years .tick{display:block;width:1.2rem;height:2px;background:rgba(241,236,223,.22)}
+.handoff .hf-years .tick.done{background:var(--bronze-l,#c9a86a)}
+.handoff .hf-back{font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,236,223,.7);text-decoration:none;border-bottom:1px solid rgba(241,236,223,.3);padding-bottom:.15rem}
+.handoff .hf-back:hover{color:#fff;border-color:var(--ivory)}
+@media(max-width:600px){.handoff .hf-go{padding:1rem 1.2rem;letter-spacing:.12em}.handoff .hf-years a{padding:.4rem .5rem;letter-spacing:.08em}.handoff .hf-years .tick{width:.6rem}}

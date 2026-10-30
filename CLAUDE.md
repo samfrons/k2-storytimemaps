@@ -237,8 +237,16 @@ never React-ify):
   - `public/js/era-extras.js` — extras.js sibling; scrubber dates read from
     `__ERA.events`; adds the 1995 `.tr-item` peel toggle; narration/wind/
     typewriter/evidence-docs/stars work as on the 1939 page.
-- The 1939 page links onward via the `.epochs` block before the footer (its hub link points to `/`), and
-  every era page carries the fixed `.eranav` switcher + footer cross-links.
+- **Century navigation (all four story pages).** Each page ends with the shared
+  `#handoff` ("Continue the century") section before the footer: next storm's
+  year in its year colour, Archivo title, the hub cover-card one-liner (copied
+  from `app/hub.html`) and toll, a big "Continue to 19xx" link, a four-year
+  row and "Back to One Mountain"; 2008 hands off to `/#tour`. A fixed
+  `nav.eranav.rail4` century rail (year chips on a glass strip, current year
+  filled, ticks between) sits top-centre on every story page (top on mobile,
+  with the HUD nudged down). Styles live in `main.css` (end of file; year
+  tokens duplicated from `disasters.css`). The handoff uses none of the `SEL`
+  classes, so narration skips it. Order is 1939 → 1986 → 1995 → 2008 → hub.
 - Content accuracy rule applies in full: the 1986/1995/2008 pages follow the
   documented record (Curran 1987, Diemberger 1991, Rose & Douglas 1999,
   Bowley 2010, Zuckerman & Padoan 2012, Viesturs & Roberts 2009, and the
