@@ -151,7 +151,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 
 /* ════════ FLOATING STEP CARDS (over terrain, no panel) ════════ */
 .over-steps{position:relative;padding-left:clamp(1rem,7vw,7rem)}
-.over-step{min-height:100vh;display:flex;align-items:center;padding:12vh 1.2rem 12vh 0}
+.over-step{min-height:100vh;display:flex;align-items:center;padding:7vh 1.2rem 19vh 0}/* biased up so the card's Look-closer link clears the legend row */
 .over-card{max-width:460px;position:relative;color:rgba(245,241,232,.96);background:rgba(8,7,5,.74);backdrop-filter:blur(16px) saturate(1.05);-webkit-backdrop-filter:blur(16px) saturate(1.05);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.6);padding:2rem 2.2rem;opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
 .over-step.on .over-card{opacity:1;transform:none}
 .over-card .kick{margin-bottom:.9rem}
@@ -220,7 +220,10 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
   .over-steps{padding-left:1rem}
   .over-card{max-width:100%}
   .m3d-hud{top:1.2rem;right:1.2rem}
-  .m3d-legend{left:1.2rem;bottom:3.6rem;max-width:70vw}
+  .over-step{padding:18vh .8rem 12vh 0}/* clear the HUD date at the top */
+  .m3d-legend{display:none}/* phones: no room beside the card; climbers are named in the cards */
+  .m3d-note{display:none}
+  .m3d-hud .h-alt{display:none}
   .m3d-note{right:1.2rem}
   .panel .narrative{padding:3rem 1.3rem}
 }
