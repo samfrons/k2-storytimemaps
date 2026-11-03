@@ -758,3 +758,13 @@ body.explore nav.eranav.rail4{opacity:0;pointer-events:none;transition:opacity .
 .handoff .hf-back{font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,236,223,.7);text-decoration:none;border-bottom:1px solid rgba(241,236,223,.3);padding-bottom:.15rem}
 .handoff .hf-back:hover{color:#fff;border-color:var(--ivory)}
 @media(max-width:600px){.handoff .hf-go{padding:1rem 1.2rem;letter-spacing:.12em}.handoff .hf-years a{padding:.4rem .5rem;letter-spacing:.08em}.handoff .hf-years .tick{width:.6rem}}
+
+/* ===== Mobile (≤860px): control column becomes a bottom chip row; the century
+   handoff pads itself so its last row clears the bar. The hub's tour rail #crail
+   (disasters.css) takes that same bottom edge, so the chip row yields during the tour. */
+@media (max-width:860px){
+  .ctrl{flex-direction:row;gap:.35rem;left:.8rem;right:.8rem;bottom:.7rem}
+  .ctrl button{flex:1;padding:.45rem .3rem;font-size:.66rem;letter-spacing:.12em;white-space:nowrap;text-align:center}
+  .handoff{padding-bottom:calc(4.5rem + env(safe-area-inset-bottom, 0px))}
+  body.tour .ctrl{display:none}
+}
