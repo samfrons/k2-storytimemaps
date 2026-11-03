@@ -211,7 +211,7 @@ figure.photo figcaption{margin-top:1rem;font-size:.76rem;font-weight:400;line-he
 /* ════════ RESPONSIVE / MOTION ════════ */
 @media (max-width:860px){
   .rail{display:none}
-  .alti{right:1rem;top:auto;bottom:1.1rem;transform:none}
+  .alti{right:1rem;top:auto;bottom:calc(3.9rem + env(safe-area-inset-bottom, 0px));transform:none}
   .alti .alti-bar{display:none}
   .alti .alti-ft{font-size:1.15rem}
   body{font-size:16.5px}
