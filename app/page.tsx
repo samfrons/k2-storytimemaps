@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 // (1939) identity from the root layout and adds the era display faces for
 // the four cover cards.
 const FONTS_HUB =
-  'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap';
+  'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&display=swap';
 
 const DESCRIPTION =
   'Four disasters, one mountain: 1939, 1986, 1995, 2008. The century of K2 in a single view — every documented loss placed by year and altitude on the real terrain of the Savage Mountain.';
