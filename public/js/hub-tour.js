@@ -28,10 +28,10 @@
       map.addSource('tour'+j, {type:'geojson', data:fc([])});
       map.addLayer({id:'tour'+j+'-case', type:'line', source:'tour'+j,
         layout:{'line-cap':'round','line-join':'round'},
-        paint:{'line-color':'#0b0a08','line-width':8,'line-opacity':.8,'line-blur':.4}});
+        paint:{'line-color':'#0b0a08','line-width':10,'line-opacity':.85,'line-blur':.4}});
       map.addLayer({id:'tour'+j, type:'line', source:'tour'+j,
         layout:{'line-cap':'round','line-join':'round'},
-        paint:{'line-color':'#a6752a','line-width':j===0?4.2:3,'line-opacity':j===0?1:.9}});
+        paint:{'line-color':'#a6752a','line-width':j===0?5.4:4,'line-opacity':j===0?1:.9}});
     }
   }
   function fc(coords){ return {type:'Feature', geometry:{type:'LineString',
@@ -82,6 +82,7 @@
     const a=api(); if(!a) return false;
     const s=STOPS[i], c=s.cam;
     a.routes(false); a.focus(s.ev); clearLines();
+    if(window.__wx && __wx.intensity) __wx.intensity(s.grade==='g-storm' ? 0.45 : 1);
     if(window.setGrade) window.setGrade(s.grade);
     // phones: the bottom sheet covers the lower half, so frame the route in
     // the top band and pull back a little for the narrow screen
@@ -184,6 +185,7 @@
     if(cv) window.scrollTo({top: cv.getBoundingClientRect().top + scrollY, behavior:'instant'});
     const a = api();
     setLinesVisible(false);
+    if(window.__wx && __wx.intensity) __wx.intensity(1);
     if(a){ a.map.stop(); a.routes(true); a.focus(-1);
       a.release(reduce?0:1600, ()=>{ window.__tourOn = false; }); }
     else window.__tourOn = false;
