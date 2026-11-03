@@ -203,6 +203,10 @@ fallback. Rules that hold it together:
 - Also public: `__wx.wind(0..1)` biases the gale/spindrift (it follows
   `window.__windLevel` if extras.js ever publishes one) and
   `__wx.anchor(x,y)` moves the spindrift source. Both are optional.
+- `__wx.intensity(0..1)` (default 1, null resets) scales the storm targets
+  (`white`, `frost`, `thick`, `fall` fully; `drift`/`snow` by .4+.6k so it
+  still snows) and persists across grade changes. The hub tour sets .45 on
+  `g-storm` stops so the drawn route stays legible, 1 elsewhere and on exit.
 - `?wxdebug` logs a rolling average frame cost and exposes `window.__wxZ`.
 
 ## The era pages (added 2026-07-24): /1986 · /1995 · /2008 · /disasters

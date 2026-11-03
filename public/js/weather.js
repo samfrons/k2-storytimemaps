@@ -484,9 +484,19 @@
     sx.globalAlpha=1;
   }
 
+  // intensity 0..1 (default 1) scales the storm-specific targets; drift/snow
+  // only partly, so it still snows. Kept across grade changes until reset.
+  let K = 1;
+  function scaled(row){
+    if(K>=1) return row;
+    const o = Object.assign({}, row), l = .4+.6*K;
+    o.white*=K; o.frost*=K; o.thick*=K; o.fall=1+(row.fall-1)*K;
+    o.drift*=l; o.snow*=l;
+    return o;
+  }
   function wxTo(g){
     curGrade = g;
-    T = GRADES[g] || GRADES[''];
+    T = scaled(GRADES[g] || GRADES['']);
     if(g==='g-storm' && !stormSince) stormSince=performance.now();
     if(g!=='g-storm') stormSince=0;
     const anyTarget = T.sea||T.cir||T.thick||T.mist||T.star||T.drift||T.snow||T.white;
@@ -509,6 +519,8 @@
       if(map) { mapRef = map; toGrade(map, g); }
       wxTo(g);
     },
+    // 0–1 storm intensity (whiteout/frost/thick cloud/fall; drift+snow lighter)
+    intensity: function(k){ K = (k==null) ? 1 : Math.max(0,Math.min(1,+k)); wxTo(curGrade); },
     // 0–1 wind bias; null hands control back to the grade
     wind: function(level){ windBias = (level==null) ? null : Math.max(0,Math.min(1,+level||0)); kick(); },
     // screen-space source for the spindrift plume (the summit ridge)
