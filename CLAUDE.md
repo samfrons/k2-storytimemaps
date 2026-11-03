@@ -109,9 +109,14 @@ posture and must keep their credits in the cards and colophon.
   set at `wdth 68`, weight 850, italic, uppercase, tight `line-height:.9`,
   letter-spacing `.03em`, solid ivory with a restrained drop shadow; no
   `#hand-text` filter and no glow halo on these two — the letterforms carry
-  the treatment on their own now), **Jost** (geometric sans for the micro
-  layer — kickers/HUD/labels/buttons/altimeter), **Newsreader** (body —
-  1930s-newsprint-derived; body weight 380, not 300), **Special Elite** (the
+  the treatment on their own now), **Archivo** again for the micro
+  layer (kickers/HUD/labels/buttons/altimeter/rail/legend/lenses/chips) at
+  `wdth 96`, weight 500, letter-spacing ~.03em tighter than Jost's was;
+  **Source Serif 4** (body, weight 400, `opsz 14` set on `body`, `opsz 20`
+  on `.pq`; Fraunces rules reset to `font-variation-settings:normal` so the
+  inherited body opsz never flattens their optical size). **Jost and
+  Newsreader were retired 2026-11-03** (owner: the look read as bland and
+  AI-generated), **Special Elite** (the
   typewritten record — keep).
   Palette tokens in `:root` (`--ivory`, `--ink`, `--bronze`, `--wine`, …).
   Standing rules (Sam, 2026-07-20): **no tan/bronze-colored text** — bronze
@@ -125,17 +130,17 @@ posture and must keep their credits in the cards and colophon.
   micro face. Micro type sits at .66–.78rem — do not shrink it back toward
   the old .44–.62rem, which was illegible. Eyebrow/cue/kicker letter-spacing
   runs .16–.24em (dropped from an earlier .42–.5em, which read as overwide).
-  **Card treatment** (Sam, 2026-09-18; supersedes 2026-07-24): the floating
+  **Card treatment** (Sam, 2026-09-18; darkened and brightened 2026-11-03): the floating
   card surfaces `.panel`, `.over-card`, `.mem-inner`, `#locCard` (and the
   `.pq-sky` and `.ch-cover .dek` plates) are dark glass — `background:
-  rgba(10,9,7,.56)`, a real `backdrop-filter: blur(14px) saturate(1.1)`
+  rgba(8,7,5,.74)`, a real `backdrop-filter: blur(16px) saturate(1.05)`
   (+ `-webkit-` prefix) so the terrain shows through softened rather than
-  color-blended, `border:1px solid rgba(255,255,255,.12)`, and
+  color-blended, `border:1px solid rgba(255,255,255,.09)`, and
   `box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 30px 60px -20px
   rgba(0,0,0,.6)`. Sharp corners, no border-radius, no top bronze bar. Text
-  inside paints ivory: body `rgba(241,236,223,.9)`, headings `var(--ivory)`,
-  muted/kicker/caption text `rgba(241,236,223,.62)`, hairlines
-  `rgba(241,236,223,.14)`, `.dng`/tragic accents `var(--wine-l)`. The
+  inside paints ivory: body `rgba(245,241,232,.96)`, headings `#f6f2e8`/`var(--ivory)`
+  (`--ivory` is now `#f4efe4`), muted/kicker/caption text
+  `rgba(245,241,232,.72)`, hairlines `rgba(245,241,232,.16)`, `.dng`/tragic accents `var(--wine-l)`. The
   `.tragic` variant (`.over-card.tragic`, the memorial's `.mem-inner`) gets a
   2px `var(--wine-l)` **left** border instead of a top bar. `backdrop-filter`
   is expected here now — the old `::before`/`::after` mix-blend-mode
